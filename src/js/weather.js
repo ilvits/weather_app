@@ -53,6 +53,8 @@ function appendData(city, weatherData) {
             let container = document.getElementById(id);
             if ((key == 'temp' || key == 'feels_like') && value < 20) {
                 container.classList.add('text-blue-600')
+            } else if ((key == 'temp' || key == 'feels_like') && value < 25) {
+                container.classList.add('text-black')
             } else if ((key == 'temp' || key == 'feels_like') && value < 35) {
                 container.classList.add('text-orange-500')
             } else if ((key == 'temp' || key == 'feels_like') && value < 45) {
