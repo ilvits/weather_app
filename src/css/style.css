@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  a {
+  /* a {
     @apply text-gray-600;
-  }
+  } */
   @font-face {
     font-family: 'Hauora';
     font-weight: 300;

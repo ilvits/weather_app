@@ -45,14 +45,14 @@ function appendData(city, weatherData) {
     console.log(weatherData);
     condition.innerHTML = `
     <img class="w-12 h-12 m-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-full" src="http://openweathermap.org/img/wn/${weatherData['weather']['0']['icon']}@2x.png">
-    <div>${weatherData['weather']['0']['description']}</div>`
+    <div class="text-lg">${weatherData['weather']['0']['description']}</div>`
     for (const [key, value] of Object.entries(weatherData.main)) {
         let id = `${city}-${key}`
         console.log(id)
         try {
             let container = document.getElementById(id);
             if ((key == 'temp' || key == 'feels_like') && value < 20) {
-                container.classList.add('text-blue-600')
+                container.classList.add('text-blue-500')
             } else if ((key == 'temp' || key == 'feels_like') && value < 25) {
                 container.classList.add('text-black')
             } else if ((key == 'temp' || key == 'feels_like') && value < 35) {

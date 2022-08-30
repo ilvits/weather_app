@@ -128,19 +128,26 @@
     </style>
 </head>
 
-<body class="bg-gradient-to-l from-emerald-100 via-amber-100 to-sky-200">
-    <h1 class="font-extrabold text-6xl mx-8 my-4 text-center text-slate-700">Погода</h1>
+<body class="text-slate-600 h-screen" style="
+background-color: #00a388;
+background-image: radial-gradient(at 15% 45%, hsla(162, 88%, 52%, 1) 0, hsla(162, 88%, 52%, 0) 50%),
+radial-gradient(at 26% 66%, hsla(238, 91%, 51%, 1) 0, hsla(238, 91%, 51%, 0) 50%),
+radial-gradient(at 3% 75%, hsla(208, 91%, 70%, 1) 0, hsla(208, 91%, 70%, 0) 50%),
+radial-gradient(at 58% 70%, hsla(217, 94%, 66%, 1) 0, hsla(217, 94%, 66%, 0) 50%),
+radial-gradient(at 57% 11%, hsla(186, 85%, 57%, 1) 0, hsla(186, 85%, 57%, 0) 50%),
+radial-gradient(at 10% 10%, hsla(130, 86%, 69%, 1) 0, hsla(130, 86%, 69%, 0) 50%);
+">
+    <h1 class="font-extrabold text-4xl mx-8 mb-4 mt-8 text-center text-slate-100">Погода</h1>
     <div class="flex items-start gap-2 sm:gap-10 flex-wrap justify-center text-center">
-        <div class="block m-4 w-full sm:w-52">
-            <a href="#" id="weather-panteleyki" class="text-3xl font-semibold"
+        <div class="block m-4 w-full sm:w-64 backdrop-blur-sm bg-white/80 border-gray-100 border py-4 px-6 rounded-3xl">
+            <a href="#" id="weather-panteleyki" class="text-2xl font-semibold"
                 data-gps="lat=55.674389&lon=27.019248">Пантелейки</a>
-            <div id="data-panteleyki" class="text-xl sm:text-base">
+            <div id="data-panteleyki" class="text-lg sm:text-base">
                 <div id="condition-panteleyki" class="flex justify-between items-center text-xl sm:text-base">
-
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="flex justify-between items-center py-2 ">
                     <div>Температура </div>
-                    <div class="flex justify-end font-semibold gap-1">
+                    <div class="flex justify-end font-semibold text-xl gap-1">
                         <div id="panteleyki-temp">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 class="flex items-center w-6 h-6" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
@@ -313,9 +320,10 @@
                         <div>°C</div>
                     </div>
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center">
                     <div>Ощущение</div>
-                    <div class="flex justify-end font-semibold gap-1">
+                    <div class="flex justify-end font-semibold text-xl gap-1">
                         <div id="panteleyki-feels_like">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 class="flex items-center w-6 h-6" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
@@ -488,7 +496,8 @@
                         <div>°C</div>
                     </div>
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center ">
                     <div>Влажность</div>
                     <div class="flex justify-end font-semibold gap-1">
                         <div id="panteleyki-humidity">
@@ -663,7 +672,8 @@
                         <div>%</div>
                     </div>
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center ">
                     <div>Ветер</div>
                     <div class="flex justify-end font-semibold gap-1">
                         <div id="panteleyki-wind">
@@ -838,18 +848,18 @@
                         <div>м/с</div>
                     </div>
                 </div>
+                <!-- <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div> -->
             </div>
-        </div>,
-        <div class="block m-4 w-full sm:w-52">
-            <a href="#" id="weather-torrevieja" class="text-3xl font-semibold"
+        </div>
+        <div class="block m-4 w-full sm:w-64 backdrop-blur-sm bg-white/80 border-gray-100 border py-4 px-6 rounded-3xl">
+            <a href="#" id="weather-torrevieja" class="text-2xl font-semibold"
                 data-gps="lat=37.98152091352086&lon=-0.6753451676758895">Торревьеха</a>
-            <div id="data-torrevieja" class="text-xl sm:text-base">
+            <div id="data-torrevieja" class="text-lg sm:text-base">
                 <div id="condition-torrevieja" class="flex justify-between items-center text-xl sm:text-base">
-
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="flex justify-between py-2 items-center ">
                     <div>Температура</div>
-                    <div class="flex justify-end font-semibold gap-1">
+                    <div class="flex justify-end font-semibold text-xl gap-1">
                         <div id="torrevieja-temp">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 class="flex items-center w-6 h-6" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
@@ -1022,9 +1032,10 @@
                         <div>°C</div>
                     </div>
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="w-full h-[1px] bg-sky-300/50 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center ">
                     <div>Ощущение</div>
-                    <div class="flex justify-end font-semibold gap-1">
+                    <div class="flex justify-end font-semibold text-xl gap-1">
                         <div id="torrevieja-feels_like">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 class="flex items-center w-6 h-6" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
@@ -1197,7 +1208,8 @@
                         <div>°C</div>
                     </div>
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="w-full h-[1px] bg-sky-300/50 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center ">
                     <div>Влажность</div>
                     <div class="flex justify-end font-semibold gap-1">
                         <div id="torrevieja-humidity">
@@ -1372,7 +1384,8 @@
                         <div>%</div>
                     </div>
                 </div>
-                <div class="flex justify-between border-b py-2 ">
+                <div class="w-full h-[1px] bg-sky-300/50 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center ">
                     <div>Ветер</div>
                     <div class="flex justify-end font-semibold gap-1">
                         <div id="torrevieja-wind">
