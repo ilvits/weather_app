@@ -22,4 +22,6 @@
     src: url(/fonts/Hauora/Hauora-ExtraBold.woff2) format("woff");
   }
 }
-  
+div::-webkit-scrollbar {
+  display: none;
+}

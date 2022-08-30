@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <link rel="stylesheet" href="dist/output.css">
+</head>
+
+<body class="text-slate-600 h-screen">
+    <h1 class="font-extrabold text-4xl mx-8 mb-4 mt-8 text-center text-slate-100">Погода</h1>
+    <div class="flex items-start gap-2 sm:gap-10 flex-wrap justify-center text-center">
+        <div class="block m-4 w-full sm:w-64 bg-white/80 border-gray-100 border py-4 px-6 rounded-3xl">
+            <a href="#" id="panteleyki" class="text-2xl font-semibold" data-lat="55.6743"
+                data-lon="27.0192">Пантелейки</a>
+            <div id="data-panteleyki" class="text-lg sm:text-base">
+                <div id="condition-panteleyki" class="flex justify-between items-center text-xl sm:text-base">
+                </div>
+                <div class="flex justify-between items-center py-2 ">
+                    <div>Температура </div>
+                    <div class="flex justify-end font-semibold text-xl gap-1">
+                        <div id="temperature">
+
+                        </div>
+                        <div>°C</div>
+                    </div>
+                </div>
+                <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center">
+                    <div>Ощущение</div>
+                    <div class="flex justify-end font-semibold text-xl gap-1">
+                        <div id="feelslike">
+
+                        </div>
+                        <div>°C</div>
+                    </div>
+                </div>
+                <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center ">
+                    <div>Влажность</div>
+                    <div class="flex justify-end font-semibold gap-1">
+                        <div id="humidity">
+
+                        </div>
+                        <div>%</div>
+                    </div>
+                </div>
+                <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div>
+                <div class="flex justify-between py-2 items-center ">
+                    <div>Ветер</div>
+                    <div class="flex justify-end font-semibold gap-1">
+                        <div id="windspeed">
+
+                        </div>
+                        <div>м/с</div>
+                    </div>
+                </div>
+                <div class="flex justify-between py-2 items-center ">
+                    <div>Направление ветра</div>
+                    <div class="flex justify-end font-semibold gap-1">
+                        <img id="arrow" class="w-6 h-6" src="img/arrow.svg">
+
+                    </div>
+                </div>
+                <!-- <div class="w-full h-[1px] bg-sky-200 mix-blend-multiply"></div> -->
+            </div>
+        </div>
+    </div>
+    <script src="src/js/weather.js"></script>
+</body>
+
+</html>
