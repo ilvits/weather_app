@@ -1,3 +1,4 @@
+const locationName = document.getElementById('locationName');
 const temperature = document.getElementById('temperature')
 const conditions = document.getElementById('conditions')
 const currentDay = document.getElementById('currentDay')
@@ -7,23 +8,9 @@ const humidity = document.getElementById('humidity')
 const pressure = document.getElementById('pressure')
 const precipprob = document.getElementById('precipprob')
 const windspeed = document.getElementById('windspeed')
-const d = [{ day: 'numeric' }, { month: 'long' }];
-const h = [{ hour: 'numeric' }];
-const w = [{ weekday: 'short' }];
-const currentDate = join(new Date, d, ' ');
-const currentWeekday = join(new Date, w, '-');
-const currentHour = Number(join(new Date, h, '-'));
-const loc = JSON.stringify(
-    {
-        "panteleyki": { "name": "Пантелейки", "latitude": 55.6743, "longitude": 27.0192 },
-        "torrevieja": { "name": "Торревьеха", "latitude": 37.9815, "longitude": -0.6753 }
-    }
-);
-
-if (getCookie('locations') === null) {
-    setCookie('locations', loc)
-}
-var locations = JSON.parse(decodeURIComponent(getCookie('locations')));
+const currentDate = join(new Date, [{ day: 'numeric' }, { month: 'long' }], ' ');
+const currentWeekday = join(new Date, [{ weekday: 'short' }], '-');
+const currentHour = Number(join(new Date, [{ hour: 'numeric' }], '-'));
 
 function join(t, a, s) {
     function format(m) {
@@ -39,7 +26,7 @@ function setCookie(name, value, days) {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    document.cookie = name + "=" + (encodeURIComponent(value) || "") + expires + "; path=/";
 }
 function getCookie(name) {
     var nameEQ = name + "=";
@@ -54,7 +41,28 @@ function getCookie(name) {
 function eraseCookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-// console.log(locations.panteleyki);
+
+let loc = JSON.stringify(
+    {
+        'panteleyki': {
+            "name": 'Пантелейки',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        "torrevieja": {
+            "name": "Торревьеха",
+            "latitude": 37.9815,
+            "longitude": -0.6753
+        }
+    }
+);
+
+if (getCookie('locations') === null) {
+    setCookie('locations', loc, 30)
+}
+
+var locations = JSON.parse(decodeURIComponent(getCookie('locations')));
+console.log(locations.panteleyki);
 
 document.addEventListener("DOMContentLoaded", refreshWeatherData);
 
@@ -65,11 +73,12 @@ function refreshWeatherData() {
 function getWeather(city) {
     let latitude = city.latitude
     let longitude = city.longitude
+    locationName.innerText = city.name
     condition = document.getElementById("condition-torrevieja");
 
     const options = {
-        method: 'GET',
-        headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
+        // method: 'GET',
+        // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
     fetch(url, options)
@@ -79,8 +88,6 @@ function getWeather(city) {
 }
 
 function appendData(weatherData) {
-    let d = [{ day: 'numeric' }, { month: 'long' }];
-    let w = [{ weekday: 'long' }];
     let winddir = weatherData.currentConditions.winddir;
     let style = document.createElement('style');
     let rotate = `
@@ -89,6 +96,7 @@ function appendData(weatherData) {
         }`;
     style.innerHTML = rotate;
     document.getElementsByTagName('head')[0].appendChild(style);
+
 
     temperature.innerHTML = `${Math.ceil(weatherData.currentConditions.temp)}°`
     conditions.innerHTML = weatherData.currentConditions.conditions
@@ -117,7 +125,7 @@ function appendData(weatherData) {
         <div class="flex flex-col justify-end w-[110px] h-[124px] pl-4 pb-4 pt-3 pr-3 
         bg-gradient-to-br from-cyan/20 to-blue/20 rounded-2xl">
             <div class="flex h-1/2 justify-end">
-                <img src="img/weather-conditions/${weatherData.days[0].hours[currentHour + i].icon}.png">
+                <img class="w-12 h-12" src="img/weather-conditions/${weatherData.days[0].hours[currentHour + i].icon}.png">
             </div>
             <div class="h-1/2">
                 <div class="text-xs text-white/50 pb-1">
@@ -131,6 +139,8 @@ function appendData(weatherData) {
     }
 
     for (let i = 1; i < 11; i++) {
+        let d = [{ day: 'numeric' }, { month: 'long' }];
+        let w = [{ weekday: 'long' }];
         let date = join(new Date(weatherData.days[i].datetime), d, ' ');
         let weekday = join(new Date(weatherData.days[i].datetime), w, '-');
 
