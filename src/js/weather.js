@@ -74,25 +74,41 @@ function getWeather(city) {
     let latitude = city.latitude
     let longitude = city.longitude
     locationName.innerText = city.name
-    condition = document.getElementById("condition-torrevieja");
 
     const options = {
         // method: 'GET',
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    fetch(url, options)
+    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    fetch('./panteleyki.json', options)
         .then(response => response.json())
         .then(weatherData => appendData(weatherData))
         .catch(err => console.log(err));
 }
 
 function appendData(weatherData) {
-    let winddir = weatherData.currentConditions.winddir;
+    let winddir = Math.ceil(Number(weatherData.currentConditions.winddir));
+
+    switch (true) {
+        case (0 < winddir && winddir <= 90):
+            dir = 'СВ'
+            break;
+        case (90 < winddir && winddir < 180):
+            dir = 'СЗ'
+            break;
+        case (180 < winddir && winddir < 270):
+            dir = 'ЮЗ'
+            break;
+        case (270 < winddir && winddir < 360):
+            dir = 'ЮВ'
+        // default:
+        //     dir = ''
+    }
+    console.log('dir = ' + dir)
     let style = document.createElement('style');
     let rotate = `
         #arrow {
-            transform: rotate(${Math.ceil(winddir)}deg);
+            transform: rotate(${winddir}deg);
         }`;
     style.innerHTML = rotate;
     document.getElementsByTagName('head')[0].appendChild(style);
@@ -117,8 +133,8 @@ function appendData(weatherData) {
         <span class="text-[15px] font-medium">%</span>`
     windspeed.innerHTML = `
         ${Math.ceil(weatherData.currentConditions.windspeed)} 
-        <span class="text-[15px] font-medium">км/ч, СЗ</span><img id="arrow" src="img/arrow.svg"
-        class="">`
+        <span class="text-[15px] font-medium">км/ч, ${dir}</span><img id="arrow" src="img/arrow.svg"
+        class="w-4 h-4">`
 
     for (i = 1; i < 24 - currentHour; i++) {
         document.getElementById('hourly').innerHTML += `
