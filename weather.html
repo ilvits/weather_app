@@ -10,19 +10,23 @@
     <link rel="stylesheet" href="dist/output.css">
 </head>
 
-<body class="bg-bg text-slate-100">
+<body class="bg-bg text-slate-100 m-4">
     <div class="flex w-full h-8 mt-8 justify-between">
-        <div id="get_location"></div>
+        <div id="get_location" class="grow-0 shrink-0 w-6">
+            <img id="location_icon" src="img/location-icon.svg" alt="">
+        </div>
         <div class="">
-            <div id="locationName" class="h-5 font-semibold text-base leading-5">Пантелейки</div>
+            <div id="locationName" class="grow shrink-0 font-semibold text-base leading-5"></div>
             <div class="text-center">⊙ ⊙ ⊙</div>
         </div>
-        <div id="settings" class=""></div>
+        <div id="settings" class="grow-0 shrink-0 w-6">
+            <img id="settings_icon" src="img/settings-icon.svg" alt="">
+        </div>
     </div>
-    <div id="main_info" class="grid gap-4 w-auto mx-4 mt-8 p-5 bg-gradient-to-br from-cyan/20 to-blue/20 rounded-3xl">
+    <div id="main_info" class="grid gap-4 w-auto mt-8 p-5 bg-gradient-to-br from-cyan/20 to-blue/20 rounded-3xl">
         <div class="flex justify-between items-baseline w-full">
             <div class="font-semibold text-xl leading-5">Сейчас</div>
-            <div id="currentDay" class="text-white/70 text-[13px]">Вт, 30 августа</div>
+            <div id="currentDay" class="text-white/70 text-[13px]"></div>
         </div>
         <div class="flex justify-between items-center pb-4 w-full text-white border-b border-white/20">
             <div class="grid grid-flow-row">
@@ -64,16 +68,17 @@
             </div>
         </div>
     </div>
-    <div id="nav" class="grid grid-cols-3 gap-4 ml-8 mr-20 my-5">
+    <div id="nav" class="flex flex-row gap-10 pl-4 my-5">
         <div class="font-semibold text-[15px] text-yellow">Сегодня</div>
         <div class="font-semibold text-[15px]">Завтра</div>
+        <div class="font-semibold text-[15px]">Прогноз на месяц</div>
 
     </div>
-    <div id="hourly" class="grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar px-4 py-3">
+    <div id="hourly" class="grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar py-3">
 
     </div>
-    <div class="block mx-5 my-5 text-xl leading-6 font-semibold">Прогноз на 10 дней</div>
-    <div id="daily" class="grid grid-flow-row pb-6 divide-y divide-blue/20">
+    <div class="block ml-2 my-5 text-xl leading-6 font-semibold">Прогноз на 10 дней</div>
+    <div id="daily" class="grid grid-flow-row divide-y divide-blue/20">
 
     </div>
     <script src="src/js/weather.js"></script>

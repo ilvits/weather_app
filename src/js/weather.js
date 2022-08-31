@@ -62,12 +62,12 @@ if (getCookie('locations') === null) {
 }
 
 var locations = JSON.parse(decodeURIComponent(getCookie('locations')));
-console.log(locations.panteleyki);
+console.log(locations.torrevieja);
 
 document.addEventListener("DOMContentLoaded", refreshWeatherData);
 
 function refreshWeatherData() {
-    getWeather(locations.panteleyki)
+    getWeather(locations.torrevieja)
 }
 
 function getWeather(city) {
@@ -145,10 +145,10 @@ function appendData(weatherData) {
         let weekday = join(new Date(weatherData.days[i].datetime), w, '-');
 
         document.getElementById('daily').innerHTML += `
-        <div class="flex px-6 py-2 h-14">
-            <div class="grow shrink-0 w-28 flex flex-col">
+        <div class="flex px-2 py-2 h-14">
+            <div class="grow shrink-0 w-20 flex flex-col">
                 <div class="text-xs text-white/50 pb-1">${date}</div>
-                <div class="text-sm">${weekday}</div>
+                <div class="text-sm capitalize">${weekday}</div>
             </div>
             <div class="grow-0 shrink-0 w-32 flex gap-3 pl-5 items-center">
                 <div class="w-6 h-6">
