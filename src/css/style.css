@@ -9,19 +9,32 @@
   @font-face {
     font-family: 'Hauora';
     font-weight: 300;
-    src: url(/fonts/Hauora/Hauora-Light.woff2) format("woff");
+    src: url(/fonts/Nunito/Nunito-Light.woff2) format("woff");
+  }
+  @font-face {
+    font-family: 'Hauora';
+    font-weight: 400;
+    src: url(/fonts/Nunito/Nunito-Regular.woff2) format("woff");
+  }
+  @font-face {
+    font-family: 'Hauora';
+    font-weight: 500;
+    src: url(/fonts/Nunito/Nunito-Medium.woff2) format("woff");
   }
   @font-face {
     font-family: 'Hauora';
     font-weight: 600;
-    src: url(/fonts/Hauora/Hauora-SemiBold.woff2) format("woff");
-  }
-  @font-face {
-    font-family: 'Hauora';
-    font-weight: 800;
-    src: url(/fonts/Hauora/Hauora-ExtraBold.woff2) format("woff");
+    src: url(/fonts/Nunito/Nunito-SemiBold.woff2) format("woff");
   }
 }
-div::-webkit-scrollbar {
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
