@@ -1,16 +1,44 @@
-const locationName = document.getElementById('locationName');
-const temperature = document.getElementById('temperature')
-const conditions = document.getElementById('conditions')
-const currentDay = document.getElementById('currentDay')
-const weatherIcon = document.getElementById('weather-icon')
-const feelslike = document.getElementById('feelslike')
-const humidity = document.getElementById('humidity')
-const pressure = document.getElementById('pressure')
-const precipprob = document.getElementById('precipprob')
-const windspeed = document.getElementById('windspeed')
+const buttonToday = document.getElementById('buttonToday');
+const buttonTomorrow = document.getElementById('buttonTomorrow');
+
+const locationName = document.getElementById('locationName'); // Name of the location
+const temperature = document.getElementById('temperature');
+const conditions = document.getElementById('conditions');
+const currentDay = document.getElementById('currentDay');
+const weatherIcon = document.getElementById('weather-icon');
+const feelslike = document.getElementById('feelslike');
+const humidity = document.getElementById('humidity');
+const pressure = document.getElementById('pressure');
+const precipprob = document.getElementById('precipprob');
+const windspeed = document.getElementById('windspeed');
 const currentDate = join(new Date, [{ day: 'numeric' }, { month: 'long' }], ' ');
 const currentWeekday = join(new Date, [{ weekday: 'short' }], '-');
-const currentHour = Number(join(new Date, [{ hour: 'numeric' }], '-'));
+let currentHour = Number(join(new Date, [{ hour: 'numeric' }], '-'));
+let nHours = 26 // Number of hours to display
+if (24 - currentHour < nHours) {
+    days = 2
+}
+else {
+    days = 1
+}
+
+buttonToday.addEventListener('click', () => {
+    buttonToday.classList.add('text-yellow')
+    buttonTomorrow.classList.remove('text-yellow')
+    hourlyTomorrow.classList.add('-translate-y-0', 'opacity-0')
+    hourlyTomorrow.classList.remove('-translate-y-[148px]', 'opacity-100')
+    hourlyToday.classList.remove('-translate-y-20', 'opacity-0')
+    hourlyToday.classList.add('translate-y-0', 'opacity-100')
+})
+
+buttonTomorrow.addEventListener('click', () => {
+    buttonToday.classList.remove('text-yellow')
+    buttonTomorrow.classList.add('text-yellow')
+    hourlyToday.classList.add('-translate-y-20', 'opacity-0')
+    hourlyToday.classList.remove('translate-y-0', 'opacity-100')
+    hourlyTomorrow.classList.remove('-translate-y-0', 'opacity-0')
+    hourlyTomorrow.classList.add('-translate-y-[148px]', 'opacity-100')
+})
 
 function join(t, a, s) {
     function format(m) {
@@ -53,7 +81,12 @@ let loc = JSON.stringify(
             "name": "Торревьеха",
             "latitude": 37.9815,
             "longitude": -0.6753
-        }
+        },
+        "Zucchelli": {
+            "name": "Zucchelli Station",
+            "latitude": -74.69399018874958,
+            "longitude": 164.11546177709056
+        },
     }
 );
 
@@ -62,12 +95,11 @@ if (getCookie('locations') === null) {
 }
 
 var locations = JSON.parse(decodeURIComponent(getCookie('locations')));
-console.log(locations.torrevieja);
 
 document.addEventListener("DOMContentLoaded", refreshWeatherData);
 
 function refreshWeatherData() {
-    getWeather(locations.torrevieja)
+    getWeather(locations.Zucchelli)
 }
 
 function getWeather(city) {
@@ -80,13 +112,61 @@ function getWeather(city) {
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
     // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    fetch('./panteleyki.json', options)
+    const url = './panteleyki.json'
+    fetch(url, options)
         .then(response => response.json())
         .then(weatherData => appendData(weatherData))
         .catch(err => console.log(err));
 }
 
+function printHourlyWeather(days, weatherData, startDay = 0) {
+    let leftHours = 24 - currentHour
+    days += startDay
+    if (startDay === 0) {
+        hourlyPlaceholder = document.getElementById('hourlyToday')
+    } else {
+        hourlyPlaceholder = document.getElementById('hourlyTomorrow')
+    }
+    for (var day = startDay; day < days; day++) {
+        for (let i = 1; i < leftHours; i++) {
+            data = weatherData.days[day].hours[currentHour + i]
+            if (currentHour + i == 0) {
+                nextDayTip = ', ' + join(new Date(0).setUTCSeconds(data.datetimeEpoch), [{ day: 'numeric' }, { month: 'short' }], ' ')
+            } else {
+                nextDayTip = ''
+            }
+            hourlyPlaceholder.innerHTML += `
+        <div class="flex flex-col justify-end w-28 h-[124px] pl-4 pb-4 pt-3 pr-3 
+        bg-gradient-to-br from-cyan/20 to-blue/20 rounded-2xl">
+            <div class="flex h-1/2 justify-end">
+                <img class="w-12 h-12" src="img/weather-conditions/${data.icon}.svg">
+            </div>
+            <div class="h-1/2">
+                <div class="text-xs text-white/50 pb-1">
+                    ${currentHour + i}:00${nextDayTip}
+                </div>
+                <div class="flex justify-between items-baseline">
+                    <div id="hourly-now" class="text-2xl font-semibold">
+                        ${Math.ceil(data.temp)}°
+                    </div>
+                    <div class="text-blue">
+                        ${Math.ceil(data.precipprob)}%
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        }
+        leftHours = nHours - leftHours
+        currentHour = -1
+    }
+}
+
 function appendData(weatherData) {
+    document.getElementById('loader').classList.add('hidden')
+    document.getElementById('main_info').classList.remove('hidden')
+    printHourlyWeather(days, weatherData)
+    printHourlyWeather(days, weatherData, 1)
+
     let winddir = Math.ceil(Number(weatherData.currentConditions.winddir));
 
     switch (true) {
@@ -101,10 +181,7 @@ function appendData(weatherData) {
             break;
         case (270 < winddir && winddir < 360):
             dir = 'ЮВ'
-        // default:
-        //     dir = ''
     }
-    console.log('dir = ' + dir)
     let style = document.createElement('style');
     let rotate = `
         #arrow {
@@ -118,7 +195,7 @@ function appendData(weatherData) {
     conditions.innerHTML = weatherData.currentConditions.conditions
     currentDay.innerHTML = `${currentWeekday}, ${currentDate}`
     weatherIcon.innerHTML = `
-        <img src="img/weather-conditions/${weatherData.currentConditions.icon}.png">`
+        <img src="img/weather-conditions/${weatherData.currentConditions.icon}.svg">`
     feelslike.innerHTML = `Ощущается как
         <div class="font-semibold pl-1">
             ${Math.ceil(weatherData.currentConditions.feelslike)}°
@@ -136,41 +213,27 @@ function appendData(weatherData) {
         <span class="text-[15px] font-medium">км/ч, ${dir}</span><img id="arrow" src="img/arrow.svg"
         class="w-4 h-4">`
 
-    for (i = 1; i < 24 - currentHour; i++) {
-        document.getElementById('hourly').innerHTML += `
-        <div class="flex flex-col justify-end w-[110px] h-[124px] pl-4 pb-4 pt-3 pr-3 
-        bg-gradient-to-br from-cyan/20 to-blue/20 rounded-2xl">
-            <div class="flex h-1/2 justify-end">
-                <img class="w-12 h-12" src="img/weather-conditions/${weatherData.days[0].hours[currentHour + i].icon}.png">
-            </div>
-            <div class="h-1/2">
-                <div class="text-xs text-white/50 pb-1">
-                ${currentHour + i}:00
-                </div>
-                <div id="hourly-now" class="text-2xl font-semibold">
-                    ${Math.ceil(weatherData.days[0].hours[currentHour + i].temp)}°
-                </div>
-            </div>
-        </div>`;
-    }
-
     for (let i = 1; i < 11; i++) {
         let d = [{ day: 'numeric' }, { month: 'long' }];
         let w = [{ weekday: 'long' }];
         let date = join(new Date(weatherData.days[i].datetime), d, ' ');
         let weekday = join(new Date(weatherData.days[i].datetime), w, '-');
-
+        if (weekday == 'суббота' || weekday == 'воскресенье') {
+            color = 'text-orange'
+        } else {
+            color = 'text-white'
+        }
         document.getElementById('daily').innerHTML += `
         <div class="flex px-2 py-2 h-14 items-center">
             <div class="grow shrink-0 w-20 flex flex-col">
                 <div class="text-xs text-white/50">${date}</div>
-                <div class="text-sm capitalize">${weekday}</div>
+                <div class="text-sm capitalize ${color}">${weekday}</div>
             </div>
             <div class="grow-0 shrink-0 w-32 flex justify-center gap-3 items-center">
                 <div class="w-6 h-6">
-                    <img src="img/weather-conditions/${weatherData.days[i].icon}.png">
+                    <img src="img/weather-conditions/${weatherData.days[i].icon}.svg">
                 </div>
-                <div class="text-xs">${Math.ceil(weatherData.days[i].precipprob)} % 
+                <div class="text-xs w-12 text-end">${Math.ceil(weatherData.days[i].precipprob)} % 
                 <img class="w-3 h-3 inline leading-[14px]" src="img/precip.svg" alt=""></div>
             </div>
             <div class="grow flex gap-6 justify-end items-baseline">
