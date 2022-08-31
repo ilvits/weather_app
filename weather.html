@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="dist/output.css">
 </head>
 
-<body class="bg-bg h-screen text-slate-100">
+<body class="bg-bg text-slate-100">
     <div class="flex w-full h-8 mt-8 justify-between">
         <div id="get_location"></div>
         <div class="">
@@ -32,7 +32,7 @@
             </div>
             <div id="weather-icon" class=""></div>
         </div>
-        <div class="grid gap-2 grid-cols-2 p-3 items-center">
+        <div id="weather-details" class="grid gap-2 grid-cols-2 p-3 items-center">
             <div class="flex gap-3  rounded-xl items-center">
                 <div class="flex flex-col"><img class="w-8 h-8" src="img/wind.svg" alt=""></div>
                 <div class="flex flex-col">
@@ -67,15 +67,13 @@
     <div id="nav" class="grid grid-cols-3 gap-4 ml-8 mr-20 my-5">
         <div class="font-semibold text-[15px] text-yellow">Сегодня</div>
         <div class="font-semibold text-[15px]">Завтра</div>
-        <div class="font-semibold text-[15px]">Послезавтра</div>
+
     </div>
     <div id="hourly" class="grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar px-4 py-3">
 
     </div>
-    <div class="block mx-5 my-5 text-xl leading-6 font-semibold">
-        Прогноз на 7 дней
-    </div>
-    <div id="daily" class="grid grid-flow-row pb-6">
+    <div class="block mx-5 my-5 text-xl leading-6 font-semibold">Прогноз на 10 дней</div>
+    <div id="daily" class="grid grid-flow-row pb-6 divide-y divide-blue/20">
 
     </div>
     <script src="src/js/weather.js"></script>

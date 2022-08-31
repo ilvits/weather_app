@@ -1,3 +1,37 @@
+const temperature = document.getElementById('temperature')
+const conditions = document.getElementById('conditions')
+const currentDay = document.getElementById('currentDay')
+const weatherIcon = document.getElementById('weather-icon')
+const feelslike = document.getElementById('feelslike')
+const humidity = document.getElementById('humidity')
+const pressure = document.getElementById('pressure')
+const precipprob = document.getElementById('precipprob')
+const windspeed = document.getElementById('windspeed')
+const d = [{ day: 'numeric' }, { month: 'long' }];
+const h = [{ hour: 'numeric' }];
+const w = [{ weekday: 'short' }];
+const currentDate = join(new Date, d, ' ');
+const currentWeekday = join(new Date, w, '-');
+const currentHour = Number(join(new Date, h, '-'));
+const loc = JSON.stringify(
+    {
+        "panteleyki": { "name": "Пантелейки", "latitude": 55.6743, "longitude": 27.0192 },
+        "torrevieja": { "name": "Торревьеха", "latitude": 37.9815, "longitude": -0.6753 }
+    }
+);
+
+if (getCookie('locations') === null) {
+    setCookie('locations', loc)
+}
+var locations = JSON.parse(decodeURIComponent(getCookie('locations')));
+
+function join(t, a, s) {
+    function format(m) {
+        let f = new Intl.DateTimeFormat('ru', m);
+        return f.format(t);
+    }
+    return a.map(format).join(s);
+}
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -20,18 +54,7 @@ function getCookie(name) {
 function eraseCookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-var loc = JSON.stringify(
-    {
-
-        "panteleyki": { "name": "Пантелейки", "latitude": 55.6743, "longitude": 27.0192 },
-        "torrevieja": { "name": "Торревьеха", "latitude": 37.9815, "longitude": -0.6753 }
-
-    }
-);
-
-setCookie('locations', loc)
-var locations = JSON.parse(decodeURIComponent(getCookie('locations')));
-console.log(locations.panteleyki);
+// console.log(locations.panteleyki);
 
 document.addEventListener("DOMContentLoaded", refreshWeatherData);
 
@@ -56,57 +79,40 @@ function getWeather(city) {
 }
 
 function appendData(weatherData) {
-    console.log(weatherData.days);
-
-    function join(t, a, s) {
-        function format(m) {
-            let f = new Intl.DateTimeFormat('ru', m);
-            return f.format(t);
-        }
-        return a.map(format).join(s);
-    }
-
     let d = [{ day: 'numeric' }, { month: 'long' }];
-    let h = [{ hour: 'numeric' }];
-    let w = [{ weekday: 'short' }];
-    let currentDate = join(new Date, d, ' ');
-    let currentWeekday = join(new Date, w, '-');
-    let currentHour = Number(join(new Date, h, '-'));
-    // console.log(currentDate);
-    // console.log(currentHour);
-    console.log(currentWeekday);
-    console.log(weatherData.days[3].datetimeEpoch);
-    // console.log(currentDate == weatherData.days[0].datetime);
-
-
-    document.getElementById('temperature').innerHTML = `${Math.ceil(weatherData.currentConditions.temp)}°`
-    document.getElementById('conditions').innerHTML = weatherData.currentConditions.conditions
-    document.getElementById('currentDay').innerHTML = `${currentWeekday}, ${currentDate}`
-    document.getElementById('weather-icon').innerHTML = `
-    <img src="img/weather-conditions/${weatherData.currentConditions.icon}.png">`
-    document.getElementById('feelslike').innerHTML = `
-    Ощущается как<div class="font-semibold pl-1">${Math.ceil(weatherData.currentConditions.feelslike)}°</div>`
-    document.getElementById('humidity').innerHTML = `
-    ${Math.ceil(weatherData.currentConditions.humidity)}
-    <span class="text-[15px] font-medium">%</span>`
-    document.getElementById('pressure').innerHTML = `
-    ${Math.ceil(weatherData.currentConditions.pressure)}
-    <span class="text-[15px] font-medium">мм рт. ст.</span>`
-    document.getElementById('precipprob').innerHTML = `${Math.ceil(weatherData.currentConditions.precipprob)}
-    <span class="text-[15px] font-medium">%</span>`
-    document.getElementById('windspeed').innerHTML = `
-    ${Math.ceil(weatherData.currentConditions.windspeed)} 
-    <span class="text-[15px] font-medium">км/ч, СЗ</span><img id="arrow" src="img/arrow.svg"
-    class="">`
-    var style = document.createElement('style');
-    var rotate = `
-    #arrow {
-        transform: rotate(${Math.ceil(weatherData.currentConditions.winddir)}deg);
-    }`;
+    let w = [{ weekday: 'long' }];
+    let winddir = weatherData.currentConditions.winddir;
+    let style = document.createElement('style');
+    let rotate = `
+        #arrow {
+            transform: rotate(${Math.ceil(winddir)}deg);
+        }`;
     style.innerHTML = rotate;
     document.getElementsByTagName('head')[0].appendChild(style);
 
-    for (var i = 0; i < 24 - currentHour; i++) {
+    temperature.innerHTML = `${Math.ceil(weatherData.currentConditions.temp)}°`
+    conditions.innerHTML = weatherData.currentConditions.conditions
+    currentDay.innerHTML = `${currentWeekday}, ${currentDate}`
+    weatherIcon.innerHTML = `
+        <img src="img/weather-conditions/${weatherData.currentConditions.icon}.png">`
+    feelslike.innerHTML = `Ощущается как
+        <div class="font-semibold pl-1">
+            ${Math.ceil(weatherData.currentConditions.feelslike)}°
+        </div>`
+    humidity.innerHTML = `
+        ${Math.ceil(weatherData.currentConditions.humidity)}
+        <span class="text-[15px] font-medium">%</span>`
+    pressure.innerHTML = `
+        ${Math.ceil(weatherData.currentConditions.pressure)}
+        <span class="text-[15px] font-medium">мм рт. ст.</span>`
+    precipprob.innerHTML = `${Math.ceil(weatherData.currentConditions.precipprob)}
+        <span class="text-[15px] font-medium">%</span>`
+    windspeed.innerHTML = `
+        ${Math.ceil(weatherData.currentConditions.windspeed)} 
+        <span class="text-[15px] font-medium">км/ч, СЗ</span><img id="arrow" src="img/arrow.svg"
+        class="">`
+
+    for (i = 1; i < 24 - currentHour; i++) {
         document.getElementById('hourly').innerHTML += `
         <div class="flex flex-col justify-end w-[110px] h-[124px] pl-4 pb-4 pt-3 pr-3 
         bg-gradient-to-br from-cyan/20 to-blue/20 rounded-2xl">
@@ -124,27 +130,26 @@ function appendData(weatherData) {
         </div>`;
     }
 
-    for (var i = 1; i < 8; i++) {
-        let d = [{ day: 'numeric' }, { month: 'long' }];
-        let w = [{ weekday: 'long' }];
+    for (let i = 1; i < 11; i++) {
         let date = join(new Date(weatherData.days[i].datetime), d, ' ');
         let weekday = join(new Date(weatherData.days[i].datetime), w, '-');
+
         document.getElementById('daily').innerHTML += `
-        <div class="flex px-6 py-2 border-b border-blue/20 h-14">
-        <div class="grow shrink-0 w-28 flex flex-col">
-            <div class="text-xs text-white/50 pb-1">${date}</div>
-            <div class="text-sm">${weekday}</div>
-        </div>
-        <div class="grow-0 shrink-0 w-32 flex gap-3 pl-5 items-center">
-            <div class="w-6 h-6">
-                <img src="img/weather-conditions/${weatherData.days[i].icon}.png">
+        <div class="flex px-6 py-2 h-14">
+            <div class="grow shrink-0 w-28 flex flex-col">
+                <div class="text-xs text-white/50 pb-1">${date}</div>
+                <div class="text-sm">${weekday}</div>
             </div>
-            <div class="text-xs">${Math.ceil(weatherData.days[i].humidity)} % 💧</div>
-        </div>
-        <div class="grow flex gap-6 justify-end items-center">
-            <div class="text-lg text-white">${Math.ceil(weatherData.days[i].tempmax)}°</div>
-            <div class="text-[13px] text-blue">${Math.ceil(weatherData.days[i].tempmin)}°</div>
-        </div>
-    </div>`;
+            <div class="grow-0 shrink-0 w-32 flex gap-3 pl-5 items-center">
+                <div class="w-6 h-6">
+                    <img src="img/weather-conditions/${weatherData.days[i].icon}.png">
+                </div>
+                <div class="text-xs">${Math.ceil(weatherData.days[i].humidity)} % 💧</div>
+            </div>
+            <div class="grow flex gap-6 justify-end items-center">
+                <div class="text-lg text-white w-6 text-end">${Math.ceil(weatherData.days[i].tempmax)}°</div>
+                <div class="text-[13px] text-blue w-5 text-end">${Math.ceil(weatherData.days[i].tempmin)}°</div>
+            </div>
+        </div>`;
     }
 }
