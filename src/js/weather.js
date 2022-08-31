@@ -111,7 +111,7 @@ function appendData(weatherData) {
         ${Math.ceil(weatherData.currentConditions.humidity)}
         <span class="text-[15px] font-medium">%</span>`
     pressure.innerHTML = `
-        ${Math.ceil(weatherData.currentConditions.pressure)}
+        ${Math.ceil(Number(weatherData.currentConditions.pressure) * 0.1 / 0.1333223684)}
         <span class="text-[15px] font-medium">мм рт. ст.</span>`
     precipprob.innerHTML = `${Math.ceil(weatherData.currentConditions.precipprob)}
         <span class="text-[15px] font-medium">%</span>`
@@ -154,7 +154,7 @@ function appendData(weatherData) {
                 <div class="w-6 h-6">
                     <img src="img/weather-conditions/${weatherData.days[i].icon}.png">
                 </div>
-                <div class="text-xs">${Math.ceil(weatherData.days[i].humidity)} % 
+                <div class="text-xs">${Math.ceil(weatherData.days[i].precipprob)} % 
                 <img class="w-3 h-3 inline leading-[14px]" src="img/precip.svg" alt=""></div>
             </div>
             <div class="grow flex gap-6 justify-end items-baseline">
