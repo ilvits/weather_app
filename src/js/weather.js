@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 swiper.on('slideChange', function () {
-    console.log('slide changed');
-    console.log(swiper.realIndex);
+    // console.log('slide changed');
+    // console.log(swiper.realIndex);
     locationName.innerText = locations[swiper.realIndex].name
 });
 
@@ -108,7 +108,7 @@ function generateSlides(locations) {
                                         <div id="${location.slug}-conditions"></div>
                                         <div id="${location.slug}-feelslike" class="flex"></div>
                                     </div>
-                                    <div id="${location.slug}-weather-icon" class=""></div>
+                                    <div id="${location.slug}-weather-icon" class="w-[120px] h-[120px]"></div>
                                 </div>
                                 <div id="${location.slug}-weather-details"
                                     class="grid gap-x-1 gap-y-2 xs:gap-2 grid-cols-2 xs:p-3 items-center">

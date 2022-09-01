@@ -24,7 +24,7 @@ function eraseCookie(name) {
 let loc = JSON.stringify(
     {
         0: {
-            "name": 'Питер',
+            "name": 'Санкт-Петербург',
             "slug": 'spb',
             "latitude": 59.89064061054924,
             "longitude": 30.418760414235095
@@ -54,8 +54,8 @@ let loc = JSON.stringify(
 setCookie('locations', loc, 30)
 // }
 
-if (getCookie('lastUpdateEpoch') === null) {
-    setCookie('lastUpdateEpoch', Date.now(), 1)
-}
+// if (getCookie('lastUpdateEpoch') === null) {
+setCookie('lastUpdateEpoch', Date.now(), 1)
+// }
 
 // || (getCookie('lastUpdateEpoch') + 900000 < Date.now()))
