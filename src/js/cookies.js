@@ -23,24 +23,25 @@ function eraseCookie(name) {
 
 let loc = JSON.stringify(
     {
-        'spb': {
+        0: {
             "name": 'Питер',
             "slug": 'spb',
             "latitude": 59.89064061054924,
             "longitude": 30.418760414235095
-        }, 'panteleyki': {
+        },
+        1: {
             "name": 'Пантелейки',
             "slug": 'panteleyki',
             "latitude": 55.6743,
             "longitude": 27.0192
         },
-        "torrevieja": {
+        2: {
             "name": "Торревьеха",
             "slug": 'torrevieja',
             "latitude": 37.9815,
             "longitude": -0.6753
         },
-        "zucchelli": {
+        3: {
             "name": "Zucchelli Station",
             "slug": 'zucchelli',
             "latitude": -74.69399018874958,

@@ -1,6 +1,8 @@
 let locations = JSON.parse(decodeURIComponent(getCookie('locations')));
 const slides = document.getElementById('slides');
 generateSlides(locations)
+const locationName = document.getElementById('locationName'); // Name of the location
+locationName.innerText = locations[0].name
 
 const currentDate = join(new Date, [{ day: 'numeric' }, { month: 'long' }], ' ');
 const currentWeekday = join(new Date, [{ weekday: 'short' }], '-');
@@ -21,6 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log(location);
         getWeather(location);
     }
+});
+
+swiper.on('slideChange', function () {
+    console.log('slide changed');
+    console.log(swiper.realIndex);
+    locationName.innerText = locations[swiper.realIndex].name
 });
 
 function generateSlides(locations) {
@@ -168,13 +176,13 @@ function generateSlides(locations) {
 function getWeather(location) {
     let latitude = location.latitude
     let longitude = location.longitude
-    console.log(latitude, longitude)
+
     const options = {
         // method: 'GET',
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    // const url = '/panteleyki.json'
+    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    const url = '/panteleyki.json'
     fetch(url, options)
         .then(response => response.json())
         .then(weatherData => appendData(location, weatherData))
@@ -227,7 +235,6 @@ function appendData(location, weatherData) {
     const buttonToday = document.getElementById(location.slug + '-buttonToday');
     const buttonTomorrow = document.getElementById(location.slug + '-buttonTomorrow');
 
-    const locationName = document.getElementById(location.slug + '-locationName'); // Name of the location
     const temperature = document.getElementById(location.slug + '-temperature');
     const conditions = document.getElementById(location.slug + '-conditions');
     const currentDay = document.getElementById(location.slug + '-currentDay');
@@ -241,7 +248,6 @@ function appendData(location, weatherData) {
     const hourlyTomorrow = document.getElementById(location.slug + '-hourlyTomorrow');
     document.getElementById(location.slug + '-loader').classList.add('hidden')
     document.getElementById(location.slug + '-main_info').classList.remove('hidden')
-    // locationName.innerText = location.name
 
     printHourlyWeather(location, days, weatherData)
     printHourlyWeather(location, days, weatherData, 1)
