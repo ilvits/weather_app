@@ -162,7 +162,7 @@ function generateSlides(locations) {
                                     class="swiper-no-swiping grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)]">
                                 </div>
                                 <div id="${location.slug}-hourlyTomorrow"
-                                    class="swiper-no-swiping grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)] -translate-y-0 opacity-0 ">
+                                    class="swiper-no-swiping pointer-events-none grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)] -translate-y-0 opacity-0 ">
                                 </div>
                             </div>
                             <div class="block ml-6 mt-5 mb-3 text-xl leading-6 font-semibold">Прогноз на 10 дней</div>
