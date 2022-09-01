@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <!-- Swiper -->
-                <div class="swiper mySwiper items-center">
+                <div class="swiper mainSwiper items-center">
 
                     <div id="slides" class="swiper-wrapper items-center">
 
@@ -53,7 +53,7 @@
 
     <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper(".mySwiper", {
+        var swiper = new Swiper(".mainSwiper", {
             cssMode: false,
             effect: 'slide',
             grabCursor: true,
@@ -67,6 +67,13 @@
             hashNavigation: true,
             hashNavigation: {
                 replaceState: true,
+            },
+        });
+
+        var swiper = new Swiper(".hoursSwiper", {
+            freeMode: {
+                enabled: true,
+                sticky: true,
             },
         });
     </script>

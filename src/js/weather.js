@@ -39,7 +39,7 @@ function generateSlides(locations) {
                             <!-- Start of Content -->
 
                             <div id="${location.slug}-loader"
-                                class="bg-slate-800/50 border-2 border-slate-700/10 rounded-3xl mx-auto grid gap-4 w-full h-[338px] mt-4 p-5">
+                                class="bg-slate-800/50 border-2 border-slate-700/10 rounded-3xl grid gap-4 w-auto h-[338px] mt-4 mx-4 p-5">
                                 <div class="animate-pulse">
                                     <div class="flex justify-between sm:justify-around items-baseline w-full">
                                         <div class="w-24 h-3 bg-slate-700/50 rounded-md my-1"></div>
@@ -158,13 +158,13 @@ function generateSlides(locations) {
                                 </div>
                             </div>
                             <div class="h-[148px] grow-0 relative">
-                            <div id="hContainer" class=" z-50 mt-3 mb-10 absolute bg-gradient-to-r from-bg w-5 h-full"></div>
-                            <div id="hContainer" class="right-0 z-50 mt-3 mb-10 absolute bg-gradient-to-l from-bg w-5 h-full"></div>
-                                <div id="${location.slug}-hourlyToday"
-                                    class="swiper-no-swiping grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)]">
+                            <div id="hContainer" class="left-0 z-50 mt-3 mb-10 absolute bg-gradient-to-r from-bg w-5 h-full"></div>
+                            <div id="hContainer2" class="right-0 z-50 mt-3 mb-10 absolute bg-gradient-to-l from-bg w-5 h-full"></div>
+                                <div id="${location.slug}-hourlyToday" class="swiper-no-swiping grid grid-flow-col gap-3 
+                                overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)]">
                                 </div>
-                                <div id="${location.slug}-hourlyTomorrow"
-                                    class="swiper-no-swiping pointer-events-none grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)] -translate-y-0 opacity-0 ">
+                                <div id="${location.slug}-hourlyTomorrow" class="swiper-no-swiping pointer-events-none grid grid-flow-col gap-3 
+                                overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)] -translate-y-20 opacity-0 ">
                                 </div>
                             </div>
                             <div class="block ml-6 mt-5 mb-3 text-xl leading-6 font-semibold">Прогноз на 10 дней</div>
@@ -234,18 +234,17 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
 }
 
 function appendData(location, weatherData) {
-    const buttonToday = document.getElementById(location.slug + '-buttonToday');
     const buttonTomorrow = document.getElementById(location.slug + '-buttonTomorrow');
-
+    const buttonToday = document.getElementById(location.slug + '-buttonToday');
     const temperature = document.getElementById(location.slug + '-temperature');
+    const weatherIcon = document.getElementById(location.slug + '-weather-icon');
     const conditions = document.getElementById(location.slug + '-conditions');
     const currentDay = document.getElementById(location.slug + '-currentDay');
-    const weatherIcon = document.getElementById(location.slug + '-weather-icon');
     const feelslike = document.getElementById(location.slug + '-feelslike');
     const humidity = document.getElementById(location.slug + '-humidity');
     const pressure = document.getElementById(location.slug + '-pressure');
-    const precipprob = document.getElementById(location.slug + '-precipprob');
     const windspeed = document.getElementById(location.slug + '-windspeed');
+    const precipprob = document.getElementById(location.slug + '-precipprob');
     const hourlyToday = document.getElementById(location.slug + '-hourlyToday');
     const hourlyTomorrow = document.getElementById(location.slug + '-hourlyTomorrow');
     document.getElementById(location.slug + '-loader').classList.add('hidden')
@@ -257,7 +256,7 @@ function appendData(location, weatherData) {
     buttonToday.addEventListener('click', () => {
         buttonToday.classList.add('text-yellow')
         buttonTomorrow.classList.remove('text-yellow')
-        hourlyTomorrow.classList.add('-translate-y-0', 'opacity-0', 'z-0', 'pointer-events-none')
+        hourlyTomorrow.classList.add('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyTomorrow.classList.remove('-translate-y-[148px]', 'opacity-100')
         hourlyToday.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyToday.classList.add('translate-y-0', 'opacity-100')
@@ -268,7 +267,7 @@ function appendData(location, weatherData) {
         buttonTomorrow.classList.add('text-yellow')
         hourlyToday.classList.add('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyToday.classList.remove('translate-y-0', 'opacity-100')
-        hourlyTomorrow.classList.remove('-translate-y-0', 'opacity-0', 'z-0', 'pointer-events-none')
+        hourlyTomorrow.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyTomorrow.classList.add('-translate-y-[148px]', 'opacity-100')
     })
 
