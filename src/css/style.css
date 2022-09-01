@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* a {
-    @apply text-gray-600;
-  } */
   @font-face {
     font-family: 'Nunito';
     font-weight: 300;
@@ -37,4 +34,42 @@
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+@media (min-width: 500px) {
+.sm\:artboard-demo, .sm\:mockup-phone {
+  display: block !important;
+}
+}
+
+
+.swiper-pagination-bullet {
+  background-color: #011839 !important;
+  opacity: 1 !important;
+  padding: 3px !important;
+  margin: 4px !important;
+  /* border-color: azure !important; */
+  border: 1px solid white !important;
+  border-radius: 4px !important;
+  width: 3px !important;
+  -webkit-transition: background-color, border;
+  -moz-transition: background-color, border;
+  -o-transition: background-color, border;
+  transition: background-color, border;
+  transition-duration: 500ms !important;
+}
+.swiper-pagination-bullet-active {
+  background-color: #FEB800 !important;
+  border-radius: 4px !important;
+  padding: 3px !important;
+  margin: 4px !important;
+  /* border-color: azure !important; */
+  border: 1px solid #FEB800 !important;
+  -webkit-transition: background-color, border;
+  -moz-transition: background-color, border;
+  transition: background-color, border;
+  width: 3px !important;
+  transition-duration: 500ms !important;
+}
+#header {
+  mask: linear-gradient(#011839 70%, transparent);
 }

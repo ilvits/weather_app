@@ -3,6 +3,8 @@
     "tailwindcss": "^3.1.8"
   },
   "dependencies": {
-    "mathjs": "^11.1.0"
+    "daisyui": "^2.24.0",
+    "mathjs": "^11.1.0",
+    "swipejs": "^2.3.1"
   }
 }

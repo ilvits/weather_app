@@ -4,6 +4,7 @@ module.exports = {
   content: [
     "./src/**/*.{html,js}",
     "*.html",
+    "./**/*.html",
   ],
   theme: {
     screens: {
@@ -16,6 +17,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Nunito'],
+      },
+      boxShadow: {
+        '3xl': '20px 20px 30px -15px #000000',
       },
     },
     colors: {
@@ -40,6 +44,6 @@ module.exports = {
       // transparent: 'transparent',
       // current: 'currentColor',
     },
-    plugins: [],
-  }
+  },
+  plugins: [require("daisyui")],
 }
