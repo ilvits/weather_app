@@ -255,18 +255,18 @@ function appendData(location, weatherData) {
     buttonToday.addEventListener('click', () => {
         buttonToday.classList.add('text-yellow')
         buttonTomorrow.classList.remove('text-yellow')
-        hourlyTomorrow.classList.add('-translate-y-0', 'opacity-0')
+        hourlyTomorrow.classList.add('-translate-y-0', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyTomorrow.classList.remove('-translate-y-[148px]', 'opacity-100')
-        hourlyToday.classList.remove('-translate-y-20', 'opacity-0')
+        hourlyToday.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyToday.classList.add('translate-y-0', 'opacity-100')
     })
 
     buttonTomorrow.addEventListener('click', () => {
         buttonToday.classList.remove('text-yellow')
         buttonTomorrow.classList.add('text-yellow')
-        hourlyToday.classList.add('-translate-y-20', 'opacity-0')
+        hourlyToday.classList.add('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyToday.classList.remove('translate-y-0', 'opacity-100')
-        hourlyTomorrow.classList.remove('-translate-y-0', 'opacity-0')
+        hourlyTomorrow.classList.remove('-translate-y-0', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyTomorrow.classList.add('-translate-y-[148px]', 'opacity-100')
     })
 
