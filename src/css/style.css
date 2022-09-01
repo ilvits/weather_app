@@ -71,5 +71,5 @@
   transition-duration: 500ms !important;
 }
 #header {
-  mask: linear-gradient(#011839 70%, transparent);
+  mask: linear-gradient(#011839 75%, transparent);
 }

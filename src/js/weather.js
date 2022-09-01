@@ -157,7 +157,9 @@ function generateSlides(locations) {
                                     class="z-50 font-semibold text-[15px] transition-all duration-500">Завтра
                                 </div>
                             </div>
-                            <div class="h-[148px] grow-0">
+                            <div class="h-[148px] grow-0 relative">
+                            <div id="hContainer" class=" z-50 mt-3 mb-10 absolute bg-gradient-to-r from-bg w-5 h-full"></div>
+                            <div id="hContainer" class="right-0 z-50 mt-3 mb-10 absolute bg-gradient-to-l from-bg w-5 h-full"></div>
                                 <div id="${location.slug}-hourlyToday"
                                     class="swiper-no-swiping grid grid-flow-col gap-3 overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)]">
                                 </div>
