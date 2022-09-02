@@ -23,15 +23,16 @@
             <div class="sm:artboard sm:artboard-demo sm:overflow-y-scroll sm:no-scrollbar 
                 bg-bg sm:bg-bg text-slate-100 sm:text-slate-100 pb-4">
                 <!-- ========================= Main part ========================= -->
-                <div id="header" class="z-50 sticky top-0 bg-gradient-to-b from-bg
-                    flex w-full h-[78px] backdrop-blur-lg px-8 pt-6 justify-between items-start">
+                <div id="header" class="z-50 sticky top-0 bg-gradient-to-b from-bg via-bg/80 to-transparent
+                    backdrop-blur-sm flex w-full h-[78px] px-8 pt-6 justify-between items-start">
                     <div id="get_location" class="grow-0 shrink-0 w-6">
                         <img id="location_icon" src="/img/location-icon.svg" alt="">
                     </div>
                     <div class="">
                         <div id="locationName" class="grow shrink-0 font-semibold text-base leading-5"></div>
                         <!-- ========================= Pagination ========================= -->
-                        <div class="swiper-pagination !transform !transition !duration-300"></div>
+                        <div id="swiper-pagination"
+                            class="swiper-pagination first-letter:!transform !transition !duration-300"></div>
                     </div>
                     <div id="settings" class="grow-0 shrink-0 w-6">
                         <img id="settings_icon" src="/img/settings-icon.svg" alt="">
@@ -39,9 +40,7 @@
                 </div>
                 <!-- Swiper -->
                 <div class="swiper mainSwiper items-center">
-
                     <div id="slides" class="swiper-wrapper items-center">
-
                     </div>
                 </div>
             </div>
@@ -72,6 +71,7 @@
     </script>
     <script src="/src/js/cookies.js"></script>
     <script src="/src/js/weather.js"></script>
+    <script src="/src/js/scroll.js"></script>
 </body>
 
 </html>

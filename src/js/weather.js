@@ -1,14 +1,14 @@
 let locations = JSON.parse(decodeURIComponent(getCookie('locations')));
-const slides = document.getElementById('slides');
-generateSlides(locations)
-const locationName = document.getElementById('locationName'); // Name of the location
-locationName.innerText = locations[0].name
-
 const currentDate = join(new Date, [{ day: 'numeric' }, { month: 'long' }], ' ');
 const currentWeekday = join(new Date, [{ weekday: 'short' }], '-');
 let currentHour = Number(join(new Date, [{ hour: 'numeric' }], '-'));
 let nHours = 26 // Number of hours to display
-var days = (24 - currentHour) < nHours ? 2 : 1;
+let leftHours = 24 - currentHour
+var days = (24 - leftHours) < nHours ? 2 : 1;
+const slides = document.getElementById('slides');
+generateSlides(locations)
+const locationName = document.getElementById('locationName'); // Name of the location
+locationName.innerText = locations[0].name
 
 function join(t, a, s) {
     function format(m) {
@@ -36,8 +36,8 @@ function generateSlides(locations) {
         // console.log(`${location}: ${value.name}`);
         slides.innerHTML += `
         <div id="${location.slug}-slide" data-hash="${location.slug}" class="swiper-slide bg-bg">
-                            <!-- Start of Content -->
-
+                        <!-- Start of Content -->
+                        <div class="swiper-pagination !transform !transition !duration-300"></div>
                             <div id="${location.slug}-loader"
                                 class="bg-slate-800/50 border-2 border-slate-700/10 rounded-3xl grid gap-4 w-auto h-[338px] mt-4 mx-4 p-5">
                                 <div class="animate-pulse">
@@ -45,8 +45,8 @@ function generateSlides(locations) {
                                         <div class="w-24 h-3 bg-slate-700/50 rounded-md my-1"></div>
                                         <div class="w-24 h-1 bg-slate-700/50 rounded-md mb-1"></div>
                                     </div>
-                                    <div
-                                        class="flex justify-between sm:justify-around items-center pb-4 w-full text-white border-b border-slate-800">
+                                    <div class="flex justify-between sm:justify-around items-center 
+                                        pb-4 w-full text-white border-b border-slate-800">
                                         <div class="grid grid-flow-row">
                                             <div class="w-24 h-16 bg-slate-700/50 rounded-md mb-1 mt-8"></div>
                                             <div class="w-32 h-2 bg-slate-700/50 rounded-md my-2"></div>
@@ -94,15 +94,15 @@ function generateSlides(locations) {
                                     </div>
                                 </div>
                             </div>
-                            <div id="${location.slug}-main_info"
-                                class="hidden grid gap-4 w-auto h-[338px] p-5 mx-4 bg-gradient-to-br from-cyan/20 to-blue/20 rounded-3xl">
+                            <div id="${location.slug}-main_info" class="hidden grid gap-4 w-auto h-auto 
+                                p-5 mx-4 bg-gradient-to-br from-cyan/20 to-blue/20 rounded-3xl">
 
                                 <div class="flex justify-between items-baseline w-full">
-                                    <div class="font-semibold text-xl leading-5">Сегодня</div>
+                                    <div class="font-semibold text-xl leading-5">Сейчас</div>
                                     <div id="${location.slug}-currentDay" class="text-white/70 text-[13px]"></div>
                                 </div>
-                                <div
-                                    class="flex justify-between sm:justify-around items-center pb-4 w-full text-white border-b border-white/20">
+                                <div class="flex justify-between sm:justify-around items-center pb-4 w-full
+                                text-white border-b border-white/20">
                                     <div class="grid grid-flow-row">
                                         <div id="${location.slug}-temperature" class="font-semibold text-7xl leading-tight"></div>
                                         <div id="${location.slug}-conditions"></div>
@@ -157,9 +157,11 @@ function generateSlides(locations) {
                                     class="z-50 font-semibold text-[15px] transition-all duration-500">Завтра
                                 </div>
                             </div>
-                            <div class="h-[148px] grow-0 relative">
-                            <div id="hContainer" class="left-0 z-50 mt-3 mb-10 absolute bg-gradient-to-r from-bg w-5 h-full"></div>
-                            <div id="hContainer2" class="right-0 z-50 mt-3 mb-10 absolute bg-gradient-to-l from-bg w-5 h-full"></div>
+                            <div class="h-[148px] relative">
+                            <div id="gradient-left" class="-left-2 z-50 top-[10px] w-8 h-32 absolute bg-gradient-to-r from-bg via-bg/50 to-transparent
+                            backdrop-blur-sm "></div>
+                            <div id="gradient-right" class="-right-2 z-50 top-[10px] w-8 h-32 absolute bg-gradient-to-l from-bg via-bg/50 to-transparent
+                            backdrop-blur-sm "></div>
                                 <div id="${location.slug}-hourlyToday" class="swiper-no-swiping grid grid-flow-col gap-3 
                                 overflow-x-scroll no-scrollbar py-3 scroll px-4 transform transition duration-500 ease-[cubic-bezier(0.15,1.01,0.49,1.13)]">
                                 </div>
@@ -170,7 +172,7 @@ function generateSlides(locations) {
                             <div class="block ml-6 mt-5 mb-3 text-xl leading-6 font-semibold">Прогноз на 10 дней</div>
                             <div id="${location.slug}-daily" class="mx-4 grid grid-flow-row divide-y divide-blue/20">
                             </div>
-                            <!-- End of content -->
+                        <!-- End of content -->
                         </div>`
     }
 }
@@ -192,21 +194,40 @@ function getWeather(location) {
 }
 
 function printHourlyWeather(location, days, weatherData, startDay = 0) {
-    let leftHours = 24 - currentHour
     days += startDay
     if (startDay === 0) {
         hourlyPlaceholder = document.getElementById(location.slug + '-hourlyToday')
     } else {
         hourlyPlaceholder = document.getElementById(location.slug + '-hourlyTomorrow')
     }
+
     for (var day = startDay; day < days; day++) {
-        for (let i = 1; i < leftHours; i++) {
-            data = weatherData.days[day].hours[currentHour + i]
+        if (day > 0) {
+            currentHour = -1
+        } else {
+            currentHour = Number(join(new Date, [{ hour: 'numeric' }], '-'))
+        }
+        for (let i = 0; i < leftHours; i++) {
+            if (i == 0 && day == 0) {
+                time = 'Сейчас'
+                data = weatherData.days[day].hours[currentHour + i]
+                // console.log(currentHour + i)
+            }
+            else if (day === 1 && i === 0) {
+                continue;
+            }
+            else if (i > 0) {
+                time = `${currentHour + i}:00`
+                data = weatherData.days[day].hours[currentHour + i]
+            }
             if (currentHour + i == 0) {
                 nextDayTip = ', ' + join(new Date(0).setUTCSeconds(data.datetimeEpoch), [{ day: 'numeric' }, { month: 'short' }], ' ')
             } else {
                 nextDayTip = ''
             }
+            // console.log('hour = ' + (currentHour + i))
+            // console.log(`data = ${data}`)
+            // console.log('icon:' + data.icon)
             hourlyPlaceholder.innerHTML += `
         <div class="flex flex-col justify-end w-28 h-[124px] pl-4 pb-4 pt-3 pr-3 
         bg-gradient-to-br from-cyan/20 to-blue/20 rounded-2xl">
@@ -215,7 +236,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
             </div>
             <div class="h-1/2">
                 <div class="text-xs text-white/50 pb-1">
-                    ${currentHour + i}:00${nextDayTip}
+                    ${time}${nextDayTip}
                 </div>
                 <div class="flex justify-between items-baseline">
                     <div id="hourly-now" class="text-2xl font-semibold">
@@ -229,11 +250,11 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
         </div>`;
         }
         leftHours = nHours - leftHours
-        currentHour = -1
     }
 }
 
 function appendData(location, weatherData) {
+    // console.log(weatherData)
     const buttonTomorrow = document.getElementById(location.slug + '-buttonTomorrow');
     const buttonToday = document.getElementById(location.slug + '-buttonToday');
     const temperature = document.getElementById(location.slug + '-temperature');
@@ -252,7 +273,9 @@ function appendData(location, weatherData) {
 
     printHourlyWeather(location, days, weatherData)
     printHourlyWeather(location, days, weatherData, 1)
+
     // console.log(locations)
+
     buttonToday.addEventListener('click', () => {
         buttonToday.classList.add('text-yellow')
         buttonTomorrow.classList.remove('text-yellow')
@@ -270,8 +293,9 @@ function appendData(location, weatherData) {
         hourlyTomorrow.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyTomorrow.classList.add('-translate-y-[148px]', 'opacity-100')
     })
-
-    let winddir = Math.ceil(Number(weatherData.currentConditions.winddir));
+    let currentWeather = weatherData.days[0].hours[Number(join(new Date, [{ hour: 'numeric' }], '-'))]
+    // console.log(currentWeather)
+    let winddir = Math.ceil(Number(currentWeather.winddir));
 
     switch (true) {
         case (0 < winddir && winddir <= 90):
@@ -294,25 +318,24 @@ function appendData(location, weatherData) {
     style.innerHTML = rotate;
     document.getElementsByTagName('head')[0].appendChild(style);
 
-    temperature.innerHTML = `${Math.ceil(weatherData.currentConditions.temp)}°`
-    conditions.innerHTML = weatherData.currentConditions.conditions
+    temperature.innerHTML = `${Math.ceil(currentWeather.temp)}°`
+    conditions.innerHTML = currentWeather.conditions
     currentDay.innerHTML = `${currentWeekday}, ${currentDate}`
-    weatherIcon.innerHTML = `
-        <img src="/img/weather-conditions/${weatherData.currentConditions.icon}.svg">`
+    weatherIcon.innerHTML = `<img src="/img/weather-conditions/${currentWeather.icon}.svg">`
     feelslike.innerHTML = `Ощущается как
         <div class="font-semibold pl-1">
-            ${Math.ceil(weatherData.currentConditions.feelslike)}°
+            ${Math.ceil(currentWeather.feelslike)}°
         </div>`
     humidity.innerHTML = `
-        ${Math.ceil(weatherData.currentConditions.humidity)}
+        ${Math.ceil(currentWeather.humidity)}
         <span class="text-[15px] font-medium">%</span>`
     pressure.innerHTML = `
-        ${Math.ceil(Number(weatherData.currentConditions.pressure) * 0.1 / 0.1333223684)}
+        ${Math.ceil(Number(currentWeather.pressure) * 0.1 / 0.1333223684)}
         <span class="text-[15px] font-medium">мм рт. ст.</span>`
-    precipprob.innerHTML = `${Math.ceil(weatherData.currentConditions.precipprob)}
+    precipprob.innerHTML = `${Math.ceil(currentWeather.precipprob)}
         <span class="text-[15px] font-medium">%</span>`
     windspeed.innerHTML = `
-        ${Math.ceil(weatherData.currentConditions.windspeed)} 
+        ${Math.ceil(currentWeather.windspeed)} 
         <span class="text-[15px] font-medium">км/ч, ${dir}</span><img id="arrow" src="/img/arrow.svg"
         class="w-4 h-4">`
 

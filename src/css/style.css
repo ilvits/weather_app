@@ -71,5 +71,11 @@
   transition-duration: 500ms !important;
 }
 #header {
-  mask: linear-gradient(#011839 75%, transparent);
+  mask: linear-gradient(black 70%, transparent);
+}
+#gradient-left {
+  mask: linear-gradient(to right, black 70%, transparent);
+}
+#gradient-right {
+  mask: linear-gradient(to left, black 70%, transparent);
 }
