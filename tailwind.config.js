@@ -40,6 +40,7 @@ module.exports = {
       'blue': '#0090C3',
       'yellow': '#FEB800',
       'orange': '#F5804E',
+      'violet': '#D580FF',
       primary: colors.indigo,
       secondary: colors.yellow,
       neutral: colors.gray,

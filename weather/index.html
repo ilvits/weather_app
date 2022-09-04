@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" href="/img/favicon.png" />
     <link rel="stylesheet" href="/dist/output.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="/src/js/haptic.js"></script>
 </head>
 
 <body class="bg-bg sm:bg-slate-400 sm:pt-2 sm:h-screen">
@@ -21,7 +22,7 @@
         </div>
         <div class="display">
             <div class="sm:artboard sm:artboard-demo sm:overflow-y-scroll !no-scrollbar !sm:no-scrollbar 
-                bg-bg sm:bg-bg text-slate-100 sm:text-slate-100 pb-4">
+                bg-bg sm:bg-bg text-white sm:text-white pb-4">
                 <!-- ========================= Main part ========================= -->
                 <div id="header" class="z-20 sticky top-0 bg-gradient-to-b from-bg via-bg/80 to-transparent
                     backdrop-blur-sm flex w-full h-[78px] px-8 pt-6 justify-between items-start">
@@ -33,10 +34,10 @@
                     </button>
                     <!-- End Navigation Toggle -->
                     <div class="">
-                        <div id="locationName" class="grow shrink-0 font-semibold text-base leading-5"></div>
+                        <div id="locationName" class="grow shrink-0 font-light text-base leading-5"></div>
                         <!-- ========================= Pagination ========================= -->
-                        <div id="swiper-pagination"
-                            class="swiper-pagination first-letter:!transform !transition !duration-300"></div>
+                        <div id="swiper-pagination" class="swiper-pagination !transform !transition !duration-300">
+                        </div>
                     </div>
                     <div id="settings" class="grow-0 shrink-0 w-6">
                         <img id="settings_icon" src="/img/settings-icon.svg" alt="">
@@ -53,17 +54,17 @@
     <!-- Sidebar -->
     <div id="menuLocations" class="hs-offcanvas hs-offcanvas-open:translate-x-0 -translate-x-full fixed 
         top-0 left-0 transition-transform duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
-        h-full w-full px-6 bg-bg text-slate-100" tabindex="-1" data-hs-offcanvas-backdrop="false">
+        h-full w-full px-6 bg-bg text-white" tabindex="-1" data-hs-offcanvas-backdrop="false">
 
-        <div id="containerLocations" class="grid grid-flow-row gap-3 overflow-y-scroll">
+        <div id="containerLocations" class=" no-swipe no-reorder grid grid-flow-row gap-3 overflow-y-scroll">
             <div class="z-50 sticky top-0 flex w-full h-[78px] pt-6 justify-between items-start">
                 <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-offcanvas="#menuLocations"
                     aria-controls="sidebarLeft" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle Navigation</span>
-                    <img id="location_icon" src="/img/bi_arrow-left-short.svg" alt="">
+                    <img id="location_icon" src="/img/arrow-left.svg" alt="">
                 </button>
                 <div class="">
-                    <div id="locationName" class="grow shrink-0 font-semibold text-base leading-8 h-8">
+                    <div id="locationName" class=" grow shrink-0 font-semibold text-base leading-8 h-8">
                         Добавленное
                     </div>
                 </div>
@@ -72,26 +73,25 @@
                 </button>
             </div>
             <div class="w-full relative">
-                <input type="text" id="hs-leading-icon" name="hs-leading-icon" class="py-2 px-4 pl-7 block w-full bg-bg
-                rounded-lg text-sm focus:z-10 focus:border-blue/20 focus:ring-blue/20 bg-gradient-to-br from-cyan/20 to-blue/20 
-                 border-blue/50 text-white/50" placeholder="Найти новое место">
+
+                <input type="text" id="hs-leading-icon" name="hs-leading-icon" class="py-2 px-4 pl-8 block w-full
+                focus:outline-none rounded-lg text-sm focus:z-10 bg-blue/20 
+                text-white/50" placeholder="Найти новое место">
                 <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-2">
-                    <img id="location_icon" src="/img/akar-icons_search.svg" alt="">
+                    <img id="location_icon" src="/img/search.svg" alt="">
                 </div>
             </div>
 
             <ol id="locations-list" class="grid grid-flow-row gap-3" tabindex="0">
 
             </ol>
-            <pre id="json" class="text-slate-100 bg-bg text-sm"></pre>
+            <pre id="json" class="text-white bg-bg text-sm"></pre>
         </div>
     </div>
     <!-- End Sidebar -->
 
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
     <!-- Initialize Swiper -->
+    <script src="/src/js/swiper.js"></script>
     <script>
         var swiper = new Swiper(".mainSwiper", {
             enabled: true,
@@ -113,40 +113,20 @@
     </script>
     <script src="/node_modules/preline/dist/hs-ui.bundle.js"></script>
     <script src="/src/js/cookies.js"></script>
+    <script src="/src/js/slip.js"></script>
     <script src="/src/js/weather.js"></script>
     <script src="/src/js/scroll.js"></script>
     <script src="/src/js/addToObject.js"></script>
-    <script src="/src/js/slip.js"></script>
-    <script>
-        var list = document.querySelector('ol#locations-list');
-        new Slip(list);
 
+
+    <!-- Swiper JS -->
+    <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+
+    <script>
+        // var list = document.querySelector('ol#locations-list');
+        // new Slip(list);
 
         document.body.style.webkitTouchCallout = 'none';
-        list.addEventListener('slip:beforereorder', function (e) {
-            if (e.target.classList.contains('no-reorder')) {
-                e.preventDefault();
-            }
-        }, false);
-
-        list.addEventListener('slip:beforeswipe', function (e) {
-            if (e.target.nodeName == 'INPUT' || e.target.classList.contains('no-swipe')) {
-                e.preventDefault();
-            }
-        }, false);
-
-        list.addEventListener('slip:beforewait', function (e) {
-            if (e.target.classList.contains('instant')) e.preventDefault();
-        }, false);
-
-        list.addEventListener('slip:afterswipe', function (e) {
-            e.target.parentNode.appendChild(e.target);
-        }, false);
-
-        list.addEventListener('slip:reorder', function (e) {
-            e.target.parentNode.insertBefore(e.target, e.detail.insertBefore);
-            return false;
-        }, false);
     </script>
 
 </body>

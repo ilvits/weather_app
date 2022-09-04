@@ -6,172 +6,19 @@
     <title>Swiper demo</title>
     <link rel="stylesheet" href="/dist/output.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-        /* these are special */
-        .slip-reordering div {
-            transform: scale(1.01);
-        }
+    <script src="/src/js/slip.js"></script>
 
-        .slip-swiping-container {
-            overflow-x: hidden;
-        }
+<body class="bg-slate-500">
+    <button type="button"
+        class="hs-collapse-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+        id="hs-basic-collapse" data-hs-collapse="#hs-basic-collapse-heading">
+        Collapse
+    </button>
+    <div id="hs-basic-collapse-heading"
+        class="hs-collapse hidden w-full overflow-hidden transition-[height] duration-300"
+        aria-labelledby="hs-basic-collapse">
 
-        #slippylist li {
-            user-select: none;
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            cursor: default;
-        }
-    </style>
-</head>
-
-<body class="bg-bg text-slate-100">
-
-    <!-- <ol id="slippylistw">
-        <li class="h-20 demo-no-reorder">Swipe,</li>
-        <li class="h-20 demo-no-swipe">hold &amp; reorder <span class="instant">or instantly</span></li>
-        <li>or either</li>
-        <li class="h-20 demo-no-swipe demo-no-reorder">or none of them.</li>
-        <li>Can play nicely with:</li>
-        <li>interaction <input type="range"></li>
-        <li style="transform: scaleX(0.97) skewX(-10deg); -webkit-transform: scaleX(0.97) skewX(-10deg)">inline CSS
-            transforms</li>
-            <li class="h-20 skewed">stylesheet transforms</li>
-            <li class="h-20 demo-allow-select"><span class="demo-no-reorder">and selectable text, even though animating elements
-                with selected text is a bit weird.</span></li>
-                <li>iOS Safari</li>
-                <li>Mobile Chrome</li>
-                <li>Android Firefox</li>
-                <li>Opera Presto and Blink</li>
-                <li>No dependencies</li>
-            </ol> -->
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            let jstring = `{ "store": { "book": [{ "category": "reference", "author": "Nigel Rees", "title": "Sayings of the Century", "price": 8.95 }, { "category": "fiction", "author": "Evelyn Waugh", "title": "Sword of Honour", "price": 12.99 }, { "category": "fiction", "author": "J. R. R. Tolkien", "title": "The Lord of the Rings", "isbn": "0-395-19395-8", "price": 22.99 }], "bicycle": { "color": "red", "price": 19.95 } } }`
-            let dd = ['2222', '333', 444, 'dfgfgdfgfdgdf']
-            var as = JSON.stringify(locations, null, 2);
-            console.log(as)
-            console.log(dd)
-            document.querySelector('#as').innerHTML = as;
-        })
-
-    </script>
-    <pre id="as">
-
-    </pre>
-    <ol id="slippylist" class="flex flex-col gap-3 m-6" tabindex="0">
-        <li class="h-20 demo-no-swipe demo-no-reorder flex gap-3 items-center">
-            <span class="instant items-center text-xl font-emoji text-orange/80 fill-slate-50 text-slate-100">⛔️
-            </span>
-            <div class="h-20 grow transition-[scale_1000ms] bg-blue/30 border border-slate-500 grid grid-flow-col justify-between px-4 py-2
-                text-slate-50 items-center rounded-2xl">
-                <span class="">Меня можно двигать</span>
-                <pre class="font-emoji text-2xl pl-2">😎</pre>
-            </div>
-            <span class="instant items-center text-3xl text-white/30">☰</span>
-        </li>
-        <li class="h-20 demo-no-swipe flex gap-3 items-center items-center justify-between">
-            <span
-                class="instant items-center font-light text-xl font-emoji text-orange/80 fill-slate-50 text-slate-100 ">⛔️</span>
-            <div class="h-20 w-full bg-blue/30 border border-slate-500 grid grid-flow-col justify-between 
-                px-4 py-2 text-slate-50 items-center rounded-2xl">
-                <span class="">и меняяяя </span>
-                <pre class="font-emoji text-2xl pl-2">🥺</pre>
-            </div>
-            </div>
-            <span class="instant items-center font-light text-3xl text-white/30">☰</span>
-        </li>
-        <li class="h-20 demo-no-swipe flex gap-3 items-center items-center justify-between h-20">
-            <span
-                class="instant items-center font-light text-xl font-emoji text-orange/80 fill-slate-50 text-slate-100 ">⛔️</span>
-            <div class="h-20 w-full bg-blue/30 border border-slate-500 grid grid-flow-col justify-between 
-                px-4 py-2 text-slate-50 items-center rounded-2xl">
-                <span class="">я тоже хочу </span>
-                <pre class="font-emoji text-2xl pl-2">🤭</pre>
-            </div>
-            <span class="instant items-center font-light text-3xl text-white/30">☰</span>
-        </li>
-        <li class="h-20 demo-no-swipe flex gap-3 items-center items-center justify-between">
-            <span
-                class="instant items-center font-light text-xl font-emoji text-orange/80 fill-slate-50 text-slate-100 ">⛔️</span>
-            <div class="h-20 w-full bg-blue/30 border border-slate-500 grid grid-flow-col justify-between 
-                px-4 py-2 text-slate-50 items-center rounded-2xl">
-                <span class="">класс! давай! </span>
-                <pre class="font-emoji text-2xl pl-2">😻</pre>
-            </div>
-            <span id="drag" class="instant items-center font-light text-3xl text-white/30">☰</span>
-        </li>
-    </ol>
-
-
-    <script src="./src/js/cookies.js"></script>
-    <script src="./src/js/slip.js"></script>
-    <script src="./src/js/weather.js"></script>
-    <script src="./src/js/addToObject.js"></script>
-    <script>
-        var ol = document.getElementById('slippylist');
-        ol.addEventListener('slip:beforereorder', function (e) {
-            if (/demo-no-reorder/.test(e.target.className)) {
-                e.preventDefault();
-            }
-        }, false);
-
-        ol.addEventListener('slip:beforeswipe', function (e) {
-            if (e.target.nodeName == 'INPUT' || /demo-no-swipe/.test(e.target.className)) {
-                e.preventDefault();
-            }
-        }, false);
-
-        ol.addEventListener('slip:beforewait', function (e) {
-            if (e.target.className.indexOf('instant') > -1) e.preventDefault();
-        }, false);
-
-        ol.addEventListener('slip:afterswipe', function (e) {
-            e.target.parentNode.appendChild(e.target);
-        }, false);
-
-        ol.addEventListener('slip:reorder', function (e) {
-            e.target.parentNode.insertBefore(e.target, e.detail.insertBefore);
-            return false;
-        }, false);
-
-        new Slip(ol);
-    </script>
-    <script>
-        var onlongtouch;
-        var timer;
-        var touchduration = 800; //length of time we want the user to touch before we do something
-
-        function touchstart(e) {
-            e.preventDefault();
-            if (!timer) {
-                timer = setTimeout(onlongtouch, touchduration);
-            }
-        }
-
-        function touchend() {
-            //stops short touches from firing the event
-            if (timer) {
-                clearTimeout(timer);
-                timer = null;
-            }
-        }
-
-        onlongtouch = function () {
-            timer = null;
-            console.log('dd')
-            document.getElementById('drag').innerText += 'drag\n';
-        };
-
-        document.addEventListener("DOMContentLoaded", function (event) {
-            window.addEventListener("touchstart", touchstart, false);
-            window.addEventListener("touchend", touchend, false);
-        });
-    </script>
+    </div>
 </body>
 
 </html>
