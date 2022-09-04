@@ -5,6 +5,7 @@
   "dependencies": {
     "daisyui": "^2.24.0",
     "mathjs": "^11.1.0",
+    "preline": "^1.1.2",
     "swipejs": "^2.3.1"
   }
 }

@@ -4,7 +4,8 @@ module.exports = {
   content: [
     "./src/**/*.{html,js}",
     "*.html",
-    "./**/*.html",
+    "./weather/*.html",
+    'node_modules/preline/dist/*.js',
   ],
   theme: {
     screens: {
@@ -17,33 +18,36 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Nunito'],
+        'emoji': ['Noto_Emoji']
       },
       boxShadow: {
         '3xl': '20px 20px 30px -15px #000000',
       },
     },
     colors: {
-      black: '#000',
-      white: '#fff',
-      // gray: colors.slate,
-      // green: colors.emerald,
-      // purple: colors.violet,
-      // yellow: colors.amber,
-      // pink: colors.fuchsia,
-      // blue: colors.blue,
-      // slate: colors.slate,
+      black: colors.black,
+      white: colors.white,
+      gray: colors.slate,
+      green: colors.emerald,
+      purple: colors.violet,
+      yellow: colors.amber,
+      pink: colors.fuchsia,
+      blue: colors.blue,
+      slate: colors.slate,
       'slate-100': '#f1f5f9',
       'bg': '#011839',
       'cyan': '#3FD5FE',
       'blue': '#0090C3',
       'yellow': '#FEB800',
       'orange': '#F5804E',
-      // primary: colors.indigo,
-      // secondary: colors.yellow,
-      // neutral: colors.gray,
+      primary: colors.indigo,
+      secondary: colors.yellow,
+      neutral: colors.gray,
       transparent: 'transparent',
-      // current: 'currentColor',
+      current: 'currentColor',
     },
   },
-  // plugins: [require("daisyui")],
+  plugins: [
+    require('preline/plugin')
+  ],
 }
