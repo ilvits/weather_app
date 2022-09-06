@@ -2,9 +2,9 @@
 const colors = require('tailwindcss/colors')
 module.exports = {
   content: [
-    "./src/**/*.{html,js}",
-    "*.html",
-    "./weather/*.html",
+    // "*.html",
+    "weather/js/*.js",
+    "weather/*.html",
     'node_modules/preline/dist/*.js',
   ],
   theme: {
@@ -28,6 +28,7 @@ module.exports = {
       black: colors.black,
       white: colors.white,
       gray: colors.slate,
+      red: colors.red,
       green: colors.emerald,
       purple: colors.violet,
       yellow: colors.amber,
@@ -43,12 +44,12 @@ module.exports = {
       'violet': '#D580FF',
       primary: colors.indigo,
       secondary: colors.yellow,
-      neutral: colors.gray,
+      neutral: colors.neutral,
       transparent: 'transparent',
       current: 'currentColor',
     },
   },
   plugins: [
-    require('preline/plugin')
+    require('preline/plugin'),
   ],
 }

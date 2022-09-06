@@ -1,22 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-scrollbar">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather</title>
-    <link rel="icon" type="image/png" href="/img/favicon.png" />
-    <link rel="stylesheet" href="/dist/output.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link rel="apple-touch-icon" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <script src="/src/js/haptic.js"></script>
+    <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+    <title>Weather</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+    <link rel="apple-touch-icon" href="img/assets/icons/pwa/ios/512.png">
+    <link rel="apple-touch-startup-image" href="img/assets/icons/pwa/ios/512.png">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("sw.js");
+        }
+    </script>
+
 </head>
 
 <body class="bg-bg sm:bg-slate-400 sm:pt-2 sm:h-screen">
+    <span id="offline-status" class="fixed top-7 hidden right-0 inline-flex items-center gap-1.5 py-1 pl-3 pr-2 rounded-full
+         text-xs font-semibold bg-red-50 text-red-600 z-[99] m-4">
+        Offline
+        <button type="button" class="flex-shrink-0 h-4 w-4 inline-flex items-center justify-center rounded-full"
+            data-hs-remove-element="#offline-status">
+            <span class="sr-only">Remove badge</span>
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                viewBox="0 0 16 16">
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+        </button>
+    </span>
+
+    <div id="connection-failed" class="hs-modal hidden !z-[99] fixed top-0 left-1/2 -translate-x-1/2 w-full">
+        <div class="hs-modal-open:mt-7 hs-modal-open:opacity-100 hs-modal-open:duration-500 opacity-0 
+        ease-out transition-all m-4 bg-red-100 border border-red-200 
+        text-sm text-red-500 rounded-md shadow-md" role="alert">
+            <div class="p-4 grid grid-flow-col justify-between items-start">
+                <div class="grid grid-flow-row gap-2 items-center">
+                    <div class="grid grid-flow-col items-center">
+                        <div class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent 
+                text-blue-600 rounded-full" role="status" aria-label="loading">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        <h3 class="font-semibold text-lg leading-5 px-3">Установка соединения</h1>
+                    </div>
+                    <div class="grid grid-flow-col pl-7 items-center">
+                        <p>Нет подключения к интернету</p>
+                    </div>
+                </div>
+                <div class="">
+                    <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-4 w-4 rounded-md
+                     text-red-400 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2
+                      focus:ring-offset-red-100 focus:ring-red-400 transition-all text-sm"
+                        data-hs-modal="#connection-failed">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3.5 h-3.5" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0.92524 0.687069C1.126 0.486219 1.39823 0.373377 1.68209 0.373377C1.96597 0.373377 2.2382 0.486219 2.43894 0.687069L8.10514 6.35813L13.7714 0.687069C13.8701 0.584748 13.9882 0.503105 14.1188 0.446962C14.2494 0.39082 14.3899 0.361248 14.5321 0.360026C14.6742 0.358783 14.8151 0.38589 14.9468 0.439762C15.0782 0.493633 15.1977 0.573197 15.2983 0.673783C15.3987 0.774389 15.4784 0.894026 15.5321 1.02568C15.5859 1.15736 15.6131 1.29845 15.6118 1.44071C15.6105 1.58297 15.5809 1.72357 15.5248 1.85428C15.4688 1.98499 15.3872 2.10324 15.2851 2.20206L9.61883 7.87312L15.2851 13.5441C15.4801 13.7462 15.588 14.0168 15.5854 14.2977C15.5831 14.5787 15.4705 14.8474 15.272 15.046C15.0735 15.2449 14.805 15.3574 14.5244 15.3599C14.2437 15.3623 13.9733 15.2543 13.7714 15.0591L8.10514 9.38812L2.43894 15.0591C2.23704 15.2543 1.96663 15.3623 1.68594 15.3599C1.40526 15.3574 1.13677 15.2449 0.938279 15.046C0.739807 14.8474 0.627232 14.5787 0.624791 14.2977C0.62235 14.0168 0.730236 13.7462 0.92524 13.5441L6.59144 7.87312L0.92524 2.20206C0.724562 2.00115 0.611816 1.72867 0.611816 1.44457C0.611816 1.16047 0.724562 0.887983 0.92524 0.687069Z"
+                                fill="currentColor" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div
-        class="shadow-3xl sm:mockup-phone !pt-0 sm:w-[442px] md:scale-[0.7] transform-gpu sm:h-[95vh] sm:overflow-y-auto no-scrollbar transition-transform duration-500">
+        class="sm:mockup-phone !pt-0 sm:w-[442px] md:scale-[0.7] transform-gpu sm:h-[95vh] sm:overflow-y-auto no-scrollbar transition-transform duration-500">
         <div class="!sticky top-0 z-10">
             <div class=" bg-black w-full h-0 sm:h-3">
             </div>
@@ -27,12 +86,12 @@
                 bg-bg sm:bg-bg text-white sm:text-white pb-4">
                 <!-- ========================= Main part ========================= -->
                 <div id="header" class="z-20 sticky top-0 bg-gradient-to-b from-bg via-bg/80 to-transparent
-                    backdrop-blur-sm flex w-full h-[78px] px-8 pt-6 justify-between items-start">
+                    backdrop-blur-sm flex w-full h-[78px] px-8 pt-2 justify-between items-start">
                     <!-- Navigation Toggle -->
                     <button type="button" id="menu" class="hs-dropdown-toggle grow-0 shrink-0 w-6"
                         data-hs-offcanvas="#menuLocations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle Navigation</span>
-                        <img id="location_icon" src="/img/location-icon.svg" alt="">
+                        <img id="location_icon" src="img/location-icon.svg" alt="">
                     </button>
                     <!-- End Navigation Toggle -->
                     <div class="">
@@ -42,12 +101,12 @@
                         </div>
                     </div>
                     <div id="settings" class="grow-0 shrink-0 w-6">
-                        <img id="settings_icon" src="/img/settings-icon.svg" alt="">
+                        <img id="settings_icon" src="img/settings-icon.svg" alt="">
                     </div>
                 </div>
                 <!-- Swiper -->
-                <div class="swiper mainSwiper items-center">
-                    <div id="slides" class="swiper-wrapper items-center">
+                <div class="swiper mainSwiper">
+                    <div id="slides" class="swiper-wrapper">
                     </div>
                 </div>
             </div>
@@ -63,7 +122,7 @@
                 <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-offcanvas="#menuLocations"
                     aria-controls="sidebarLeft" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle Navigation</span>
-                    <img id="location_icon" src="/img/arrow-left.svg" alt="">
+                    <img id="location_icon" src="img/arrow-left.svg" alt="">
                 </button>
                 <div class="">
                     <div id="locationName" class=" grow shrink-0 font-semibold text-base leading-8 h-8">
@@ -80,7 +139,7 @@
                 focus:outline-none rounded-lg text-sm focus:z-10 bg-blue/20 
                 text-white/50" placeholder="Найти новое место">
                 <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-2">
-                    <img id="location_icon" src="/img/search.svg" alt="">
+                    <img id="location_icon" src="img/search.svg" alt="">
                 </div>
             </div>
 
@@ -92,8 +151,9 @@
     </div>
     <!-- End Sidebar -->
 
+
     <!-- Initialize Swiper -->
-    <script src="/src/js/swiper.js"></script>
+    <script src="/weather/js/swiper.js"></script>
     <script>
         var swiper = new Swiper(".mainSwiper", {
             enabled: true,
@@ -113,22 +173,55 @@
             },
         });
     </script>
-    <script src="/node_modules/preline/dist/hs-ui.bundle.js"></script>
-    <script src="/src/js/cookies.js"></script>
-    <script src="/src/js/slip.js"></script>
-    <script src="/src/js/weather.js"></script>
-    <script src="/src/js/scroll.js"></script>
-    <script src="/src/js/addToObject.js"></script>
-
-
-    <!-- Swiper JS -->
-    <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
-
+    <script src="/node_modules/preline/dist/components/hs-collapse/hs-collapse.js"></script>
+    <script src="/node_modules/preline/dist/components/hs-modal/hs-modal.js"></script>
+    <script src="/node_modules/preline/dist/components/hs-offcanvas/hs-offcanvas.js"></script>
+    <script src="/node_modules/preline/dist/components/hs-remove-element/hs-remove-element.js"></script>
+    <script src="/weather/js/cookies.js"></script>
+    <script src="/weather/js/slip.js"></script>
+    <script src="/weather/js/weather.js"></script>
+    <script src="/weather/js/scroll.js"></script>
+    <script src="/weather/js/addToObject.js"></script>
     <script>
-        // var list = document.querySelector('ol#locations-list');
-        // new Slip(list);
-
         document.body.style.webkitTouchCallout = 'none';
+    </script>
+    <script>
+
+        //HSModal.on('open', (modal) => {
+        // offlineStatus.classList.remove("hidden")
+        //})
+
+        const checkOnlineStatus = async () => {
+            try {
+                const online = await fetch("check.online");
+                return online.status >= 200 && online.status < 300; // either true or false
+            } catch (err) {
+                return false; // definitely offline
+            }
+        };
+
+        setInterval(async () => {
+            const result = await checkOnlineStatus();
+            // const statusDisplay = document.getElementById("status");
+            console.log(result)
+            if ((result === true) && modal.classList.contains('open')) {
+                HSModal.close(modal)
+            } else if ((result === false) && modal.classList.contains('open') === false) {
+                HSModal.open(modal)
+            }
+        }, 3000); // probably too often, try 30000 for every 30 seconds
+
+        window.addEventListener("load", async (event) => {
+            modal = document.querySelector('#connection-failed')
+            offlineStatus = document.querySelector('#offline-status')
+            const result = await checkOnlineStatus();
+            result ? HSModal.close(modal) : HSModal.open(modal);
+        });
+
+
+
+
+
     </script>
 
 </body>
