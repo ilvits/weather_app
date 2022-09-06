@@ -38,8 +38,8 @@
         </button>
     </span>
 
-    <div id="connection-failed" class="hs-modal hidden !z-[99] fixed top-0 left-1/2 -translate-x-1/2 w-full">
-        <div class="hs-modal-open:mt-7 hs-modal-open:opacity-100 hs-modal-open:duration-500 opacity-0 
+    <div id="connection-failed" class="hs-overlay hidden !z-[99] fixed top-0 left-1/2 -translate-x-1/2 w-full">
+        <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 
         ease-out transition-all m-4 bg-red-100 border border-red-200 
         text-sm text-red-500 rounded-md shadow-md" role="alert">
             <div class="p-4 grid grid-flow-col justify-between items-start">
@@ -59,7 +59,7 @@
                     <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-4 w-4 rounded-md
                      text-red-400 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2
                       focus:ring-offset-red-100 focus:ring-red-400 transition-all text-sm"
-                        data-hs-modal="#connection-failed">
+                        data-hs-overlay="#connection-failed">
                         <span class="sr-only">Close</span>
                         <svg class="w-3.5 h-3.5" width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -174,7 +174,7 @@
         });
     </script>
     <script src="/node_modules/preline/dist/components/hs-collapse/hs-collapse.js"></script>
-    <script src="/node_modules/preline/dist/components/hs-modal/hs-modal.js"></script>
+    <script src="/node_modules/preline/dist/components/hs-overlay/hs-overlay.js"></script>
     <script src="/node_modules/preline/dist/components/hs-offcanvas/hs-offcanvas.js"></script>
     <script src="/node_modules/preline/dist/components/hs-remove-element/hs-remove-element.js"></script>
     <script src="/weather/js/cookies.js"></script>
@@ -187,7 +187,7 @@
     </script>
     <script>
 
-        //HSModal.on('open', (modal) => {
+        //HSoverlay.on('open', (overlay) => {
         // offlineStatus.classList.remove("hidden")
         //})
 
@@ -204,26 +204,20 @@
             const result = await checkOnlineStatus();
             // const statusDisplay = document.getElementById("status");
             console.log(result)
-            if ((result === true) && modal.classList.contains('open')) {
-                HSModal.close(modal)
-            } else if ((result === false) && modal.classList.contains('open') === false) {
-                HSModal.open(modal)
+            if ((result === true) && overlay.classList.contains('open')) {
+                HSoverlay.close(overlay)
+            } else if ((result === false) && overlay.classList.contains('open') === false) {
+                HSoverlay.open(overlay)
             }
         }, 3000); // probably too often, try 30000 for every 30 seconds
 
         window.addEventListener("load", async (event) => {
-            modal = document.querySelector('#connection-failed')
+            overlay = document.querySelector('#connection-failed')
             offlineStatus = document.querySelector('#offline-status')
             const result = await checkOnlineStatus();
-            result ? HSModal.close(modal) : HSModal.open(modal);
+            result ? HSoverlay.close(overlay) : HSoverlay.open(overlay);
         });
-
-
-
-
-
     </script>
-
 </body>
 
 </html>
