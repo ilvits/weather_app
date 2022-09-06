@@ -11,25 +11,68 @@ const menuLocations = document.getElementById('menuLocations');
 const containerLocations = document.querySelector('ol#locations-list');
 const containerDefaults = document.getElementById('containerLocations').innerHTML;
 const locationsEdit = document.getElementById('locationsEdit');
-// console.log(containerDefaults)
 
-// const conditionEl = document.querySelector('#conditionEl')
 generateSlides(locations)
 const locationName = document.getElementById('locationName'); // Name of the location
-// const menuLocations = document.getElementById('menuLocations');
-// const sidebar = document.getElementById('sidebarLeft');
+
 locationName.innerText = Object.values(locations)[0].name
 
-HSOffcanvas.on('close', () => {
-    console.log('hhh')
+const detailsToggle = document.querySelector('#details-toggle')
+const detailInfo = document.querySelector('#spb-weather-details')
+const detailItems = document.querySelectorAll('#spb-weather-details .detail-item')
 
-    // swiper.navigation.init()
-    // swiper.navigation.destroy()
+async function getWeather(location) {
+    let latitude = location.latitude
+    let longitude = location.longitude
+
+    const options = {
+        // method: 'GET',
+        // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
+    };
+    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    const url = 'panteleyki.json'
+    await fetch(url, options)
+        .then(response => response.json())
+        .then(weatherData => appendData(location, weatherData))
+        .catch(err => console.log(err));
+}
+
+HSOverlay.on('open', () => {
+    console.log('menu opening =>')
+})
+HSOverlay.on('close', () => {
+    console.log('<= menu closed')
 })
 
-HSOffcanvas.on('open', () => {
-    console.log('sss')
-    // swiper.navigation.destroy()
+HSCollapse.on('open', () => {
+    console.log('▼ details opening... ▼')
+    // x = 0
+    detailItems.forEach((el, index) => {
+        var interval = 30;
+        setTimeout(() => {
+            el.classList.remove('opacity-0', '-translate-y-3', '-translate-x-2');
+            // console.log(index)
+        }, index * interval);
+    })
+    detailInfo.querySelector('.winddir').classList.add('rotate-[1turn]')
+})
+
+detailsToggle.addEventListener('click', () => {
+    if (detailInfo.clientHeight > 0) {
+        console.log('▲ details closing... ▲')
+        // x = 0
+        detailItems.forEach((el) => {
+            // el.classList.remove(`delay-${x}`);
+            el.classList.add('opacity-0', '-translate-y-3', '-translate-x-2');
+            // console.log(el)
+            // x = x + 150
+        })
+        detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
+    }
+})
+
+HSCollapse.on('hide', () => {
+    console.log('▲ details closed ▲')
 })
 
 function deleteLocation(locationId, locationN) {
@@ -40,7 +83,7 @@ function deleteLocation(locationId, locationN) {
 }
 
 function slideToId(index) {
-    HSOffcanvas.close(menuLocations);
+    HSOverlay.close(menuLocations);
     swiper.slideTo(index, 300);
 }
 
@@ -180,71 +223,15 @@ function generateSlides(locations) {
         slides.insertAdjacentHTML('beforeend', `
         <div id="${location.slug}-slide" data-hash="${location.slug}" class="swiper-slide bg-bg">
                         <!-- Start of Content -->
-                        <div class="swiper-pagination !transform !transition !duration-300"></div>
-                            <div id="${location.slug}-loader"
-                                class="bg-slate-800/50 border-2 border-slate-700/10 rounded-3xl grid gap-4 w-auto h-[338px] mt-4 mx-4 p-5">
-                                <div class="animate-pulse">
-                                    <div class="flex justify-between sm:justify-around items-baseline w-full">
-                                        <div class="w-24 h-3 bg-slate-700/50 rounded-md my-1"></div>
-                                        <div class="w-24 h-1 bg-slate-700/50 rounded-md mb-1"></div>
-                                    </div>
-                                    <div class="flex justify-between sm:justify-around items-center 
-                                        pb-4 w-full border-b border-slate-800">
-                                        <div class="grid grid-flow-row">
-                                            <div class="w-24 h-16 bg-slate-700/50 rounded-md mb-1 mt-8"></div>
-                                            <div class="w-32 h-2 bg-slate-700/50 rounded-md my-2"></div>
-                                            <div class="w-32 h-2 bg-slate-700/50 rounded-md my-1"></div>
-                                        </div>
-                                        <div class="bg-slate-700/20 h-20 w-20 my-8 mr-6 rounded-full"></div>
-                                    </div>
-                                    <div class="grid gap-x-1 gap-y-2 xs:gap-2 grid-cols-2 xs:p-3 mt-3 items-center">
-                                        <div class="flex gap-3 items-center">
-                                            <div class="flex flex-col">
-                                                <div class=" w-8 h-8 m-2 bg-slate-800/50 rounded-xl"></div>
-                                            </div>
-                                            <div class="flex flex-col gap-2">
-                                                <div class="w-16 h-1 bg-slate-700/50 rounded-xl"></div>
-                                                <div class="w-16 h-1 bg-slate-700/50"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex gap-3 items-center">
-                                            <div class="flex flex-col">
-                                                <div class=" w-8 h-8 m-2 bg-slate-800/50 rounded-xl"></div>
-                                            </div>
-                                            <div class="flex flex-col gap-2">
-                                                <div class="w-16 h-1 bg-slate-700/50 rounded-xl"></div>
-                                                <div class="w-16 h-1 bg-slate-700/50"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex gap-3 items-center">
-                                            <div class="flex flex-col">
-                                                <div class=" w-8 h-8 m-2 bg-slate-800/50 rounded-xl"></div>
-                                            </div>
-                                            <div class="flex flex-col gap-2">
-                                                <div class="w-16 h-1 bg-slate-700/50 rounded-xl"></div>
-                                                <div class="w-16 h-1 bg-slate-700/50"></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex gap-3 items-center">
-                                            <div class="flex flex-col">
-                                                <div class=" w-8 h-8 m-2 bg-slate-800/50 rounded-xl"></div>
-                                            </div>
-                                            <div class="flex flex-col gap-2">
-                                                <div class="w-16 h-1 bg-slate-700/50 rounded-xl"></div>
-                                                <div class="w-16 h-1 bg-slate-700/50"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="${location.slug}-main_info" class="hidden grid gap-4 w-auto h-auto 
+                        <div class="swiper-pagination"></div>
+                            <div id="${location.slug}-main_info" class="grid gap-4 
                                 p-5 mx-4 mb-[27px] bg-gradient-to-br from-cyan/20 to-blue/20 rounded-3xl">
 
                                 <div class="flex justify-between items-baseline w-full">
                                     <div id=${location.slug}-current-time" class="font-semibold text-xl leading-5">18:10</div>
-                                    <div id="${location.slug}-current-day" class="text-white/70 text-[13px]"></div>
+                                    <div id="${location.slug}-current-day" class="text-white/70 text-xs"></div>
                                 </div>
-                                <button type="button" class="hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
+                                <button type="button" id="details-toggle" class="hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
                                 text-white" data-hs-collapse="#${location.slug}-weather-details">
                                     <div class="grid grid-flow-row justify-items-start">
                                         <div class="grid grid-flow-col">
@@ -254,65 +241,93 @@ function generateSlides(locations) {
                                                 <div>12</div>
                                             </div>
                                         </div>
-                                        <div id="${location.slug}-conditions" class="font-light text-[15px] leading-[18px]"></div>
-                                        <div id="${location.slug}-feelslike" class="flex font-light text-[15px] leading-[18px]"></div>
+                                        <div id="${location.slug}-conditions" class="font-light text-sm leading-[18px]"></div>
+                                        <div id="${location.slug}-feelslike" class="flex font-light text-sm leading-[18px]"></div>
                                     </div>
                                     <div id="${location.slug}-weather-icon" class="w-[120px] h-[120px]"></div>
                                 </button>
-                                <div id="${location.slug}-weather-details"
-                                    class="hs-collapse pt-4 border-t border-white/20 hidden grid gap-x-1 gap-y-2 xs:gap-2 grid-cols-2 xs:p-3 items-center 
-                                    overflow-hidden transition-[height] duration-300">
-                                    <div class="flex gap-3 items-center">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/wind.svg" alt="">
+
+                                <!--==-=== Weather Details ===-==-->
+
+                                <div id="${location.slug}-weather-details" class="hs-collapse hidden
+                                    grid grid-cols-2 grid-rows-3 xs:grid-cols-3 xs:grid-rows-2 h-24
+                                     gap-x-1 gap-y-2 xs:gap-2 items-center 
+                                    overflow-hidden transition-all">
+                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center
+                                    transition-all duration-200 ease-in-out transform-gpu">
+                                        <div class="flex flex-col">
+                                        <img class="w-6 h-6 winddir !transform-gpu transition-all duration-[2s]
+                                            ease-[cubic-bezier(0.46,2.1,0.36,0.78)]" 
+                                            src="img/assets/icons/details/clarity_compass-line.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
                                             <div id="${location.slug}-windspeed"
-                                                class="flex text-base font-semibold gap-1 items-baseline"></div>
+                                                class="flex text-sm font-semibold gap-1 items-baseline">3</div>
                                             <div class="text-white/50 text-xs">Ветер</div>
                                         </div>
                                     </div>
-                                    <div class="flex gap-3 items-center">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/pressure.svg" alt="">
+                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/precip.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-pressure" class="text-base font-semibold"></div>
-                                            <div class="text-white/50 text-xs">Давление</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex gap-3 items-center">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/precip.svg" alt="">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div id="${location.slug}-precipprob" class="text-base font-semibold">
+                                            <div id="${location.slug}-precipprob" class="text-sm font-semibold">
                                             </div>
                                             <div class="text-white/50 text-xs">Осадки</div>
                                         </div>
                                     </div>
-                                    <div class="flex gap-3 items-center">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/humidity.svg" alt="">
+                                    <div class="row-start-3 xs:col-start-3 xs:row-start-1 col-start-1 flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunrise.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-humidity" class="text-base font-semibold"></div>
+                                            <div id="${location.slug}-sunset" class="text-sm font-semibold">5:00</div>
+                                            <div class="text-white/50 text-xs">Восход</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/wi_barometer.svg" alt="">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <div id="${location.slug}-pressure" class="text-sm font-semibold"></div>
+                                            <div class="text-white/50 text-xs">Давление</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/ion_water-humidity.svg" alt="">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <div id="${location.slug}-humidity" class="text-sm font-semibold">
+                                            </div>
                                             <div class="text-white/50 text-xs">Влажность</div>
                                         </div>
                                     </div>
+                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunset.svg" alt="">
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <div id="${location.slug}-sunset" class="text-sm font-semibold">21:30</div>
+                                            <div class="text-white/50 text-xs">Закат</div>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!--==-=== Weather Details End ===-==-->
+
                             </div>
                             <div id="${location.slug}-nav" class="flex flex-row gap-10 pl-8 mt-6 mb-1">
                                 <button type='button' id="${location.slug}-buttonToday"
-                                    class="z-40 font-normal text-[15px] transition-all duration-700 text-white">
+                                    class="z-40 font-normal text-sm transition-all duration-700 text-white">
                                     Сегодня
                                 </button type='button'>
                                 <button type='button' id="${location.slug}-buttonTomorrow"
-                                    class="z-40 font-normal text-[15px] transition-all duration-500 text-white/50">Завтра
+                                    class="z-40 font-normal text-sm transition-all duration-500 text-white/50">Завтра
                                 </button type='button'>
                             </div>
                             <div class="h-[160px] relative">
                                 <div id="${location.slug}-hourlyToday" class="swiper-no-swiping grid grid-flow-col gap-2 
-                                overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)]">
+                                overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition-all duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)]">
                                 </div>
                                 <div id="${location.slug}-hourlyTomorrow" class="swiper-no-swiping pointer-events-none grid grid-flow-col gap-3 
-                                overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)] -translate-y-20 opacity-0 ">
+                                overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition-all duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)] -translate-y-20 opacity-0 ">
                                 </div>
                             </div>
                         <!-- <div class="block ml-6 mb-3 text-xl leading-6 font-light">Прогноз на 10 дней</div> --->
@@ -383,22 +398,6 @@ locationsEdit.addEventListener('click', () => {
     })
 })
 
-function getWeather(location) {
-    let latitude = location.latitude
-    let longitude = location.longitude
-
-    const options = {
-        // method: 'GET',
-        // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
-    };
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    // const url = 'panteleyki.json'
-    fetch(url, options)
-        .then(response => response.json())
-        .then(weatherData => appendData(location, weatherData))
-        .catch(err => console.log(err));
-}
-
 function printHourlyWeather(location, days, weatherData, startDay = 0) {
     days += startDay
     if (startDay === 0) {
@@ -441,7 +440,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
                         ${time}
                     </div>
                     <div class="">
-                        <img class="w-10 h-10" src="img/weather-conditions/${data.icon}.svg">
+                        <img class="w-10 h-10" src="img/assets/icons/weather-conditions/${data.icon}.svg">
                     </div>
                     <div class="grid grid-flow-row justify-items-center justify-center">
                         <div id="hourly-now" class="text-xl leading-6 font-semibold">
@@ -449,7 +448,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
                         </div>
                     </div>
                     <div class="absolute -bottom-[22px] text-[10px] leading-3 text-[#6A9CFF] text-white/50 w-full flex justify-center gap-1">
-                        ${Math.round(data.precipprob) > 20 ? ('<img class="w-3 h-3" src="img/rain-percent.svg">' + Math.ceil((data.precipprob / 10)) * 10 + '%') : ''}
+                        ${Math.round(data.precipprob) > 20 ? ('<img class="w-3 h-3" src="img/precip.svg">' + Math.ceil((data.precipprob / 10)) * 10 + '%') : ''}
                     </div>
                 </div>`;
         }
@@ -458,7 +457,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
 }
 
 function appendData(location, weatherData) {
-    // console.log(weatherData)
+    console.log(weatherData)
     const buttonTomorrow = document.getElementById(location.slug + '-buttonTomorrow');
     const buttonToday = document.getElementById(location.slug + '-buttonToday');
     const temperature = document.getElementById(location.slug + '-temperature');
@@ -472,8 +471,6 @@ function appendData(location, weatherData) {
     const precipprob = document.getElementById(location.slug + '-precipprob');
     const hourlyToday = document.getElementById(location.slug + '-hourlyToday');
     const hourlyTomorrow = document.getElementById(location.slug + '-hourlyTomorrow');
-    document.getElementById(location.slug + '-loader').classList.add('hidden')
-    document.getElementById(location.slug + '-main_info').classList.remove('hidden')
 
     printHourlyWeather(location, days, weatherData)
     printHourlyWeather(location, days, weatherData, 1)
@@ -520,7 +517,7 @@ function appendData(location, weatherData) {
     }
     let style = document.createElement('style');
     let rotate = `
-        .arrow {
+        .winddir {
             transform: rotate(-${winddir}deg);
         }`;
     style.innerHTML = rotate;
@@ -529,30 +526,29 @@ function appendData(location, weatherData) {
     temperature.innerHTML = `${Math.round(currentWeather.temp)}°`
     conditions.innerHTML = currentWeather.conditions
     currentDay.innerHTML = `${currentWeekday}, ${currentDate}`
-    weatherIcon.innerHTML = `<img src="img/weather-conditions/${currentWeather.icon}.svg">`
+    weatherIcon.innerHTML = `<img src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
     feelslike.innerHTML = `Ощущается как
         <div class="font-semibold pl-1">
             ${Math.round(currentWeather.feelslike)}°
         </div>`
     humidity.innerHTML = `
         ${Math.round(currentWeather.humidity)}
-        <span class="text-[15px] font-medium">%</span>`
+        <span class="text-sm font-medium">%</span>`
     pressure.innerHTML = `
         ${Math.round(Number(currentWeather.pressure) * 0.1 / 0.1333223684)}
-        <span class="text-[15px] font-medium">мм</span>`
+        <span class="text-sm font-medium">мм</span>`
     precipprob.innerHTML = `${Math.round(currentWeather.precipprob)}
-        <span class="text-[15px] font-medium">%</span>`
+        <span class="text-sm font-medium">%</span>`
     windspeed.innerHTML = `
         ${Math.round(currentWeather.windspeed)} 
-        <span class="text-[15px] font-medium">км/ч, ${dir}</span><img class="arrow" src="img/arrow.svg"
-        class="w-4 h-4">`
+        <span class="text-sm font-medium">км/ч</span>`
 
     document.querySelector(`#card-${location.slug} .temp`).innerText = Math.round(todayWeather.temp)
     document.querySelector(`#card-${location.slug} .condition`).innerText = todayWeather.conditions
     document.querySelector(`#card-${location.slug} .tempmax`).innerText = Math.round(todayWeather.tempmax)
     document.querySelector(`#card-${location.slug} .tempmin`).innerText = Math.round(todayWeather.tempmin)
     document.querySelector(`#card-${location.slug} .weather-icon`).innerHTML = `
-    <img no-swipe no-reorder src="img/weather-conditions/${todayWeather.icon}.svg">`
+    <img no-swipe no-reorder src="img/assets/icons/weather-conditions/${todayWeather.icon}.svg">`
 
 
 
@@ -575,15 +571,15 @@ function appendData(location, weatherData) {
             <div class="grow-0 shrink-0 w-32 gap-4 flex justify-center items-center">
 
                 <div class="text-xs leading-3 text-[#6A9CFF] text-white/50 flex justify-center gap-1">
-                ${Math.round(data.precipprob) > 20 ? ('<img class="w-3 h-3" src="img/rain-percent.svg">' + Math.ceil((data.precipprob / 10)) * 10 + '%') : ''}
+                ${Math.round(data.precipprob) > 20 ? ('<img class="w-3 h-3" src="img/precip.svg">' + Math.ceil((data.precipprob / 10)) * 10 + '%') : ''}
             </div>
             <div >
-                <img class="w-6 h-6" src="img/weather-conditions/small/${weatherData.days[i].icon}.svg">
+                <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/${weatherData.days[i].icon}.svg">
             </div>
             </div>
             <div class="grow flex gap-2 justify-end items-baseline">
                 <div class="font-normal text-lg text-white w-6 text-end">${Math.round(weatherData.days[i].tempmax)}°</div>
-                <div class="text-[13px] text-violet w-5 text-end">${Math.round(weatherData.days[i].tempmin)}°</div>
+                <div class="text-xs text-violet w-5 text-end">${Math.round(weatherData.days[i].tempmin)}°</div>
             </div>
         </div>`;
     }

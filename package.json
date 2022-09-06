@@ -3,10 +3,11 @@
     "tailwindcss": "^3.1.8"
   },
   "dependencies": {
+    "@preline/collapse": "^1.2.0",
     "@preline/overlay": "^1.2.0",
     "daisyui": "^2.24.0",
     "mathjs": "^11.1.0",
-    "preline": "^1.1.2",
+    "preline": "^1.2.0",
     "swipejs": "^2.3.1"
   }
 }

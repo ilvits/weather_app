@@ -61,7 +61,86 @@
             </div>
         </div>
     </div>
-    <script src="/node_modules/preline/dist/components/hs-modal/hs-modal.js"></script>
+
+    <!--==-=== Weather Details ===-==-->
+
+    <div id="${location.slug}-weather-details" class="hs-collapse hidden pt-4 
+grid grid-cols-2 grid-rows-3 xs:grid-cols-3 xs:grid-rows-2
+ gap-x-1 gap-y-2 xs:gap-2 items-center 
+overflow-hidden transition-all duration-300">
+        <div class="flex gap-3 detail-item -translate-y-8 items-center
+transition-all duration-300 ease-in-out transform-gpu">
+            <div class="flex flex-col">
+                <img class="w-6 h-6 winddir !transform-gpu transition-all duration-[2s]
+        ease-[cubic-bezier(0.46,2.1,0.36,0.78)]" src="img/assets/icons/details/clarity_compass-line.svg" alt="">
+            </div>
+            <div class="flex flex-col">
+                <div id="${location.slug}-windspeed" class="flex text-sm font-semibold gap-1 items-baseline">3</div>
+                <div class="text-white/50 text-xs">Ветер</div>
+            </div>
+        </div>
+        <div
+            class="flex gap-3 detail-item -translate-y-8 items-center transition-all duration-300 ease-in-out transform-gpu">
+            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/precip.svg" alt="">
+            </div>
+            <div class="flex flex-col">
+                <div id="${location.slug}-precipprob" class="text-sm font-semibold">
+                </div>
+                <div class="text-white/50 text-xs">Осадки</div>
+            </div>
+        </div>
+        <div
+            class="row-start-3 xs:col-start-3 xs:row-start-1 col-start-1 flex gap-3 detail-item -translate-y-8 items-center transition-all duration-300 ease-in-out transform-gpu">
+            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunrise.svg" alt="">
+            </div>
+            <div class="flex flex-col">
+                <div id="${location.slug}-sunset" class="text-sm font-semibold">5:00</div>
+                <div class="text-white/50 text-xs">Восход</div>
+            </div>
+        </div>
+        <div
+            class="flex gap-3 detail-item -translate-y-8 items-center transition-all delay-450 duration-300 ease-in-out transform-gpu">
+            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/wi_barometer.svg" alt="">
+            </div>
+            <div class="flex flex-col">
+                <div id="${location.slug}-pressure" class="text-sm font-semibold"></div>
+                <div class="text-white/50 text-xs">Давление</div>
+            </div>
+        </div>
+        <div
+            class="flex gap-3 detail-item -translate-y-8 items-center transition-all delay-600 duration-300 ease-in-out transform-gpu">
+            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/ion_water-humidity.svg"
+                    alt="">
+            </div>
+            <div class="flex flex-col">
+                <div id="${location.slug}-humidity" class="text-sm font-semibold">
+                </div>
+                <div class="text-white/50 text-xs">Влажность</div>
+            </div>
+        </div>
+        <div
+            class="flex gap-3 detail-item -translate-y-8 items-center transition-all delay-750 duration-300 ease-in-out transform-gpu">
+            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunset.svg" alt="">
+            </div>
+            <div class="flex flex-col">
+                <div id="${location.slug}-sunset" class="text-sm font-semibold">21:30</div>
+                <div class="text-white/50 text-xs">Закат</div>
+            </div>
+        </div>
+    </div>
+
+    <!--==-=== Weather Details End ===-==-->
+
+
+    <!-- 
+    <script src="js/slip.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/cookies.js"></script>
+    <script src="js/addToObject.js"></script> -->
+    <script src="js/preline/hs-collapse.js"></script>
+    <script src="js/preline/hs-remove-element.js"></script>
+    <script src="js/preline/hs-overlay.js"></script>
+    <!-- <script src="js/script.js"></script> -->
     <script>
         modal = document.querySelector('#hs-slide-down-animation-modal')
         document.querySelector('#button').addEventListener('click', () => {

@@ -31,38 +31,5 @@
             "type": "image/png",
             "description": "A screenshot of the home page"
         }
-    ],
-    "related_applications": [
-        {
-            "platform": "windows",
-            "url": ""
-        }
-    ],
-    "prefer_related_applications": "false",
-    "shortcuts": [
-        {
-            "name": "Open Play Later",
-            "short_name": "Play Later",
-            "description": "View the list of podcasts you saved for later",
-            "url": "/play-later?utm_source=homescreen",
-            "icons": [
-                {
-                    "src": "img/assets/icons/pwa/ios/192.png",
-                    "sizes": "192x192"
-                }
-            ]
-        },
-        {
-            "name": "View Subscriptions",
-            "short_name": "Subscriptions",
-            "description": "View the list of podcasts you listen to",
-            "url": "/subscriptions?utm_source=homescreen",
-            "icons": [
-                {
-                    "src": "img/assets/icons/pwa/ios/192.png",
-                    "sizes": "192x192"
-                }
-            ]
-        }
     ]
 }
