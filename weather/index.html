@@ -38,8 +38,8 @@
         </button>
     </span>
 
-    <div id="connection-failed" class="hs-overlay hidden !z-[99] fixed top-0 left-1/2 -translate-x-1/2 w-full">
-        <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 
+    <div id="connection-failed" class="hs-modal hidden !z-[99] fixed top-0 left-1/2 -translate-x-1/2 w-full">
+        <div class="hs-modal-open:mt-7 hs-modal-open:opacity-100 hs-modal-open:duration-500 opacity-0 
         ease-out transition-all m-4 bg-red-100 border border-red-200 
         text-sm text-red-500 rounded-md shadow-md" role="alert">
             <div class="p-4 grid grid-flow-col justify-between items-start">
@@ -59,7 +59,7 @@
                     <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-4 w-4 rounded-md
                      text-red-400 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2
                       focus:ring-offset-red-100 focus:ring-red-400 transition-all text-sm"
-                        data-hs-overlay="#connection-failed">
+                        data-hs-modal="#connection-failed">
                         <span class="sr-only">Close</span>
                         <svg class="w-3.5 h-3.5" width="16" height="16" viewBox="0 0 16 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -89,7 +89,7 @@
                     backdrop-blur-sm flex w-full h-[78px] px-8 pt-2 justify-between items-start">
                     <!-- Navigation Toggle -->
                     <button type="button" id="menu" class="hs-dropdown-toggle grow-0 shrink-0 w-6"
-                        data-hs-overlay="#menuLocations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
+                        data-hs-offcanvas="#menuLocations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle Navigation</span>
                         <img id="location_icon" src="img/location-icon.svg" alt="">
                     </button>
@@ -113,13 +113,13 @@
         </div>
     </div>
     <!-- Sidebar -->
-    <div id="menuLocations" class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full fixed 
+    <div id="menuLocations" class="hs-offcanvas hs-offcanvas-open:translate-x-0 -translate-x-full fixed 
         top-0 left-0 transition-transform duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
-        h-full w-full px-6 bg-bg text-white" tabindex="-1" data-hs-overlay-backdrop="false">
+        h-full w-full px-6 bg-bg text-white" tabindex="-1" data-hs-offcanvas-backdrop="false">
 
         <div id="containerLocations" class=" no-swipe no-reorder grid grid-flow-row gap-3 overflow-y-scroll">
             <div class="z-50 sticky top-0 flex w-full h-[78px] pt-6 justify-between items-start">
-                <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menuLocations"
+                <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-offcanvas="#menuLocations"
                     aria-controls="sidebarLeft" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle Navigation</span>
                     <img id="location_icon" src="img/arrow-left.svg" alt="">
@@ -173,9 +173,11 @@
             },
         });
     </script>
-    <script src="/node_modules/preline/dist/components/hs-collapse/hs-collapse.js"></script>
-    <script src="/node_modules/preline/dist/components/hs-overlay/hs-overlay.js"></script>
-    <script src="/node_modules/preline/dist/components/hs-remove-element/hs-remove-element.js"></script>
+    <script src="/weather/js/hs-collapse.js"></script>
+    <script src="/weather/js/hs-offcanvas.js"></script>
+    <script src="/weather/js/hs-modal.js"></script>
+    <script src="/weather/js/hs-remove-element.js"></script>
+    <!-- <script src="/weather/js/hs-ui.bundle.js"></script> -->
     <script src="/weather/js/cookies.js"></script>
     <script src="/weather/js/slip.js"></script>
     <script src="/weather/js/weather.js"></script>
@@ -186,9 +188,10 @@
     </script>
     <script>
 
-        //HSoverlay.on('open', (overlay) => {
+        //HSmodal.on('open', (modal) => {
         // offlineStatus.classList.remove("hidden")
         //})
+        modal = document.querySelector('#connection-failed')
 
         const checkOnlineStatus = async () => {
             try {
@@ -203,18 +206,17 @@
             const result = await checkOnlineStatus();
             // const statusDisplay = document.getElementById("status");
             console.log(result)
-            if ((result === true) && overlay.classList.contains('open')) {
-                HSoverlay.close(overlay)
-            } else if ((result === false) && overlay.classList.contains('open') === false) {
-                HSoverlay.open(overlay)
+            if ((result === true) && modal.classList.contains('open')) {
+                HSModal.close(modal)
+            } else if ((result === false) && modal.classList.contains('open') === false) {
+                HSModal.open(modal)
             }
         }, 3000); // probably too often, try 30000 for every 30 seconds
 
         window.addEventListener("load", async (event) => {
-            overlay = document.querySelector('#connection-failed')
             offlineStatus = document.querySelector('#offline-status')
             const result = await checkOnlineStatus();
-            result ? HSoverlay.close(overlay) : HSoverlay.open(overlay);
+            result ? HSModal.close(modal) : HSModal.open(modal);
         });
     </script>
 </body>
