@@ -215,7 +215,8 @@
             const result = await checkOnlineStatus();
             result ? HSOverlay.close(offlineStatus) : HSOverlay.open(offlineStatus);
 
-
+            window.addEventListener('offline', (e) => { console.log('offline'); });
+            window.addEventListener('online', (e) => { console.log('online'); });
         });
 
 

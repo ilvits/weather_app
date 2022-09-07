@@ -46,12 +46,10 @@ HSOverlay.on('close', () => {
 
 HSCollapse.on('open', () => {
     console.log('▼ details opening... ▼')
-    // x = 0
     detailItems.forEach((el, index) => {
         var interval = 30;
         setTimeout(() => {
             el.classList.remove('opacity-0', '-translate-y-3', '-translate-x-2');
-            // console.log(index)
         }, index * interval);
     })
     detailInfo.querySelector('.winddir').classList.add('rotate-[1turn]')
@@ -60,12 +58,8 @@ HSCollapse.on('open', () => {
 detailsToggle.addEventListener('click', () => {
     if (detailInfo.clientHeight > 0) {
         console.log('▲ details closing... ▲')
-        // x = 0
         detailItems.forEach((el) => {
-            // el.classList.remove(`delay-${x}`);
             el.classList.add('opacity-0', '-translate-y-3', '-translate-x-2');
-            // console.log(el)
-            // x = x + 150
         })
         detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
     }
@@ -249,24 +243,22 @@ function generateSlides(locations) {
 
                                 <!--==-=== Weather Details ===-==-->
 
-                                <div id="${location.slug}-weather-details" class="hs-collapse hidden
-                                    grid grid-cols-2 grid-rows-3 xs:grid-cols-3 xs:grid-rows-2 h-24
-                                     gap-x-1 gap-y-2 xs:gap-2 items-center 
-                                    overflow-hidden transition-all">
-                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center
+                                <div id="${location.slug}-weather-details" class="hs-collapse hidden grid gap-2
+                                items-center overflow-hidden transition-all transform-gpu">
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center
                                     transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col">
-                                        <img class="w-6 h-6 winddir !transform-gpu transition-all duration-[2s]
-                                            ease-[cubic-bezier(0.46,2.1,0.36,0.78)]" 
-                                            src="img/assets/icons/details/clarity_compass-line.svg" alt="">
+                                            <img class="w-6 h-6 winddir !transform-gpu transition-all duration-[2s] ease-[cubic-bezier(0.46,2.1,0.36,0.78)]" 
+                                                src="img/assets/icons/details/clarity_compass-line.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
                                             <div id="${location.slug}-windspeed"
-                                                class="flex text-sm font-semibold gap-1 items-baseline">3</div>
+                                                class="flex text-sm font-semibold gap-1 items-baseline"></div>
                                             <div class="text-white/50 text-xs">Ветер</div>
                                         </div>
                                     </div>
-                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/precip.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -275,7 +267,9 @@ function generateSlides(locations) {
                                             <div class="text-white/50 text-xs">Осадки</div>
                                         </div>
                                     </div>
-                                    <div class="row-start-3 xs:col-start-3 xs:row-start-1 col-start-1 flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+
+                                    <div class="row-start-3 xs:col-start-3 xs:row-start-1 col-start-1 
+                                    flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunrise.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -283,7 +277,8 @@ function generateSlides(locations) {
                                             <div class="text-white/50 text-xs">Восход</div>
                                         </div>
                                     </div>
-                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/wi_barometer.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -291,7 +286,8 @@ function generateSlides(locations) {
                                             <div class="text-white/50 text-xs">Давление</div>
                                         </div>
                                     </div>
-                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/ion_water-humidity.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -300,7 +296,8 @@ function generateSlides(locations) {
                                             <div class="text-white/50 text-xs">Влажность</div>
                                         </div>
                                     </div>
-                                    <div class="flex gap-3 detail-item -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunset.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -308,6 +305,7 @@ function generateSlides(locations) {
                                             <div class="text-white/50 text-xs">Закат</div>
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <!--==-=== Weather Details End ===-==-->

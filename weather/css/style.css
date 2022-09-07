@@ -597,13 +597,13 @@ video {
   width: 100% !important;
 }
 
-@media (min-width: 400px) {
+@media (min-width: 380px) {
   .container {
-    max-width: 400px;
+    max-width: 380px;
   }
 
   .\!container {
-    max-width: 400px !important;
+    max-width: 380px !important;
   }
 }
 
@@ -1008,10 +1008,6 @@ video {
 
 .h-\[66px\] {
   height: 66px;
-}
-
-.h-24 {
-  height: 6rem;
 }
 
 .w-full {
@@ -2231,7 +2227,7 @@ button {
   }
 }
 
-@media (min-width: 400px) {
+@media (min-width: 380px) {
   .xs\:col-start-3 {
     grid-column-start: 3;
   }
