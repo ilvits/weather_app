@@ -29,6 +29,66 @@ let loc = JSON.stringify(
             "latitude": 59.89064061054924,
             "longitude": 30.418760414235095
         },
+        'verh': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'verh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        'ss111': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'verrgyhtuh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        'ver222h': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'vedth45rterh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        '3s333': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'verethrtgrh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        'ver444h': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'vefrefg4rh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        'ver555h': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'veh5errh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        'versws222h': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'verthfthh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        '3swswfd333': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'vefedsdgrh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        'verfesfs444h': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'vdawdaferh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
+        'versefsefs555h': {
+            "name": 'Верхненовокутлумбетьево',
+            "slug": 'verdwadh',
+            "latitude": 55.6743,
+            "longitude": 27.0192
+        },
         'panteleyki': {
             "name": 'Пантелейки',
             "slug": 'panteleyki',
