@@ -2,134 +2,358 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>test</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#011839">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="img/favicons/favicon.svg">
+    <link rel="icon" type="image/png" href="img/favicons/favicon.png">
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png"> -->
+    <link rel="mask-icon" href="img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="css/suggestions.css" rel="stylesheet" />
+    <script src="js/jq.suggestions.js"></script>
+    <title>TEST</title>
+
 </head>
 
-<body class="bg-slate-500">
-    <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md
-         border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 
-         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all 
-         text-sm dark:focus:ring-offset-gray-800 hs-modal-open" data-hs-modal="#hs-slide-down-animation-modal">
-        Open modal
-    </button>
-    <button type="button" id="button"
-        class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-        Open modal
-    </button>
+<body class="bg-bg text-white flex justify-center">
+    <div id="menuLocations" class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full fixed top-0 left-0 
+        transition-transform duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
+        h-screen w-full px-6 bg-bg z-[55] text-white open" tabindex="-1" data-hs-overlay-backdrop="true"
+        aria-overlay="true">
 
-    <div id="hs-slide-down-animation-modal"
-        class="hs-modal hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
-        <div
-            class="hs-modal-open:mt-7 hs-modal-open:opacity-100 hs-modal-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-            <div
-                class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-                <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
-                    <h3 class="font-bold text-gray-800 dark:text-white">
-                        Modal title
-                    </h3>
-                    <button type="button"
-                        class="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
-                        data-hs-modal="#hs-slide-down-animation-modal">
-                        <span class="sr-only">Close</span>
-                        <svg class="w-3.5 h-3.5" width="8" height="8" viewBox="0 0 8 8" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M0.258206 1.00652C0.351976 0.912791 0.479126 0.860131 0.611706 0.860131C0.744296 0.860131 0.871447 0.912791 0.965207 1.00652L3.61171 3.65302L6.25822 1.00652C6.30432 0.958771 6.35952 0.920671 6.42052 0.894471C6.48152 0.868271 6.54712 0.854471 6.61352 0.853901C6.67992 0.853321 6.74572 0.865971 6.80722 0.891111C6.86862 0.916251 6.92442 0.953381 6.97142 1.00032C7.01832 1.04727 7.05552 1.1031 7.08062 1.16454C7.10572 1.22599 7.11842 1.29183 7.11782 1.35822C7.11722 1.42461 7.10342 1.49022 7.07722 1.55122C7.05102 1.61222 7.01292 1.6674 6.96522 1.71352L4.31871 4.36002L6.96522 7.00648C7.05632 7.10078 7.10672 7.22708 7.10552 7.35818C7.10442 7.48928 7.05182 7.61468 6.95912 7.70738C6.86642 7.80018 6.74102 7.85268 6.60992 7.85388C6.47882 7.85498 6.35252 7.80458 6.25822 7.71348L3.61171 5.06702L0.965207 7.71348C0.870907 7.80458 0.744606 7.85498 0.613506 7.85388C0.482406 7.85268 0.357007 7.80018 0.264297 7.70738C0.171597 7.61468 0.119017 7.48928 0.117877 7.35818C0.116737 7.22708 0.167126 7.10078 0.258206 7.00648L2.90471 4.36002L0.258206 1.71352C0.164476 1.61976 0.111816 1.4926 0.111816 1.36002C0.111816 1.22744 0.164476 1.10028 0.258206 1.00652Z"
-                                fill="currentColor" />
-                        </svg>
-                    </button>
+        <div id="left-menu-container"
+            class=" no-swipe no-reorder grid grid-flow-row gap-3 overflow-y-scroll overflow-x-hidden">
+
+            <div id="backdrop" class="transition-all transform-gpu duration-500 fixed top-16 inset-0 invisible
+                 bg-gray-900 bg-opacity-60 z-60">
+            </div>
+            <div id="left-menu-header" class="z-55 sticky top-0 flex w-full h-[66px] pt-2 justify-between items-start 
+            transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
+                <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menuLocations"
+                    aria-controls="sidebarLeft" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <img id="location_icon" src="img/arrow-left.svg" alt="">
+                </button>
+                <div class="">
+                    <div id="locationName" class=" grow shrink-0 font-semibold text-base leading-8 h-8">
+                        Добавленное
+                    </div>
                 </div>
-                <div class="p-4 overflow-y-auto">
-                    <p class="mt-1 text-gray-800 dark:text-gray-400">
-                        This is a wider card with supporting text below as a natural lead-in to additional content.
-                    </p>
-                </div>
-                <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
-                    <button type="button"
-                        class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                        data-hs-modal="#hs-slide-down-animation-modal">
-                        Close
-                    </button>
-                    <a class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                        href="#">
-                        Save changes
-                    </a>
+                <button type="button" id="locationsEdit" class="grow-0 shrink-0 h-8 text-orange">
+                    Изм.
+                </button>
+            </div>
+            <div class="w-full relative transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
+                <input type="text" id="search-input" name="search-input" class="py-2 px-4 pl-8 w-full h-full
+                focus:outline-none rounded-lg text-sm focus:z-10 bg-blue/20 transition-all duration-500 transform-gpu
+                text-white/50" placeholder="Найти новое место">
+                <button id="cancel-button"
+                    class="absolute -right-20 top-0 h-full pl-4 transition-all duration-500 transform-gpu">Отмена</button>
+
+                <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-2">
+                    <img id="location_icon" src="img/search.svg" alt="">
                 </div>
             </div>
+
+            <ol id="locations-list"
+                class="-z-10 grid grid-flow-row gap-3 transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]"
+                tabindex="0" role="listbox">
+                <li id="card-spb" class="w-full h-[85px] z-[60]
+        hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu" tabindex="-1">
+                    <!-- CONTENT-->
+                    <div class="flex justify-center ">
+                        <div onclick="(slideToId(Object.keys(locations).indexOf('spb')))" class="minicard no-swipe no-reorder absolute w-full 
+            bg-bg bg-gradient-to-br from-cyan/20 to-blue/20 z-20
+            p-4 transition-translate duration-300 transform-gpu rounded-2xl h-[85px]">
+                            <div class="absolute left-4 flex-col transition-translate duration-300 transform-gpu">
+                                <div class=" no-swipe no-reorder text-[10px] text-white/50 leading-3">16:00</div>
+                                <div
+                                    class=" no-swipe no-reorder cardLocationName text-xl leading-5 transition-all duration-300 transform-gpu">
+                                    Санкт-Петербург
+                                </div>
+                                <div
+                                    class="condition no-swipe no-reorder text-xs leading-[14px] transition-translate duration-300 transform-gpu">
+                                    Дождь, Частично облачно</div>
+                            </div>
+                            <div
+                                class="no-swipe no-reorder absolute right-4 flex flex-row gap-2 transition-translate duration-300 transform-gpu">
+                                <div
+                                    class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
+                                    <div
+                                        class="no-swipe no-reorder temp text-[32px] font-medium transition-translate duration-700 transform-gpu">
+                                        10</div>
+                                    <div class="minmax grid grid-flow-row divide-y divide-white/20 leading-[14px]
+                        transition-translate duration-500 transform-gpu">
+                                        <div
+                                            class="no-swipe no-reorder tempmax text-xs transition-translate duration-300 transform-gpu">
+                                            11</div>
+                                        <div
+                                            class="no-swipe no-reorder tempmin text-xs transition-translate duration-300 transform-gpu">
+                                            7</div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="no-swipe no-reorder weather-icon w-12 h-12 transition-translate duration-300 transform-gpu">
+                                    <img no-swipe="" no-reorder="" src="img/assets/icons/weather-conditions/rain.svg">
+                                </div>
+                                <div class="edit-icon absolute right-2 opacity-0 edit-icon w-12 h-12 
+                        transition-translate duration-300 transform-gpu">
+                                    <img class="no-swipe no-reorder" src="img/edit.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BUTTONS-->
+                    <div class="h-[85px] justify-between grid grid-flow-col">
+                        <button type="button" data-hs-remove-element="#location-spb"
+                            onclick="deleteLocation(Object.keys(locations).indexOf('spb'), 'spb')"
+                            class=" location-del
+                     opacity-0 translate-x-6 transition-translate duration-300 transform-gpu pointer-events-none z-10 ease-out">
+                            <img src="img/delete.svg" alt="" width="40px" height="40px">
+                        </button>
+                        <button type="button" class="instant items-center font-light text-3xl text-white/30
+                            location-drag opacity-0 -translate-x-6  transition-translate z-0 duration-300 
+                            transform-gpu pointer-events-none">
+                            ☰
+                        </button>
+                    </div>
+                </li>
+                <li id="card-panteleyki" class="w-full h-[85px] z-[60]
+        hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu" tabindex="-1">
+                    <!-- CONTENT-->
+                    <div class="flex justify-center ">
+                        <div onclick="(slideToId(Object.keys(locations).indexOf('panteleyki')))" class="minicard no-swipe no-reorder absolute w-full 
+            bg-bg bg-gradient-to-br from-cyan/20 to-blue/20 z-20
+            p-4 transition-translate duration-300 transform-gpu rounded-2xl h-[85px]">
+                            <div class="absolute left-4 flex-col transition-translate duration-300 transform-gpu">
+                                <div class=" no-swipe no-reorder text-[10px] text-white/50 leading-3">16:00</div>
+                                <div
+                                    class=" no-swipe no-reorder cardLocationName text-xl leading-5 transition-all duration-300 transform-gpu">
+                                    Пантелейки
+                                </div>
+                                <div
+                                    class="condition no-swipe no-reorder text-xs leading-[14px] transition-translate duration-300 transform-gpu">
+                                    Дождь, Частично облачно</div>
+                            </div>
+                            <div
+                                class="no-swipe no-reorder absolute right-4 flex flex-row gap-2 transition-translate duration-300 transform-gpu">
+                                <div
+                                    class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
+                                    <div
+                                        class="no-swipe no-reorder temp text-[32px] font-medium transition-translate duration-700 transform-gpu">
+                                        10</div>
+                                    <div class="minmax grid grid-flow-row divide-y divide-white/20 leading-[14px]
+                        transition-translate duration-500 transform-gpu">
+                                        <div
+                                            class="no-swipe no-reorder tempmax text-xs transition-translate duration-300 transform-gpu">
+                                            11</div>
+                                        <div
+                                            class="no-swipe no-reorder tempmin text-xs transition-translate duration-300 transform-gpu">
+                                            7</div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="no-swipe no-reorder weather-icon w-12 h-12 transition-translate duration-300 transform-gpu">
+                                    <img no-swipe="" no-reorder="" src="img/assets/icons/weather-conditions/rain.svg">
+                                </div>
+                                <div class="edit-icon absolute right-2 opacity-0 edit-icon w-12 h-12 
+                        transition-translate duration-300 transform-gpu">
+                                    <img class="no-swipe no-reorder" src="img/edit.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BUTTONS-->
+                    <div class="h-[85px] justify-between grid grid-flow-col">
+                        <button type="button" data-hs-remove-element="#location-panteleyki"
+                            onclick="deleteLocation(Object.keys(locations).indexOf('panteleyki'), 'panteleyki')"
+                            class=" location-del
+                     opacity-0 translate-x-6 transition-translate duration-300 transform-gpu pointer-events-none z-10 ease-out">
+                            <img src="img/delete.svg" alt="" width="40px" height="40px">
+                        </button>
+                        <button type="button" class="instant items-center font-light text-3xl text-white/30
+                            location-drag opacity-0 -translate-x-6  transition-translate z-0 duration-300 
+                            transform-gpu pointer-events-none">
+                            ☰
+                        </button>
+                    </div>
+                </li>
+                <li id="card-torrevieja" class="w-full h-[85px] z-[60]
+        hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu" tabindex="-1">
+                    <!-- CONTENT-->
+                    <div class="flex justify-center ">
+                        <div onclick="(slideToId(Object.keys(locations).indexOf('torrevieja')))" class="minicard no-swipe no-reorder absolute w-full 
+            bg-bg bg-gradient-to-br from-cyan/20 to-blue/20 z-20
+            p-4 transition-translate duration-300 transform-gpu rounded-2xl h-[85px]">
+                            <div class="absolute left-4 flex-col transition-translate duration-300 transform-gpu">
+                                <div class=" no-swipe no-reorder text-[10px] text-white/50 leading-3">16:00</div>
+                                <div
+                                    class=" no-swipe no-reorder cardLocationName text-xl leading-5 transition-all duration-300 transform-gpu">
+                                    Торревьеха
+                                </div>
+                                <div
+                                    class="condition no-swipe no-reorder text-xs leading-[14px] transition-translate duration-300 transform-gpu">
+                                    Дождь, Частично облачно</div>
+                            </div>
+                            <div
+                                class="no-swipe no-reorder absolute right-4 flex flex-row gap-2 transition-translate duration-300 transform-gpu">
+                                <div
+                                    class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
+                                    <div
+                                        class="no-swipe no-reorder temp text-[32px] font-medium transition-translate duration-700 transform-gpu">
+                                        10</div>
+                                    <div class="minmax grid grid-flow-row divide-y divide-white/20 leading-[14px]
+                        transition-translate duration-500 transform-gpu">
+                                        <div
+                                            class="no-swipe no-reorder tempmax text-xs transition-translate duration-300 transform-gpu">
+                                            11</div>
+                                        <div
+                                            class="no-swipe no-reorder tempmin text-xs transition-translate duration-300 transform-gpu">
+                                            7</div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="no-swipe no-reorder weather-icon w-12 h-12 transition-translate duration-300 transform-gpu">
+                                    <img no-swipe="" no-reorder="" src="img/assets/icons/weather-conditions/rain.svg">
+                                </div>
+                                <div class="edit-icon absolute right-2 opacity-0 edit-icon w-12 h-12 
+                        transition-translate duration-300 transform-gpu">
+                                    <img class="no-swipe no-reorder" src="img/edit.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BUTTONS-->
+                    <div class="h-[85px] justify-between grid grid-flow-col">
+                        <button type="button" data-hs-remove-element="#location-torrevieja"
+                            onclick="deleteLocation(Object.keys(locations).indexOf('torrevieja'), 'torrevieja')"
+                            class=" location-del
+                     opacity-0 translate-x-6 transition-translate duration-300 transform-gpu pointer-events-none z-10 ease-out">
+                            <img src="img/delete.svg" alt="" width="40px" height="40px">
+                        </button>
+                        <button type="button" class="instant items-center font-light text-3xl text-white/30
+                            location-drag opacity-0 -translate-x-6  transition-translate z-0 duration-300 
+                            transform-gpu pointer-events-none">
+                            ☰
+                        </button>
+                    </div>
+                </li>
+                <li id="card-zucchelli" class="w-full h-[85px] z-[60]
+        hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu" tabindex="-1">
+                    <!-- CONTENT-->
+                    <div class="flex justify-center ">
+                        <div onclick="(slideToId(Object.keys(locations).indexOf('zucchelli')))" class="minicard no-swipe no-reorder absolute w-full 
+            bg-bg bg-gradient-to-br from-cyan/20 to-blue/20 z-20
+            p-4 transition-translate duration-300 transform-gpu rounded-2xl h-[85px]">
+                            <div class="absolute left-4 flex-col transition-translate duration-300 transform-gpu">
+                                <div class=" no-swipe no-reorder text-[10px] text-white/50 leading-3">16:00</div>
+                                <div
+                                    class=" no-swipe no-reorder cardLocationName text-lg leading-5 transition-all duration-300 transform-gpu">
+                                    Zucchelli Station
+                                </div>
+                                <div
+                                    class="condition no-swipe no-reorder text-xs leading-[14px] transition-translate duration-300 transform-gpu">
+                                    Дождь, Частично облачно</div>
+                            </div>
+                            <div
+                                class="no-swipe no-reorder absolute right-4 flex flex-row gap-2 transition-translate duration-300 transform-gpu">
+                                <div
+                                    class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
+                                    <div
+                                        class="no-swipe no-reorder temp text-[32px] font-medium transition-translate duration-700 transform-gpu">
+                                        10</div>
+                                    <div class="minmax grid grid-flow-row divide-y divide-white/20 leading-[14px]
+                        transition-translate duration-500 transform-gpu">
+                                        <div
+                                            class="no-swipe no-reorder tempmax text-xs transition-translate duration-300 transform-gpu">
+                                            11</div>
+                                        <div
+                                            class="no-swipe no-reorder tempmin text-xs transition-translate duration-300 transform-gpu">
+                                            7</div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="no-swipe no-reorder weather-icon w-12 h-12 transition-translate duration-300 transform-gpu">
+                                    <img no-swipe="" no-reorder="" src="img/assets/icons/weather-conditions/rain.svg">
+                                </div>
+                                <div class="edit-icon absolute right-2 opacity-0 edit-icon w-12 h-12 
+                        transition-translate duration-300 transform-gpu">
+                                    <img class="no-swipe no-reorder" src="img/edit.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BUTTONS-->
+                    <div class="h-[85px] justify-between grid grid-flow-col">
+                        <button type="button" data-hs-remove-element="#location-zucchelli"
+                            onclick="deleteLocation(Object.keys(locations).indexOf('zucchelli'), 'zucchelli')"
+                            class=" location-del
+                     opacity-0 translate-x-6 transition-translate duration-300 transform-gpu pointer-events-none z-10 ease-out">
+                            <img src="img/delete.svg" alt="" width="40px" height="40px">
+                        </button>
+                        <button type="button" class="instant items-center font-light text-3xl text-white/30
+                            location-drag opacity-0 -translate-x-6  transition-translate z-0 duration-300 
+                            transform-gpu pointer-events-none">
+                            ☰
+                        </button>
+                    </div>
+                </li>
+            </ol>
         </div>
     </div>
 
-    <!--==-=== Weather Details ===-==-->
 
-    <div id="${location.slug}-weather-details" class="hs-collapse hidden pt-4 
-grid grid-cols-2 grid-rows-3 xs:grid-cols-3 xs:grid-rows-2
- gap-x-1 gap-y-2 xs:gap-2 items-center 
-overflow-hidden transition-all duration-300">
-        <div class="flex gap-3 detail-item -translate-y-8 items-center
-transition-all duration-300 ease-in-out transform-gpu">
-            <div class="flex flex-col">
-                <img class="w-6 h-6 winddir !transform-gpu transition-all duration-[2s]
-        ease-[cubic-bezier(0.46,2.1,0.36,0.78)]" src="img/assets/icons/details/clarity_compass-line.svg" alt="">
-            </div>
-            <div class="flex flex-col">
-                <div id="${location.slug}-windspeed" class="flex text-sm font-semibold gap-1 items-baseline">3</div>
-                <div class="text-white/50 text-xs">Ветер</div>
-            </div>
-        </div>
-        <div
-            class="flex gap-3 detail-item -translate-y-8 items-center transition-all duration-300 ease-in-out transform-gpu">
-            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/precip.svg" alt="">
-            </div>
-            <div class="flex flex-col">
-                <div id="${location.slug}-precipprob" class="text-sm font-semibold">
-                </div>
-                <div class="text-white/50 text-xs">Осадки</div>
-            </div>
-        </div>
-        <div
-            class="row-start-3 xs:col-start-3 xs:row-start-1 col-start-1 flex gap-3 detail-item -translate-y-8 items-center transition-all duration-300 ease-in-out transform-gpu">
-            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunrise.svg" alt="">
-            </div>
-            <div class="flex flex-col">
-                <div id="${location.slug}-sunset" class="text-sm font-semibold">5:00</div>
-                <div class="text-white/50 text-xs">Восход</div>
-            </div>
-        </div>
-        <div
-            class="flex gap-3 detail-item -translate-y-8 items-center transition-all delay-450 duration-300 ease-in-out transform-gpu">
-            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/wi_barometer.svg" alt="">
-            </div>
-            <div class="flex flex-col">
-                <div id="${location.slug}-pressure" class="text-sm font-semibold"></div>
-                <div class="text-white/50 text-xs">Давление</div>
-            </div>
-        </div>
-        <div
-            class="flex gap-3 detail-item -translate-y-8 items-center transition-all delay-600 duration-300 ease-in-out transform-gpu">
-            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/ion_water-humidity.svg"
-                    alt="">
-            </div>
-            <div class="flex flex-col">
-                <div id="${location.slug}-humidity" class="text-sm font-semibold">
-                </div>
-                <div class="text-white/50 text-xs">Влажность</div>
-            </div>
-        </div>
-        <div
-            class="flex gap-3 detail-item -translate-y-8 items-center transition-all delay-750 duration-300 ease-in-out transform-gpu">
-            <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunset.svg" alt="">
-            </div>
-            <div class="flex flex-col">
-                <div id="${location.slug}-sunset" class="text-sm font-semibold">21:30</div>
-                <div class="text-white/50 text-xs">Закат</div>
-            </div>
-        </div>
-    </div>
+    <script src="js/handlers.js"></script>
+    <script>
+        // Замените на свой API-ключ
+        var token = "7fd18aaabd7d53ffa4846e4521c1f736c13490eb";
+        var $city = $("#search-input");
 
-    <!--==-=== Weather Details End ===-==-->
+
+        // Ограничиваем область поиска от города до населенного пункта
+        $city.suggestions({
+            token: '6fdf0cb5e0a5e620935f51adf9e7002993296755',
+            type: "ADDRESS",
+            hint: false,
+            count: 20,
+            geoLocation: false,
+            bounds: "city-settlement",
+        });
+
+
+    </script>
+
+    <!-- 
+    <script>
+        var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+        var token = "6fdf0cb5e0a5e620935f51adf9e7002993296755";
+        var query = "Paris";
+
+        var options = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Token " + token
+            },
+            body: JSON.stringify({ query: query })
+        }
+
+        fetch(url, options)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log("error", error));
+    </script> -->
 
 
     <!-- 
@@ -137,26 +361,10 @@ transition-all duration-300 ease-in-out transform-gpu">
     <script src="js/scroll.js"></script>
     <script src="js/cookies.js"></script>
     <script src="js/addToObject.js"></script> -->
-    <script src="js/preline/hs-collapse.js"></script>
-    <script src="js/preline/hs-remove-element.js"></script>
-    <script src="js/preline/hs-overlay.js"></script>
+    <!-- <script src="js/preline/hs-collapse.js"></script> -->
+    <!-- <script src="js/preline/hs-remove-element.js"></script> -->
+    <!-- <script src="js/preline/hs-overlay.js"></script> -->
     <!-- <script src="js/script.js"></script> -->
-    <script>
-        modal = document.querySelector('#hs-slide-down-animation-modal')
-        document.querySelector('#button').addEventListener('click', () => {
-            HSModal.toggle(modal);
-        })
-
-        HSModal.on('open', (modal) => {
-            console.log(modal)
-        })
-    </script>
-
-    <!-- <script src="js/cookies.js"></script> -->
-    <!-- <script src="js/slip.js"></script> -->
-    <!-- <script src="js/weather.js"></script> -->
-    <!-- <script src="js/scroll.js"></script> -->
-    <!-- <script src="js/addToObject.js"></script> -->
 </body>
 
 </html>

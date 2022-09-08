@@ -9,7 +9,7 @@ var days = (24 - leftHours) < nHours ? 2 : 1;
 const slides = document.getElementById('slides');
 const menuLocations = document.getElementById('menuLocations');
 const containerLocations = document.querySelector('ol#locations-list');
-const containerDefaults = document.getElementById('containerLocations').innerHTML;
+const containerDefaults = document.getElementById('left-menu-container').innerHTML;
 const locationsEdit = document.getElementById('locationsEdit');
 
 generateSlides(locations)
@@ -45,23 +45,26 @@ HSOverlay.on('close', () => {
 })
 
 HSCollapse.on('open', () => {
-    console.log('▼ details opening... ▼')
-    detailItems.forEach((el, index) => {
-        var interval = 30;
-        setTimeout(() => {
-            el.classList.remove('opacity-0', '-translate-y-3', '-translate-x-2');
-        }, index * interval);
-    })
-    detailInfo.querySelector('.winddir').classList.add('rotate-[1turn]')
+
 })
 
 detailsToggle.addEventListener('click', () => {
     if (detailInfo.clientHeight > 0) {
         console.log('▲ details closing... ▲')
         detailItems.forEach((el) => {
-            el.classList.add('opacity-0', '-translate-y-3', '-translate-x-2');
+            el.classList.add('opacity-0', '-translate-y-5', '-translate-x-1');
         })
+
         detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
+    } else {
+        console.log('▼ details opening... ▼')
+        detailItems.forEach((el, index) => {
+            var interval = 35;
+            setTimeout(() => {
+                el.classList.remove('opacity-0', '-translate-y-5', '-translate-x-1');
+            }, index * interval);
+        })
+        detailInfo.querySelector('.winddir').classList.add('rotate-[1turn]')
     }
 })
 
@@ -159,7 +162,7 @@ function generateSlides(locations) {
     for (let [name, location] of Object.entries(locations)) {
         console.log(name)
         containerLocations.insertAdjacentHTML('beforeend', `
-        <li id="card-${location.slug}" class="w-full h-[85px] z-[999999]
+        <li id="card-${location.slug}" class="w-full h-[85px] z-[60]
         hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu" id="location-${location.slug}">
             <!-- CONTENT-->
             <div class="flex justify-center ">
@@ -243,10 +246,9 @@ function generateSlides(locations) {
 
                                 <!--==-=== Weather Details ===-==-->
 
-                                <div id="${location.slug}-weather-details" class="hs-collapse hidden grid gap-2
-                                items-center overflow-hidden transition-all transform-gpu">
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center
-                                    transition-all duration-200 ease-in-out transform-gpu">
+                                <div id="${location.slug}-weather-details" class="hs-collapse hidden grid gap-2 items-center overflow-hidden transition-all transform-gpu">
+
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col">
                                             <img class="w-6 h-6 winddir !transform-gpu transition-all duration-[2s] ease-[cubic-bezier(0.46,2.1,0.36,0.78)]" 
                                                 src="img/assets/icons/details/clarity_compass-line.svg" alt="">
@@ -258,7 +260,7 @@ function generateSlides(locations) {
                                         </div>
                                     </div>
 
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/precip.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -269,7 +271,7 @@ function generateSlides(locations) {
                                     </div>
 
                                     <div class="row-start-3 xs:col-start-3 xs:row-start-1 col-start-1 
-                                    flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                    flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunrise.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -278,7 +280,7 @@ function generateSlides(locations) {
                                         </div>
                                     </div>
 
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/wi_barometer.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -287,7 +289,7 @@ function generateSlides(locations) {
                                         </div>
                                     </div>
 
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/ion_water-humidity.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -297,7 +299,7 @@ function generateSlides(locations) {
                                         </div>
                                     </div>
 
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-3 -translate-x-2 items-center transition-all duration-200 ease-in-out transform-gpu">
+                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunset.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
@@ -390,7 +392,7 @@ locationsEdit.addEventListener('click', () => {
         // element.classList.toggle('hidden')
         element.parentElement.classList.toggle('translate-x-6')
         // document.getElementById('conditionEl').classList.toggle('invisible')
-        // document.getElementById('conditionEl').classList.toggle('-translate-y-3')
+        // document.getElementById('conditionEl').classList.toggle('-translate-y-5')
         // document.getElementById('conditionEl').classList.toggle('opacity-0')
 
     })
