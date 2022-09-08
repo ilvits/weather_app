@@ -7,7 +7,7 @@ let leftHours = 24 - currentHour
 //TODO: переделать выбор количества дней
 var days = (24 - leftHours) < nHours ? 2 : 1;
 const slides = document.getElementById('slides');
-const menuLocations = document.getElementById('menuLocations');
+const menuLocations = document.getElementById('menu-locations');
 const containerLocations = document.querySelector('ol#locations-list');
 const containerDefaults = document.getElementById('left-menu-container').innerHTML;
 const locationsEdit = document.getElementById('locationsEdit');
@@ -48,9 +48,19 @@ HSCollapse.on('open', () => {
 
 })
 
+HSCollapse.on('close', () => {
+
+})
+
 detailsToggle.addEventListener('click', () => {
     if (detailInfo.clientHeight > 0) {
         console.log('▲ details closing... ▲')
+
+        document.querySelector('#expand-arrow-d').children[0].classList.remove('rotate-[-20deg]')
+        document.querySelector('#expand-arrow-d').children[1].classList.remove('rotate-[20deg]')
+        document.querySelector('#expand-arrow-d').children[0].classList.add('rotate-[20deg]')
+        document.querySelector('#expand-arrow-d').children[1].classList.add('rotate-[-20deg]')
+
         detailItems.forEach((el) => {
             el.classList.add('opacity-0', '-translate-y-5', '-translate-x-1');
         })
@@ -58,6 +68,10 @@ detailsToggle.addEventListener('click', () => {
         detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
     } else {
         console.log('▼ details opening... ▼')
+        document.querySelector('#expand-arrow-d').children[0].classList.remove('rotate-[20deg]')
+        document.querySelector('#expand-arrow-d').children[1].classList.remove('rotate-[-20deg]')
+        document.querySelector('#expand-arrow-d').children[0].classList.add('rotate-[-20deg]')
+        document.querySelector('#expand-arrow-d').children[1].classList.add('rotate-[20deg]')
         detailItems.forEach((el, index) => {
             var interval = 35;
             setTimeout(() => {
@@ -172,7 +186,7 @@ function generateSlides(locations) {
                     <div class="absolute left-4 flex-col transition-translate duration-300 transform-gpu">
                         <div class=" no-swipe no-reorder text-[10px] text-white/50 leading-3">16:00</div>
                         <div
-                            class=" no-swipe no-reorder cardLocationName text-${(location.name.length > 15) ? 'lg' : 'xl'} leading-5 transition-all duration-300 transform-gpu">
+                            class="no-swipe no-reorder cardLocationName text-${(location.name.length > 15) ? 'base' : 'xl'} leading-5 transition-all duration-300 transform-gpu">
                             ${location.name}
                         </div>
                         <div class="condition no-swipe no-reorder text-xs leading-[14px] transition-translate duration-300 transform-gpu">
@@ -182,8 +196,7 @@ function generateSlides(locations) {
                         <div class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
                             <div class="no-swipe no-reorder temp text-[32px] font-medium transition-translate duration-700 transform-gpu">
                             </div>
-                            <div class="minmax grid grid-flow-row divide-y divide-white/20 leading-[14px]
-                        transition-translate duration-500 transform-gpu">
+                            <div class="minmax grid grid-flow-row divide-y divide-white/20 leading-[14px] transition-translate duration-500 transform-gpu">
                                 <div class="no-swipe no-reorder tempmax text-xs transition-translate duration-300 transform-gpu">
                                 </div>
                                 <div class="no-swipe no-reorder tempmin text-xs transition-translate duration-300 transform-gpu">
@@ -228,7 +241,7 @@ function generateSlides(locations) {
                                     <div id=${location.slug}-current-time" class="font-semibold text-xl leading-5">18:10</div>
                                     <div id="${location.slug}-current-day" class="text-white/70 text-xs"></div>
                                 </div>
-                                <button type="button" id="details-toggle" class="hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
+                                <button type="button" id="details-toggle" class="relative hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
                                 text-white" data-hs-collapse="#${location.slug}-weather-details">
                                     <div class="grid grid-flow-row justify-items-start">
                                         <div class="grid grid-flow-col">
@@ -242,11 +255,15 @@ function generateSlides(locations) {
                                         <div id="${location.slug}-feelslike" class="flex font-light text-sm leading-[18px]"></div>
                                     </div>
                                     <div id="${location.slug}-weather-icon" class="w-[120px] h-[120px]"></div>
+                                    <div id="expand-arrow-d" class="absolute -bottom-2 flex justify-center w-full">
+                                        <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] translate-x-[1px] rotate-[20deg] rounded-sm rounded-tr-none transition-all duration-500 transform-gpu"></div>
+                                        <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] -translate-x-[1px] rotate-[-20deg] rounded-sm rounded-tl-none transition-all duration-500 transform-gpu"></div>
+                                    </div>
                                 </button>
 
                                 <!--==-=== Weather Details ===-==-->
 
-                                <div id="${location.slug}-weather-details" class="hs-collapse hidden grid gap-2 items-center overflow-hidden transition-all transform-gpu">
+                                <section id="${location.slug}-weather-details" class="hs-collapse hidden grid gap-2 items-center overflow-hidden transition-all transform-gpu">
 
                                     <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col">
@@ -308,7 +325,7 @@ function generateSlides(locations) {
                                         </div>
                                     </div>
 
-                                </div>
+                                </section>
 
                                 <!--==-=== Weather Details End ===-==-->
 
@@ -434,7 +451,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
             // console.log(`data = ${data}`)
             // console.log('icon:' + data.icon)
             hourlyPlaceholder.innerHTML += `
-                <div class="relative grid grid-flow-row justify-items-center w-[58px] h-[98px] p-2 mb-4 bg-gradient-to-br from-cyan/20 to-blue/20 rounded-lg">
+                <div class="relative grid grid-flow-row justify-items-center w-[58px] h-[98px] p-2 mb-4  rounded-lg">
                     <div class="-top-[18px] absolute text-xs text-white/50">${nextDayTip}</div>
                     <div class="font-light text-xs text-white">
                         ${time}
@@ -447,7 +464,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
                             ${Math.round(data.temp)}°
                         </div>
                     </div>
-                    <div class="absolute -bottom-[22px] text-[10px] leading-3 text-[#6A9CFF] text-white/50 w-full flex justify-center gap-1">
+                    <div class="absolute -bottom-[22px] text-[10px] leading-3 text-[rgb(111,210,250)] text-white/50 w-full flex justify-center gap-1">
                         ${Math.round(data.precipprob) > 20 ? ('<img class="w-3 h-3" src="img/precip.svg">' + Math.ceil((data.precipprob / 10)) * 10 + '%') : ''}
                     </div>
                 </div>`;

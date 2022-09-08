@@ -10,8 +10,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/svg+xml" href="img/favicons/favicon.svg">
     <link rel="icon" type="image/png" href="img/favicons/favicon.png">
-    <!-- <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png"> -->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png">
     <link rel="mask-icon" href="img/favicons/safari-pinned-tab.svg" color="#5bbad5">
     <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
     <link rel="manifest" href="manifest.json">
@@ -32,7 +32,7 @@
 
 </head>
 
-<body class="bg-bg sm:bg-slate-400 sm:pt-2 sm:h-screen">
+<body class="bg-bg sm:bg-slate-400 sm:pt-2 sm:h-screen text-white">
     <div id="offline-status" aria-overlay="false" class="fixed top-3 hs-overlay hidden hs-overlay-open:top-7 
         hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 backdrop-blur-sm [--body-scroll:true] [--overlay-backdrop:false] 
         ease-out transition-all right-0 inline-flex items-center gap-1.5 py-1 pl-3 pr-2 rounded-full
@@ -62,7 +62,7 @@
                         <p>Нет подключения к интернету</p>
                     </div>
                 </div>
-                <div class="">
+                <div class="text-base font-light">
                     <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-4 w-4 rounded-md
                      text-red-400 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2
                       focus:ring-offset-red-100 focus:ring-red-400 transition-all text-sm"
@@ -81,62 +81,52 @@
         </div>
     </div>
 
-    <div
-        class="sm:mockup-phone !pt-0 sm:w-[442px] md:scale-[0.7] transform-gpu sm:h-[95vh] sm:overflow-y-auto transition-transform duration-500">
-        <div class="!sticky top-0 z-10">
-            <div class=" bg-black w-full h-0 sm:h-3">
-            </div>
-            <div class="camera"></div>
-        </div>
-        <div class="display">
-            <div class="sm:artboard sm:artboard-demo
-                bg-bg sm:bg-bg text-white sm:text-white pb-4">
-                <!-- ========================= Main part ========================= -->
-                <div id="header" class="z-20 sticky top-0 bg-gradient-to-b from-bg via-bg/80 to-transparent
+    <div class="sm:mockup-phone !pt-0 sm:w-[442px] md:scale-[0.7] transform-gpu sm:h-[95vh] 
+                sm:overflow-y-auto transition-transform duration-500">
+        <!-- ========================= Main part ========================= -->
+        <div id="header" class="z-20 sticky top-0 bg-gradient-to-b from-bg via-bg/80 to-transparent
                     backdrop-blur-sm flex w-full h-[74px] px-8 pt-4 justify-between items-start">
-                    <!-- Navigation Toggle -->
-                    <button type="button" id="menu" class="hs-overlay-toggle grow-0 shrink-0 w-6"
-                        data-hs-overlay="#menuLocations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <img id="location_icon" src="img/location-icon.svg" alt="">
-                    </button>
-                    <!-- End Navigation Toggle -->
-                    <div class="">
-                        <div id="locationName" class="grow shrink-0 font-light text-lg leading-5"></div>
-                        <!-- ========================= Pagination ========================= -->
-                        <div id="swiper-pagination" class="swiper-pagination !transform !transition !duration-300">
-                        </div>
-                    </div>
+            <!-- Navigation Toggle -->
+            <button type="button" id="menu" class="hs-overlay-toggle grow-0 shrink-0 w-6"
+                data-hs-overlay="#menu-locations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <img id="location_icon" src="img/location-icon.svg" alt="">
+            </button>
+            <!-- End Navigation Toggle -->
+            <div class="">
+                <div id="locationName" class="grow shrink-0 font-light text-lg leading-5"></div>
+                <!-- ========================= Pagination ========================= -->
+                <div id="swiper-pagination" class="swiper-pagination !transform !transition !duration-300">
+                </div>
+            </div>
 
-                    <button type="button" id="settings-toggle" class="hs-overlay-toggle grow-0 shrink-0 w-6"
-                        data-hs-overlay="#menu-settings" aria-controls="sidebar-right" aria-label="Toggle navigation">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <img id="settings_icon" src="img/settings-icon.svg" alt="">
-                    </button>
-                </div>
-                <!-- Swiper -->
-                <div class="swiper mainSwiper">
-                    <div id="slides" class="swiper-wrapper">
-                    </div>
-                </div>
+            <button type="button" id="settings-toggle" class="hs-overlay-toggle grow-0 shrink-0 w-6"
+                data-hs-overlay="#menu-settings" aria-controls="sidebar-right" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Navigation</span>
+                <img id="settings_icon" src="img/settings-icon.svg" alt="">
+            </button>
+        </div>
+        <!-- Swiper -->
+        <div class="swiper mainSwiper">
+            <div id="slides" class="swiper-wrapper">
             </div>
         </div>
     </div>
 
     <!-- Sidebar LEFT -->
-    <div id="menuLocations" class="hidden hs-overlay hs-overlay-open:translate-x-0 -translate-x-full fixed 
+    <div id="menu-locations" class="hidden hs-overlay hs-overlay-open:translate-x-0 -translate-x-full fixed 
         top-0 left-0 transition-transform duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
-        h-full w-full px-6 bg-bg z-[55] text-white" tabindex="-1" data-hs-overlay-backdrop="true">
+        h-full w-full px-6  bg-bg z-[55] text-white overflow-y-scroll" tabindex="-1" data-hs-overlay-backdrop="true">
 
         <div id="left-menu-container"
-            class=" no-swipe no-reorder grid grid-flow-row gap-3 overflow-y-scroll overflow-x-hidden">
+            class=" no-swipe pb-16 no-reorder grid grid-flow-row gap-3 overflow-y-scroll overflow-x-hidden">
 
             <div id="backdrop" class="transition-all transform-gpu duration-500 fixed top-16 inset-0 invisible
                  bg-gray-900 bg-opacity-60 z-60">
             </div>
             <div id="left-menu-header" class="z-55 sticky top-0 flex w-full h-[66px] pt-2 justify-between items-start 
             transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
-                <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menuLocations"
+                <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menu-locations"
                     aria-controls="sidebarLeft" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle Navigation</span>
                     <img id="location_icon" src="img/arrow-left.svg" alt="">
@@ -151,13 +141,12 @@
                 </button>
             </div>
             <div class="w-full relative transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
-                <input type="text" id="search-input" name="search-input" class="py-2 px-4 pl-8 w-full h-full
-                focus:outline-none rounded-lg text-sm focus:z-10 bg-blue/20 transition-all duration-500 transform-gpu
-                text-white/50" placeholder="Найти новое место">
+                <input type="text" id="search-input" name="search-input" class=" py-1 px-4 pl-10 w-full h-full
+                focus:outline-none rounded-lg text-base text-ellipsis focus:z-10 bg-blue/20 transition-all 
+                duration-500 transform-gpu caret-yellow caret-w-2 text-white/50" placeholder="Найти новое место">
                 <button id="cancel-button"
-                    class="absolute -right-20 top-0 h-full pl-4 transition-all duration-500 transform-gpu">Отмена</button>
-
-                <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-2">
+                    class="absolute -right-20 top-0 h-full pl-4 transition-all duration-500 text-yellow transform-gpu">Отмена</button>
+                <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-4">
                     <img id="location_icon" src="img/search.svg" alt="">
                 </div>
             </div>
@@ -174,24 +163,112 @@
     <!-- Sidebar RIGHT -->
     <div id="menu-settings" class="hidden hs-overlay hs-overlay-open:translate-x-0 translate-x-full fixed 
         top-0 left-0 transition-transform duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
-        h-full w-full px-6 bg-bg z-[55] text-white" tabindex="-1" data-hs-overlay-backdrop="true">
+        h-full w-full bg-bg z-[55] text-white" tabindex="-1" data-hs-overlay-backdrop="true">
 
-        <div id="container-settings" class=" no-swipe no-reorder grid grid-flow-row gap-3 overflow-y-scroll">
+        <div id="container-settings" class="mx-4 no-swipe no-reorder grid grid-flow-row gap-6 overflow-y-scroll">
+            <!-- HEADER -->
             <div class="z-55 sticky top-0 flex w-full h-[66px] pt-2 justify-between items-start">
                 <button type="button" class="hs-overlay-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menu-settings"
                     aria-controls="sidebarRight" aria-label="Toggle settings">
                     <span class="sr-only">Toggle Menu</span>
                     <img id="location_icon" src="img/arrow-left.svg" alt="">
                 </button>
-                <div class="">
-                    <div id="settings-header" class=" grow shrink-0 font-semibold text-base leading-8 h-8">
-                        Добавленное
+                <div id="settings-header" class="font-semibold text-base leading-8">
+                    Настройки
+                </div>
+                <div class="grow-0 shrink-0 w-8"></div>
+            </div>
+            <!--  -->
+            <div class="w-full">
+                <h2 class="px-4 font-light text-xs uppercase pb-2 text-white/50">Единицы измерения</h2>
+                <div class="card grid gap-4 w-full bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl">
+                    <div class="grid grid-flow-row w-full">
+                        <div class="p-6 flex justify-between items-center">
+                            <div class="text-base font-light">Температура</div>
+                            <section class="flex gap-3">
+                                <label id="set_temp">
+                                    <div class="relative flex items-center h-[28px] w-[128px] 
+                                            border border-yellow text-yellow rounded-md text-center">
+
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
+                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">°C
+                                        </div>
+                                        <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
+                                        <div if="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
+                                    </div>
+                                </label>
+                            </section>
+
+                        </div>
+                        <div class="p-6 flex justify-between">
+                            <div class="text-base font-light">Скорость ветра</div>
+                            <section class="flex gap-3">
+                                <label id="set_temp">
+                                    <div class="relative flex items-center h-[28px] w-[128px] 
+                                            border border-yellow text-yellow rounded-md text-center">
+
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
+                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">км/ч
+                                        </div>
+                                        <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
+                                        <div if="on" class="cursor-pointer w-[64px] h-[28px]">м/с</div>
+                                    </div>
+                                </label>
+                            </section>
+                        </div>
+                        <div class="p-6 flex justify-between">
+                            <div class="text-base font-light">Давление</div>
+                            <section class="flex gap-3">
+                                <label id="set_temp">
+                                    <div class="relative flex items-center h-[28px] w-[128px] 
+                                            border border-yellow text-yellow rounded-md text-center">
+
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
+                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">мм рт.ст.
+                                        </div>
+                                        <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
+                                        <div if="on" class="cursor-pointer w-[64px] h-[28px]">мПа</div>
+                                    </div>
+                                </label>
+                            </section>
+                        </div>
                     </div>
                 </div>
-                <button type="button" id="ddd" class="grow-0 shrink-0 h-8 text-orange">
-
-                </button>
             </div>
+            <div class="w-full">
+                <h2 class="px-4 font-light text-xs uppercase pb-2 text-white/50">Приложение</h2>
+                <div class="card grid gap-4 mb-[27px] bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl">
+                    <div class="grid grid-flow-row">
+                        <div class="p-6 flex justify-between">
+                            <div class="text-base font-light">Язык</div>
+                            <div class="flex text-center border border-yellow rounded-md w-32 font-light">
+                                <div class="w-1/2 py-1 text-sm bg-yellow text-bg">RU</div>
+                                <div class="w-1/2 py-1 text-sm text-yellow">EN</div>
+                            </div>
+                        </div>
+                        <div class="p-6 flex justify-between">
+                            <div class="text-base font-light">Уведомления</div>
+                            <div class="flex text-center border border-yellow rounded-md w-32 font-light">
+                                <div class="w-1/2 py-1 text-sm bg-yellow text-bg">выкл</div>
+                                <div class="w-1/2 py-1 text-sm text-yellow">вкл</div>
+                            </div>
+                        </div>
+                        <div class="p-6 flex justify-between">
+                            <div class="text-base font-light">Показывать детали</div>
+                            <div class="flex text-center border border-yellow rounded-md w-32 font-light">
+                                <div class="w-1/2 py-1 text-sm bg-yellow text-bg">нет</div>
+                                <div class="w-1/2 py-1 text-sm text-yellow">да</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-red-400/20 w-full"></div>
+            <div class="bg-red-400/20 w-full"></div>
+            <div class="bg-red-400/20 w-full"></div>
 
         </div>
     </div>
@@ -286,6 +363,57 @@
         });
     </script>
 
+    <script>
+        var checkboxes = document.querySelectorAll('input[name=settings]')
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', (el) => {
+                const slider = el.target.nextElementSibling
+                if (el.target.checked) {
+                    console.log('✅');
+                    slider.classList.add('translate-x-full', 'rounded-r-md');
+                    slider.classList.remove('rounded-l-md');
+                    setTimeout(() => {
+                        slider.innerText = slider.nextElementSibling.nextElementSibling.innerText;
+                    }, 100)
+
+                } else {
+                    console.log('❎');
+                    slider.classList.remove('translate-x-full', 'rounded-r-md');
+                    slider.classList.add('rounded-l-md');
+                    setTimeout(() => {
+                        slider.innerText = slider.nextElementSibling.innerText
+                    }, 100)
+
+                }
+            });
+
+        });
+
+
+
+
+        // Select all checkboxes with the name 'settings' using querySelectorAll.
+        var checkboxes = document.querySelectorAll("input[type=checkbox][name=settings]");
+        let enabledSettings = []
+
+        /*
+        For IE11 support, replace arrow functions with normal functions and
+        use a polyfill for Array.forEach:
+        https://vanillajstoolkit.com/polyfills/arrayforeach/
+        */
+
+        // Use Array.forEach to add an event listener to each checkbox.
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                enabledSettings =
+                    Array.from(checkboxes) // Convert checkboxes to an array to use filter and map.
+                        .filter(i => i.checked) // Use Array.filter to remove unchecked checkboxes.
+                        .map(i => i.value) // Use Array.map to extract only the checkbox values from the array of objects.
+
+                console.log(enabledSettings)
+            })
+        });
+    </script>
 
 </body>
 

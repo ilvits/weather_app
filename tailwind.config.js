@@ -23,6 +23,22 @@ module.exports = {
       boxShadow: {
         '3xl': '20px 20px 30px -15px #000000',
       },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        changeLetter: {
+          '0%': { content: '°C' },
+          '50%': { color: '#FEB800' },
+          '100%': { content: '°F' },
+        }
+      },
+      animation: {
+        wiggle: 'wiggle 1s ease-in-out infinite',
+        changeLetter: 'changeLetter 1s ease-in-out 1',
+        changeLetter2: 'changeLetter 1s ease-in-out 1 reverse',
+      }
     },
     colors: {
       black: colors.black,
@@ -51,5 +67,6 @@ module.exports = {
   },
   plugins: [
     require('preline/plugin'),
+    require('tailwindcss-gradient'),
   ],
 }

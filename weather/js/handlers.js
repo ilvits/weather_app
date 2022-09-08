@@ -11,8 +11,10 @@ function searchFocus() {
     // console.log(input);
     // console.log(input.classList);
     // console.log(input.parentNode.previousElementSibling);
-    input.placeholder = 'Введите название населенного пункта'
+    input.placeholder = 'Введите название'
     input.classList.add('w-[calc(100vw-120px)]')
+    input.classList.remove('w-full')
+    input.classList.remove('text-white/50')
     searchLocationsCancelButton.classList.remove('-right-20')
     searchLocationsCancelButton.classList.add('right-0')
     input.parentNode.classList.add('-translate-y-16')
@@ -23,8 +25,10 @@ function searchFocus() {
 }
 
 function searchCancel() {
-    input.placeholder = 'Введите название населенного пункта'
+    input.placeholder = 'Найти новое место'
     input.classList.remove('w-[calc(100vw-120px)]')
+    input.classList.add('w-full')
+    input.classList.add('text-white/50')
     searchLocationsCancelButton.classList.add('-right-20')
     searchLocationsCancelButton.classList.remove('right-0')
     input.parentNode.classList.remove('-translate-y-16')

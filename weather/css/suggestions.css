@@ -15,8 +15,8 @@
   margin: 8px 0 0;
   vertical-align: top;
   -webkit-text-size-adjust: 100%;
-  /* z-index: 100000 !important; */
 }
+
 
 /**
  * Выпадающий блок с найденными подсказками
@@ -24,31 +24,17 @@
 .suggestions-suggestions {
   /* background: rgb(26 59 93); */
   color: rgb(255 255 255 / 0.7);
-  font-size: 0.875rem;
+  font-size: 1rem;
   cursor: default;
   left: 0;
-  /* padding: 8px; */
-  /* border-radius: 16px; */
   min-width: 100%;
   position: absolute;
-  /* z-index: 100000 !important; */
   -webkit-text-size-adjust: 100%;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
   -webkit-transition: all 0.3s 0s ease-in-out;
   -moz-transition: all 0.3s 0s ease-in-out;
   -o-transition: all 0.3s 0s ease-in-out;
   transition: all 0.3s 0s ease-in-out;
-}
-
-.suggestions-suggestions> :not([hidden])~ :not([hidden]) {
-  --tw-divide-y-reverse: 0;
-  border-top-width: 1px;
-  border-bottom-width: 0;
-  border-bottom: none;
-}
-
-.suggestions-suggestions :not([hidden])~ :not([hidden]) {
-  border-color: rgb(255 255 255 / 0.1);
 }
 
 .suggestions-suggestions strong {
@@ -61,8 +47,8 @@
  */
 .suggestions-suggestion {
   margin: 0;
-  padding: 18px 0;
-  padding-left: 16px;
+  padding: 9px 0;
+  /* padding-left: 16px; */
   overflow: hidden;
 
 }

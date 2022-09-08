@@ -68,6 +68,45 @@ input {
   -webkit-user-select: auto;
 }
 
+
+@keyframes changeLetter {
+  0% {
+    content: "°C";
+  }
+
+  50% {
+    color: #FEB800;
+  }
+
+  100% {
+    content: "°F";
+  }
+}
+
+@keyframes changeLetterB {
+  0% {
+    content: "°F";
+  }
+
+  50% {
+    color: #FEB800;
+  }
+
+  100% {
+    content: "°C";
+  }
+}
+
+.tempSwitch:checked {
+  animation: changeLetter 150ms ease-in-out 1;
+}
+
+.tempSwitch:not(:checked) {
+  animation: changeLetterB 150ms ease-in-out 1;
+
+}
+
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none !important;
