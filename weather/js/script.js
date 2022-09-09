@@ -17,7 +17,7 @@ const locationName = document.getElementById('locationName'); // Name of the loc
 
 locationName.innerText = Object.values(locations)[0].name
 
-const detailsToggle = document.querySelector('#details-toggle')
+const weatherDetailsToggle = document.querySelector('#details-toggle')
 const detailInfo = document.querySelector('#spb-weather-details')
 const detailItems = document.querySelectorAll('#spb-weather-details .detail-item')
 
@@ -52,35 +52,6 @@ HSCollapse.on('close', () => {
 
 })
 
-detailsToggle.addEventListener('click', () => {
-    if (detailInfo.clientHeight > 0) {
-        console.log('▲ details closing... ▲')
-
-        document.querySelector('#expand-arrow-d').children[0].classList.remove('rotate-[-20deg]')
-        document.querySelector('#expand-arrow-d').children[1].classList.remove('rotate-[20deg]')
-        document.querySelector('#expand-arrow-d').children[0].classList.add('rotate-[20deg]')
-        document.querySelector('#expand-arrow-d').children[1].classList.add('rotate-[-20deg]')
-
-        detailItems.forEach((el) => {
-            el.classList.add('opacity-0', '-translate-y-5', '-translate-x-1');
-        })
-
-        detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
-    } else {
-        console.log('▼ details opening... ▼')
-        document.querySelector('#expand-arrow-d').children[0].classList.remove('rotate-[20deg]')
-        document.querySelector('#expand-arrow-d').children[1].classList.remove('rotate-[-20deg]')
-        document.querySelector('#expand-arrow-d').children[0].classList.add('rotate-[-20deg]')
-        document.querySelector('#expand-arrow-d').children[1].classList.add('rotate-[20deg]')
-        detailItems.forEach((el, index) => {
-            var interval = 35;
-            setTimeout(() => {
-                el.classList.remove('opacity-0', '-translate-y-5', '-translate-x-1');
-            }, index * interval);
-        })
-        detailInfo.querySelector('.winddir').classList.add('rotate-[1turn]')
-    }
-})
 
 HSCollapse.on('hide', () => {
     console.log('▲ details closed ▲')
@@ -158,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log(location);
         getWeather(location);
     }
-    // document.getElementById('locationName').addEventListener('click', () => {
+    // document.getElementById('locationName').onclick = () => {
     //     // alert('vibrate');
     //     window.navigator.vibrate(200);
     //     // Haptics.heartbeat(500);
@@ -174,7 +145,7 @@ swiper.on('slideChange', function () {
 function generateSlides(locations) {
     // containerLocations.innerHTML = containerDefaults;
     for (let [name, location] of Object.entries(locations)) {
-        console.log(name)
+        // console.log(name)
         containerLocations.insertAdjacentHTML('beforeend', `
         <li id="card-${location.slug}" class="w-full h-[85px] z-[60]
         hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu" id="location-${location.slug}">
@@ -362,7 +333,7 @@ const classToggle = (el, ...args) => {
 
 // const miniCards = document.querySelectorAll('.mini-card')
 const minmax = document.querySelectorAll('.minmax')
-locationsEdit.addEventListener('click', () => {
+locationsEdit.onclick = () => {
 
     let minicards = document.querySelectorAll('.minicard')
     minicards.forEach((element) => {
@@ -413,7 +384,7 @@ locationsEdit.addEventListener('click', () => {
         // document.getElementById('conditionEl').classList.toggle('opacity-0')
 
     })
-})
+}
 
 function printHourlyWeather(location, days, weatherData, startDay = 0) {
     days += startDay
@@ -474,7 +445,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
 }
 
 function appendData(location, weatherData) {
-    console.log(weatherData)
+    // console.log(weatherData)
     const buttonTomorrow = document.getElementById(location.slug + '-buttonTomorrow');
     const buttonToday = document.getElementById(location.slug + '-buttonToday');
     const temperature = document.getElementById(location.slug + '-temperature');
@@ -494,7 +465,7 @@ function appendData(location, weatherData) {
 
     // console.log(locations)
 
-    buttonToday.addEventListener('click', () => {
+    buttonToday.onclick = () => {
         buttonTomorrow.classList.remove('text-white')
         buttonTomorrow.classList.add('text-white/50')
         buttonToday.classList.add('text-white')
@@ -503,9 +474,9 @@ function appendData(location, weatherData) {
         hourlyTomorrow.classList.remove('-translate-y-[142px]', 'opacity-100')
         hourlyToday.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyToday.classList.add('translate-y-0', 'opacity-100')
-    })
+    }
 
-    buttonTomorrow.addEventListener('click', () => {
+    buttonTomorrow.onclick = () => {
         buttonToday.classList.remove('text-white')
         buttonToday.classList.add('text-white/50')
         buttonTomorrow.classList.add('text-white')
@@ -514,7 +485,7 @@ function appendData(location, weatherData) {
         hourlyToday.classList.remove('translate-y-0', 'opacity-100')
         hourlyTomorrow.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
         hourlyTomorrow.classList.add('-translate-y-[142px]', 'opacity-100')
-    })
+    }
     let todayWeather = weatherData.days[0]
     let currentWeather = weatherData.days[0].hours[Number(join(new Date, [{ hour: 'numeric' }], '-'))]
     let winddir = Math.round(Number(currentWeather.winddir));
