@@ -3,6 +3,7 @@ const leftMenuHeader = document.querySelector('#left-menu-header')
 const listOfLocations = document.querySelector('ol#locations-list')
 const cancelSearchButton = document.querySelector('#cancel-button')
 const input = document.querySelector('#search-input')
+let suggestionList = document.querySelector('#suggestion-list')
 
 input.onfocus = searchFocus;
 input.onkeyup = getGeoData;
@@ -49,6 +50,7 @@ function searchFocus() {
     leftMenuHeader.classList.add('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.9]')
     document.querySelector('#backdrop').classList.add('backdrop-blur-lg', 'z-0')
     document.querySelector('#backdrop').classList.remove('invisible', 'opacity-0')
+    suggestionList.classList.remove('invisible', 'opacity-0')
 }
 function searchCancel() {
     input.placeholder = 'Найти новое место'
@@ -61,6 +63,7 @@ function searchCancel() {
     leftMenuHeader.classList.remove('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.9]')
     document.querySelector('#backdrop').classList.add('invisible', 'opacity-0')
     document.querySelector('#backdrop').classList.remove('backdrop-blur-lg')
+    suggestionList.classList.add('invisible', 'opacity-0')
 }
 
 function getGeoData(event) {
@@ -113,7 +116,7 @@ function getSuggestions(str) {
 
 let resultList
 let rawList = new Object()
-let suggestionList = document.querySelector('#suggestion-list')
+
 function parseSuggestions(suggestions) {
     rawList = JSON.parse(suggestions).suggestions
     suggestionList.innerHTML = ''
