@@ -5,7 +5,7 @@ function setCookie(name, value, days) {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (encodeURIComponent(value) || "") + expires + "; path=/";
+    document.cookie = name + "=" + (encodeURIComponent(value) || "") + expires + "; path=/; SameSite=Strict";
 }
 function getCookie(name) {
     var nameEQ = name + "=";
@@ -25,85 +25,61 @@ let loc = JSON.stringify(
     {
         'spb': {
             "name": 'Санкт-Петербург',
-            "slug": 'spb',
+            "id": 'spb',
             "latitude": 59.89064061054924,
             "longitude": 30.418760414235095
         },
-        'verh': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'verh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        'ss111': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'verrgyhtuh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        'ver222h': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'vedth45rterh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        '3s333': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'verethrtgrh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        'ver444h': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'vefrefg4rh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        'ver555h': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'veh5errh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        'versws222h': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'verthfthh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        '3swswfd333': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'vefedsdgrh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        'verfesfs444h': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'vdawdaferh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
-        'versefsefs555h': {
-            "name": 'Верхненовокутлумбетьево',
-            "slug": 'verdwadh',
-            "latitude": 55.6743,
-            "longitude": 27.0192
-        },
+        // 'verh': {
+        //     "name": 'Верхненовокутлумбетьево',
+        //     "id": 'verh',
+        //     "latitude": 55.6743,
+        //     "longitude": 27.0192
+        // },
+        // 'ss111': {
+        //     "name": 'Верхненовокутлумбетьево',
+        //     "id": 'verrgyhtuh',
+        //     "latitude": 55.6743,
+        //     "longitude": 27.0192
+        // },
+        // 'ver222h': {
+        //     "name": 'Верхненовокутлумбетьево',
+        //     "id": 'vedth45rterh',
+        //     "latitude": 55.6743,
+        //     "longitude": 27.0192
+        // },
+        // '3s333': {
+        //     "name": 'Верхненовокутлумбетьево',
+        //     "id": 'verethrtgrh',
+        //     "latitude": 55.6743,
+        //     "longitude": 27.0192
+        // },
+        // 'ver444h': {
+        //     "name": 'Верхненовокутлумбетьево',
+        //     "id": 'vefrefg4rh',
+        //     "latitude": 55.6743,
+        //     "longitude": 27.0192
+        // },
+        // 'versefsefs555h': {
+        //     "name": 'Верхненовокутлумбетьево',
+        //     "id": 'verdwadh',
+        //     "latitude": 55.6743,
+        //     "longitude": 27.0192
+        // },
         'panteleyki': {
             "name": 'Пантелейки',
-            "slug": 'panteleyki',
+            "id": 'panteleyki',
             "latitude": 55.6743,
             "longitude": 27.0192
         },
         'torrevieja': {
             "name": "Торревьеха",
-            "slug": 'torrevieja',
+            "id": 'torrevieja',
             "latitude": 37.9815,
             "longitude": -0.6753
         },
         'zucchelli': {
             "name": "Zucchelli Station",
-            "slug": 'zucchelli',
+            "id": 'zucchelli',
             "latitude": -74.69399018874958,
             "longitude": 164.11546177709056
         },
@@ -111,7 +87,7 @@ let loc = JSON.stringify(
 );
 
 // if (getCookie('locations') === null) {
-setCookie('locations', loc, 30)
+// setCookie('locations', loc, 30)
 // }
 
 // if (getCookie('lastUpdateEpoch') === null) {

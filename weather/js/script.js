@@ -17,10 +17,6 @@ const locationName = document.getElementById('locationName'); // Name of the loc
 
 locationName.innerText = Object.values(locations)[0].name
 
-const weatherDetailsToggle = document.querySelector('#details-toggle')
-const detailInfo = document.querySelector('#spb-weather-details')
-const detailItems = document.querySelectorAll('#spb-weather-details .detail-item')
-
 async function getWeather(location) {
     let latitude = location.latitude
     let longitude = location.longitude
@@ -29,8 +25,8 @@ async function getWeather(location) {
         // method: 'GET',
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
-    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Caddress%2CresolvedAddress%2Clatitude%2Clongitude%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslikemax%2Cfeelslikemin%2Cfeelslike%2Chumidity%2Cprecip%2Cprecipprob%2Cwindspeed%2Cwinddir%2Cpressure%2Cconditions%2Cdescription%2Cicon&include=fcst%2Cobs%2Cremote%2Cstatsfcst%2Cstats%2Chours%2Calerts%2Cdays%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    const url = 'panteleyki.json'
+    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    const url = 'paris.json'
     await fetch(url, options)
         .then(response => response.json())
         .then(weatherData => appendData(location, weatherData))
@@ -70,21 +66,21 @@ function slideToId(index) {
 }
 
 function swapElementsInObject(obj, fromId, toId) {
-    console.log(obj)
+    // console.log(obj)
     var tempKey = 'test'
     var tempValue = JSON.stringify(Object.values(obj)[fromId])
-    console.log(`
-        from: ${fromId} to: ${toId}
-        temp key: ${tempKey}
-        temp value: ${tempValue}
-    `)
+    // console.log(`
+    //     from: ${fromId} to: ${toId}
+    //     temp key: ${tempKey}
+    //     temp value: ${tempValue}
+    // `)
     locations = addToObject(obj, tempKey, tempValue, toId)
     var json = JSON.stringify(locations, null, 4);
     // document.querySelector('#json').innerHTML = json;
-    console.log(locations)
-    console.log(tempValue)
+    // console.log(locations)
+    // console.log(tempValue)
     let location = locations[tempKey]
-    console.log(location)
+    // console.log(location)
 }
 
 function join(t, a, s) {
@@ -147,8 +143,8 @@ function generateSlides(locations) {
     for (let [name, location] of Object.entries(locations)) {
         // console.log(name)
         containerLocations.insertAdjacentHTML('beforeend', `
-        <li id="card-${location.slug}" class="w-full h-[85px] z-[60]
-        hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu" id="location-${location.slug}">
+        <li id="card-${location.name_translit}" class="w-full h-[85px] z-[60]
+        hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu duration-500">
             <!-- CONTENT-->
             <div class="flex justify-center ">
                 <div onclick=(slideToId(Object.keys(locations).indexOf('${name}'))) class="minicard no-swipe no-reorder absolute w-full 
@@ -167,7 +163,7 @@ function generateSlides(locations) {
                         <div class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
                             <div class="no-swipe no-reorder temp text-[32px] font-medium transition-translate duration-700 transform-gpu">
                             </div>
-                            <div class="minmax grid grid-flow-row divide-y divide-white/20 leading-[14px] transition-translate duration-500 transform-gpu">
+                            <div class="minmax grid justify-items-center grid-flow-row divide-y divide-white/20 leading-[14px] transition-translate duration-500 transform-gpu">
                                 <div class="no-swipe no-reorder tempmax text-xs transition-translate duration-300 transform-gpu">
                                 </div>
                                 <div class="no-swipe no-reorder tempmin text-xs transition-translate duration-300 transform-gpu">
@@ -185,7 +181,7 @@ function generateSlides(locations) {
             </div>
             <!-- BUTTONS-->
             <div class="h-[85px] justify-between grid grid-flow-col">
-                <button type="button" data-hs-remove-element="#location-${location.slug}"
+                <button type="button" data-hs-remove-element="#card-${location.name_translit}"
                     onclick="deleteLocation(Object.keys(locations).indexOf('${name}'), '${name}')"
                     class=" location-del
                      opacity-0 translate-x-6 transition-translate duration-300 transform-gpu pointer-events-none z-10 ease-out">
@@ -202,31 +198,31 @@ function generateSlides(locations) {
 
         // console.log(`${location}: ${value.name}`);
         slides.insertAdjacentHTML('beforeend', `
-        <div id="${location.slug}-slide" data-hash="${location.slug}" class="swiper-slide bg-bg">
+        <div id="slide-${location.id}" data-hash="${location.id}" class="swiper-slide bg-bg">
                         <!-- Start of Content -->
                         <div class="swiper-pagination"></div>
-                            <div id="${location.slug}-main_info" class="grid gap-4 
+                            <div id="main_info-${location.id}" class="grid gap-4 
                                 p-5 mx-4 mb-[27px] bg-gradient-to-br from-cyan/20 to-blue/20 rounded-3xl">
 
                                 <div class="flex justify-between items-baseline w-full">
-                                    <div id=${location.slug}-current-time" class="font-semibold text-xl leading-5">18:10</div>
-                                    <div id="${location.slug}-current-day" class="text-white/70 text-xs"></div>
+                                    <div id="current-time-${location.id}" class="font-semibold text-xl leading-5"></div>
+                                    <div id="current-day-${location.id}" class="text-white/70 text-xs"></div>
                                 </div>
-                                <button type="button" id="details-toggle" class="relative hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
-                                text-white" data-hs-collapse="#${location.slug}-weather-details">
+                                <button type="button" id="details-toggle-${name}" class="relative hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
+                                text-white" data-hs-collapse="#weather-details-${location.name_translit}">
                                     <div class="grid grid-flow-row justify-items-start">
                                         <div class="grid grid-flow-col">
-                                            <div id="${location.slug}-temperature" class="font-semibold text-[64px] leading-[75px]"></div>
+                                            <div id="temperature-${location.id}" class="font-semibold text-[64px] leading-[75px]"></div>
                                             <div class="grid grid-flow-row divide-y divide-white/20 content-center px-4">
-                                                <div>18</div>
-                                                <div>12</div>
+                                                <div></div>
+                                                <div></div>
                                             </div>
                                         </div>
-                                        <div id="${location.slug}-conditions" class="font-light text-sm leading-[18px]"></div>
-                                        <div id="${location.slug}-feelslike" class="flex font-light text-sm leading-[18px]"></div>
+                                        <div id="conditions-${location.id}" class="font-light text-sm leading-[18px]"></div>
+                                        <div id="feelslike-${location.id}" class="flex font-light text-sm leading-[18px]"></div>
                                     </div>
-                                    <div id="${location.slug}-weather-icon" class="w-[120px] h-[120px]"></div>
-                                    <div id="expand-arrow-d" class="absolute -bottom-2 flex justify-center w-full">
+                                    <div id="weather-icon-${location.id}" class="w-[120px] h-[120px]"></div>
+                                    <div id="expand-arrow-d-${location.id}" class="absolute -bottom-2 flex justify-center w-full">
                                         <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] translate-x-[1px] rotate-[20deg] rounded-sm rounded-tr-none transition-all duration-500 transform-gpu"></div>
                                         <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] -translate-x-[1px] rotate-[-20deg] rounded-sm rounded-tl-none transition-all duration-500 transform-gpu"></div>
                                     </div>
@@ -234,7 +230,7 @@ function generateSlides(locations) {
 
                                 <!--==-=== Weather Details ===-==-->
 
-                                <section id="${location.slug}-weather-details" class="hs-collapse hidden grid gap-2 items-center overflow-hidden transition-all transform-gpu">
+                                <section id="weather-details-${location.name_translit}" class="hs-collapse hidden grid gap-2 items-center overflow-hidden transition-all transform-gpu">
 
                                     <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
                                         <div class="flex flex-col">
@@ -242,7 +238,7 @@ function generateSlides(locations) {
                                                 src="img/assets/icons/details/clarity_compass-line.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-windspeed"
+                                            <div id="windspeed-${location.id}"
                                                 class="flex text-sm font-semibold gap-1 items-baseline"></div>
                                             <div class="text-white/50 text-xs">Ветер</div>
                                         </div>
@@ -252,7 +248,7 @@ function generateSlides(locations) {
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/precip.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-precipprob" class="text-sm font-semibold">
+                                            <div id="precipprob-${location.id}" class="text-sm font-semibold">
                                             </div>
                                             <div class="text-white/50 text-xs">Осадки</div>
                                         </div>
@@ -263,7 +259,7 @@ function generateSlides(locations) {
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunrise.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-sunset" class="text-sm font-semibold">5:00</div>
+                                            <div id="sunset-${location.id}" class="text-sm font-semibold">5:00</div>
                                             <div class="text-white/50 text-xs">Восход</div>
                                         </div>
                                     </div>
@@ -272,7 +268,7 @@ function generateSlides(locations) {
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/wi_barometer.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-pressure" class="text-sm font-semibold"></div>
+                                            <div id="pressure-${location.id}" class="text-sm font-semibold"></div>
                                             <div class="text-white/50 text-xs">Давление</div>
                                         </div>
                                     </div>
@@ -281,7 +277,7 @@ function generateSlides(locations) {
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/ion_water-humidity.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-humidity" class="text-sm font-semibold">
+                                            <div id="humidity-${location.id}" class="text-sm font-semibold">
                                             </div>
                                             <div class="text-white/50 text-xs">Влажность</div>
                                         </div>
@@ -291,7 +287,7 @@ function generateSlides(locations) {
                                         <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunset.svg" alt="">
                                         </div>
                                         <div class="flex flex-col">
-                                            <div id="${location.slug}-sunset" class="text-sm font-semibold">21:30</div>
+                                            <div id="sunset-${location.id}" class="text-sm font-semibold">21:30</div>
                                             <div class="text-white/50 text-xs">Закат</div>
                                         </div>
                                     </div>
@@ -301,25 +297,25 @@ function generateSlides(locations) {
                                 <!--==-=== Weather Details End ===-==-->
 
                             </div>
-                            <div id="${location.slug}-nav" class="flex flex-row gap-10 pl-8 mt-6 mb-1">
-                                <button type='button' id="${location.slug}-buttonToday"
+                            <div id="nav-${location.id}" class="flex flex-row gap-10 pl-8 mt-6 mb-1">
+                                <button type='button' id="buttonToday-${location.id}"
                                     class="z-40 font-normal text-sm transition-all duration-700 text-white">
                                     Сегодня
                                 </button type='button'>
-                                <button type='button' id="${location.slug}-buttonTomorrow"
+                                <button type='button' id="buttonTomorrow-${location.id}"
                                     class="z-40 font-normal text-sm transition-all duration-500 text-white/50">Завтра
                                 </button type='button'>
                             </div>
                             <div class="h-[160px] relative">
-                                <div id="${location.slug}-hourlyToday" class="swiper-no-swiping grid grid-flow-col gap-2 
+                                <div id="hourlyToday-${location.id}" class="swiper-no-swiping grid grid-flow-col gap-2 
                                 overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition-all duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)]">
                                 </div>
-                                <div id="${location.slug}-hourlyTomorrow" class="swiper-no-swiping pointer-events-none grid grid-flow-col gap-3 
+                                <div id="hourlyTomorrow-${location.id}" class="swiper-no-swiping pointer-events-none grid grid-flow-col gap-3 
                                 overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition-all duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)] -translate-y-20 opacity-0 ">
                                 </div>
                             </div>
                         <!-- <div class="block ml-6 mb-3 text-xl leading-6 font-light">Прогноз на 10 дней</div> --->
-                            <div id="${location.slug}-daily" class="mx-4 grid grid-flow-row divide-y divide-blue/20">
+                            <div id="daily-${location.id}" class="mx-4 grid grid-flow-row divide-y divide-blue/20">
                             </div>
                         <!-- End of content -->
                         </div>`)
@@ -334,7 +330,6 @@ const classToggle = (el, ...args) => {
 // const miniCards = document.querySelectorAll('.mini-card')
 const minmax = document.querySelectorAll('.minmax')
 locationsEdit.onclick = () => {
-
     let minicards = document.querySelectorAll('.minicard')
     minicards.forEach((element) => {
         classToggle(element, 'w-[260px]', 'w-full', 'h-[80px]')
@@ -386,12 +381,12 @@ locationsEdit.onclick = () => {
     })
 }
 
-function printHourlyWeather(location, days, weatherData, startDay = 0) {
+function printHourlyWeather(id, days, weatherData, startDay = 0) {
     days += startDay
     if (startDay === 0) {
-        hourlyPlaceholder = document.getElementById(location.slug + '-hourlyToday')
+        hourlyPlaceholder = document.getElementById('hourlyToday-' + id)
     } else {
-        hourlyPlaceholder = document.getElementById(location.slug + '-hourlyTomorrow')
+        hourlyPlaceholder = document.getElementById('hourlyTomorrow-' + id)
     }
 
     for (var day = startDay; day < days; day++) {
@@ -418,9 +413,7 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
             } else {
                 nextDayTip = ''
             }
-            // console.log('hour = ' + (currentHour + i))
-            // console.log(`data = ${data}`)
-            // console.log('icon:' + data.icon)
+
             hourlyPlaceholder.innerHTML += `
                 <div class="relative grid grid-flow-row justify-items-center w-[58px] h-[98px] p-2 mb-4  rounded-lg">
                     <div class="-top-[18px] absolute text-xs text-white/50">${nextDayTip}</div>
@@ -446,24 +439,61 @@ function printHourlyWeather(location, days, weatherData, startDay = 0) {
 
 function appendData(location, weatherData) {
     // console.log(weatherData)
-    const buttonTomorrow = document.getElementById(location.slug + '-buttonTomorrow');
-    const buttonToday = document.getElementById(location.slug + '-buttonToday');
-    const temperature = document.getElementById(location.slug + '-temperature');
-    const weatherIcon = document.getElementById(location.slug + '-weather-icon');
-    const conditions = document.getElementById(location.slug + '-conditions');
-    const currentDay = document.getElementById(location.slug + '-current-day');
-    const feelslike = document.getElementById(location.slug + '-feelslike');
-    const humidity = document.getElementById(location.slug + '-humidity');
-    const pressure = document.getElementById(location.slug + '-pressure');
-    const windspeed = document.getElementById(location.slug + '-windspeed');
-    const precipprob = document.getElementById(location.slug + '-precipprob');
-    const hourlyToday = document.getElementById(location.slug + '-hourlyToday');
-    const hourlyTomorrow = document.getElementById(location.slug + '-hourlyTomorrow');
 
-    printHourlyWeather(location, days, weatherData)
-    printHourlyWeather(location, days, weatherData, 1)
+    const buttonTomorrow = document.getElementById('buttonTomorrow-' + location.id);
+    const buttonToday = document.getElementById('buttonToday-' + location.id);
+    const temperature = document.getElementById('temperature-' + location.id);
+    const weatherIcon = document.getElementById('weather-icon-' + location.id);
+    const conditions = document.getElementById('conditions-' + location.id);
+    const currentDay = document.getElementById('current-day-' + location.id);
+    const feelslike = document.getElementById('feelslike-' + location.id);
+    const humidity = document.getElementById('humidity-' + location.id);
+    const pressure = document.getElementById('pressure-' + location.id);
+    const windspeed = document.getElementById('windspeed-' + location.id);
+    const precipprob = document.getElementById('precipprob-' + location.id);
+    const hourlyToday = document.getElementById('hourlyToday-' + location.id);
+    const hourlyTomorrow = document.getElementById('hourlyTomorrow-' + location.id);
+
+    printHourlyWeather(location.id, days, weatherData)
+    printHourlyWeather(location.id, days, weatherData, 1)
 
     // console.log(locations)
+    console.log(location.name)
+    console.log(location)
+    const weatherDetailsToggle = document.querySelector(`#details-toggle-${location.name_translit}`)
+    const detailInfo = document.querySelector(`#weather-details-${location.name_translit}`)
+    const detailItems = document.querySelectorAll(`#weather-details-${location.name_translit} .detail-item`)
+
+    weatherDetailsToggle.onclick = () => {
+        if (detailInfo.clientHeight > 0) {
+            console.log('▲ details closing... ▲')
+
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.remove('rotate-[-20deg]')
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.remove('rotate-[20deg]')
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.add('rotate-[20deg]')
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.add('rotate-[-20deg]')
+
+            detailItems.forEach((el) => {
+                el.classList.add('opacity-0', '-translate-y-5', '-translate-x-1');
+            })
+
+            detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
+        } else {
+            console.log('▼ details opening... ▼')
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.remove('rotate-[20deg]')
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.remove('rotate-[-20deg]')
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.add('rotate-[-20deg]')
+            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.add('rotate-[20deg]')
+            detailItems.forEach((el, index) => {
+                var interval = 35;
+                setTimeout(() => {
+                    el.classList.remove('opacity-0', '-translate-y-5', '-translate-x-1');
+                }, index * interval);
+            })
+            detailInfo.querySelector('.winddir').classList.add('rotate-[1turn]')
+        }
+    }
+
 
     buttonToday.onclick = () => {
         buttonTomorrow.classList.remove('text-white')
@@ -531,11 +561,11 @@ function appendData(location, weatherData) {
         ${Math.round(currentWeather.windspeed)} 
         <span class="text-sm font-medium">км/ч</span>`
 
-    document.querySelector(`#card-${location.slug} .temp`).innerText = Math.round(todayWeather.temp)
-    document.querySelector(`#card-${location.slug} .condition`).innerText = todayWeather.conditions
-    document.querySelector(`#card-${location.slug} .tempmax`).innerText = Math.round(todayWeather.tempmax)
-    document.querySelector(`#card-${location.slug} .tempmin`).innerText = Math.round(todayWeather.tempmin)
-    document.querySelector(`#card-${location.slug} .weather-icon`).innerHTML = `
+    document.querySelector(`#card-${location.name_translit} .temp`).innerText = Math.round(todayWeather.temp)
+    document.querySelector(`#card-${location.name_translit} .condition`).innerText = todayWeather.conditions
+    document.querySelector(`#card-${location.name_translit} .tempmax`).innerText = Math.round(todayWeather.tempmax)
+    document.querySelector(`#card-${location.name_translit} .tempmin`).innerText = Math.round(todayWeather.tempmin)
+    document.querySelector(`#card-${location.name_translit} .weather-icon`).innerHTML = `
     <img no-swipe no-reorder src="img/assets/icons/weather-conditions/${todayWeather.icon}.svg">`
 
 
@@ -550,7 +580,7 @@ function appendData(location, weatherData) {
         } else {
             color = 'text-white'
         }
-        document.getElementById(location.slug + '-daily').innerHTML += `
+        document.getElementById('daily-' + location.id).innerHTML += `
         <div class="flex px-2 py-2 items-center">
             <div class="grow shrink-0 w-20 flex flex-col">
                 <div class="text-xs text-white/50">${date}</div>
