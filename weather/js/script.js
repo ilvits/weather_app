@@ -121,9 +121,12 @@ function setupSlip(list) {
 
 document.addEventListener("DOMContentLoaded", () => {
     // swapElementsInObject(locations, 1, 0)
-    for (let [name, location] of Object.entries(locations)) {
-        // console.log(location);
-        getWeather(location);
+    if (locations) {
+        for (let [name, location] of Object.entries(locations)) {
+            // console.log(location);
+            getWeather(location);
+        }
+
     }
     // document.getElementById('locationName').onclick = () => {
     //     // alert('vibrate');
