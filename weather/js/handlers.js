@@ -13,17 +13,14 @@ fetch("https://ipinfo.io/json?token=bf205b8bacf2c5").then(
 const leftMenuHeader = document.querySelector('#left-menu-header')
 const listOfLocations = document.querySelector('ol#locations-list')
 const cancelSearchButton = document.querySelector('#cancel-button')
-const input = document.querySelector('#search-input')
+const searchInput = document.querySelector('#search-input')
 let suggestionList = document.querySelector('#suggestion-list')
 const leftMenuContainer = document.querySelector('#left-menu-container')
 const newLocationPreviewEl = document.querySelector('#new-location-preview')
 
-input.onfocus = searchFocus;
-input.onkeyup = getGeoData;
+searchInput.onfocus = searchFocus;
+searchInput.onkeyup = getGeoData;
 cancelSearchButton.addEventListener('click', searchCancel);
-
-getLocationButton = document.querySelector('#get-current-location')
-getLocationButton.addEventListener('click', getCurrentLocation);
 
 function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -75,7 +72,6 @@ function showPosition(position) {
     fetch(url, options)
         .then(response => response.json())
         .then(result => {
-            console.log(result.suggestions[0])
             console.log(`
                 Широта: ${crd.latitude}
                 Долгота: ${crd.longitude}
@@ -88,13 +84,13 @@ function showPosition(position) {
 
 
 function searchFocus() {
-    input.placeholder = 'Введите название'
-    input.classList.add('w-[calc(100vw-120px)]')
-    input.classList.remove('w-full', 'text-white/50')
+    searchInput.placeholder = 'Введите название'
+    searchInput.classList.add('w-[calc(100vw-120px)]')
+    searchInput.classList.remove('w-full', 'text-white/50')
     leftMenuContainer.classList.remove('overflow-y-scroll', 'overflow-x-hidden')
     cancelSearchButton.classList.remove('-right-20')
     cancelSearchButton.classList.add('right-5')
-    input.parentNode.classList.add('-translate-y-16')
+    searchInput.parentNode.classList.add('-translate-y-16')
     listOfLocations.classList.add('-translate-y-14', 'scale-[0.96]', '-z-10')
     leftMenuHeader.classList.add('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.99]')
     document.querySelector('#backdrop').classList.add('backdrop-blur-lg', 'z-0')
@@ -102,14 +98,14 @@ function searchFocus() {
     suggestionList.classList.remove('invisible', 'opacity-0')
 }
 function searchCancel() {
-    input.placeholder = 'Найти новое место'
-    input.value = ''
-    input.classList.remove('w-[calc(100vw-120px)]')
-    input.classList.add('w-full', 'text-white/50')
+    searchInput.placeholder = 'Найти новое место'
+    searchInput.value = ''
+    searchInput.classList.remove('w-[calc(100vw-120px)]')
+    searchInput.classList.add('w-full', 'text-white/50')
     leftMenuContainer.classList.add('overflow-y-scroll', 'overflow-x-hidden')
     cancelSearchButton.classList.add('-right-20')
     cancelSearchButton.classList.remove('right-5')
-    input.parentNode.classList.remove('-translate-y-16')
+    searchInput.parentNode.classList.remove('-translate-y-16')
     listOfLocations.classList.remove('-translate-y-14', 'scale-[0.96]', '-z-10')
     leftMenuHeader.classList.remove('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.99]')
     document.querySelector('#backdrop').classList.add('invisible', 'opacity-0')
@@ -138,6 +134,7 @@ function getGeoData(event) {
         console.log('Недопустимые символы')
     }
 }
+
 function getSuggestions(str) {
     // console.log(str);
     var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
@@ -184,7 +181,7 @@ function parseSuggestions(suggestions) {
             delete (rawList[key]);
             rawList.length -= 1;
         } else {
-            let searchText = input.value
+            let searchText = searchInput.value
             let name = (value.data.settlement !== null)
                 ? value.data.settlement_type_full + ' ' + value.data.settlement
                 : value.data.city_type_full + ' ' + value.data.city;
@@ -215,23 +212,11 @@ function parseSuggestions(suggestions) {
                 'data-name_translit': name_translit,
                 'data-latitude': latitude,
                 'data-longitude': longitude,
-                'data-countrycode': countryCode,
+                'data-country_code': countryCode,
                 'data-region': region,
                 'data-country': country,
                 'onclick': action,
             });
-            // console.log(locationLi)
-            // console.log(suggestionList)
-            // let text = `
-            // <li class="py-2 pr-2 overflow-hidden overflow-ellipsis whitespace-nowrap" data-countryCode="${countryCode}" 
-            //     data-id="${id}" 
-            //     data-name="${name}" 
-            //     data-latitude="${latitude}"
-            //     data-longitude="${longitude}" 
-            //     onclick="previewWeather(this)">
-            //     ${locationName.replace(capText, `<span class="text-yellow">${capText}</span>`)}, <span class="text-white/50">${region}${(countryCode !== userCountry) ? ', ' + country : ''}</span>
-            // </li>`
-            // suggestionList.innerHTML += text
         }
     }
 }
@@ -251,23 +236,24 @@ function previewWeather(location) {
     console.log('location: ')
     console.log(location)
     locationDataSet = {
-        searchText: input.value,
+        searchText: searchInput.value,
         name: location.dataset.name,
         name_translit: location.dataset.name_translit,
         latitude: location.dataset.latitude,
         longitude: location.dataset.longitude,
-        countryCode: location.dataset.countryCode,
+        country_code: location.dataset.countryCode,
         id: location.dataset.id,
         region: location.dataset.region,
         country: location.dataset.country,
     }
+
 
     const options = {
         method: 'GET',
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
 
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationDataSet.latitude}%2C${locationDataSet.longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
     // const url = 'paris.json'
     fetch(url, options)
         .then(response => response.json())
@@ -276,13 +262,6 @@ function previewWeather(location) {
 }
 
 function previewCurrentLocation(location) {
-    //
-    // geo_lat: "59.890297"
-    // ​​​
-    // geo_lon: "30.419237"
-    // ​​​
-    // geoname_id: "498817"
-
     console.log('location: ')
     console.log(location)
     locationDataSet = {
@@ -290,8 +269,8 @@ function previewCurrentLocation(location) {
         name_translit: translit((location.data.settlement !== null) ? location.data.settlement : location.data.city),
         latitude: location.data.geo_lat,
         longitude: location.data.geo_lon,
-        countryCode: location.data.country_iso_code,
-        id: location.data.fias_id,
+        country_code: location.data.country_iso_code,
+        id: location.data.fias_id ? location.data.fias_id : location.data.geoname_id,
         region: location.data.region,
         country: location.data.country,
     }
@@ -301,20 +280,26 @@ function previewCurrentLocation(location) {
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
 
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationDataSet.latitude}%2C${locationDataSet.longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
     // const url = 'paris.json'
     fetch(url, options)
         .then(response => response.json())
-        .then(weatherData => generatePreview(locationDataSet, weatherData))
+        .then(weatherData => generatePreview(locationDataSet, weatherData, true))
         .catch(err => console.log(err));
 }
 
-function generatePreview(location, weatherData) {
-    console.log(location)
+function generatePreview(location, weatherData, current = false) {
+    setTimeout(() => {
+        newLocationPreviewEl.classList.remove('opacity-0', 'translate-y-[600px]')
+        newLocationPreviewEl.classList.add('z-[130]')
+    }, 1);
+    newLocationPreviewEl.classList.remove('hidden', '-z-10');
+    // console.log(location)
     name_translit = location.name_translit
     id = location.id
     addButton = document.querySelector('#add-weather-preview')
     addButton.dataset.locationId = id
+    addButton.dataset.current = current
     // console.log(name_translit)
     // console.log(locations.name_translit)
     // const name_translit = translit((location.data.settlement !== null) ? location.data.settlement : location.data.city)
@@ -545,37 +530,32 @@ function generatePreview(location, weatherData) {
                 </div>`;
     }
     const locationPreviewHeader = document.querySelector('#location-name')
-    setTimeout(() => {
-        newLocationPreviewEl.classList.remove('opacity-0', 'translate-y-[600px]')
-        newLocationPreviewEl.classList.add('z-[130]')
-        locationPreviewHeader.innerHTML = location.name
-    }, 1);
-    newLocationPreviewEl.classList.remove('hidden', '-z-10');
-
+    locationPreviewHeader.innerHTML = location.name
 }
-
 
 function addNewLocation() {
     // add to object
     const id = locationDataSet.id
+    const current = locationDataSet.current
     const name = locationDataSet.name;
     const name_translit = locationDataSet.name_translit;
     const region = locationDataSet.region;
     const country = locationDataSet.country;
     const latitude = locationDataSet.latitude;
     const longitude = locationDataSet.longitude;
-    const countryCode = locationDataSet.countrycode;
+    const countryCode = locationDataSet.country_code;
 
     console.log(id, longitude, latitude, country, name, countryCode, region, name_translit)
     locations = addToObject(locations, id, {
-        "name": name,
-        "name_translit": name_translit,
-        "id": id,
-        "latitude": latitude,
-        "longitude": longitude,
-        "region": region,
-        "country": country,
-        "countryCode": countryCode,
+        name: name,
+        name_translit: name_translit,
+        id: id,
+        latitude: latitude,
+        longitude: longitude,
+        region: region,
+        country: country,
+        country_code: countryCode,
+        current: current
     })
 
     // add to cookies

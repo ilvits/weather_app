@@ -6,27 +6,30 @@ let nHours = 26 // Number of hours to display
 let leftHours = 24 - currentHour
 //TODO: переделать выбор количества дней
 var days = (24 - leftHours) < nHours ? 2 : 1;
-const slides = document.getElementById('slides');
-const menuLocations = document.getElementById('menu-locations');
+const slides = document.querySelector('#slides');
+const menuLocations = document.querySelector('#menu-locations');
 const containerLocations = document.querySelector('ol#locations-list');
-const containerDefaults = document.getElementById('left-menu-container').innerHTML;
-const locationsEdit = document.getElementById('locationsEdit');
+const containerDefaults = document.querySelector('#left-menu-container').innerHTML;
+const locationsEdit = document.querySelector('#locations-edit');
+const locationName = document.querySelector('#locationName'); // Name of the location
+let miniCards
+let minmax
+let cardLocationName
+let weatherIcon
+let editButtons
 
-generateSlides(locations)
-const locationName = document.getElementById('locationName'); // Name of the location
 
-locationName.innerText = Object.values(locations)[0].name
 
 async function getWeather(location) {
+    // console.log(location)
     let latitude = location.latitude
     let longitude = location.longitude
-
     const options = {
         // method: 'GET',
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    // const url = 'paris.json'
+    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    const url = 'paris.json'
     await fetch(url, options)
         .then(response => response.json())
         .then(weatherData => appendData(location, weatherData))
@@ -36,8 +39,12 @@ async function getWeather(location) {
 HSOverlay.on('open', () => {
     console.log('menu opening =>')
 })
+
 HSOverlay.on('close', () => {
     console.log('<= menu closed')
+    if ((locations !== null) || locations.length === 0) {
+        locationName.innerText = Object.values(locations)[swiper.realIndex].name
+    }
 })
 
 HSCollapse.on('open', () => {
@@ -47,7 +54,6 @@ HSCollapse.on('open', () => {
 HSCollapse.on('close', () => {
 
 })
-
 
 HSCollapse.on('hide', () => {
     console.log('▲ details closed ▲')
@@ -120,13 +126,71 @@ function setupSlip(list) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    generateSlides(locations);
+    miniCards = document.querySelectorAll('.minicard')
+    minmax = document.querySelectorAll('.minmax')
+    cardLocationName = document.querySelectorAll('.cardLocationName')
+    weatherIcon = document.querySelectorAll('.weather-icon')
+    editButtons = document.querySelector('.edit-buttons')
+
+    locationsEdit.onclick = () => {
+        miniCards.forEach((element) => {
+            // console.log(element)
+            // console.log(editButtons)
+            classToggle(element, 'w-[260px]', 'w-full', 'h-[80px]')
+            classToggle(editButtons, 'w-[260px]', 'w-full', 'h-[80px]', 'opacity-0', 'pointer-events-none')
+            element.children[0].classList.toggle('translate-y-1')
+        })
+
+        cardLocationName.forEach((e) => {
+            if (e.innerText.length > 18) {
+                e.classList.toggle('text-base')
+            }
+        })
+
+        weatherIcon.forEach((e) => {
+            classToggle(e, 'scale-0', 'opacity-0')
+        })
+
+        minmax.forEach((element) => {
+            element.classList.toggle('translate-x-5')
+            element.classList.toggle('opacity-0')
+            // element.classList.toggle('invisible')
+            // element.classList.toggle('hidden')
+            element.parentElement.classList.toggle('translate-x-6')
+            // document.getElementById('conditionEl').classList.toggle('invisible')
+            // document.getElementById('conditionEl').classList.toggle('-translate-y-5')
+            // document.getElementById('conditionEl').classList.toggle('opacity-0')
+
+        })
+    }
+
+    setupSlip(document.getElementById('locations-list'));
+    getLocationButton = document.querySelector('#get-current-location');
+    getLocationButton.addEventListener('click', getCurrentLocation);
     // swapElementsInObject(locations, 1, 0)
     if (locations) {
+        // console.log(locations)
         for (let [name, location] of Object.entries(locations)) {
-            // console.log(location);
-            getWeather(location);
-        }
+            locationDataSet = {
+                id: location.id,
+                name: location.name,
+                name_translit: location.name_translit,
+                latitude: location.latitude,
+                longitude: location.longitude,
+                country_code: location.countryCode,
+                region: location.region,
+                country: location.country,
+            }
+            if (location.current == true) {
+                getLocationButton.classList.add('hidden')
+            } else {
 
+
+            }
+            // console.log(location);
+            getWeather(locationDataSet);
+        }
     }
     // document.getElementById('locationName').onclick = () => {
     //     // alert('vibrate');
@@ -145,59 +209,56 @@ function generateSlides(locations) {
     // containerLocations.innerHTML = containerDefaults;
     if (locations) {
         for (let [name, location] of Object.entries(locations)) {
-            // console.log(name)
+            locationName.innerText = Object.values(locations)[0].name
+            // console.log(location.current)
             containerLocations.insertAdjacentHTML('beforeend', `
-        <li id="card-${location.name_translit}" class="w-full h-[85px] z-[60]
-        hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu duration-500">
-            <!-- CONTENT-->
-            <div class="flex justify-center ">
-                <div onclick=(slideToId(Object.keys(locations).indexOf('${name}'))) class="minicard no-swipe no-reorder absolute w-full 
-            bg-bg bg-gradient-to-br from-cyan/20 to-blue/20 z-20
-            p-4 transition-translate duration-300 transform-gpu rounded-2xl h-[85px]">
-                    <div class="absolute left-4 flex-col transition-translate duration-300 transform-gpu">
-                        <div class=" no-swipe no-reorder text-[10px] text-white/50 leading-3">16:00</div>
-                        <div
-                            class="no-swipe no-reorder cardLocationName text-${(location.name.length > 15) ? 'base' : 'xl'} leading-5 transition-all duration-300 transform-gpu">
-                            ${location.name}
-                        </div>
-                        <div class="condition no-swipe no-reorder text-xs leading-[14px] transition-translate duration-300 transform-gpu">
-                        </div>
-                    </div>
-                    <div class="no-swipe no-reorder absolute right-4 flex flex-row gap-2 transition-translate duration-300 transform-gpu">
-                        <div class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
-                            <div class="no-swipe no-reorder temp text-[32px] font-medium transition-translate duration-700 transform-gpu">
-                            </div>
-                            <div class="minmax grid justify-items-center grid-flow-row divide-y divide-white/20 leading-[14px] transition-translate duration-500 transform-gpu">
-                                <div class="no-swipe no-reorder tempmax text-xs transition-translate duration-300 transform-gpu">
+                <li id="card-${location.name_translit}" class="w-full h-[85px] z-[60] flex justify-center 
+                hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu duration-500">
+                    <!-- CONTENT-->
+                        <div onclick=(slideToId(Object.keys(locations).indexOf('${name}'))) 
+                        class="minicard no-swipe no-reorder absolute w-full bg-bg bg-gradient-to-br from-cyan/20 to-blue/20 z-20
+                            p-4 transition-translate duration-300 transform-gpu rounded-2xl h-[85px]">
+                            <div class="absolute left-4 flex-col transition-translate duration-300 transform-gpu">
+                                <div class=" no-swipe no-reorder text-[10px] text-white/50 leading-3"> --:-- </div>
+                                <div class="no-swipe no-reorder cardLocationName text-${(location.name.length > 15) ? 'base' : 'xl'} 
+                                            flex  leading-5 transition-all duration-300 transform-gpu">
+                                    <div>${location.name}</div>
                                 </div>
-                                <div class="no-swipe no-reorder tempmin text-xs transition-translate duration-300 transform-gpu">
+                                <div class="condition no-swipe no-reorder text-xs leading-[14px] transition-translate duration-300 transform-gpu"></div>
+                            </div>
+                            <div>
+                            ${location.current ? '<img class="w-5 absolute right-36" src="img/assets/icons/map-pin.svg">' : ''}
+                            </div>
+                            <div class="no-swipe no-reorder absolute right-4 flex flex-row gap-2 transition-translate duration-300 transform-gpu">
+                                <div class="no-swipe no-reorder grid grid-flow-col gap-1 items-center transition-translate duration-300 transform-gpu">
+                                    <div class="no-swipe no-reorder temp text-[32px] font-medium">
+                                    </div>
+                                    <div class="minmax grid justify-items-center grid-flow-row divide-y divide-white/20 leading-[14px] transition-translate duration-500 transform-gpu">
+                                        <div class="no-swipe no-reorder tempmax text-xs ">
+                                        </div>
+                                        <div class="no-swipe no-reorder tempmin text-xs ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="no-swipe no-reorder weather-icon w-12 h-12 transition-translate duration-300 transform-gpu">
+                                </div>
+                                <div class="edit-icon absolute right-2 opacity-0 edit-icon w-12 h-12 
+                                transition-translate duration-300 transform-gpu">
+                                    <img class="no-swipe no-reorder" src="img/edit.svg" alt="">
                                 </div>
                             </div>
                         </div>
-                        <div class="no-swipe no-reorder weather-icon w-12 h-12 transition-translate duration-300 transform-gpu">
-                        </div>
-                        <div class="edit-icon absolute right-2 opacity-0 edit-icon w-12 h-12 
-                        transition-translate duration-300 transform-gpu">
-                            <img class="no-swipe no-reorder" src="img/edit.svg" alt="">
-                        </div>
+                    <!-- BUTTONS-->
+                    <div class="edit-buttons h-[85px] w-[260px] opacity-0 justify-between grid grid-flow-col transition-translate duration-300 transform-gpu">
+                        <button type="button" data-hs-remove-element="#card-${location.name_translit}"
+                            onclick="deleteLocation(Object.keys(locations).indexOf('${name}'), '${name}')"
+                            class="location-del pointer-events-none">
+                            <img src="img/delete.svg" width="40px" height="40px" alt="">
+                        </button>
+                        <button type="button" class="location-drag instant items-center font-light text-3xl text-white/30 pointer-events-none">☰</button>
                     </div>
-                </div>
-            </div>
-            <!-- BUTTONS-->
-            <div class="h-[85px] justify-between grid grid-flow-col">
-                <button type="button" data-hs-remove-element="#card-${location.name_translit}"
-                    onclick="deleteLocation(Object.keys(locations).indexOf('${name}'), '${name}')"
-                    class=" location-del
-                     opacity-0 translate-x-6 transition-translate duration-300 transform-gpu pointer-events-none z-10 ease-out">
-                    <img src="img/delete.svg" width="40px" height="40px" alt="">
-                </button>
-                <button type="button" class="instant items-center font-light text-3xl text-white/30
-                            location-drag opacity-0 -translate-x-6  transition-translate z-0 duration-300 
-                            transform-gpu pointer-events-none">
-                    ☰
-                </button>
-            </div>
-        </li>`)
+                </li>
+                `)
             // console.log(locationsList)
 
             // console.log(`${location}: ${value.name}`);
@@ -324,7 +385,6 @@ function generateSlides(locations) {
                         <!-- End of content -->
                         </div>`)
         }
-        setupSlip(document.getElementById('locations-list'));
     }
 }
 
@@ -332,62 +392,8 @@ const classToggle = (el, ...args) => {
     args.map(e => el.classList.toggle(e))
 }
 
-// const miniCards = document.querySelectorAll('.mini-card')
-const minmax = document.querySelectorAll('.minmax')
-locationsEdit.onclick = () => {
-    let minicards = document.querySelectorAll('.minicard')
-    minicards.forEach((element) => {
-        classToggle(element, 'w-[260px]', 'w-full', 'h-[80px]')
-        element.children[0].classList.toggle('translate-y-1')
-        element.children[1].children[0].classList.toggle('translate-x-16')
-        element.children[1].children[0].classList.toggle('opacity-0')
-        element.children[1].classList.toggle('right-0')
-        element.children[1].classList.toggle('right-4')
-        element.children[0].children[2].classList.toggle('opacity-0')
-    })
-
-    let cardLocationName = document.querySelectorAll('.cardLocationName')
-    cardLocationName.forEach((e) => {
-        if (e.innerText.length > 18) {
-            e.classList.toggle('text-base')
-        }
-    })
-
-    let weatherIcon = document.querySelectorAll('.weather-icon')
-    weatherIcon.forEach((e) => {
-        classToggle(e, 'scale-0', 'opacity-0')
-    })
-
-    let editIcon = document.querySelectorAll('.edit-icon')
-    editIcon.forEach((e) => {
-        classToggle(e, 'opacity-0')
-    })
-
-    let del = document.querySelectorAll('.location-del')
-    del.forEach((element) => {
-        classToggle(element, 'translate-x-6', 'opacity-0', 'pointer-events-none')
-    })
-
-    let drag = document.querySelectorAll('.location-drag')
-    drag.forEach((element) => {
-        classToggle(element, '-translate-x-6', 'opacity-0', 'pointer-events-none')
-    })
-
-    minmax.forEach((element) => {
-        element.classList.toggle('translate-x-5')
-        element.classList.toggle('opacity-0')
-        // element.classList.toggle('invisible')
-        // element.classList.toggle('hidden')
-        element.parentElement.classList.toggle('translate-x-6')
-        // document.getElementById('conditionEl').classList.toggle('invisible')
-        // document.getElementById('conditionEl').classList.toggle('-translate-y-5')
-        // document.getElementById('conditionEl').classList.toggle('opacity-0')
-
-    })
-}
-
 function printHourlyWeather(id, days, weatherData, startDay = 0) {
-    console.log(weatherData)
+    // console.log(weatherData)
     days += startDay
     if (startDay === 0) {
         hourlyPlaceholder = document.getElementById('hourlyToday-' + id)
@@ -464,8 +470,8 @@ function appendData(location, weatherData) {
     printHourlyWeather(location.id, days, weatherData, 1)
 
     // console.log(locations)
-    console.log(location.name)
-    console.log(location)
+    // console.log(location.name)
+    // console.log(location)
     const weatherDetailsToggle = document.querySelector(`#details-toggle-${location.name_translit}`)
     const detailInfo = document.querySelector(`#weather-details-${location.name_translit}`)
     const detailItems = document.querySelectorAll(`#weather-details-${location.name_translit} .detail-item`)
@@ -573,8 +579,6 @@ function appendData(location, weatherData) {
     document.querySelector(`#card-${location.name_translit} .tempmin`).innerText = Math.round(todayWeather.tempmin)
     document.querySelector(`#card-${location.name_translit} .weather-icon`).innerHTML = `
     <img no-swipe no-reorder src="img/assets/icons/weather-conditions/${todayWeather.icon}.svg">`
-
-
 
     for (let i = 1; i < 11; i++) {
         let d = [{ day: 'numeric' }, { month: 'long' }];
