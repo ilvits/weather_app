@@ -197,7 +197,7 @@ function parseSuggestions(suggestions) {
             let capText = searchText[0].toUpperCase() + searchText.slice(1)
             const name_translit = translit((value.data.settlement !== null) ? value.data.settlement : value.data.city)
             let locationLi = document.createElement('li');
-            if (Object.keys(locations).includes(id)) {
+            if ((locations) && (Object.keys(locations).includes(id))) {
                 action = ''
                 locationLi.classList.add('pointer-events-none', 'text-slate-500', 'py-2', 'pr-2', 'overflow-hidden', 'overflow-ellipsis', 'whitespace-nowrap')
                 text = `${name}, ${region}${(countryCode !== userCountry) ? ', ' + country : ''}`
