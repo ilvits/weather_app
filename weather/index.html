@@ -276,17 +276,16 @@
     </div>
     <!-- End Sidebar -->
 
-    <section id="new-location-preview" class="w-full h-full pt-4 absolute top-0 opacity-0 -z-10 hidden translate-y-full
-            transform-gpu duration-500 transition-all text-right bg-bg">
-        <div class="w-full h-full backdrop-blur-xl border border-white/10 rounded-xl relative grid grid-fow-row">
-            <div
-                class="inline-flex absolute justify-between p-4 rounded-t-xl bg-bg/80 backdrop-blur-lg  w-full z-[120]">
-                <button id="cancel-weather-preview" class="" onclick="hideWeatherPreview(this)">Отмена</button>
-                <span>Location</span>
-                <button id="add-weather-preview" class="" onclick="addNewLocation(this)">Добавить</button>
-            </div>
-            <div id="preview-window" class="overflow-auto pt-14 mt-2">
-            </div>
+
+    <!-- Location Preview -->
+    <section id="new-location-preview" class="w-full h-full absolute top-4 opacity-0 -z-10 hidden translate-y-[600px] border border-white/10 rounded-xl absolute grid grid-fow-row
+            transform-gpu duration-500 transition-all bg-bg">
+        <div class="inline-flex absolute justify-between p-4 rounded-t-xl bg-bg/80 backdrop-blur-lg  w-full z-[120]">
+            <button id="cancel-weather-preview" class="" onclick="hideWeatherPreview(this)">Отмена</button>
+            <span id="location-name"></span>
+            <button id="add-weather-preview" class="" onclick="addNewLocation(this)">Добавить</button>
+        </div>
+        <div id="preview-window" class="overflow-auto pt-14 mt-2">
         </div>
     </section>
 

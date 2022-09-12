@@ -25,8 +25,8 @@ async function getWeather(location) {
         // method: 'GET',
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
-    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    const url = 'paris.json'
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    // const url = 'paris.json'
     await fetch(url, options)
         .then(response => response.json())
         .then(weatherData => appendData(location, weatherData))
@@ -208,7 +208,7 @@ function generateSlides(locations) {
                                     <div id="current-time-${location.id}" class="font-semibold text-xl leading-5"></div>
                                     <div id="current-day-${location.id}" class="text-white/70 text-xs"></div>
                                 </div>
-                                <button type="button" id="details-toggle-${name}" class="relative hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
+                                <button type="button" id="details-toggle-${location.name_translit}" class="relative hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
                                 text-white" data-hs-collapse="#weather-details-${location.name_translit}">
                                     <div class="grid grid-flow-row justify-items-start">
                                         <div class="grid grid-flow-col">
@@ -222,7 +222,7 @@ function generateSlides(locations) {
                                         <div id="feelslike-${location.id}" class="flex font-light text-sm leading-[18px]"></div>
                                     </div>
                                     <div id="weather-icon-${location.id}" class="w-[120px] h-[120px]"></div>
-                                    <div id="expand-arrow-d-${location.id}" class="absolute -bottom-2 flex justify-center w-full">
+                                    <div id="expand-arrow-d-${location.name_translit}" class="absolute -bottom-2 flex justify-center w-full">
                                         <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] translate-x-[1px] rotate-[20deg] rounded-sm rounded-tr-none transition-all duration-500 transform-gpu"></div>
                                         <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] -translate-x-[1px] rotate-[-20deg] rounded-sm rounded-tl-none transition-all duration-500 transform-gpu"></div>
                                     </div>
@@ -382,6 +382,7 @@ locationsEdit.onclick = () => {
 }
 
 function printHourlyWeather(id, days, weatherData, startDay = 0) {
+    console.log(weatherData)
     days += startDay
     if (startDay === 0) {
         hourlyPlaceholder = document.getElementById('hourlyToday-' + id)
@@ -468,10 +469,10 @@ function appendData(location, weatherData) {
         if (detailInfo.clientHeight > 0) {
             console.log('▲ details closing... ▲')
 
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.remove('rotate-[-20deg]')
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.remove('rotate-[20deg]')
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.add('rotate-[20deg]')
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.add('rotate-[-20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.remove('rotate-[-20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.remove('rotate-[20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.add('rotate-[20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.add('rotate-[-20deg]')
 
             detailItems.forEach((el) => {
                 el.classList.add('opacity-0', '-translate-y-5', '-translate-x-1');
@@ -480,10 +481,10 @@ function appendData(location, weatherData) {
             detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
         } else {
             console.log('▼ details opening... ▼')
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.remove('rotate-[20deg]')
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.remove('rotate-[-20deg]')
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[0].classList.add('rotate-[-20deg]')
-            document.querySelector(`#expand-arrow-d-${location.id}`).children[1].classList.add('rotate-[20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.remove('rotate-[20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.remove('rotate-[-20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.add('rotate-[-20deg]')
+            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.add('rotate-[20deg]')
             detailItems.forEach((el, index) => {
                 var interval = 35;
                 setTimeout(() => {
