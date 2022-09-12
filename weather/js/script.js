@@ -143,9 +143,10 @@ swiper.on('slideChange', function () {
 
 function generateSlides(locations) {
     // containerLocations.innerHTML = containerDefaults;
-    for (let [name, location] of Object.entries(locations)) {
-        // console.log(name)
-        containerLocations.insertAdjacentHTML('beforeend', `
+    if (locations) {
+        for (let [name, location] of Object.entries(locations)) {
+            // console.log(name)
+            containerLocations.insertAdjacentHTML('beforeend', `
         <li id="card-${location.name_translit}" class="w-full h-[85px] z-[60]
         hs-removing:-translate-y-16 hs-removing:scale-50 hs-removing:opacity-0 transform-gpu duration-500">
             <!-- CONTENT-->
@@ -197,10 +198,10 @@ function generateSlides(locations) {
                 </button>
             </div>
         </li>`)
-        // console.log(locationsList)
+            // console.log(locationsList)
 
-        // console.log(`${location}: ${value.name}`);
-        slides.insertAdjacentHTML('beforeend', `
+            // console.log(`${location}: ${value.name}`);
+            slides.insertAdjacentHTML('beforeend', `
         <div id="slide-${location.id}" data-hash="${location.id}" class="swiper-slide bg-bg">
                         <!-- Start of Content -->
                         <div class="swiper-pagination"></div>
@@ -322,8 +323,9 @@ function generateSlides(locations) {
                             </div>
                         <!-- End of content -->
                         </div>`)
+        }
+        setupSlip(document.getElementById('locations-list'));
     }
-    setupSlip(document.getElementById('locations-list'));
 }
 
 const classToggle = (el, ...args) => {
