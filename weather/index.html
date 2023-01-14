@@ -187,17 +187,18 @@
             <!--  -->
             <div class="w-full">
                 <h2 class="px-4 font-light text-xs uppercase pb-2 text-white/50">Единицы измерения</h2>
-                <div class="card grid gap-4 w-full bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl">
-                    <div class="grid grid-flow-row w-full">
-                        <div class="p-6 flex justify-between items-center">
-                            <div class="text-base font-light">Температура</div>
+                <div
+                    class="card grid gap-4 w-full leading-7 bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl text-sm">
+                    <div class="grid grid-flow-row w-full gap-[20px] p-6">
+                        <div class="flex justify-between items-center">
+                            <div class="font-light">Градусы</div>
                             <section class="flex gap-3">
                                 <label id="set_temp">
                                     <div class="relative flex items-center h-[28px] w-[128px] 
                                             border border-yellow text-yellow rounded-md text-center">
 
-                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
-                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="s-temp">
+                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">°C
                                         </div>
                                         <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
@@ -207,15 +208,15 @@
                             </section>
 
                         </div>
-                        <div class="p-6 flex justify-between">
-                            <div class="text-base font-light">Скорость ветра</div>
+                        <div class="flex justify-between items-center">
+                            <div class="font-light">Скорость ветра</div>
                             <section class="flex gap-3">
                                 <label id="set_temp">
-                                    <div class="relative flex items-center h-[28px] w-[128px] 
+                                    <div class="relative flex items-center h-[28px] w-[128px]
                                             border border-yellow text-yellow rounded-md text-center">
 
-                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
-                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="s-wind">
+                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">км/ч
                                         </div>
                                         <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
@@ -224,19 +225,20 @@
                                 </label>
                             </section>
                         </div>
-                        <div class="p-6 flex justify-between">
-                            <div class="text-base font-light">Давление</div>
+                        <div class="flex justify-between items-center">
+                            <div class="font-light">Давление</div>
                             <section class="flex gap-3">
                                 <label id="set_temp">
                                     <div class="relative flex items-center h-[28px] w-[128px] 
                                             border border-yellow text-yellow rounded-md text-center">
 
-                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
-                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings"
+                                            id="s-pressure">
+                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">мм рт.ст.
                                         </div>
                                         <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
-                                        <div if="on" class="cursor-pointer w-[64px] h-[28px]">мПа</div>
+                                        <div if="on" class="cursor-pointer w-[64px] h-[28px]">гПа</div>
                                     </div>
                                 </label>
                             </section>
@@ -246,28 +248,55 @@
             </div>
             <div class="w-full">
                 <h2 class="px-4 font-light text-xs uppercase pb-2 text-white/50">Приложение</h2>
-                <div class="card grid gap-4 mb-[27px] bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl">
-                    <div class="grid grid-flow-row">
-                        <div class="p-6 flex justify-between">
-                            <div class="text-base font-light">Язык</div>
-                            <div class="flex text-center border border-yellow rounded-md w-32 font-light">
-                                <div class="w-1/2 py-1 text-sm bg-yellow text-bg">RU</div>
-                                <div class="w-1/2 py-1 text-sm text-yellow">EN</div>
-                            </div>
+                <div
+                    class="card grid gap-4 mb-[27px] bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl leading-7 text-sm">
+                    <div class="grid grid-flow-row gap-6 p-6">
+                        <div class="flex justify-between">
+                            <div class="font-light">Язык</div>
+                            <section class="flex gap-3">
+                                <label id="set_temp">
+                                    <div class="relative flex items-center h-[28px] w-[128px] 
+                                            border border-yellow text-yellow rounded-md text-center">
+
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="s-lang">
+                                        <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">RU
+                                        </div>
+                                        <div id="off" class="cursor-pointer w-[64px] h-[28px]">RU</div>
+                                        <div if="on" class="cursor-pointer w-[64px] h-[28px]">EN</div>
+                                    </div>
+                                </label>
+                            </section>
                         </div>
-                        <div class="p-6 flex justify-between">
-                            <div class="text-base font-light">Уведомления</div>
+                        <!-- <div class="flex justify-between">
+                            <div class=" font-light">Уведомления</div>
                             <div class="flex text-center border border-yellow rounded-md w-32 font-light">
                                 <div class="w-1/2 py-1 text-sm bg-yellow text-bg">выкл</div>
                                 <div class="w-1/2 py-1 text-sm text-yellow">вкл</div>
                             </div>
-                        </div>
-                        <div class="p-6 flex justify-between">
-                            <div class="text-base font-light">Показывать детали</div>
-                            <div class="flex text-center border border-yellow rounded-md w-32 font-light">
-                                <div class="w-1/2 py-1 text-sm bg-yellow text-bg">нет</div>
-                                <div class="w-1/2 py-1 text-sm text-yellow">да</div>
-                            </div>
+                        </div> -->
+                        <div class="flex justify-between">
+                            <div class="font-light">Показывать подробный прогноз</div>
+                            <section class="flex gap-3">
+                                <label id="set_temp">
+                                    <div
+                                        class="relative flex items-center h-[28px] w-[50px] 
+                                            border border-[#798C9F] rounded-md text-center ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500">
+
+                                        <input class="hidden tempSwitch" type="checkbox" name="settings" id="s-details">
+                                        <div slider class="absolute left-[2px] bg-[#798C9F] rounded-[3px] ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                         w-[22px] h-[22px] cursor-pointer'">
+                                        </div>
+                                        <div id="off" class="cursor-pointer w-[22px] h-[22px]"></div>
+                                        <div if="on" class="cursor-pointer w-[22px] h-[22px]"></div>
+                                    </div>
+                                </label>
+                            </section>
+                            <!-- <div
+                                class="flex text-center border rounded-md w-[50px] font-light h-[28px] border-[#6892B9]">
+                                <div class="w-1/2 py-1 border-2 border-[#1a2f50] bg-[#6892B9] rounded-md"></div>
+                                <div class="w-1/2 py-1"></div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -422,16 +451,30 @@
                 const slider = el.target.nextElementSibling
                 if (el.target.checked) {
                     console.log('✅');
-                    slider.classList.add('translate-x-full', 'rounded-r-md');
-                    slider.classList.remove('rounded-l-md');
+                    if (el.target.id == 's-details') {
+                        slider.classList.add('translate-x-full', 'bg-yellow');
+                        slider.classList.remove('bg-[#798C9F]');
+                        el.target.parentElement.classList.add('border-yellow');
+                        el.target.parentElement.classList.remove('border-[#798C9F]');
+                    } else {
+                        slider.classList.add('translate-x-full', 'rounded-r-md');
+                        slider.classList.remove('rounded-l-md');
+                    }
                     setTimeout(() => {
                         slider.innerText = slider.nextElementSibling.nextElementSibling.innerText;
                     }, 100)
 
                 } else {
                     console.log('❎');
-                    slider.classList.remove('translate-x-full', 'rounded-r-md');
-                    slider.classList.add('rounded-l-md');
+                    if (el.target.id == 's-details') {
+                        slider.classList.remove('translate-x-full', 'bg-yellow');
+                        slider.classList.add('bg-[#798C9F]');
+                        el.target.parentElement.classList.remove('border-yellow');
+                        el.target.parentElement.classList.add('border-[#798C9F]');
+                    } else {
+                        slider.classList.remove('translate-x-full', 'rounded-r-md');
+                        slider.classList.add('rounded-l-md');
+                    }
                     setTimeout(() => {
                         slider.innerText = slider.nextElementSibling.innerText
                     }, 100)

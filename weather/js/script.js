@@ -57,8 +57,8 @@ HSOverlay.on('close', ($offcanvasEl) => {
         locationName.innerText = Object.values(locations)[swiper.realIndex].name
     }
     if ($offcanvasEl.id == "menu-locations") {
-        console.log('locations')
-        console.log(document.querySelector('#fav_btn').classList)
+        // console.log('locations')
+        // console.log(document.querySelector('#fav_btn').classList)
         document.querySelector('#fav_btn').classList.remove('!text-yellow')
         document.querySelector('#fav_btn_svg').classList.remove('!stroke-yellow')
     } else if ($offcanvasEl.id == "menu-settings") {
@@ -68,8 +68,11 @@ HSOverlay.on('close', ($offcanvasEl) => {
     }
 })
 
-HSCollapse.on('open', () => {
-
+HSCollapse.on('open', (w) => {
+    // toggleTxt = document.querySelectorAll('.collapse_toggle')
+    // toggleTxt.forEach((t) => {
+    //     t.innerText = 'Свернуть'
+    // })
 })
 
 HSCollapse.on('close', () => {
@@ -77,7 +80,11 @@ HSCollapse.on('close', () => {
 })
 
 HSCollapse.on('hide', () => {
-    console.log('▲ details closed ▲')
+    // console.log('▲ details closed ▲')
+    // toggleTxt = document.querySelectorAll('.collapse_toggle')
+    // toggleTxt.forEach((t) => {
+    //     t.innerText = 'Подробнее'
+    // })
 })
 
 function deleteLocation(locationId, locationN) {
@@ -296,14 +303,20 @@ function generateSlides(locations) {
             // console.log(`${location}: ${value.name}`);
             slides.insertAdjacentHTML('beforeend', `
             <div id="slide-${location.id}" data-hash="${location.id}" class="relative swiper-slide bg-bg">
-                <div id="header-${location.id}" class="sticky_header sticky bg-gradient-to-b from-bg via-bg/80 to-transparent
-                backdrop-blur-sm top-0 w-full px-6 py-4 flex justify-between items-baseline z-50">
+                <div id="header-${location.id}" class="sticky_header sticky bg-bg/80
+                backdrop-blur-xl top-0 w-full px-6 py-4 flex justify-between items-baseline z-50">
                     <label class="font-semibold text-xl leading-5">${location.name}</label>
                     <span class="absolute header-temp text-[#798C9F] opacity-0 right-6 transform-gpu transition-opacity duration-300">16°
                         |
                         Небольшой
                         дождь</span>
-                    <button id="detail-weather-toggle--${location.name_translit}" class="detail-weather-toggle text-[#798C9F] text-sm font-light hs-collapse-toggle transform-gpu transition-opacity duration-300" data-hs-collapse="#detail-weather-info-${location.name_translit}">Развернуть
+                    <button id="detail-weather-toggle--${location.name_translit}" 
+                    class="detail-weather-toggle flex items-end gap-1 text-[#798C9F] text-sm font-light hs-collapse-toggle transform-gpu 
+                    transition-opacity duration-300" data-hs-collapse="#detail-weather-info-${location.name_translit}">
+                    <div>
+                    Подробнее 
+                    </div>
+                    <img id="detail-weather-toggle-img--${location.name_translit}" src="img/assets/icons/down.svg">
                     </button>
                 </div>
                 <section id="general-weather-info--${location.id}" data-hash="${location.id}" class="px-4 max-w-md mx-auto swiper-slide bg-bg swiper-slide-active">
@@ -552,6 +565,7 @@ function appendData(location, weatherData) {
     // console.log(location.name)
     // console.log(location)
     const weatherDetailsToggle = document.querySelector(`#detail-weather-toggle--${location.name_translit}`)
+    const weatherDetailsToggleImg = document.querySelector(`#detail-weather-toggle-img--${location.name_translit}`)
     const detailInfo = document.querySelector(`#detail-weather-info-${location.name_translit}`)
     const detailItems = document.querySelectorAll(`#detail-weather-info-${location.name_translit} .detail-item`)
     const sunrise_date = new Date(weatherData.currentConditions.sunriseEpoch * 1000)
@@ -560,13 +574,16 @@ function appendData(location, weatherData) {
 
     weatherDetailsToggle.onclick = () => {
         if (detailInfo.clientHeight > 0) {
-            console.log('▲ details closing... ▲')
-
+            // console.log('▲ details closing... ▲')
+            weatherDetailsToggle.firstElementChild.innerText = 'Подробнее';
+            weatherDetailsToggleImg.classList.remove('rotate-180')
             detailItems.forEach((el) => {
                 el.classList.add('opacity-0', '-translate-y-5', '-translate-x-1');
             })
         } else {
-            console.log('▼ details opening... ▼')
+            // console.log('▼ details opening... ▼')
+            weatherDetailsToggle.firstElementChild.innerText = 'Свернуть';
+            weatherDetailsToggleImg.classList.add('rotate-180')
             detailItems.forEach((el, index) => {
                 var interval = 35;
                 setTimeout(() => {
