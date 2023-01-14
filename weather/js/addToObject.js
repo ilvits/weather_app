@@ -18,7 +18,7 @@ var addToObject = function (obj, key, value, index) {
         if (Object.prototype.hasOwnProperty.call(obj, prop)) {
             // If the indexes match, add the new item
             if (i === index && key && value) {
-                console.log(typeof (value));
+                console.log(typeof (value)); z2
                 temp[key] = JSON.parse(value);
             }
 

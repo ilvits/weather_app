@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class=" no-scrollbar">
 
 <head>
     <meta charset="UTF-8">
@@ -32,7 +32,9 @@
 
 </head>
 
-<body class="bg-bg sm:bg-slate-400 sm:pt-2 sm:h-screen text-white">
+<body class="bg-bg sm:bg-slate-400 sm:pt-2 sm:h-screen text-white relative">
+
+
     <div id="offline-status" aria-overlay="false" class="fixed top-3 hs-overlay hidden hs-overlay-open:top-7 
         hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 backdrop-blur-sm [--body-scroll:true] [--overlay-backdrop:false] 
         ease-out transition-all right-0 inline-flex items-center gap-1.5 py-1 pl-3 pr-2 rounded-full
@@ -83,19 +85,20 @@
 
     <div class="sm:mockup-phone !pt-0 sm:w-[442px] md:scale-[0.7] transform-gpu sm:h-[95vh] 
                 sm:overflow-y-auto transition-transform duration-500">
-        <!-- ========================= Main part ========================= -->
-        <div id="header" class="z-20 sticky top-0 bg-gradient-to-b from-bg via-bg/80 to-transparent
+
+
+        <!-- <div id="header" class="z-20 sticky top-0 bg-gradient-to-b from-bg via-bg/80 to-transparent
                     backdrop-blur-sm flex w-full h-[74px] px-8 pt-4 justify-between items-start">
-            <!-- Navigation Toggle -->
+
             <button type="button" id="menu" class="hs-overlay-toggle grow-0 shrink-0 w-6"
                 data-hs-overlay="#menu-locations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle Navigation</span>
                 <img id="location_icon" src="img/assets/icons/locations-icon.svg" alt="">
             </button>
-            <!-- End Navigation Toggle -->
+
             <div class="">
                 <div id="locationName" class="grow shrink-0 font-light text-lg leading-5"></div>
-                <!-- ========================= Pagination ========================= -->
+
                 <div id="swiper-pagination" class="swiper-pagination !transform !transition !duration-300">
                 </div>
             </div>
@@ -105,7 +108,8 @@
                 <span class="sr-only">Toggle Navigation</span>
                 <img id="settings_icon" src="img/assets/icons/settings-icon.svg" alt="">
             </button>
-        </div>
+        </div> -->
+
         <!-- Swiper -->
         <div class="swiper mainSwiper">
             <div id="slides" class="swiper-wrapper">
@@ -113,16 +117,16 @@
         </div>
     </div>
 
-    <!-- Sidebar LEFT -->
-    <div id="menu-locations" class="hidden hs-overlay hs-overlay-open:translate-x-0 -translate-x-full fixed 
-        top-0 left-0 transition-transform duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
-        h-full w-full backdrop-blur-xl z-[60] text-white" tabindex="-1" data-hs-overlay-backdrop="true">
+    <!-- FAV -->
+    <div id="menu-locations" class="hidden hs-overlay hs-overlay-open:translate-y-0 translate-y-0 fixed 
+        top-0 left-0 transition-transform duration-0 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
+        h-full w-full backdrop-blur-xl z-[60] text-white" tabindex="-1" data-hs-overlay-backdrop="fase">
         <div id="left-menu-container"
             class="no-swipe pb-16 no-reorder grid grid-flow-row gap-3 overflow-y-scroll overflow-x-hidden">
             <div id="backdrop" class="transition-all transform-gpu duration-500 fixed top-16 inset-0 invisible
                  bg-gray-900 bg-opacity-60">
             </div>
-            <div id="left-menu-header" class="z-[60] bg-bg/80 backdrop-blur-lg sticky top-0 flex w-full  px-6 pt-2 h-[66px] justify-between items-start 
+            <div id="left-menu-header" class="z-[55] bg-bg/80 backdrop-blur-lg sticky top-0 flex w-full  px-6 pt-2 h-[66px] justify-between items-start 
             transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
                 <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menu-locations"
                     aria-controls="sidebarLeft" aria-label="Toggle navigation">
@@ -159,13 +163,13 @@
             </ol>
         </div>
     </div>
-    <!-- End Sidebar -->
+    <!-- End FAV -->
 
-    <!-- Sidebar RIGHT -->
-    <div id="menu-settings" class="hidden hs-overlay hs-overlay-open:translate-x-0  translate-x-full fixed 
-        top-0 left-0 transition-transform duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
-        h-full w-full backdrop-blur-xl z-[60] text-white overflow-y-scroll" tabindex="-1"
-        data-hs-overlay-backdrop="true">
+    <!-- SETTINGS -->
+    <div id="menu-settings" class="hidden hs-overlay hs-overlay-open:translate-y-0 translate-y-0 fixed 
+        top-0 left-0 transition-transform duration-0 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)] 
+        h-full w-full backdrop-blur-xl z-[55] text-white overflow-y-scroll" tabindex="-1"
+        data-hs-overlay-backdrop="false ">
 
         <div id="container-settings" class="mx-4 no-swipe no-reorder grid grid-flow-row gap-6 overflow-y-scroll">
             <!-- HEADER -->
@@ -274,7 +278,7 @@
 
         </div>
     </div>
-    <!-- End Sidebar -->
+    <!-- End SETTINGS -->
 
 
     <!-- Location Preview -->
@@ -288,6 +292,54 @@
         <div id="preview-window" class="overflow-auto pt-14 mt-2">
         </div>
     </section>
+
+    <section id="tapbar" class="fixed z-[60] bottom-0 left-0 w-full h-[85px] bg-bg/80 backdrop-blur-lg">
+        <!-- <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-[#44729D] to-transparent"></div> -->
+
+        <div class="flex justify-around pt-3 mx-8 items-center">
+            <!-- <div class="flex flex-col items-center gap-[6px] grow-0 shrink-0">
+                <div class=""><img src="img/assets/icons/home-icon-h.svg" alt="" srcset=""></div>
+                <div class="text-[10px] leading-[9px] text-yellow">Главная</div>
+            </div> -->
+            <div id="fav_btn"
+                class="flex flex-col items-center gap-[6px] hs-overlay-toggle grow-0 shrink-0 text-[#798C9F]"
+                data-hs-overlay="#menu-locations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle Favourites Menu</span>
+                <div class="">
+                    <svg id="fav_btn_svg" class="stroke-[#6892B9]" width="25" height="24" viewBox="0 0 25 24"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M18.1569 16.6569C17.2202 17.5935 15.2616 19.5521 13.9138 20.8999C13.1327 21.681 11.8677 21.6814 11.0866 20.9003C9.76234 19.576 7.84159 17.6553 6.84315 16.6569C3.71895 13.5327 3.71895 8.46734 6.84315 5.34315C9.96734 2.21895 15.0327 2.21895 18.1569 5.34315C21.281 8.46734 21.281 13.5327 18.1569 16.6569Z"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M14.3425 9C14.0579 9.00003 13.7762 9.05552 13.514 9.16319C13.2518 9.27086 13.0145 9.42854 12.816 9.62689L12.5016 9.94189L12.184 9.62689C11.9855 9.42858 11.7482 9.27094 11.486 9.16331C11.2238 9.05567 10.9421 9.00022 10.6575 9.00022C10.3729 9.00022 10.0912 9.05567 9.82899 9.16331C9.5668 9.27094 9.32946 9.42858 9.131 9.62689C8.72629 10.0331 8.5 10.5765 8.5 11.142C8.5 11.7075 8.72629 12.2509 9.131 12.6571L12.5016 16L15.869 12.6571C16.2737 12.2509 16.5 11.7075 16.5 11.142C16.5 10.5765 16.2737 10.0331 15.869 9.62689C15.6706 9.42854 15.4332 9.27086 15.171 9.16319C14.9089 9.05552 14.6271 9.00003 14.3425 9V9Z"
+                            stroke-width="1.5" />
+                    </svg>
+                </div>
+                <div class="text-[10px] leading-[9px] ">Мои локации</div>
+            </div>
+            <div id="swiper-pagination" class="grow swiper-pagination h-6 !transform !transition !duration-300 z-[999]">
+            </div>
+            <div id="settings_btn"
+                class="flex flex-col items-center gap-[6px] hs-overlay-toggle grow-0 shrink-0 text-[#798C9F]"
+                data-hs-overlay="#menu-settings" aria-controls="sidebarLeft" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle settings menu</span>
+                <div class="">
+                    <svg id="settings_btn_svg" class="stroke-[#6892B9]" width="25" height="24" viewBox="0 0 25 24"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10.8246 4.31731C11.251 2.5609 13.749 2.5609 14.1754 4.31731C14.4508 5.45193 15.7507 5.99038 16.7478 5.38285C18.2913 4.44239 20.0576 6.2087 19.1172 7.75218C18.5096 8.74925 19.0481 10.0492 20.1827 10.3246C21.9391 10.751 21.9391 13.249 20.1827 13.6754C19.0481 13.9508 18.5096 15.2507 19.1172 16.2478C20.0576 17.7913 18.2913 19.5576 16.7478 18.6172C15.7507 18.0096 14.4508 18.5481 14.1754 19.6827C13.749 21.4391 11.251 21.4391 10.8246 19.6827C10.5492 18.5481 9.24926 18.0096 8.25219 18.6172C6.7087 19.5576 4.94239 17.7913 5.88285 16.2478C6.49038 15.2507 5.95193 13.9508 4.81731 13.6754C3.0609 13.249 3.0609 10.751 4.81731 10.3246C5.95193 10.0492 6.49037 8.74926 5.88285 7.75218C4.94239 6.2087 6.7087 4.44239 8.25219 5.38285C9.24926 5.99037 10.5492 5.45193 10.8246 4.31731Z"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M15.5 12C15.5 13.6569 14.1569 15 12.5 15C10.8431 15 9.5 13.6569 9.5 12C9.5 10.3431 10.8431 9 12.5 9C14.1569 9 15.5 10.3431 15.5 12Z"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="text-[10px] leading-[9px] ">Настройки</div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Initialize Swiper -->
     <script src="js/swiper.js"></script>
@@ -311,8 +363,8 @@
         });
     </script>
 
-    <script src="js/slip.js"></script>
     <script src="js/scroll.js"></script>
+    <script src="js/slip.js"></script>
     <script src="js/cookies.js"></script>
     <script src="js/addToObject.js"></script>
     <script src="js/preline/hs-collapse.js"></script>
@@ -322,6 +374,7 @@
     <script src="js/handlers.js"></script>
     <script src="js/translit.js"></script>
     <script src="js/getCurrentLocation.js"></script>
+    <script src="js/weatherAPI.js"></script>
     <script>
         document.body.style.webkitTouchCallout = 'none';
     </script>

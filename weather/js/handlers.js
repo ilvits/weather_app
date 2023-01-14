@@ -26,7 +26,6 @@ function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
 };
 
-
 function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
@@ -82,7 +81,6 @@ function showPosition(position) {
         .catch(error => console.log("error", error));
 }
 
-
 function searchFocus() {
     searchInput.placeholder = 'Введите название'
     searchInput.classList.add('w-[calc(100vw-120px)]')
@@ -97,6 +95,7 @@ function searchFocus() {
     document.querySelector('#backdrop').classList.remove('invisible', 'opacity-0')
     suggestionList.classList.remove('invisible', 'opacity-0')
 }
+
 function searchCancel() {
     searchInput.placeholder = 'Найти новое место'
     searchInput.value = ''
@@ -247,18 +246,13 @@ function previewWeather(location) {
         country: location.dataset.country,
     }
 
+    coords = {
+        geo_lat: location.dataset.latitude,
+        geo_lon: location.dataset.longitude
+    }
 
-    const options = {
-        method: 'GET',
-        // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
-    };
-
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${locationDataSet.latitude}%2C${locationDataSet.longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    // const url = 'paris.json'
-    fetch(url, options)
-        .then(response => response.json())
-        .then(weatherData => generatePreview(locationDataSet, weatherData))
-        .catch(err => console.log(err));
+    weatherData = getWeatherDataFromAPI(coords)
+    generatePreview(locationDataSet, weatherData)
 }
 
 function previewCurrentLocation(location) {

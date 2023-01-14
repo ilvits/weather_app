@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class=" no-scrollbar">
 
 <head>
     <meta charset="UTF-8">
@@ -16,57 +16,775 @@
     <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
-    <script src="js/jquery-3.6.1.js"></script>
-
-    <!-- <link href="css/suggestions.css" rel="stylesheet" />
-    <script src="js/jq.suggestions.js"></script> -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="css/swiper-bundle.min.css" /> -->
     <title>TEST</title>
 </head>
 
-<body class="dark-preview bg-bg text-white">
+<body class="dark-preview bg-bg text-white mt-4">
+
+    <!-- TAP BAR -->
+    <section id="tapbar" class="fixed z-50 bottom-0 left-0 w-full h-[85px] bg-bg/80 backdrop-blur-lg">
+        <nav aria-label="Tabs" role="tablist"
+            class="pt-[9px] flex justify-around items-start text-[#798C9F] text-[10px] leading-[9px]">
+            <div id="item-1" data-hs-tab="#main" aria-controls="main" role="tab"
+                class="flex flex-col items-center gap-[6px] hs-tab-active:text-yellow active">
+                <svg class="hs-tab-active:stroke-yellow stroke-[#6892B9]" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11.3481 2.56047L4.34808 8.57857C4.12711 8.76855 4 9.04546 4 9.33686V19C4 20.1046 4.89543 21 6 21H9.53846H14.4615H18C19.1046 21 20 20.1046 20 19V9.33686C20 9.04546 19.8729 8.76855 19.6519 8.57857L12.6519 2.56047C12.2771 2.23819 11.7229 2.23819 11.3481 2.56047Z"
+                        stroke-width="2" />
+                    <rect x="9" y="13" width="6" height="8" rx="1" stroke-width="1.5" />
+                </svg>
+                Главная
+            </div>
+            <div id="item-2" data-hs-tab="#menu-locations" aria-controls="menu-locations" role="tab"
+                class="flex flex-col items-center gap-[6px] hs-tab-active:text-yellow">
+                <svg class="hs-tab-active:stroke-yellow stroke-[#6892B9]" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M17.6569 16.6569C16.7202 17.5935 14.7616 19.5521 13.4138 20.8999C12.6327 21.681 11.3677 21.6814 10.5866 20.9003C9.26234 19.576 7.34159 17.6553 6.34315 16.6569C3.21895 13.5327 3.21895 8.46734 6.34315 5.34315C9.46734 2.21895 14.5327 2.21895 17.6569 5.34315C20.781 8.46734 20.781 13.5327 17.6569 16.6569Z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M13.8425 9C13.5579 9.00003 13.2762 9.05552 13.014 9.16319C12.7518 9.27086 12.5145 9.42854 12.316 9.62689L12.0016 9.94189L11.684 9.62689C11.4855 9.42858 11.2482 9.27094 10.986 9.16331C10.7238 9.05567 10.4421 9.00022 10.1575 9.00022C9.87289 9.00022 9.59117 9.05567 9.32899 9.16331C9.0668 9.27094 8.82946 9.42858 8.631 9.62689C8.22629 10.0331 8 10.5765 8 11.142C8 11.7075 8.22629 12.2509 8.631 12.6571L12.0016 16L15.369 12.6571C15.7737 12.2509 16 11.7075 16 11.142C16 10.5765 15.7737 10.0331 15.369 9.62689C15.1706 9.42854 14.9332 9.27086 14.671 9.16319C14.4089 9.05552 14.1271 9.00003 13.8425 9V9Z"
+                        stroke-width="2" />
+                </svg>
+
+                Избранное
+            </div>
+            <div id="item-3" data-hs-tab="#menu-settings" aria-controls="menu-settings" role="tab"
+                class="flex flex-col items-center gap-[6px] hs-tab-active:text-yellow">
+                <svg class="hs-tab-active:stroke-yellow stroke-[#6892B9]" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10.3246 4.31731C10.751 2.5609 13.249 2.5609 13.6754 4.31731C13.9508 5.45193 15.2507 5.99038 16.2478 5.38285C17.7913 4.44239 19.5576 6.2087 18.6172 7.75218C18.0096 8.74925 18.5481 10.0492 19.6827 10.3246C21.4391 10.751 21.4391 13.249 19.6827 13.6754C18.5481 13.9508 18.0096 15.2507 18.6172 16.2478C19.5576 17.7913 17.7913 19.5576 16.2478 18.6172C15.2507 18.0096 13.9508 18.5481 13.6754 19.6827C13.249 21.4391 10.751 21.4391 10.3246 19.6827C10.0492 18.5481 8.74926 18.0096 7.75219 18.6172C6.2087 19.5576 4.44239 17.7913 5.38285 16.2478C5.99038 15.2507 5.45193 13.9508 4.31731 13.6754C2.5609 13.249 2.5609 10.751 4.31731 10.3246C5.45193 10.0492 5.99037 8.74926 5.38285 7.75218C4.44239 6.2087 6.2087 4.44239 7.75219 5.38285C8.74926 5.99037 10.0492 5.45193 10.3246 4.31731Z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                Настройки
+            </div>
+        </nav>
+    </section>
+    <!-- END TAP BAR -->
+    <div>
+        <!-- MAIN -->
+        <div id="main" role="tabpanel">
+            <section id="header"
+                class="sticky top-0 w-full h-16 bg-bg px-6 py-4 flex justify-between items-baseline relative z-50">
+                <label class="font-semibold text-xl leading-5">Пантелейки</label>
+                <span id="header-temp"
+                    class="absolute text-[#798C9F] opacity-0 right-6 transform-gpu transition-opacity duration-300">16°
+                    |
+                    Небольшой
+                    дождь</span>
+                <button id="detail-weather--toggle" class="text-[#798C9F] text-sm font-light hs-collapse-toggle 
+                transform-gpu transition-opacity duration-300" data-hs-collapse="#detail-weather-info">Развернуть
+                </button>
+            </section>
+
+            <section id="general-weather-info" class="px-4 max-w-md mx-auto">
+                <div class="w-full p-4 rounded-2xl bg-[#132846] ">
+                    <div class="flex flex-row justify-between pb-7">
+                        <div class="flex flex-col gap-3">
+                            <div class="text-[#798C9F] text-xs font-light">Вторник, 30 авг. 9:23</div>
+                            <div class="text-[64px] leading-[68px]">16°</div>
+                            <div class="text-sm leading-4 flex flex-col gap-1">
+                                <div>Ощущается как <span class="font-semibold">12°</span></div>
+                                <div>Небольшой дождь</div>
+                            </div>
+                        </div>
+                        <div><img class="w-36 h-36" src="img/assets/icons/weather-conditions/clear-day.svg" alt=""
+                                srcset="">
+                        </div>
+                    </div>
+                    <div id="detail-weather-info"
+                        class="hs-collapse will-change-transform hidden w-full grid grid-flow-row gap-5 overflow-hidden transition-[height] duration-300">
+
+                        <div id="details-1"
+                            class="relative h-[100px] w-full grid grid-flow-col justify-around items-end">
+                            <div class="absolute w-full h-full flex justify-center">
+                                <div class="absolute w-[150px] h-[75px] bottom-0">
+                                    <div
+                                        class="w-full h-full border border-b-0 border-dashed rounded-t-full border-cyan/60">
+                                    </div>
+                                    <div
+                                        class="sun absolute top-0 w-full h-full origin-bottom -rotate-[38deg]
+                                border border-b-0 border-solid rounded-t-full border-cyan bg-gradient-to-b from-[#0F3C5C] to-transparent">
+                                    </div>
+                                    <div class="w-[150px] h-[75px] bg-[#132846] absolute"></div>
+                                    <div class="w-2 h-2 rounded-full bg-cyan -bottom-[4px] -left-[4px] absolute"></div>
+                                    <div class="w-2 h-2 rounded-full bg-cyan -bottom-[4px] -right-[4px] absolute">
+                                    </div>
+                                    <div class="sky left-1/2 w-1/2 origin-left absolute -rotate-[38deg]">
+                                        <div
+                                            class="w-2 h-2 rounded-full bg-white outline-2 outline outline-bg outline-offset-0 -bottom-[4px] -right-[4px] absolute">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-full grid grid-flow-row gap-[6px]">
+                                <div class="text-xs text-[#798C9F]">Восход</div>
+                                <div class="font-semibold ">06:25</div>
+                            </div>
+                            <div class="w-full grid grid-flow-row gap-[6px] justify-center  z-10">
+                                <div class="text-xs text-[#798C9F]">Световой день</div>
+                                <div class="font-semibold">12 ч. 56 мин</div>
+                            </div>
+                            <div class="w-full grid grid-flow-row gap-[6px]">
+                                <div class="text-xs text-[#798C9F]">Закат</div>
+                                <div class="font-semibold ">23:25</div>
+                            </div>
+                        </div>
+                        <div id="details-2" class="relative h-[100px] grid grid-cols-3 gap-1">
+                            <div class=" grid grid-flow-row text-center">
+                                <div class="">
+                                    <div class="text-xs text-[#798C9F]">t° минимум</div>
+                                    <div>14</div>
+                                </div>
+                                <div class="">
+                                    <div class="text-xs text-[#798C9F]">t° максимум</div>
+                                    <div>24</div>
+                                </div>
+                            </div>
+                            <div class=" grid grid-flow-row text-center">
+                                <div class="grid grid-flow-row">
+                                    <div class="text-xs text-[#798C9F]">Осадки</div>
+                                    <div>60%</div>
+                                </div>
+                                <div class="">
+                                    <div class="text-xs text-[#798C9F]">Влажность</div>
+                                    <div>48%</div>
+                                </div>
+                            </div>
+                            <div class=" grid grid-flow-row text-center">
+                                <div class="">
+                                    <div class="text-xs text-[#798C9F]">Давление</div>
+                                    <div>744 мм</div>
+                                </div>
+                                <div class="">
+                                    <div class="text-xs text-[#798C9F]">Ветер</div>
+                                    <div>4 м/с, З</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                class="hourly will-change-scroll pt-12 gap-3 flex overflow-hidden overflow-x-scroll no-scrollbar px-5 scroll-smooth snap-x snap-mandatory ">
+                <div id="today" class="flex flex-col justify-end items-center w-[60px]  scroll-ml-5 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1 leading-[14px]">1 сент.</div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div id="tomorrow" class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+                <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
+                    <div class="date text-xs text-white/50 pb-1"></div>
+                    <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
+                        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
+                    </div>
+                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
+                </div>
+            </section>
+
+            <section id="daily-way:311082326" class="mx-4 pt-8 grid grid-flow-row divide-y divide-blue/20">
+
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
+                            alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">Сегодня</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Дождь, Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">15°</div>
+                            <div>19°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 23.529411764705884%; 
+                        width: 23.529411764705884%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto"
+                            src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">Завтра</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">12°</div>
+                            <div>23°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 5.882352941176471%; 
+                        width: 64.70588235294117%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto"
+                            src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">пн</span><span>, 12 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">14°</div>
+                            <div>27°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 17.647058823529413%; 
+                        width: 76.47058823529412%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
+                            alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">вт</span><span>, 13 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Дождь, Пасмурная погода</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">19°</div>
+                            <div>28°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 47.05882352941177%; 
+                        width: 52.94117647058823%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
+                            alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">ср</span><span>, 14 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Дождь, Пасмурная погода</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">19°</div>
+                            <div>25°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 47.05882352941177%; 
+                        width: 35.294117647058826%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
+                            alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">чт</span><span>, 15 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Дождь, Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">17°</div>
+                            <div>23°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 35.294117647058826%; 
+                        width: 35.294117647058826%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto"
+                            src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">пт</span><span>, 16 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">15°</div>
+                            <div>20°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 23.529411764705884%; 
+                        width: 29.41176470588235%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto"
+                            src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">сб</span><span>, 17 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">12°</div>
+                            <div>19°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 5.882352941176471%; 
+                        width: 41.1764705882353%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto"
+                            src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">вс</span><span>, 18 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">11°</div>
+                            <div>19°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 0%; 
+                        width: 47.05882352941177%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto"
+                            src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
+                    </div>
+                    <div class="text w-28 shrink-0 flex flex-col gap-1">
+                        <div class="text-sm leading-3 text-[#D7E3FA]">
+                            <span class="capitalize">пн</span><span>, 19 сент.</span>
+                        </div>
+                        <div class="text-xs leading-3 text-[#44729D]">Частично облачно</div>
+                    </div>
+                    <div class="my-4 w-full">
+                        <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                            <div class="text-[#44729D]">11°</div>
+                            <div>18°</div>
+                        </div>
+                        <div class="relative h-1 rounded-md bg-slate-600">
+                            <div class="absolute h-full rounded-md bg-gradient-to-r from-sky-500 to-orange2-500" style="left: 0%; 
+                        width: 41.1764705882353%">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+        <!-- END MAIN -->
+
+        <!-- FAV -->
+        <div id="menu-locations" role="tabpanel" class="hidden top-0 left-0 w-full backdrop-blur-xl text-white">
+            <div id="left-menu-container"
+                class="no-swipe pb-16 no-reorder grid grid-flow-row gap-3 overflow-y-scroll overflow-x-hidden">
+                <div id="left-menu-header" class=" bg-bg/80 backdrop-blur-lg sticky top-0 flex w-full  px-6 pt-2 h-[66px] justify-between items-start 
+            transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
+                    <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8"
+                        data-hs-overlay="#menu-locations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <img id="location_icon" src="img/arrow-left.svg" alt="">
+                    </button>
+                    <div class="">
+                        <div id="locationName" class=" grow shrink-0 font-semibold text-base leading-8 h-8">
+                            Добавленное
+                        </div>
+                    </div>
+                    <button type="button" id="locations-edit" class="grow-0 shrink-0 h-8 text-orange">
+                        Изменить
+                    </button>
+                </div>
+                <div
+                    class="w-full sticky px-6 transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
+                    <input type="text" id="search-input" name="search-input" class=" py-1 px-4 pl-10 w-full h-full
+                focus:outline-none rounded-lg text-base text-ellipsis focus:z-10 bg-blue/20 transition-all 
+                duration-500 transform-gpu caret-yellow caret-w-2 text-white/50" placeholder="Найти новое место">
+                    <button id="cancel-button"
+                        class="absolute -right-20 top-0 h-full pl-4 transition-all duration-500 text-yellow transform-gpu">Отмена</button>
+                    <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none z-20 pl-9">
+                        <img id="location_icon" src="img/search.svg" alt="">
+                    </div>
+
+                    <ol id="suggestion-list"
+                        class="absolute w-full font-light pt-6 pr-10 text-base invisible opacity-0 transform-gpu duration-300">
+                    </ol>
+                </div>
+                <button id="get-current-location" class="px-6 w-full h-6">Погода в твоем городе</button>
+                <ol id="locations-list" class="pb-16  px-6 grid grid-flow-row gap-3 transition-all duration-300 transform-gpu 
+            ease-[cubic-bezier(0.65,0,0.2,0.95)]" tabindex="0" role="listbox">
+                </ol>
+            </div>
+        </div>
+        <!-- End FAV -->
+
+        <!-- SETTINGS -->
+        <div id="menu-settings" role="tabpanel" class="hidden fixed 
+        top-0 left-0 h-full w-full backdrop-blur-xl text-white overflow-y-scroll" tabindex="-1"
+            data-hs-overlay-backdrop="true">
+
+            <div id="container-settings" class="mx-4 no-swipe no-reorder grid grid-flow-row gap-6 overflow-y-scroll">
+                <!-- HEADER -->
+                <div class="z-55 sticky top-0 flex w-full h-[66px] pt-2 justify-between items-start">
+                    <button type="button" class="hs-overlay-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menu-settings"
+                        aria-controls="sidebarRight" aria-label="Toggle settings">
+                        <span class="sr-only">Toggle Menu</span>
+                        <img id="location_icon" src="img/arrow-left.svg" alt="">
+                    </button>
+                    <div id="settings-header" class="font-semibold text-base leading-8">
+                        Настройки
+                    </div>
+                    <div class="grow-0 shrink-0 w-8"></div>
+                </div>
+                <!--  -->
+                <div class="w-full">
+                    <h2 class="px-4 font-light text-xs uppercase pb-2 text-white/50">Единицы измерения</h2>
+                    <div class="card grid gap-4 w-full bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl">
+                        <div class="grid grid-flow-row w-full">
+                            <div class="p-6 flex justify-between items-center">
+                                <div class="text-base font-light">Температура</div>
+                                <section class="flex gap-3">
+                                    <label id="set_temp">
+                                        <div class="relative flex items-center h-[28px] w-[128px] 
+                                            border border-yellow text-yellow rounded-md text-center">
+
+                                            <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
+                                            <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">°C
+                                            </div>
+                                            <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
+                                            <div if="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
+                                        </div>
+                                    </label>
+                                </section>
+
+                            </div>
+                            <div class="p-6 flex justify-between">
+                                <div class="text-base font-light">Скорость ветра</div>
+                                <section class="flex gap-3">
+                                    <label id="set_temp">
+                                        <div class="relative flex items-center h-[28px] w-[128px] 
+                                            border border-yellow text-yellow rounded-md text-center">
+
+                                            <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
+                                            <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">км/ч
+                                            </div>
+                                            <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
+                                            <div if="on" class="cursor-pointer w-[64px] h-[28px]">м/с</div>
+                                        </div>
+                                    </label>
+                                </section>
+                            </div>
+                            <div class="p-6 flex justify-between">
+                                <div class="text-base font-light">Давление</div>
+                                <section class="flex gap-3">
+                                    <label id="set_temp">
+                                        <div class="relative flex items-center h-[28px] w-[128px] 
+                                            border border-yellow text-yellow rounded-md text-center">
+
+                                            <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
+                                            <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
+                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">мм рт.ст.
+                                            </div>
+                                            <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
+                                            <div if="on" class="cursor-pointer w-[64px] h-[28px]">мПа</div>
+                                        </div>
+                                    </label>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full">
+                    <h2 class="px-4 font-light text-xs uppercase pb-2 text-white/50">Приложение</h2>
+                    <div class="card grid gap-4 mb-[27px] bg-gradient-[144deg] from-[#1A2947] to-[#1A3153] rounded-3xl">
+                        <div class="grid grid-flow-row">
+                            <div class="p-6 flex justify-between">
+                                <div class="text-base font-light">Язык</div>
+                                <div class="flex text-center border border-yellow rounded-md w-32 font-light">
+                                    <div class="w-1/2 py-1 text-sm bg-yellow text-bg">RU</div>
+                                    <div class="w-1/2 py-1 text-sm text-yellow">EN</div>
+                                </div>
+                            </div>
+                            <div class="p-6 flex justify-between">
+                                <div class="text-base font-light">Уведомления</div>
+                                <div class="flex text-center border border-yellow rounded-md w-32 font-light">
+                                    <div class="w-1/2 py-1 text-sm bg-yellow text-bg">выкл</div>
+                                    <div class="w-1/2 py-1 text-sm text-yellow">вкл</div>
+                                </div>
+                            </div>
+                            <div class="p-6 flex justify-between">
+                                <div class="text-base font-light">Показывать детали</div>
+                                <div class="flex text-center border border-yellow rounded-md w-32 font-light">
+                                    <div class="w-1/2 py-1 text-sm bg-yellow text-bg">нет</div>
+                                    <div class="w-1/2 py-1 text-sm text-yellow">да</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-red-400/20 w-full"></div>
+                <div class="bg-red-400/20 w-full"></div>
+                <div class="bg-red-400/20 w-full"></div>
+
+            </div>
+        </div>
+        <!-- End SETTINGS -->
+    </div>
+
+
+    <script src="js/preline/hs-collapse.js"></script>
+    <script src="js/preline/hs-tabs.js"></script>
+    <script src="js/scroll.js"></script>
+    <!-- <section class=" w-full flex justify-
+        center gap-3 mt-4">
+        <button id="start" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md px-2">start</button>
+        <button id="middle" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md px-2">middle</button>
+        <button id="stop" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md px-2">end</button>
+    </section> -->
+    <!-- <nav class="px-6 pb-1 pt-8 flex gap-10 font-semibold text-[15px]">
+        <a href="#today">Сегодня</a>
+        <a href="#tomorrow" class="text-[#798C9F]">Завтра</a>
+    </nav> -->
+
+    <!-- <script>
+        const sun = document.querySelector('.sun')
+        const sky = document.querySelector('.sky')
+        document.querySelector('#start').addEventListener('click', () => {
+            sun.classList.add('!-rotate-180')
+            sky.classList.add('!-rotate-180')
+            sky.classList.remove('!-rotate-90')
+            sun.classList.remove('!-rotate-90')
+        })
+        document.querySelector('#middle').addEventListener('click', () => {
+            sun.classList.add('!-rotate-90')
+            sky.classList.add('!-rotate-90')
+            sky.classList.remove('!-rotate-180')
+            sun.classList.remove('!-rotate-180')
+        })
+        document.querySelector('#stop').addEventListener('click', () => {
+            sun.classList.remove('!-rotate-180', '!-rotate-90')
+            sky.classList.remove('!-rotate-180', '!-rotate-90')
+        })
+    </script>
+ -->
+
+
+    <!--     
+    <div class="relative w-[150px] h-[75px] m-32">
+        <div class="w-full h-full border border-b-0 border-dashed rounded-t-full border-cyan/60">
+        </div>
+
+        <div class="absolute top-1/2 w-full font-light flex flex-col justify-center items-center">
+            <div class="text-cyan/20 text-xs text-[#798C9F]">Световой день</div>
+            <div>12 ч. 56 м.</div>
+        </div>
+
+        <div class="sun absolute top-0 w-full h-full transform-gpu transition-all duration-500 origin-bottom 
+        border border-b-0 border-solid rounded-t-full border-cyan bg-gradient-to-b from-cyan/10 to-transparent z-100">
+        </div>
+
+        <div class="w-[150px] h-[75px] bg-bg -bottom-full z-150 absolute"></div>
+        <div
+            class="sky left-1/2 w-1/2 h-[1px] origin-left  transform-gpu transition-all duration-500 bottom-0 absolute z-160">
+            <div
+                class="w-2 h-2 rounded-full bg-white outline-2 outline outline-bg outline-offset-0 -bottom-[4px] -right-[4px] absolute z-[200]">
+            </div>
+        </div>
+    </div>
+
+
+    <section class="w-full flex justify-center gap-3">
+        <button id="start" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md p-4">start</button>
+        <button id="middle" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md p-4">middle</button>
+        <button id="stop" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md p-4">end</button>
+    </section>
+
+    <script>
+        const sun = document.querySelector('.sun')
+        const sky = document.querySelector('.sky')
+        document.querySelector('#start').addEventListener('click', () => {
+            sun.classList.add('!-rotate-180')
+            sky.classList.add('!-rotate-180')
+            sky.classList.remove('!-rotate-90')
+            sun.classList.remove('!-rotate-90')
+        })
+        document.querySelector('#middle').addEventListener('click', () => {
+            sun.classList.add('!-rotate-90')
+            sky.classList.add('!-rotate-90')
+            sky.classList.remove('!-rotate-180')
+            sun.classList.remove('!-rotate-180')
+        })
+        document.querySelector('#stop').addEventListener('click', () => {
+            sun.classList.remove('!-rotate-180', '!-rotate-90')
+            sky.classList.remove('!-rotate-180', '!-rotate-90')
+        })
+
+    </script> -->
+
 
     <!-- 
-        <input type="checkbox" name="settings" id="temp" value="celcius"> temperature
-    </label> -->
 
-    <section class="flex gap-3">
-        <div>
-            temp:
-        </div>
-        <label id="set_temp">
-            <div class="relative flex items-center bg-bg h-[28px] w-[128px] 
-                    border border-yellow text-yellow rounded-md text-center">
+    <nav class="px-6 pb-1 pt-8 flex gap-10 font-semibold text-[15px]">
+        <a href="#">Следующие 10 дней</a>
+        <a href="#" class="text-[#798C9F]">Прогноз на месяц</a>
+    </nav> -->
 
-                <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
-                <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
-                     border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">°C
-                </div>
-                <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
-                <div if="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
-            </div>
-        </label>
 
-    </section>
-
-    <section class="flex gap-3">
-        <div>
-            wind:
-        </div>
-        <label id="set_wind">
-            <div slider class="relative flex items-center bg-bg h-[28px] w-[128px] 
-            border border-yellow text-yellow rounded-md text-center">
-                <input class="hidden windSwitch" type="checkbox" name="settings" id="wind">
-                <div class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
-                     border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">°C
-                </div>
-                <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
-                <div if="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
-            </div>
-        </label>
-    </section>
-
+    <!-- 
     <script>
         var checkboxes = document.querySelectorAll('input[name=settings]')
         checkboxes.forEach(function (checkbox) {
@@ -117,9 +835,7 @@
                 console.log(enabledSettings)
             })
         });
-    </script>
-
-
+    </script> -->
 
 
 </body>

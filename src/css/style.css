@@ -38,8 +38,13 @@ body {
   touch-action: pan-y;
 }
 
-/* these are special */
 
+.bg-gradient {
+  background: linear-gradient(143.79deg, #192D52 10.22%, #112645 78.57%);
+  ;
+}
+
+/* these are special */
 
 .slip-reordering {
   transition-duration: 50ms;
@@ -133,15 +138,38 @@ input {
   }
 }
 
+#slide-2988507 {
+  contain: content;
+}
+
+#header-2988507 {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.swiper {
+  overflow: unset !important;
+}
+
+.swiper-wrapper {
+  /* contain: content; */
+}
+
+.swiper-pagination {
+  position: relative !important;
+  width: auto !important;
+  bottom: auto !important;
+}
 
 .swiper-pagination-bullet {
-  background-color: #011839 !important;
-  opacity: 1 !important;
+  background-color: #ffffff !important;
+
   padding: 3px !important;
   margin: 4px !important;
-  border: 1px solid white !important;
   border-radius: 4px !important;
   width: 3px !important;
+  height: 3px !important;
   -webkit-transition: background-color, border;
   -moz-transition: background-color, border;
   -o-transition: background-color, border;
@@ -150,15 +178,16 @@ input {
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #fff !important;
+  background-color: #FEB800 !important;
   border-radius: 4px !important;
   padding: 3px !important;
   margin: 4px !important;
-  border: 1px solid #fff !important;
+  border: 0 !important;
   -webkit-transition: background-color, border;
   -moz-transition: background-color, border;
   transition: background-color, border;
   width: 3px !important;
+  height: 3px !important;
   transition-duration: 500ms !important;
 }
 

@@ -7,8 +7,8 @@
     "description": "Beautiful Weather App",
     "lang": "en",
     "dir": "/weather/",
-    "theme_color": "#011839",
-    "background_color": "#011839",
+    "theme_color": "#10213A",
+    "background_color": "#10213A",
     "orientation": "portrait",
     "icons": [
         {

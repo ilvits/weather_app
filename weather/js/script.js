@@ -1,6 +1,8 @@
 let locations = JSON.parse(decodeURIComponent(getCookie('locations')));
-const currentDate = join(new Date, [{ day: 'numeric' }, { month: 'long' }], ' ');
+const currentDate = join(new Date, [{ day: 'numeric' }, { month: 'short' }], ' ');
+const currentDateLong = join(new Date, [{ day: 'numeric' }, { month: 'long' }], ' ');
 const currentWeekday = join(new Date, [{ weekday: 'short' }], '-');
+const currentWeekdayLong = join(new Date, [{ weekday: 'long' }], '-');
 let currentHour = Number(join(new Date, [{ hour: 'numeric' }], '-'));
 let nHours = 26 // Number of hours to display
 let leftHours = 24 - currentHour
@@ -18,6 +20,9 @@ let cardLocationName
 let weatherIcon
 let editButtons
 
+function getTime2Digits(date, offset = 0) {
+    return String(date.getHours() + offset).padStart(2, '0') + ":" + String(date.getMinutes()).padStart(2, '0')
+}
 
 
 async function getWeather(location) {
@@ -28,22 +33,38 @@ async function getWeather(location) {
         // method: 'GET',
         // headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
     };
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2Csunrise%2Csunset%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-    // const url = 'paris.json'
+    // const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2CsunriseEpoch%2CsunsetEpoch%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
+    const url = 'paris.json'
     await fetch(url, options)
         .then(response => response.json())
         .then(weatherData => appendData(location, weatherData))
         .catch(err => console.log(err));
 }
 
-HSOverlay.on('open', () => {
-    console.log('menu opening =>')
+HSOverlay.on('open', ($offcanvasEl) => {
+    if ($offcanvasEl.id == "menu-locations") {
+        document.querySelector('#fav_btn').classList.add('!text-yellow')
+        document.querySelector('#fav_btn_svg').classList.add('!stroke-yellow')
+    } else if ($offcanvasEl.id == "menu-settings") {
+        document.querySelector('#settings_btn').classList.add('!text-yellow')
+        document.querySelector('#settings_btn_svg').classList.add('!stroke-yellow')
+    }
 })
 
-HSOverlay.on('close', () => {
-    console.log('<= menu closed')
+HSOverlay.on('close', ($offcanvasEl) => {
+    // console.log('<= menu closed', $offcanvasEl.id)
     if ((locations !== null) || locations.length === 0) {
         locationName.innerText = Object.values(locations)[swiper.realIndex].name
+    }
+    if ($offcanvasEl.id == "menu-locations") {
+        console.log('locations')
+        console.log(document.querySelector('#fav_btn').classList)
+        document.querySelector('#fav_btn').classList.remove('!text-yellow')
+        document.querySelector('#fav_btn_svg').classList.remove('!stroke-yellow')
+    } else if ($offcanvasEl.id == "menu-settings") {
+        console.log('settings')
+        document.querySelector('#settings_btn').classList.remove('!text-yellow')
+        document.querySelector('#settings_btn_svg').classList.remove('!stroke-yellow')
     }
 })
 
@@ -127,6 +148,7 @@ function setupSlip(list) {
 
 document.addEventListener("DOMContentLoaded", () => {
     generateSlides(locations);
+    generateFavourites(locations);
     miniCards = document.querySelectorAll('.minicard')
     minmax = document.querySelectorAll('.minmax')
     cardLocationName = document.querySelectorAll('.cardLocationName')
@@ -205,11 +227,11 @@ swiper.on('slideChange', function () {
     locationName.innerText = Object.values(locations)[swiper.realIndex].name
 });
 
-function generateSlides(locations) {
-    // containerLocations.innerHTML = containerDefaults;
+
+function generateFavourites(locations) {
     if (locations) {
         for (let [name, location] of Object.entries(locations)) {
-            locationName.innerText = Object.values(locations)[0].name
+            // locationName.innerText = Object.values(locations)[0].name
             // console.log(location.current)
             containerLocations.insertAdjacentHTML('beforeend', `
                 <li id="card-${location.name_translit}" class="w-full h-[85px] z-[60] flex justify-center 
@@ -259,131 +281,133 @@ function generateSlides(locations) {
                     </div>
                 </li>
                 `)
-            // console.log(locationsList)
+        }
+    }
+}
+
+function generateSlides(locations) {
+    // containerLocations.innerHTML = containerDefaults;
+    if (locations) {
+        for (let [name, location] of Object.entries(locations)) {
+            // locationName.innerText = Object.values(locations)[0].name
+            console.log('current location:')
+            console.log(location)
 
             // console.log(`${location}: ${value.name}`);
             slides.insertAdjacentHTML('beforeend', `
-        <div id="slide-${location.id}" data-hash="${location.id}" class="swiper-slide bg-bg">
-                        <!-- Start of Content -->
-                        <div class="swiper-pagination"></div>
-                            <div id="main_info-${location.id}" class="grid gap-4 
-                                p-5 mx-4 mb-[27px] bg-gradient-to-br from-cyan/20 to-blue/20 rounded-3xl">
-
-                                <div class="flex justify-between items-baseline w-full">
-                                    <div id="current-time-${location.id}" class="font-semibold text-xl leading-5"></div>
-                                    <div id="current-day-${location.id}" class="text-white/70 text-xs"></div>
-                                </div>
-                                <button type="button" id="details-toggle-${location.name_translit}" class="relative hs-collapse-toggle flex justify-between sm:justify-around items-center w-full
-                                text-white" data-hs-collapse="#weather-details-${location.name_translit}">
-                                    <div class="grid grid-flow-row justify-items-start">
-                                        <div class="grid grid-flow-col">
-                                            <div id="temperature-${location.id}" class="font-semibold text-[64px] leading-[75px]"></div>
-                                            <div class="grid grid-flow-row divide-y divide-white/20 content-center px-4">
-                                                <div></div>
-                                                <div></div>
-                                            </div>
-                                        </div>
-                                        <div id="conditions-${location.id}" class="font-light text-sm leading-[18px]"></div>
-                                        <div id="feelslike-${location.id}" class="flex font-light text-sm leading-[18px]"></div>
-                                    </div>
-                                    <div id="weather-icon-${location.id}" class="w-[120px] h-[120px]"></div>
-                                    <div id="expand-arrow-d-${location.name_translit}" class="absolute -bottom-2 flex justify-center w-full">
-                                        <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] translate-x-[1px] rotate-[20deg] rounded-sm rounded-tr-none transition-all duration-500 transform-gpu"></div>
-                                        <div class="w-[16px] h-[2px] bg-[rgb(117,155,248)] -translate-x-[1px] rotate-[-20deg] rounded-sm rounded-tl-none transition-all duration-500 transform-gpu"></div>
-                                    </div>
-                                </button>
-
-                                <!--==-=== Weather Details ===-==-->
-
-                                <section id="weather-details-${location.name_translit}" class="hs-collapse hidden grid gap-2 items-center overflow-hidden transition-all transform-gpu">
-
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
-                                        <div class="flex flex-col">
-                                            <img class="w-6 h-6 winddir !transform-gpu transition-all duration-[2s] ease-[cubic-bezier(0.46,2.1,0.36,0.78)]" 
-                                                src="img/assets/icons/details/clarity_compass-line.svg" alt="">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div id="windspeed-${location.id}"
-                                                class="flex text-sm font-semibold gap-1 items-baseline"></div>
-                                            <div class="text-white/50 text-xs">Ветер</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/precip.svg" alt="">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div id="precipprob-${location.id}" class="text-sm font-semibold">
-                                            </div>
-                                            <div class="text-white/50 text-xs">Осадки</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row-start-3 xs:col-start-3 xs:row-start-1 col-start-1 
-                                    flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunrise.svg" alt="">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div id="sunset-${location.id}" class="text-sm font-semibold">5:00</div>
-                                            <div class="text-white/50 text-xs">Восход</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/wi_barometer.svg" alt="">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div id="pressure-${location.id}" class="text-sm font-semibold"></div>
-                                            <div class="text-white/50 text-xs">Давление</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/ion_water-humidity.svg" alt="">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div id="humidity-${location.id}" class="text-sm font-semibold">
-                                            </div>
-                                            <div class="text-white/50 text-xs">Влажность</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex gap-3 detail-item opacity-0 -translate-y-5 -translate-x-1 items-center transition-all duration-200 ease-in-out transform-gpu">
-                                        <div class="flex flex-col"><img class="w-6 h-6" src="img/assets/icons/details/sunset.svg" alt="">
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <div id="sunset-${location.id}" class="text-sm font-semibold">21:30</div>
-                                            <div class="text-white/50 text-xs">Закат</div>
-                                        </div>
-                                    </div>
-
-                                </section>
-
-                                <!--==-=== Weather Details End ===-==-->
-
-                            </div>
-                            <div id="nav-${location.id}" class="flex flex-row gap-10 pl-8 mt-6 mb-1">
-                                <button type='button' id="buttonToday-${location.id}"
-                                    class="z-40 font-normal text-sm transition-all duration-700 text-white">
-                                    Сегодня
-                                </button type='button'>
-                                <button type='button' id="buttonTomorrow-${location.id}"
-                                    class="z-40 font-normal text-sm transition-all duration-500 text-white/50">Завтра
-                                </button type='button'>
-                            </div>
-                            <div class="h-[160px] relative">
-                                <div id="hourlyToday-${location.id}" class="swiper-no-swiping grid grid-flow-col gap-2 
-                                overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition-all duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)]">
-                                </div>
-                                <div id="hourlyTomorrow-${location.id}" class="swiper-no-swiping pointer-events-none grid grid-flow-col gap-3 
-                                overflow-x-scroll no-scrollbar pb-3 pt-4 px-4 transform transition-all duration-700 ease-[cubic-bezier(0.04,1.35,0.42,0.97)] -translate-y-20 opacity-0 ">
+            <div id="slide-${location.id}" data-hash="${location.id}" class="relative swiper-slide bg-bg">
+                <div id="header-${location.id}" class="sticky_header sticky bg-gradient-to-b from-bg via-bg/80 to-transparent
+                backdrop-blur-sm top-0 w-full px-6 py-4 flex justify-between items-baseline z-50">
+                    <label class="font-semibold text-xl leading-5">${location.name}</label>
+                    <span class="absolute header-temp text-[#798C9F] opacity-0 right-6 transform-gpu transition-opacity duration-300">16°
+                        |
+                        Небольшой
+                        дождь</span>
+                    <button id="detail-weather-toggle--${location.name_translit}" class="detail-weather-toggle text-[#798C9F] text-sm font-light hs-collapse-toggle transform-gpu transition-opacity duration-300" data-hs-collapse="#detail-weather-info-${location.name_translit}">Развернуть
+                    </button>
+                </div>
+                <section id="general-weather-info--${location.id}" data-hash="${location.id}" class="px-4 max-w-md mx-auto swiper-slide bg-bg swiper-slide-active">
+                    <div class="w-full p-5 rounded-2xl bg-[#132846]">
+                        <div class="flex flex-row justify-between">
+                            <div class="flex flex-col gap-2">
+                                <div id="current-day-${location.id}" class="text-[#798C9F] text-xs font-light capitalize">${currentWeekdayLong}, ${currentDate} 9:23</div>
+                                <div id="temperature-${location.id}" class="text-[64px] leading-[68px] align-text-top">--</div>
+                                <div class="text-sm leading-4 flex flex-col gap-1">
+                                <div id="conditions-${location.id}">--</div>
+                                    <div>Ощущается как <span id="feelslike-${location.id}" class="font-bold">--</span></div>
                                 </div>
                             </div>
-                        <!-- <div class="block ml-6 mb-3 text-xl leading-6 font-light">Прогноз на 10 дней</div> --->
-                            <div id="daily-${location.id}" class="mx-4 grid grid-flow-row divide-y divide-blue/20">
+                            <div id="weather-icon-${location.id}"><img class="w-36 h-36" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                             </div>
-                        <!-- End of content -->
-                        </div>`)
+                        </div>
+                        <div id="detail-weather-info-${location.name_translit}"
+                            class="hs-collapse will-change-transform hidden w-full grid grid-flow-row gap-5 overflow-hidden transition-[height] duration-300">
+                            <div id="details-1" class="relative h-[100px] w-full grid grid-flow-col justify-around items-end">
+                                <div class="absolute detail-item opacity-0 -translate-y-5 -translate-x-1 transform-gpu transition-all w-full h-full flex justify-center">
+                                    <div class="absolute w-[150px] h-[75px] bottom-0">
+                                        <div class="w-full h-full border border-b-0 border-dashed rounded-t-full border-cyan/60">
+                                        </div>
+                                        <div
+                                            class="sun absolute top-0 w-full h-full origin-bottom -rotate-[38deg]
+                                        border border-b-0 border-solid rounded-t-full border-cyan bg-gradient-to-b from-[#0F3C5C] to-transparent">
+                                        </div>
+                                        <div class="w-[150px] h-[75px] bg-[#132846] absolute"></div>
+                                        <div class="w-2 h-2 rounded-full bg-cyan -bottom-[4px] -left-[4px] absolute"></div>
+                                        <div class="w-2 h-2 rounded-full bg-cyan -bottom-[4px] -right-[4px] absolute">
+                                        </div>
+                                        <div class="sky left-1/2 w-1/2 origin-left absolute -rotate-[38deg]">
+                                            <div
+                                                class="w-2 h-2 rounded-full bg-white outline-2 outline outline-bg outline-offset-0 -bottom-[4px] -right-[4px] absolute">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="detail-item opacity-0 -translate-y-5 -translate-x-1transform-gpu transition-all w-full grid grid-flow-row gap-[6px]">
+                                    <div class="text-xs text-[#798C9F]">Восход</div>
+                                    <div id="sunrise-${location.id}" class="font-semibold ">--</div>
+                                </div>
+                                <div class="w-full detail-item opacity-0 -translate-y-5 -translate-x-1 transform-gpu transition-all grid grid-flow-row gap-[6px] justify-center  z-10">
+                                    <div class="text-xs text-[#798C9F]">Световой день</div>
+                                    <div id="daylight-${location.id}" class="font-semibold">--</div>
+                                </div>
+                                <div class="w-full detail-item opacity-0 -translate-y-5 -translate-x-1 transform-gpu transition-all grid grid-flow-row gap-[6px]">
+                                    <div class="text-xs text-[#798C9F]">Закат</div>
+                                    <div id="sunset-${location.id}" class="font-semibold ">--</div>
+                                </div>
+                            </div>
+                            <div id="details-2" class="relative h-[100px] grid grid-cols-3 gap-1">
+                                <div class="detail-item opacity-0 -translate-y-5 -translate-x-1 transform-gpu transition-all grid grid-flow-row text-center">
+                                    <div class="">
+                                        <div class="text-xs text-[#798C9F]">t° минимум</div>
+                                        <div id="tempmax-${location.id}">--</div>
+                                    </div>
+                                    <div class="">
+                                        <div class="text-xs text-[#798C9F]">t° максимум</div>
+                                        <div id="tempmin-${location.id}">--</div>
+                                    </div>
+                                </div>
+                                <div class="detail-item opacity-0 -translate-y-5 -translate-x-1 transform-gpu transition-all grid grid-flow-row text-center">
+                                    <div class="grid grid-flow-row">
+                                        <div class="text-xs text-[#798C9F]">Осадки</div>
+                                        <div id="precipprob-${location.id}">--</div>
+                                    </div>
+                                    <div class="">
+                                        <div class="text-xs text-[#798C9F]">Влажность</div>
+                                        <div id="humidity-${location.id}">--</div>
+                                    </div>
+                                </div>
+                                <div class="detail-item opacity-0 -translate-y-5 -translate-x-1 transform-gpu transition-all grid grid-flow-row text-center">
+                                    <div class="">
+                                        <div class="text-xs text-[#798C9F]">Давление</div>
+                                        <div id="pressure-${location.id}">--</div>
+                                    </div>
+                                    <div class="">
+                                        <div class="text-xs text-[#798C9F]">Ветер</div>
+                                        <div id="windspeed-${location.id}">--</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="hourlyToday-${location.id}" class="hourly swiper-no-swiping will-change-scroll pt-4 gap-2 flex overflow-hidden overflow-x-scroll 
+                no-scrollbar px-3 scroll-smooth snap-x snap-mandatory">
+                </section>
+
+                <section id="daily-${location.id}" class="py-6 mx-4 grid grid-flow-row">
+                </section>
+
+                <section id="monthly-${location.id}" class="mx-4 pb-24 font-light flex flex-nowrap gap-5 items-center">
+                    <div class="small-icon w-[52px] h-[52px] grow-0 bg-[#192D52] rounded-2xl py-1">
+                        <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/monthly.svg" alt="">
+                    </div>
+                    <div class="grow text-base leading-5 text-[#D7E3FA]">Прогноз на месяц</div>
+                    <div class="grow-0"><img class="w-[7px] h-[14px] mx-auto" src="img/assets/icons/arrow-right.svg" alt=""></div>
+                </section>
+            </div>`)
         }
     }
 }
@@ -427,23 +451,17 @@ function printHourlyWeather(id, days, weatherData, startDay = 0) {
             }
 
             hourlyPlaceholder.innerHTML += `
-                <div class="relative grid grid-flow-row justify-items-center w-[58px] h-[98px] p-2 mb-4  rounded-lg">
-                    <div class="-top-[18px] absolute text-xs text-white/50">${nextDayTip}</div>
-                    <div class="font-light text-xs text-white">
-                        ${time}
-                    </div>
-                    <div class="">
-                        <img class="w-10 h-10" src="img/assets/icons/weather-conditions/${data.icon}.svg">
-                    </div>
-                    <div class="grid grid-flow-row justify-items-center justify-center">
-                        <div id="hourly-now" class="text-xl leading-6 font-semibold">
-                            ${Math.round(data.temp)}°
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-[22px] text-[10px] leading-3 text-[rgb(111,210,250)] text-white/50 w-full flex justify-center gap-1">
-                        ${Math.round(data.precipprob) > 20 ? ('<img class="w-3 h-3" src="img/precip.svg">' + Math.ceil((data.precipprob / 10)) * 10 + '%') : ''}
-                    </div>
-                </div>`;
+            <div class="flex flex-col justify-end items-center px-2  scroll-ml-3 snap-start">
+                <div class="date text-xs text-white/50 pb-1">${nextDayTip}</div>
+                <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center relative">
+                    <img class="w-6 h-6" src="img/assets/icons/weather-conditions/${data.icon}.svg" alt="" srcset="">
+                    ${Math.round(data.precipprob) > 20 ?
+                    ('<div class="absolute bg-bg p-[5px] leading-[9px] -bottom-2 -right-2 text-[10px] text-cyan rounded-3xl">'
+                        + Math.ceil((data.precipprob / 10)) * 10 + '%</div>') : ''}
+                </div>
+                <div class="time font-light text-[11px] text-[#798C9F] pt-3">${time}</div>
+                <div class="temp font-semibold text-lg leading-5 pt-1">${Math.round(data.temp)}°</div>
+            </div>`;
         }
         leftHours = nHours - leftHours
     }
@@ -452,8 +470,66 @@ function printHourlyWeather(id, days, weatherData, startDay = 0) {
 function appendData(location, weatherData) {
     // console.log(weatherData)
 
-    const buttonTomorrow = document.getElementById('buttonTomorrow-' + location.id);
-    const buttonToday = document.getElementById('buttonToday-' + location.id);
+    var doc = document.documentElement;
+    var w = window;
+
+    var prevScroll = w.scrollY || doc.scrollTop;
+    var curScroll;
+    var direction = 0;
+    var prevDirection = 0;
+
+    toggle = document.querySelectorAll('.detail-weather-toggle');
+    headerTemp = document.querySelectorAll('.header-temp');
+    var checkScroll = function () {
+
+        /*
+         ** Find the direction of scroll
+         ** 0 - initial, 1 - up, 2 - down
+         */
+
+        curScroll = w.scrollY || doc.scrollTop;
+        if (curScroll > prevScroll) {
+            //scrolled up
+            direction = 2;
+        } else if (curScroll < prevScroll) {
+            //scrolled down
+            direction = 1;
+        }
+
+        if (direction !== prevDirection) {
+            toggleHeader(direction, curScroll);
+        }
+
+        prevScroll = curScroll;
+    };
+
+    var toggleHeader = function (direction, curScroll) {
+        if (direction === 2 && curScroll > 120) {
+
+            //replace 52 with the height of your header in px
+            toggle.forEach((t) => {
+                t.classList.add('opacity-0', 'pointer-events-none');
+            })
+            headerTemp.forEach((h) => {
+                h.classList.remove('opacity-0');
+            })
+            prevDirection = direction;
+        } else if (direction === 1 && curScroll <= 120) {
+            toggle.forEach((t) => {
+                t.classList.remove('opacity-0', 'pointer-events-none');
+            })
+            headerTemp.forEach((h) => {
+                h.classList.add('opacity-0');
+            })
+            prevDirection = direction;
+        }
+    };
+    window.addEventListener('scroll', checkScroll);
+
+
+    const sunrise = document.getElementById('sunrise-' + location.id);
+    const sunset = document.getElementById('sunset-' + location.id);
+    const dayLight = document.getElementById('daylight-' + location.id);
     const temperature = document.getElementById('temperature-' + location.id);
     const weatherIcon = document.getElementById('weather-icon-' + location.id);
     const conditions = document.getElementById('conditions-' + location.id);
@@ -463,104 +539,57 @@ function appendData(location, weatherData) {
     const pressure = document.getElementById('pressure-' + location.id);
     const windspeed = document.getElementById('windspeed-' + location.id);
     const precipprob = document.getElementById('precipprob-' + location.id);
-    const hourlyToday = document.getElementById('hourlyToday-' + location.id);
-    const hourlyTomorrow = document.getElementById('hourlyTomorrow-' + location.id);
+    const tempmax = document.getElementById('tempmax-' + location.id);
+    const tempmin = document.getElementById('tempmin-' + location.id);
+
+
+    // HOURLY FORECAST
 
     printHourlyWeather(location.id, days, weatherData)
-    printHourlyWeather(location.id, days, weatherData, 1)
+    // printHourlyWeather(location.id, days, weatherData, 1)
 
     // console.log(locations)
     // console.log(location.name)
     // console.log(location)
-    const weatherDetailsToggle = document.querySelector(`#details-toggle-${location.name_translit}`)
-    const detailInfo = document.querySelector(`#weather-details-${location.name_translit}`)
-    const detailItems = document.querySelectorAll(`#weather-details-${location.name_translit} .detail-item`)
+    const weatherDetailsToggle = document.querySelector(`#detail-weather-toggle--${location.name_translit}`)
+    const detailInfo = document.querySelector(`#detail-weather-info-${location.name_translit}`)
+    const detailItems = document.querySelectorAll(`#detail-weather-info-${location.name_translit} .detail-item`)
+    const sunrise_date = new Date(weatherData.currentConditions.sunriseEpoch * 1000)
+    const sunset_date = new Date(weatherData.currentConditions.sunsetEpoch * 1000)
+    const dayLight_date = new Date(sunset_date - sunrise_date)
 
     weatherDetailsToggle.onclick = () => {
         if (detailInfo.clientHeight > 0) {
             console.log('▲ details closing... ▲')
 
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.remove('rotate-[-20deg]')
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.remove('rotate-[20deg]')
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.add('rotate-[20deg]')
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.add('rotate-[-20deg]')
-
             detailItems.forEach((el) => {
                 el.classList.add('opacity-0', '-translate-y-5', '-translate-x-1');
             })
-
-            detailInfo.querySelector('.winddir').classList.remove('rotate-[1turn]')
         } else {
             console.log('▼ details opening... ▼')
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.remove('rotate-[20deg]')
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.remove('rotate-[-20deg]')
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[0].classList.add('rotate-[-20deg]')
-            document.querySelector(`#expand-arrow-d-${location.name_translit}`).children[1].classList.add('rotate-[20deg]')
             detailItems.forEach((el, index) => {
                 var interval = 35;
                 setTimeout(() => {
                     el.classList.remove('opacity-0', '-translate-y-5', '-translate-x-1');
                 }, index * interval);
             })
-            detailInfo.querySelector('.winddir').classList.add('rotate-[1turn]')
         }
     }
 
-
-    buttonToday.onclick = () => {
-        buttonTomorrow.classList.remove('text-white')
-        buttonTomorrow.classList.add('text-white/50')
-        buttonToday.classList.add('text-white')
-        buttonToday.classList.remove('text-white/50')
-        hourlyTomorrow.classList.add('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
-        hourlyTomorrow.classList.remove('-translate-y-[142px]', 'opacity-100')
-        hourlyToday.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
-        hourlyToday.classList.add('translate-y-0', 'opacity-100')
-    }
-
-    buttonTomorrow.onclick = () => {
-        buttonToday.classList.remove('text-white')
-        buttonToday.classList.add('text-white/50')
-        buttonTomorrow.classList.add('text-white')
-        buttonTomorrow.classList.remove('text-white/50')
-        hourlyToday.classList.add('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
-        hourlyToday.classList.remove('translate-y-0', 'opacity-100')
-        hourlyTomorrow.classList.remove('-translate-y-20', 'opacity-0', 'z-0', 'pointer-events-none')
-        hourlyTomorrow.classList.add('-translate-y-[142px]', 'opacity-100')
-    }
     let todayWeather = weatherData.days[0]
     let currentWeather = weatherData.days[0].hours[Number(join(new Date, [{ hour: 'numeric' }], '-'))]
-    let winddir = Math.round(Number(currentWeather.winddir));
 
-    switch (true) {
-        case (0 < winddir && winddir <= 90):
-            dir = 'СВ'
-            break;
-        case (90 < winddir && winddir < 180):
-            dir = 'СЗ'
-            break;
-        case (180 < winddir && winddir < 270):
-            dir = 'ЮЗ'
-            break;
-        case (270 < winddir && winddir < 360):
-            dir = 'ЮВ'
-    }
-    let style = document.createElement('style');
-    let rotate = `
-        .winddir {
-            transform: rotate(-${winddir}deg);
-        }`;
-    style.innerHTML = rotate;
-    document.getElementsByTagName('head')[0].appendChild(style);
 
-    temperature.innerHTML = `${Math.round(currentWeather.temp)}°`
+    temperature.innerHTML = `${Math.round(currentWeather.temp)}<span class="text-2xl absolute font-bold leading-9">°C</span>`
+    feelslike.innerHTML = ` ${Math.round(currentWeather.feelslike)}°`
+    sunrise.innerHTML = getTime2Digits(sunrise_date)
+    sunset.innerHTML = getTime2Digits(sunset_date)
+    dayLight.innerHTML = `${(dayLight_date.getHours() + dayLight_date.getTimezoneOffset() / 60)} ч ${dayLight_date.getMinutes()} мин`
+    tempmax.innerText = `${Math.round(todayWeather.tempmax)}°`
+    tempmin.innerText = `${Math.round(todayWeather.tempmin)}°`
     conditions.innerHTML = currentWeather.conditions
-    currentDay.innerHTML = `${currentWeekday}, ${currentDate}`
+    currentDay.innerHTML = `${currentWeekday}, ${currentDateLong}`
     weatherIcon.innerHTML = `<img src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
-    feelslike.innerHTML = `Ощущается как
-        <div class="font-semibold pl-1">
-            ${Math.round(currentWeather.feelslike)}°
-        </div>`
     humidity.innerHTML = `
         ${Math.round(currentWeather.humidity)}
         <span class="text-sm font-medium">%</span>`
@@ -580,9 +609,32 @@ function appendData(location, weatherData) {
     document.querySelector(`#card-${location.name_translit} .weather-icon`).innerHTML = `
     <img no-swipe no-reorder src="img/assets/icons/weather-conditions/${todayWeather.icon}.svg">`
 
-    for (let i = 1; i < 11; i++) {
-        let d = [{ day: 'numeric' }, { month: 'long' }];
-        let w = [{ weekday: 'long' }];
+    function minMax(obj) {
+        var keys = Object.keys(obj);
+        var i;
+        var minMin = keys[0]; // ignoring case of empty obj for conciseness
+        var maxMax = keys[0];
+        for (i = 0; i < 10; i++) {
+            var value = keys[i];
+            if (obj[value].tempmin < obj[minMin].tempmin) minMin = value;
+            if (obj[value].tempmax > obj[maxMax].tempmax) maxMax = value;
+        }
+        var tempRange = {
+            'tempmin': Math.round(obj[minMin].tempmin),
+            'tempmax': Math.round(obj[maxMax].tempmax)
+        }
+        return tempRange
+    }
+
+    tempRange = minMax(weatherData.days)
+    console.log(tempRange)
+
+
+    // DAILY FORECAST
+
+    for (let i = 0; i < 10; i++) {
+        let d = [{ day: 'numeric' }, { month: 'short' }];
+        let w = [{ weekday: 'short' }];
         let date = join(new Date(weatherData.days[i].datetime), d, ' ');
         let weekday = join(new Date(weatherData.days[i].datetime), w, '-');
         if (weekday == 'суббота' || weekday == 'воскресенье') {
@@ -590,25 +642,43 @@ function appendData(location, weatherData) {
         } else {
             color = 'text-white'
         }
+        if (i === 0) {
+            data = "Сегодня";
+        } else if (i === 1) {
+            data = "Завтра";
+        } else {
+            data = weekday + "</span><span>, " + date + "</span>"
+        }
+        let tempmin = Math.round(weatherData.days[i].tempmin)
+        let tempmax = Math.round(weatherData.days[i].tempmax)
+        let delta = tempRange.tempmax - tempRange.tempmin
+        // console.log(document.getElementById('daily-' + location.id))
         document.getElementById('daily-' + location.id).innerHTML += `
-        <div class="flex px-2 py-2 items-center">
-            <div class="grow shrink-0 w-20 flex flex-col">
-                <div class="text-xs text-white/50">${date}</div>
-                <div class="text-[15] leading-[18px] font-normal capitalize ${color}">${weekday}</div>
+        <div class="w-full py-[2px] font-light flex flex-nowrap gap-5 items-center">
+            <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#192D52] rounded-2xl py-1 relative">
+                <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/${weatherData.days[i].icon}.svg" alt="">
+                ${Math.round(weatherData.days[i].precipprob) > 20 ?
+                ('<div class="absolute bg-bg p-[5px] leading-[9px] -bottom-2 -right-2 text-[10px] text-cyan rounded-3xl">'
+                    + Math.ceil((weatherData.days[i].precipprob / 10)) * 10 + '%</div>') : ''}
             </div>
-            <div class="grow-0 shrink-0 w-32 gap-4 flex justify-center items-center">
-
-                <div class="text-xs leading-3 text-[#6A9CFF] text-white/50 flex justify-center gap-1">
-                ${Math.round(data.precipprob) > 20 ? ('<img class="w-3 h-3" src="img/precip.svg">' + Math.ceil((data.precipprob / 10)) * 10 + '%') : ''}
+            <div class="text w-28 shrink-0 flex flex-col gap-1">
+                <div class="text-sm leading-3 text-[#D7E3FA]">
+                    <span class="capitalize">${data}</span>
+                </div>
+                <div class="text-xs leading-3 text-[#44729D]">${weatherData.days[i].conditions}</div>
             </div>
-            <div >
-                <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/${weatherData.days[i].icon}.svg">
-            </div>
-            </div>
-            <div class="grow flex gap-2 justify-end items-baseline">
-                <div class="font-normal text-lg text-white w-6 text-end">${Math.round(weatherData.days[i].tempmax)}°</div>
-                <div class="text-xs text-violet w-5 text-end">${Math.round(weatherData.days[i].tempmin)}°</div>
-            </div>
+            <div class="my-4 w-full">
+                <div id="labels" class="flex justify-between mx-auto pb-2 leading-5">
+                    <div class="text-[#44729D]">${tempmin}°</div>
+                    <div>${tempmax}°</div>
+                </div>
+                <div class="relative h-1 rounded-md bg-slate-600">
+                    <div class="absolute h-full rounded-md bg-gradient-to-r from-[#DEDEDE] to-[#3FD5FE]"
+                        style="left: ${(100 * (tempmin - tempRange.tempmin)) / delta}%; 
+                        width: ${(100 * (tempmax - tempmin)) / delta}%">
+                    </div>
+                </div>
+        </div>
         </div>`;
     }
 }
