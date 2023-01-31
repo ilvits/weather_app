@@ -7,7 +7,7 @@
  * @param  {Number} index The position in the object to add the new key/value pair [optional]
  * @return {Object}       An immutable clone of the original object, with the new key/value pair added
  */
-var addToObject = function (obj, key, value, index) {
+function addToObject(obj, key, value, index) {
 
     // Create a temp object and index variable
     var temp = {};
@@ -18,24 +18,20 @@ var addToObject = function (obj, key, value, index) {
         if (Object.prototype.hasOwnProperty.call(obj, prop)) {
             // If the indexes match, add the new item
             if (i === index && key && value) {
-                console.log(typeof (value)); z2
-                temp[key] = JSON.parse(value);
+                // console.log(typeof (value));
+                temp[key] = value;
             }
-
             // Add the current item in the loop to the temp obj
             temp[prop] = obj[prop];
 
             // Increase the count
             i++;
-
         }
     }
-
     // If no index, add to the end
+    // console.log('If no index, add to the end', obj, key, value)
     if (!index && key) {
         temp[key] = value;
     }
-
     return temp;
-
 };

@@ -34,13 +34,40 @@
   } */
 }
 
+@layer components {
+  .transition-all-300 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition-all transform-gpu duration-300;
+  }
+  .transition-all-500 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition-all transform-gpu duration-500;
+  }
+  .transition-300 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition transform-gpu duration-300;
+  }
+  .transition-500 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition transform-gpu duration-500;
+  }
+  .transition-transform-300 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition-transform transform-gpu duration-300;
+  }
+  .transition-transform-500 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition-transform transform-gpu duration-500;
+  }
+  .transition-opacity-300 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition-opacity transform-gpu duration-300;
+  }
+  .transition-opacity-500 {
+    @apply ease-[cubic-bezier(.23,1,.32,1)] transition-opacity transform-gpu duration-500;
+  }
+}
+
 body {
   touch-action: pan-y;
 }
 
 
 .bg-gradient {
-  background: linear-gradient(143.79deg, #192D52 10.22%, #112645 78.57%);
+  background: linear-gradient(143.79deg, #192D52 10.22%, #112645 78.57%) !important;
   ;
 }
 
@@ -119,7 +146,7 @@ input {
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  display: none !important;
   width: 0 !important;
 }
 
@@ -148,8 +175,10 @@ input {
   left: 0;
 }
 
+
+
 .swiper {
-  overflow: unset !important;
+  overflow: clip !important;
 }
 
 .swiper-wrapper {
@@ -159,11 +188,13 @@ input {
 .swiper-pagination {
   position: relative !important;
   width: auto !important;
+  left: auto !important;
   bottom: auto !important;
 }
 
 .swiper-pagination-bullet {
-  background-color: #ffffff !important;
+  background-color: #524311 !important;
+  opacity: 100 !important;
 
   padding: 3px !important;
   margin: 4px !important;
