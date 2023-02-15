@@ -301,6 +301,7 @@ function hideWeatherPreview() {
     hideLoadingAnimation()
     localStorage.removeItem(`weatherData-${locationPreviewData.id}-updateDate`);
     localStorage.removeItem(`weatherData-${locationPreviewData.id}-10`);
+    localStorage.removeItem(`weatherData-${locationPreviewData.id}-30`);
     newLocationPreviewEl.classList.add('opacity-0', 'translate-y-[600px]', '-z-10');
     newLocationPreviewEl.classList.remove('z-[130]');
     setTimeout(() => {
@@ -326,6 +327,7 @@ function previewWeather(loc, is_user_location = true) {
     }
     console.log(locationPreviewData)
     getWeatherDataFromAPI(locationPreviewData.id, locationPreviewData.latitude, locationPreviewData.longitude, 10, true)
+    getWeatherDataFromAPI(locationPreviewData.id, locationPreviewData.latitude, locationPreviewData.longitude, 30)
 }
 
 function generatePreview(loc, weatherData, is_user_location = false) {

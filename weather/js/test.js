@@ -249,26 +249,6 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/${currentWeather.icon}.svg" alt="" srcset="">`
     }
 
-    // LOCATIONS CARDS RENDER
-    console.log(loc.name.length)
-    if (loc.name.length < 18) {
-        document.querySelector(`#card-${loc.id} .location-card--name`).classList.remove('text-sm')
-    }
-    document.querySelector(`#card-${loc.id} .location-card--name`).innerText = loc.name
-    if (loc.is_user_location) {
-        console.log(loc.is_user_location)
-        document.querySelector(`#card-${loc.id} .user-location-pin`).innerHTML = `<img class="" src="img/assets/icons/map-pin.svg"></img>`
-    }
-    document.querySelector(`#card-${loc.id} .time`).innerText = location_time
-    document.querySelector(`#card-${loc.id} .temp`).innerText = Math.round(currentWeather.temp) + '°'
-    document.querySelector(`#card-${loc.id} .condition`).innerText = todayWeather.conditions
-    document.querySelector(`#card-${loc.id} .tempmax`).innerText = Math.round(todayWeather.tempmax) + '°'
-    document.querySelector(`#card-${loc.id} .tempmin`).innerText = Math.round(todayWeather.tempmin) + '°'
-    document.querySelector(`#card-${loc.id} .weather-icon`).innerHTML = `<img class="" src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
-    document.querySelector(`#card-${loc.id} .edit-icon`).addEventListener('click', (event) => {
-        openLocationEditModal(event.target)
-    })
-
     function toggleDetailInfo() {
         if (detailInfo.clientHeight > 0) {
             // console.log('▲ details closing... ▲')
@@ -416,6 +396,27 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
             }
             prevScroll = curScroll;
         }, passiveIfSupported);
+
+        // LOCATIONS CARDS RENDER
+        console.log(loc.name.length)
+        if (loc.name.length < 18) {
+            document.querySelector(`#card-${loc.id} .location-card--name`).classList.remove('text-sm')
+        }
+        document.querySelector(`#card-${loc.id} .location-card--name`).innerText = loc.name
+        if (loc.is_user_location) {
+            console.log(loc.is_user_location)
+            document.querySelector(`#card-${loc.id} .user-location-pin`).innerHTML = `<img class="" src="img/assets/icons/map-pin.svg"></img>`
+        }
+        document.querySelector(`#card-${loc.id} .time`).innerText = location_time
+        document.querySelector(`#card-${loc.id} .temp`).innerText = Math.round(currentWeather.temp) + '°'
+        document.querySelector(`#card-${loc.id} .condition`).innerText = todayWeather.conditions
+        document.querySelector(`#card-${loc.id} .tempmax`).innerText = Math.round(todayWeather.tempmax) + '°'
+        document.querySelector(`#card-${loc.id} .tempmin`).innerText = Math.round(todayWeather.tempmin) + '°'
+        document.querySelector(`#card-${loc.id} .weather-icon`).innerHTML = `<img class="" src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
+        document.querySelector(`#card-${loc.id} .edit-icon`).addEventListener('click', (event) => {
+            openLocationEditModal(event.target)
+        })
+
 
     } else {
         HSCollapse.show(detailInfo)
