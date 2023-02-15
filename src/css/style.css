@@ -193,7 +193,7 @@ input {
 }
 
 .swiper-pagination-bullet {
-  background-color: #524311 !important;
+  background-color: #ACD8E7 !important;
   opacity: 100 !important;
 
   padding: 3px !important;
@@ -209,6 +209,35 @@ input {
 }
 
 .swiper-pagination-bullet-active {
+  background-color: #3377FF !important;
+  border-radius: 4px !important;
+  padding: 3px !important;
+  margin: 4px !important;
+  border: 0 !important;
+  -webkit-transition: background-color, border;
+  -moz-transition: background-color, border;
+  transition: background-color, border;
+  width: 3px !important;
+  height: 3px !important;
+  transition-duration: 500ms !important;
+}
+.dark .swiper-pagination-bullet {
+  background-color: #524311 !important;
+  opacity: 100 !important;
+
+  padding: 3px !important;
+  margin: 4px !important;
+  border-radius: 4px !important;
+  width: 3px !important;
+  height: 3px !important;
+  -webkit-transition: background-color, border;
+  -moz-transition: background-color, border;
+  -o-transition: background-color, border;
+  transition: background-color, border;
+  transition-duration: 500ms !important;
+}
+
+.dark .swiper-pagination-bullet-active {
   background-color: #FEB800 !important;
   border-radius: 4px !important;
   padding: 3px !important;
