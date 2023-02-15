@@ -2,9 +2,9 @@ let locations = {};
 let locationPreviewData = {}
 let openOverlay = false
 let weatherArray = []
-// let minmax, weatherIcon, editButtons,
-//     s_temp, s_wind, s_pressure, s_lang, s_detail, dir,
-//     userCountry, locationDataSet, resultList
+let minmax, weatherIcon, editButtons,
+    s_temp, s_wind, s_pressure, s_lang, s_detail, dir,
+    userCountry, locationDataSet, resultList
 
 let s_flag = false
 let editLocation_flag = false
