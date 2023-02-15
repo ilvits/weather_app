@@ -78,7 +78,7 @@ body {
   transition-timing-function: linear;
 }
 
-.slip-reordering .minicard {
+.slip-reordering .card {
   transform: scale(1.06);
 }
 

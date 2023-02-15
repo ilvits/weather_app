@@ -74,7 +74,7 @@ class HSOverlay extends Component {
         }
 
         if (disabledScroll) {
-            document.body.style.overflow = 'hidden'
+            document.body.style.overflow = 'clip'
         }
 
         this._buildBackdrop($overlayEl)
@@ -114,17 +114,17 @@ class HSOverlay extends Component {
         })
     }
 
-    _autoHide ($overlayEl) {
+    _autoHide($overlayEl) {
         const time = parseInt(this.getClassProperty($overlayEl, '--auto-hide', '0'))
 
         if (time) {
-            $overlayEl.autoHide = setTimeout (() => {
+            $overlayEl.autoHide = setTimeout(() => {
                 this.close($overlayEl)
             }, time)
         }
     }
 
-    _checkTimer ($overlayEl) {
+    _checkTimer($overlayEl) {
         if ($overlayEl.autoHide) {
             clearTimeout($overlayEl.autoHide)
             delete $overlayEl.autoHide

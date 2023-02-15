@@ -20,12 +20,11 @@
     <title>TEST</title>
 </head>
 
-<body class="dark-preview bg-bg text-white mt-4">
+<body class="dark-preview bg-cosmic-900 text-white mt-4">
 
     <!-- TAP BAR -->
-    <section id="tapbar" class="fixed z-50 bottom-0 left-0 w-full h-[85px] bg-bg/80 backdrop-blur-lg">
-        <nav aria-label="Tabs" role="tablist"
-            class="pt-[9px] flex justify-around items-start text-[#798C9F] text-[10px] leading-[9px]">
+    <section id="tapbar" class="fixed z-50 bottom-0 left-0 w-full h-[85px] bg-cosmic-900/80 backdrop-blur-lg">
+        <nav aria-label="Tabs" role="tablist" class="pt-[9px] flex justify-around items-start text-cosmic-500 text-xxs">
             <div id="item-1" data-hs-tab="#main" aria-controls="main" role="tab"
                 class="flex flex-col items-center gap-[6px] hs-tab-active:text-yellow active">
                 <svg class="hs-tab-active:stroke-yellow stroke-[#6892B9]" width="24" height="24" viewBox="0 0 24 24"
@@ -72,23 +71,23 @@
         <!-- MAIN -->
         <div id="main" role="tabpanel">
             <section id="header"
-                class="sticky top-0 w-full h-16 bg-bg px-6 py-4 flex justify-between items-baseline relative z-50">
+                class="sticky top-0 w-full h-16 bg-cosmic-900 px-6 py-4 flex justify-between items-baseline relative z-50">
                 <label class="font-semibold text-xl leading-5">Пантелейки</label>
                 <span id="header-temp"
-                    class="absolute text-[#798C9F] opacity-0 right-6 transform-gpu transition-opacity duration-300">16°
+                    class="absolute text-cosmic-500 opacity-0 right-6 transform-gpu transition-opacity duration-300">16°
                     |
                     Небольшой
                     дождь</span>
-                <button id="detail-weather--toggle" class="text-[#798C9F] text-sm font-light hs-collapse-toggle 
+                <button id="detail-weather--toggle" class="text-cosmic-500 text-sm font-light hs-collapse-toggle 
                 transform-gpu transition-opacity duration-300" data-hs-collapse="#detail-weather-info">Развернуть
                 </button>
             </section>
 
             <section id="general-weather-info" class="px-4 max-w-md mx-auto">
-                <div class="w-full p-4 rounded-2xl bg-[#132846] ">
+                <div class="w-full p-4 rounded-2xl bg-cosmic-800 ">
                     <div class="flex flex-row justify-between pb-7">
                         <div class="flex flex-col gap-3">
-                            <div class="text-[#798C9F] text-xs font-light">Вторник, 30 авг. 9:23</div>
+                            <div class="text-cosmic-500 text-xs font-light">Вторник, 30 авг. 9:23</div>
                             <div class="text-[64px] leading-[68px]">16°</div>
                             <div class="text-sm leading-4 flex flex-col gap-1">
                                 <div>Ощущается как <span class="font-semibold">12°</span></div>
@@ -113,59 +112,59 @@
                                         class="sun absolute top-0 w-full h-full origin-bottom -rotate-[38deg]
                                 border border-b-0 border-solid rounded-t-full border-cyan bg-gradient-to-b from-[#0F3C5C] to-transparent">
                                     </div>
-                                    <div class="w-[150px] h-[75px] bg-[#132846] absolute"></div>
+                                    <div class="w-[150px] h-[75px] bg-cosmic-800 absolute"></div>
                                     <div class="w-2 h-2 rounded-full bg-cyan -bottom-[4px] -left-[4px] absolute"></div>
                                     <div class="w-2 h-2 rounded-full bg-cyan -bottom-[4px] -right-[4px] absolute">
                                     </div>
                                     <div class="sky left-1/2 w-1/2 origin-left absolute -rotate-[38deg]">
                                         <div
-                                            class="w-2 h-2 rounded-full bg-white outline-2 outline outline-bg outline-offset-0 -bottom-[4px] -right-[4px] absolute">
+                                            class="w-2 h-2 rounded-full bg-white outline-2 outline outline-cosmic-900 outline-offset-0 -bottom-[4px] -right-[4px] absolute">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="w-full grid grid-flow-row gap-[6px]">
-                                <div class="text-xs text-[#798C9F]">Восход</div>
+                                <div class="text-xs text-cosmic-500">Восход</div>
                                 <div class="font-semibold ">06:25</div>
                             </div>
                             <div class="w-full grid grid-flow-row gap-[6px] justify-center  z-10">
-                                <div class="text-xs text-[#798C9F]">Световой день</div>
+                                <div class="text-xs text-cosmic-500">Световой день</div>
                                 <div class="font-semibold">12 ч. 56 мин</div>
                             </div>
                             <div class="w-full grid grid-flow-row gap-[6px]">
-                                <div class="text-xs text-[#798C9F]">Закат</div>
+                                <div class="text-xs text-cosmic-500">Закат</div>
                                 <div class="font-semibold ">23:25</div>
                             </div>
                         </div>
                         <div id="details-2" class="relative h-[100px] grid grid-cols-3 gap-1">
                             <div class=" grid grid-flow-row text-center">
                                 <div class="">
-                                    <div class="text-xs text-[#798C9F]">t° минимум</div>
+                                    <div class="text-xs text-cosmic-500">t° минимум</div>
                                     <div>14</div>
                                 </div>
                                 <div class="">
-                                    <div class="text-xs text-[#798C9F]">t° максимум</div>
+                                    <div class="text-xs text-cosmic-500">t° максимум</div>
                                     <div>24</div>
                                 </div>
                             </div>
                             <div class=" grid grid-flow-row text-center">
                                 <div class="grid grid-flow-row">
-                                    <div class="text-xs text-[#798C9F]">Осадки</div>
+                                    <div class="text-xs text-cosmic-500">Осадки</div>
                                     <div>60%</div>
                                 </div>
                                 <div class="">
-                                    <div class="text-xs text-[#798C9F]">Влажность</div>
+                                    <div class="text-xs text-cosmic-500">Влажность</div>
                                     <div>48%</div>
                                 </div>
                             </div>
                             <div class=" grid grid-flow-row text-center">
                                 <div class="">
-                                    <div class="text-xs text-[#798C9F]">Давление</div>
+                                    <div class="text-xs text-cosmic-500">Давление</div>
                                     <div>744 мм</div>
                                 </div>
                                 <div class="">
-                                    <div class="text-xs text-[#798C9F]">Ветер</div>
+                                    <div class="text-xs text-cosmic-500">Ветер</div>
                                     <div>4 м/с, З</div>
                                 </div>
 
@@ -182,7 +181,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -190,7 +189,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -198,7 +197,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -206,7 +205,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -214,7 +213,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -222,7 +221,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -230,7 +229,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -238,7 +237,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -246,7 +245,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div id="tomorrow" class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -254,7 +253,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -262,7 +261,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -270,7 +269,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -278,7 +277,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
                 <div class="flex flex-col justify-end items-center w-[60px]  scroll-ml-3 snap-start">
@@ -286,7 +285,7 @@
                     <div class="icon w-11 h-11 bg-gradient rounded-xl flex justify-center items-center">
                         <img class="w-6 h-6" src="img/assets/icons/weather-conditions/clear-day.svg" alt="" srcset="">
                     </div>
-                    <div class="time font-light text-[11px] text-[#798C9F] pt-3">13:00</div>
+                    <div class="time font-light text-[11px] text-cosmic-500 pt-3">13:00</div>
                     <div class="temp font-semibold text-xl leading-6 pt-1">-36°</div>
                 </div>
             </section>
@@ -294,7 +293,7 @@
             <section id="daily-way:311082326" class="mx-4 pt-8 grid grid-flow-row divide-y divide-blue/20">
 
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
                             alt="">
                     </div>
@@ -317,7 +316,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto"
                             src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
                     </div>
@@ -340,7 +339,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto"
                             src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
                     </div>
@@ -363,7 +362,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
                             alt="">
                     </div>
@@ -386,7 +385,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
                             alt="">
                     </div>
@@ -409,7 +408,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/weather-conditions/temp2/rain.svg"
                             alt="">
                     </div>
@@ -432,7 +431,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto"
                             src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
                     </div>
@@ -455,7 +454,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto"
                             src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
                     </div>
@@ -478,7 +477,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto"
                             src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
                     </div>
@@ -501,7 +500,7 @@
                     </div>
                 </section>
                 <section class="w-full h-20 py-4 font-light flex flex-nowrap gap-5 items-center">
-                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-[#132846] rounded-2xl py-1">
+                    <div class="small-icon w-[52px] h-[52px] shrink-0 bg-cosmic-800 rounded-2xl py-1">
                         <img class="w-[44px] h-[44px] mx-auto"
                             src="img/assets/icons/weather-conditions/temp2/partly-cloudy-day.svg" alt="">
                     </div>
@@ -529,9 +528,9 @@
 
         <!-- FAV -->
         <div id="menu-locations" role="tabpanel" class="hidden top-0 left-0 w-full backdrop-blur-xl text-white">
-            <div id="left-menu-container"
+            <div id="locations-container"
                 class="no-swipe pb-16 no-reorder grid grid-flow-row gap-3 overflow-y-scroll overflow-x-hidden">
-                <div id="left-menu-header" class=" bg-bg/80 backdrop-blur-lg sticky top-0 flex w-full  px-6 pt-2 h-[66px] justify-between items-start 
+                <div id="locations_menu__header" class=" bg-cosmic-900/80 backdrop-blur-lg sticky top-0 flex w-full  px-6 pt-2 h-[66px] justify-between items-start 
             transition-all duration-300 transform-gpu ease-[cubic-bezier(0.65,0,0.2,0.95)]">
                     <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-8"
                         data-hs-overlay="#menu-locations" aria-controls="sidebarLeft" aria-label="Toggle navigation">
@@ -543,7 +542,7 @@
                             Добавленное
                         </div>
                     </div>
-                    <button type="button" id="locations-edit" class="grow-0 shrink-0 h-8 text-orange">
+                    <button type="button" id="locations-header--edit-btn" class="grow-0 shrink-0 h-8 text-orange">
                         Изменить
                     </button>
                 </div>
@@ -602,7 +601,7 @@
 
                                             <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
                                             <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
-                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">°C
+                                             border-yellow w-[64px] h-[28px] text-cosmic-900 cursor-pointer'">°C
                                             </div>
                                             <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
                                             <div if="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
@@ -620,7 +619,7 @@
 
                                             <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
                                             <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
-                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">км/ч
+                                             border-yellow w-[64px] h-[28px] text-cosmic-900 cursor-pointer'">км/ч
                                             </div>
                                             <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
                                             <div if="on" class="cursor-pointer w-[64px] h-[28px]">м/с</div>
@@ -637,7 +636,7 @@
 
                                             <input class="hidden tempSwitch" type="checkbox" name="settings" id="temp">
                                             <div slider class="absolute top-[-1px] left-[-1px] bg-yellow rounded-l-md border transform-gpu duration-300
-                                             border-yellow w-[64px] h-[28px] text-bg cursor-pointer'">мм рт.ст.
+                                             border-yellow w-[64px] h-[28px] text-cosmic-900 cursor-pointer'">мм рт.ст.
                                             </div>
                                             <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
                                             <div if="on" class="cursor-pointer w-[64px] h-[28px]">мПа</div>
@@ -655,21 +654,21 @@
                             <div class="p-6 flex justify-between">
                                 <div class="text-base font-light">Язык</div>
                                 <div class="flex text-center border border-yellow rounded-md w-32 font-light">
-                                    <div class="w-1/2 py-1 text-sm bg-yellow text-bg">RU</div>
+                                    <div class="w-1/2 py-1 text-sm bg-yellow text-cosmic-900">RU</div>
                                     <div class="w-1/2 py-1 text-sm text-yellow">EN</div>
                                 </div>
                             </div>
                             <div class="p-6 flex justify-between">
                                 <div class="text-base font-light">Уведомления</div>
                                 <div class="flex text-center border border-yellow rounded-md w-32 font-light">
-                                    <div class="w-1/2 py-1 text-sm bg-yellow text-bg">выкл</div>
+                                    <div class="w-1/2 py-1 text-sm bg-yellow text-cosmic-900">выкл</div>
                                     <div class="w-1/2 py-1 text-sm text-yellow">вкл</div>
                                 </div>
                             </div>
                             <div class="p-6 flex justify-between">
                                 <div class="text-base font-light">Показывать детали</div>
                                 <div class="flex text-center border border-yellow rounded-md w-32 font-light">
-                                    <div class="w-1/2 py-1 text-sm bg-yellow text-bg">нет</div>
+                                    <div class="w-1/2 py-1 text-sm bg-yellow text-cosmic-900">нет</div>
                                     <div class="w-1/2 py-1 text-sm text-yellow">да</div>
                                 </div>
                             </div>
@@ -695,9 +694,9 @@
         <button id="middle" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md px-2">middle</button>
         <button id="stop" class="bg-emerald-700 text-sm font-light text-slate-100 rounded-md px-2">end</button>
     </section> -->
-    <!-- <nav class="px-6 pb-1 pt-8 flex gap-10 font-semibold text-[15px]">
+    <!-- <nav class="px-6 pb-1 pt-8 flex gap-10 font-semibold text-sm">
         <a href="#today">Сегодня</a>
-        <a href="#tomorrow" class="text-[#798C9F]">Завтра</a>
+        <a href="#tomorrow" class="text-cosmic-500">Завтра</a>
     </nav> -->
 
     <!-- <script>
@@ -729,7 +728,7 @@
         </div>
 
         <div class="absolute top-1/2 w-full font-light flex flex-col justify-center items-center">
-            <div class="text-cyan/20 text-xs text-[#798C9F]">Световой день</div>
+            <div class="text-cyan/20 text-xs text-cosmic-500">Световой день</div>
             <div>12 ч. 56 м.</div>
         </div>
 
@@ -737,11 +736,11 @@
         border border-b-0 border-solid rounded-t-full border-cyan bg-gradient-to-b from-cyan/10 to-transparent z-100">
         </div>
 
-        <div class="w-[150px] h-[75px] bg-bg -bottom-full z-150 absolute"></div>
+        <div class="w-[150px] h-[75px] bg-cosmic-900 -bottom-full z-150 absolute"></div>
         <div
             class="sky left-1/2 w-1/2 h-[1px] origin-left  transform-gpu transition-all duration-500 bottom-0 absolute z-160">
             <div
-                class="w-2 h-2 rounded-full bg-white outline-2 outline outline-bg outline-offset-0 -bottom-[4px] -right-[4px] absolute z-[200]">
+                class="w-2 h-2 rounded-full bg-white outline-2 outline outline-cosmic-900 outline-offset-0 -bottom-[4px] -right-[4px] absolute z-[200]">
             </div>
         </div>
     </div>
@@ -778,9 +777,9 @@
 
     <!-- 
 
-    <nav class="px-6 pb-1 pt-8 flex gap-10 font-semibold text-[15px]">
+    <nav class="px-6 pb-1 pt-8 flex gap-10 font-semibold text-sm">
         <a href="#">Следующие 10 дней</a>
-        <a href="#" class="text-[#798C9F]">Прогноз на месяц</a>
+        <a href="#" class="text-cosmic-500">Прогноз на месяц</a>
     </nav> -->
 
 

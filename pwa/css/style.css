@@ -861,7 +861,7 @@ video {
   background-color: rgb(255 255 255 / 0.8);
 }
 
-.bg-bg {
+.bg-cosmic-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(1 24 57 / var(--tw-bg-opacity));
 }
@@ -1274,7 +1274,7 @@ body {
     background-color: rgb(148 163 184 / var(--tw-bg-opacity));
   }
 
-  .sm\:bg-bg {
+  .sm\:bg-cosmic-900 {
     --tw-bg-opacity: 1;
     background-color: rgb(1 24 57 / var(--tw-bg-opacity));
   }

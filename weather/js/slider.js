@@ -70,7 +70,7 @@ class="hidden border-2 border-slate-700/30 grid gap-4 w-auto h-[338px] mt-4 p-5 
 
 <div class="flex justify-between sm:justify-around items-baseline w-full">
     <div class="font-semibold text-xl leading-5">Сейчас</div>
-    <div id="currentDay" class="text-white/70 text-[13px]"></div>
+    <div id="currentDay" class="text-white/70 text-xs"></div>
 </div>
 <div
     class="flex justify-between sm:justify-around items-center pb-4 w-full text-white border-b border-white/20">
@@ -123,11 +123,11 @@ class="hidden border-2 border-slate-700/30 grid gap-4 w-auto h-[338px] mt-4 p-5 
 </div>
 <div id="nav" class="flex flex-row gap-10 pl-8 mt-6 mb-2">
 <div id="buttonToday"
-    class="z-50 font-semibold text-[15px] transition-all duration-700 text-yellow">
+    class="z-50 font-semibold text-sm transition-all duration-700 text-yellow">
     Сегодня
 </div>
 <div id="buttonTomorrow"
-    class="z-50 font-semibold text-[15px] transition-all duration-500">Завтра
+    class="z-50 font-semibold text-sm transition-all duration-500">Завтра
 </div>
 </div>
 <div class="h-[148px] grow-0">

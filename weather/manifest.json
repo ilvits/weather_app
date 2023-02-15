@@ -1,24 +1,42 @@
 {
+    "display_override": [
+        "window-controls-overlay"
+    ],
+    "protocol_handlers": [
+        {
+            "protocol": "mailto",
+            "url": "/newEmail?to=%s"
+        }
+    ],
     "id": "/weather/",
     "name": "Best Weather App Ever",
     "short_name": "Weather",
     "start_url": "/weather/",
-    "display": "fullscreen",
     "description": "Beautiful Weather App",
     "lang": "en",
-    "dir": "/weather/",
-    "theme_color": "#10213A",
-    "background_color": "#10213A",
+    "dir": "auto",
+    "background_color": "#131E32",
+    "theme_color": "#131E32",
+    "theme_colors": [
+        {
+            "color": "#F3F4F7"
+        },
+        {
+            "color": "#131E32",
+            "media": "(prefers-color-scheme: dark)"
+        }
+    ],
     "orientation": "portrait",
+    "display": "fullscreen",
     "icons": [
         {
-            "src": "img/assets/icons/pwa/ios/512.png",
+            "src": "/weather/img/assets/icons/pwa/ios/512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "img/assets/icons/pwa/ios/192.png",
+            "src": "/weather/img/assets/icons/pwa/ios/192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
@@ -26,10 +44,22 @@
     ],
     "screenshots": [
         {
-            "src": "img/screenshots/weather_homescreen.png",
+            "src": "/weather/img/screenshots/weather_homescreen.png",
             "sizes": "1170x3042",
             "type": "image/png",
             "description": "A screenshot of the home page"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "My Locations",
+            "url": "/weather/#locations",
+            "description": "List of Locations.",
+            "icons": [
+                {
+                    "src": "/weather/img/location-icon.svg"
+                }
+            ]
         }
     ]
 }

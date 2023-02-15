@@ -21,53 +21,61 @@ module.exports = {
         sans: ['Nunito'],
         'emoji': ['Noto_Emoji']
       },
+      fontSize: {
+        'xxs': ['10px', '9px'],
+      },
       boxShadow: {
         '3xl': '20px 20px 30px -15px #000000',
       },
-      // keyframes: {
-      //   wiggle: {
-      //     '0%, 100%': { transform: 'rotate(-3deg)' },
-      //     '50%': { transform: 'rotate(3deg)' },
-      //   },
-      //   changeLetter: {
-      //     '0%': { content: '°C' },
-      //     '50%': { color: '#FEB800' },
-      //     '100%': { content: '°F' },
-      //   }
-      // },
-      // animation: {
-      //   wiggle: 'wiggle 1s ease-in-out infinite',
-      //   changeLetter: 'changeLetter 1s ease-in-out 1',
-      //   changeLetter2: 'changeLetter 1s ease-in-out 1 reverse',
-      // }
+      keyframes: {
+        'wiggle-3': {
+          '0%, 100%': { transform: 'rotate(-2deg)' },
+          '50%': { transform: 'rotate(2deg)' },
+        },
+
+        'wiggle-6': {
+          '0%, 100%': { transform: 'rotate(-6deg)' },
+          '50%': { transform: 'rotate(6deg)' },
+        },
+      },
+      animation: {
+        'spin-slow': 'spin 2s running infinite',
+        'wiggle-3': 'wiggle-3 1s ease-in-out infinite',
+        'wiggle-6': 'wiggle-6 1s ease-in-out infinite',
+      }
     },
     colors: {
+      cosmic: {
+        400: '#ACD8E7',
+        500: '#6892B9',
+        600: '#3377FF',
+        800: '#132846',
+        900: '#131E32',
+      },
+      gray: colors.gray,
+      gray: {
+        100: '#F3F4F7',
+        200: '#D4D4DE',
+        300: '#90929E',
+        400: '#6A9CFF',
+      },
+      slate: colors.slate,
+      'slate-100': '#f1f5f9',
+      'cyan': '#3FD5FE',
+      'blue': '#3377FF',
+      'yellow': '#FEB800',
+      'orange': '#F5804E',
+      'violet': '#D580FF',
       transparent: 'transparent',
       current: 'currentColor',
       black: colors.black,
       white: colors.white,
-      gray: colors.gray,
-      emerald: colors.emerald,
-      indigo: colors.indigo,
-      yellow: colors.yellow,
       red: colors.red,
-      green: colors.green,
-      purple: colors.purple,
-      orange2: colors.orange,
-      pink: colors.pink,
       blue: colors.blue,
-      slate: colors.slate,
-      sky: colors.sky,
-      'slate-100': '#f1f5f9',
-      'bg': '#10213A',
-      'cyan': '#3FD5FE',
-      'blue': '#0090C3',
-      'yellow': '#FEB800',
-      'orange': '#F5804E',
-      'violet': '#D580FF',
-      primary: colors.indigo,
-      secondary: colors.yellow,
-      neutral: colors.neutral,
+      'primary-light': '#3377FF',
+      'primary-dark': '#FEB800',
+      // secondary: colors.yellow,
+      // neutral: colors.neutral,
     },
   },
   plugins: [

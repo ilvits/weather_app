@@ -1,45 +1,65 @@
-async function getWeatherDataFromAPI(id, lat, lon, days = 10) {
-
+function getWeatherDataFromAPI(id, lat, lon, days = 10, preview = false) {
     timeOffset = new Date().getTimezoneOffset() / 60
-    let weather = localStorage.getItem(id + '-' + days);
-    let date = localStorage.getItem(id + '-updateDate')
+    let weatherData = localStorage.getItem(`weatherData-${id}-${days}`);
+    let date = localStorage.getItem(`weatherData-${id}-lastUpdate`)
     timeDelta = Math.round((new Date().getTime() - new Date(date).getTime()) / 1000)
-    // console.log('local storage content: ', JSON.parse(weather))
-    if (weather && timeDelta < 1800) {
-        // console.log('get data from localStorage')
-        // console.log(timeDelta + ' sec')
-        return JSON.parse(weather)
+
+    if (weatherData && timeDelta < 36000) {
+        if (preview) {
+            generatePreview(locationPreviewData, JSON.parse(weatherData), true)
+        }
     } else {
-        console.log('get data from API')
+        console.log('get weatherData from API')
+        primaryKey = '6M44EU7ZDRK49GFJHKBCX2JJC'
+        backupKey = '6G659YZGHYJQJQYGA99FJZDMK'
         const options = {
             method: 'GET',
             headers: { Accept: 'application/json', 'Accept-Encoding': 'gzip' }
         };
-        url10 = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat}%2C${lon}?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cfeelslike%2Chumidity%2Cprecipprob%2Cpreciptype%2Cwindspeed%2Cwinddir%2Cpressure%2Cuvindex%2Csevererisk%2CsunriseEpoch%2CsunsetEpoch%2Cconditions%2Cdescription%2Cicon&include=days%2Chours%2Ccurrent&key=6M44EU7ZDRK49GFJHKBCX2JJC&contentType=json&lang=ru`
-        url30 = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat}%2C${lon}/next30days?unitGroup=metric&elements=datetime%2CdatetimeEpoch%2Cname%2Ctempmax%2Ctempmin%2Ctemp%2Cprecipprob%2Cconditions%2Cdescription%2Cicon&include=days%2Calerts&key=6G659YZGHYJQJQYGA99FJZDMK&contentType=json&lang=ru`
+        const baseurl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline`
+        const params = {
+            unitGroup: 'metric',
+            key: '6M44EU7ZDRK49GFJHKBCX2JJC',
+            elements: [
+                'datetime', 'datetimeEpoch', 'description', 'conditions', 'icon',
+                'name', 'address', 'resolvedAddress',
+                'temp', 'tempmax', 'tempmin', 'feelslike', 'humidity',
+                'pressure', 'precipprob', 'preciptype',
+                'windspeed', 'winddir', 'severerisk',
+                'sunriseEpoch', 'sunsetEpoch'
+            ],
+            include: ['days', 'hours', 'current', 'alerts'],
+            contentType: 'json',
+            lang: 'ru'
+        }
+        let paramsArray = []
+        Object.entries(params).forEach(([key, value]) => {
+            // console.log(key, value)
+            v = Array.isArray(value) ? value.join(',') : value
+            paramsArray.push([key, v].join('='))
+        });
 
-        // url10 = `weather_data/${id}-10.json`
-        // url30 = `weather_data/${id}-30.json`
-
-        if (days == 30) {
-            url = url30
+        if (days == 10) {
+            url = baseurl + `/${lat}%2C${lon}?` + paramsArray.join('&')
         } else {
-            url = url10
+            url = baseurl + `/${lat}%2C${lon}/next30days?` + paramsArray.join('&')
         }
-
-        try {
-            const response = await fetch(url, options);
-            if (!response.ok) {
-                throw new Error(`HTTP error: ${response.status}`);
-            }
-            weather = await response.json();
-            date = new Date()
-            localStorage.setItem(id + '-updateDate', date);
-            localStorage.setItem(id + '-' + days, JSON.stringify(weather));
-            return weather;
-        }
-        catch (error) {
-            console.error(`Could not get weather data: ${error}`);
-        }
+        request(url, options)
+            .then(weatherData => {
+                saveWeatherData(id, weatherData, days);
+                if (preview) {
+                    hideLoadingAnimation()
+                    locations_backdrop.classList.remove('z-[5]')
+                    generatePreview(locationPreviewData, weatherData, true)
+                }
+            })
     }
+}
+
+function saveWeatherData(id, weatherData, days = 10) {
+    console.log(typeof weatherData)
+    console.warn(weatherData.alerts)
+    date = new Date()
+    localStorage.setItem(`weatherData-${id}-lastUpdate`, date);
+    localStorage.setItem(`weatherData-${id}-${days}`, JSON.stringify(weatherData));
 }
