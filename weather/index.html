@@ -87,9 +87,10 @@
         </div>
     </div>
     <!-- MAIN WINDOW -->
-    <div class=" overflow-y-">
-        <div id="main-page--placeholder"
-            class="absolute mx-4 h-[calc(100%_-_80px)] w-[calc(100%_-_32px)] flex flex-col gap-6 text-center items-center justify-center opacity-0 transform-gpu transition-[opacity,translate] duration-300 ease-[cubic-bezier(.23,1,.32,1)]">
+    <main class=" overflow-y-">
+        <div id="main-page--placeholder" class="absolute mx-4 h-[calc(100%_-_80px)] w-[calc(100%_-_32px)] flex flex-col gap-6 
+            text-center items-center justify-center opacity-0 
+            transform-gpu transition-[opacity,translate] duration-300 ease-[cubic-bezier(.23,1,.32,1)]">
             <img class="w-[195px] h-[197px]" src="img/assets/icons/globe.svg">
             <div>
                 <div class="font-bold text-lg pb-3 ">Плохой погоды не бывает</div>
@@ -107,7 +108,7 @@
             <div id="slides" class="swiper-wrapper">
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- TAP BAR -->
     <section id="tapbar"
@@ -188,7 +189,7 @@
                 h-full w-full backdrop-blur-xl z-[55] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]"
         tabindex="-1">
         <div id="locations-backdrop"
-            class="absolute backdrop-blur-md top-0 left-0 w-full h-full -z-10 bg-gray-100/80 dark:bg-cosmic-900/80 opacity-0 transition-all transform-gpu ease-[cubic-bezier(.23,1,.32,1)]  duration-500">
+            class="absolute backdrop-blur-md top-0 left-0 w-full h-full -z-10 bg-gray-100/80 dark:bg-cosmic-900/80 opacity-0 transition-all-500">
         </div>
         <div id="locations-container"
             class="no-swipe no-reorder flex flex-col gap-4 transition-colors duration-300 overflow-x-clip">
@@ -233,9 +234,8 @@
                         <rect x="0.5" y="0.5" width="19" height="19" rx="9.5" stroke="#90929E" />
                     </svg>
                 </div>
-                <button id="location-search--cancel-button"
-                    class="absolute -right-20 top-0 h-full pl-4 transition-all duration-500
-                     text-primary-light dark:text-yellow transform-gpu ease-[cubic-bezier(.23,1,.32,1)]">Отмена</button>
+                <button id="location-search--cancel-button" class="absolute -right-20 top-0 h-full pl-4 transition-all-500
+                     text-primary-light dark:text-yellow">Отмена</button>
                 <div class="absolute inset-y-0 flex items-center pointer-events-none z-20 pl-3">
                     <svg class="stroke-gray-300 dark:stroke-cosmic-500" width="16" height="17" viewBox="0 0 16 17"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -329,7 +329,7 @@
                 </div>
             </div>
 
-            <ol id="location-cards" class="slip-swiping-container pb-20 px-4 flex flex-col gap-3
+            <ol id="location-cards--container" class="slip-swiping-container pb-20 px-4 flex flex-col gap-3
                 transition-all duration-300 transform-gpu ease-[cubic-bezier(.23,1,.32,1)]" tabindex="0"
                 role="listbox">
             </ol>
@@ -633,7 +633,7 @@
         <div
             class="inline-flex absolute justify-between p-4 rounded-t-xl bg-gray-100/80 dark:bg-cosmic-900/80 backdrop-blur-lg w-full z-[120]">
             <button id="cancel-weather-preview" onclick="hideWeatherPreview(this)">Отмена</button>
-            <span id="location-name" class="px-4 truncate overflow-ellipsis"></span>
+            <span id="location-name" class="px-4 truncate "></span>
             <button id="add-weather-preview" class="text-primary-light dark:text-yellow"
                 onclick="addNewLocation(this)">Добавить</button>
         </div>
@@ -657,201 +657,212 @@
 
     <!-- *******   Slide  ******* -->
     <script id="slide-template" type="text/template">
-        <div class="sticky bg-gray-100/60 dark:bg-cosmic-900/80 backdrop-blur-xl top-0 w-full px-6 py-4 flex justify-between z-50 transition-opacity-500">
-            <label class="location-slide--header-title truncate overflow-ellipsis w-4/5 font-semibold text-xl leading-5"></label>
-            <span
-                class="location-slide--header-temp absolute flex gap-2 text-gray-300 opacity-0 right-6 transition-opacity-300 font-bold">--°
-                <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/partly-cloudy-night.svg" alt=""
-                    srcset=""></span>
-            <button 
-                class="detail-weather-toggle flex items-end gap-1 text-gray-300 dark:text-cosmic-400 text-sm font-light hs-collapse-toggle transition-opacity-300"
-                data-hs-collapse="#detail-weather-info">
-                <div class="detail-weather-toggle--label">Подробнее</div>
-                <svg class="detail-weather-toggle--img fill-gray-200 dark:fill-cosmic-500" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.09606 10.8817C7.94029 10.882 7.78933 10.8278 7.66939 10.7284L3.66939 7.39507C3.53325 7.28191 3.44763 7.1193 3.43138 6.94302C3.41513 6.76673 3.46957 6.59121 3.58273 6.45507C3.69589 6.31892 3.85849 6.23331 4.03478 6.21705C4.21106 6.2008 4.38658 6.25524 4.52273 6.3684L8.09606 9.35507L11.6694 6.47507C11.7376 6.41969 11.8161 6.37834 11.9003 6.35338C11.9845 6.32843 12.0728 6.32037 12.1602 6.32966C12.2475 6.33895 12.3322 6.36542 12.4093 6.40753C12.4864 6.44965 12.5544 6.50658 12.6094 6.57507C12.6704 6.64362 12.7167 6.72403 12.7452 6.81128C12.7737 6.89853 12.7839 6.99073 12.7752 7.08211C12.7664 7.17348 12.7389 7.26206 12.6943 7.3423C12.6497 7.42254 12.589 7.49271 12.5161 7.5484L8.51606 10.7684C8.39267 10.8521 8.24479 10.892 8.09606 10.8817V10.8817Z"/>
-                    </svg>
-                    
-            </button>
-        </div>
-        <section id="general-weather-info" data-hash="264512568"
-            class="px-4 max-w-md mx-auto swiper-slide dark:bg-cosmic-900 swiper-slide-active">
-            <div class="w-full p-5 rounded-2xl bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645]">
-                <div class="flex flex-row justify-between">
-                    <div class="flex flex-col gap-2">
-                        <div class="current-day text-gray-300 dark:text-[#ACD8E7] text-xs font-light"></div>
-                        <div class="temperature text-6xl align-text-top">--</div>
-                        <div class="text-sm leading-4 flex flex-col gap-1">
-                            <div class="conditions"></div>
-                            <div class="feelslike">Ощущается как <span class="font-bold"> </span></div>
-                        </div>
-                    </div>
-                    <div class="weather-icon"><img src="img/assets/icons/weather-conditions/partly-cloudy-night.svg">
+    <!--  -->
+    <div
+        class="sticky bg-gray-100/60 dark:bg-cosmic-900/80 backdrop-blur-xl top-0 w-full px-6 py-4 flex justify-between z-50 transition-opacity-500">
+        <label class="location-slide--header-title truncate  w-4/5 font-semibold text-xl leading-5"></label>
+        <span
+            class="location-slide--header-temp absolute flex gap-2 text-gray-300 opacity-0 right-6 transition-opacity-300 font-bold">--°
+            <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/partly-cloudy-night.svg" alt=""
+                srcset=""></span>
+        <button
+            class="detail-weather-toggle flex items-end gap-1 text-gray-300 dark:text-cosmic-400 text-sm font-light hs-collapse-toggle transition-opacity-300"
+            data-hs-collapse="#detail-weather-info">
+            <div class="detail-weather-toggle--label">Подробнее</div>
+            <svg class="detail-weather-toggle--img fill-gray-200 dark:fill-cosmic-500" width="16" height="17"
+                viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8.09606 10.8817C7.94029 10.882 7.78933 10.8278 7.66939 10.7284L3.66939 7.39507C3.53325 7.28191 3.44763 7.1193 3.43138 6.94302C3.41513 6.76673 3.46957 6.59121 3.58273 6.45507C3.69589 6.31892 3.85849 6.23331 4.03478 6.21705C4.21106 6.2008 4.38658 6.25524 4.52273 6.3684L8.09606 9.35507L11.6694 6.47507C11.7376 6.41969 11.8161 6.37834 11.9003 6.35338C11.9845 6.32843 12.0728 6.32037 12.1602 6.32966C12.2475 6.33895 12.3322 6.36542 12.4093 6.40753C12.4864 6.44965 12.5544 6.50658 12.6094 6.57507C12.6704 6.64362 12.7167 6.72403 12.7452 6.81128C12.7737 6.89853 12.7839 6.99073 12.7752 7.08211C12.7664 7.17348 12.7389 7.26206 12.6943 7.3423C12.6497 7.42254 12.589 7.49271 12.5161 7.5484L8.51606 10.7684C8.39267 10.8521 8.24479 10.892 8.09606 10.8817V10.8817Z" />
+            </svg>
+
+        </button>
+    </div>
+    <section id="general-weather-info" data-hash="264512568"
+        class="px-4 max-w-md mx-auto swiper-slide dark:bg-cosmic-900 swiper-slide-active">
+        <div
+            class="w-full p-5 rounded-2xl bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645]">
+            <div class="flex flex-row justify-between">
+                <div class="flex flex-col gap-2">
+                    <div class="current-day text-gray-300 dark:text-[#ACD8E7] text-xs font-light"></div>
+                    <div class="temperature text-6xl align-text-top">--</div>
+                    <div class="text-sm leading-4 flex flex-col gap-1">
+                        <div class="conditions"></div>
+                        <div class="feelslike">Ощущается как <span class="font-bold"> </span></div>
                     </div>
                 </div>
-                <div class="hs-collapse will-change-transform hidden w-full grid grid-flow-row gap-5 overflow-hidden transition-all-500">
-                    <div id="details-1" class="relative h-[100px] w-full grid grid-flow-col justify-around items-end">
-                        <div
-                            class="absolute detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 w-full h-full flex justify-center">
-                            <div class="absolute w-[150px] h-[75px] bottom-0">
-                                <div
-                                    class="w-full h-full border border-b-0 border-dashed rounded-t-full border-[#6390F0]/60 dark:border-cyan/60">
-                                </div>
-                                <div
-                                    class="sun absolute top-0 w-full h-full origin-bottom -rotate-[180deg]
+                <div class="weather-icon"><img src="img/assets/icons/weather-conditions/partly-cloudy-night.svg">
+                </div>
+            </div>
+            <div
+                class="hs-collapse will-change-transform hidden w-full grid grid-flow-row gap-5 overflow-hidden transition-all-500">
+                <div id="details-1" class="relative h-[100px] w-full grid grid-flow-col justify-around items-end">
+                    <div
+                        class="absolute detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 w-full h-full flex justify-center">
+                        <div class="absolute w-[150px] h-[75px] bottom-0">
+                            <div
+                                class="w-full h-full border border-b-0 border-dashed rounded-t-full border-[#6390F0]/60 dark:border-cyan/60">
+                            </div>
+                            <div
+                                class="sun absolute top-0 w-full h-full origin-bottom -rotate-[180deg]
                                     border border-b-0 border-solid rounded-t-full border-[#ACD8E7] dark:border-cyan bg-gradient-to-b from-[#EDF8FF] dark:from-[#0F3C5C] to-transparent">
-                                </div>
-                                <div class="w-[150px] h-[75px] bg-white dark:bg-cosmic-800 absolute"></div>
+                            </div>
+                            <div class="w-[150px] h-[75px] bg-white dark:bg-cosmic-800 absolute"></div>
+                            <div
+                                class="w-2 h-2 rounded-full bg-[#ACD8E7] dark:bg-cyan -bottom-[4px] -left-[4px] absolute">
+                            </div>
+                            <div
+                                class="w-2 h-2 rounded-full bg-[#ACD8E7] dark:bg-cyan -bottom-[4px] -right-[4px] absolute">
+                            </div>
+                            <div class="sky left-1/2 w-1/2 origin-left absolute -rotate-[180deg]">
                                 <div
-                                    class="w-2 h-2 rounded-full bg-[#ACD8E7] dark:bg-cyan -bottom-[4px] -left-[4px] absolute">
-                                </div>
-                                <div
-                                    class="w-2 h-2 rounded-full bg-[#ACD8E7] dark:bg-cyan -bottom-[4px] -right-[4px] absolute">
-                                </div>
-                                <div class="sky left-1/2 w-1/2 origin-left absolute -rotate-[180deg]">
-                                    <div
-                                        class="w-2 h-2 rounded-full shadow-white shadow-2xl bg-[#6390F0] dark:bg-white outline-2 outline outline-white dark:outline-cosmic-900 outline-offset-0 -bottom-[4px] -right-[4px] absolute">
-                                    </div>
+                                    class="w-2 h-2 rounded-full shadow-white shadow-2xl bg-[#6390F0] dark:bg-white outline-2 outline outline-white dark:outline-cosmic-900 outline-offset-0 -bottom-[4px] -right-[4px] absolute">
                                 </div>
                             </div>
-                        </div>
-
-                        <div
-                            class="detail-item w-full text-center opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row gap-[6px]">
-                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Восход</div>
-                            <div class="sunrise font-semibold"></div>
-                        </div>
-                        <div
-                            class="detail-item w-full text-center opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row gap-[6px] justify-center  z-10">
-                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Световой день</div>
-                            <div class="daylight font-semibold"></div>
-                        </div>
-                        <div
-                            class="detail-item w-full text-center opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row gap-[6px]">
-                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Закат</div>
-                            <div class="sunset font-semibold"></div>
                         </div>
                     </div>
-                    <div id="details-2" class="relative h-[100px] grid grid-cols-3 gap-1">
-                        <div
-                            class="detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row text-center">
-                            <div >
-                                <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">t° максимум</div>
-                                <div class="tempmax"></div>
-                            </div>
-                            <div >
-                                <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">t° минимум</div>
-                                <div class="tempmin"></div>
-                            </div>
-                        </div>
-                        <div
-                            class="detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row text-center">
-                            <div class="grid grid-flow-row">
-                                <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Осадки</div>
-                                <div class="precipprob"></div>
-                            </div>
-                            <div >
-                                <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Влажность</div>
-                                <div class="humidity"></div>
-                            </div>
-                        </div>
-                        <div
-                            class="detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row text-center">
-                            <div >
-                                <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Давление</div>
-                                <div class="pressure"></div>
-                            </div>
-                            <div >
-                                <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Ветер</div>
-                                <div class="windspeed"></div>
-                            </div>
 
+                    <div
+                        class="detail-item w-full text-center opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row gap-[6px]">
+                        <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Восход</div>
+                        <div class="sunrise font-semibold"></div>
+                    </div>
+                    <div
+                        class="detail-item w-full text-center opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row gap-[6px] justify-center  z-10">
+                        <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Световой день</div>
+                        <div class="daylight font-semibold"></div>
+                    </div>
+                    <div
+                        class="detail-item w-full text-center opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row gap-[6px]">
+                        <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Закат</div>
+                        <div class="sunset font-semibold"></div>
+                    </div>
+                </div>
+                <div id="details-2" class="relative h-[100px] grid grid-cols-3 gap-1">
+                    <div
+                        class="detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row text-center">
+                        <div>
+                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">t° максимум</div>
+                            <div class="tempmax"></div>
                         </div>
+                        <div>
+                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">t° минимум</div>
+                            <div class="tempmin"></div>
+                        </div>
+                    </div>
+                    <div
+                        class="detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row text-center">
+                        <div class="grid grid-flow-row">
+                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Осадки</div>
+                            <div class="precipprob"></div>
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Влажность</div>
+                            <div class="humidity"></div>
+                        </div>
+                    </div>
+                    <div
+                        class="detail-item opacity-0 -translate-y-5 -translate-x-1 transition-300 grid grid-flow-row text-center">
+                        <div>
+                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Давление</div>
+                            <div class="pressure"></div>
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Ветер</div>
+                            <div class="windspeed"></div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="hourlyToday hourly swiper-no-swiping will-change-scroll pt-4 gap-2 flex overflow-hidden overflow-x-scroll 
+    <section class="hourlyToday hourly swiper-no-swiping will-change-scroll pt-4 gap-2 flex overflow-hidden overflow-x-scroll 
             no-scrollbar px-3 scroll-smooth snap-x snap-mandatory">
 
-        </section>
+    </section>
 
-        <section class="daily py-6 mx-4 grid grid-flow-row">
-        </section>
-        
-        <section id=""
+    <section class="daily py-6 mx-4 grid grid-flow-row">
+    </section>
+
+    <section id=""
         class="monthly-forecast-btn mx-4 pb-24 font-light flex flex-nowrap gap-5 items-center hs-overlay-toggle"
         data-hs-overlay="#monthly-forecast" aria-controls="sidebarLeft" aria-label="Toggle Monthly Forecast"
         data-id="264512568">
         <div class="small-icon w-[52px] h-[52px] grow-0 bg-white dark:bg-[#192D52] rounded-2xl py-1">
             <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/monthly.svg" alt="">
-            </div>
-            <div class="grow text-base leading-5 dark:text-white">Прогноз на месяц</div>
-            <div class="grow-0"><img class="w-[7px] h-[14px] mx-auto" src="img/assets/icons/arrow-right.svg" alt=""></div>
-        </section>
-     </script>
+        </div>
+        <div class="grow text-base leading-5 dark:text-white">Прогноз на месяц</div>
+        <div class="grow-0"><img class="w-[7px] h-[14px] mx-auto" src="img/assets/icons/arrow-right.svg" alt=""></div>
+    </section>
+    </script>
 
     <!-- *******   Location Card  ******* -->
     <script id="card-template" type="text/template">
         <!-- EDIT BUTTONS -->
     <section
-        class="edit-buttons invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between grid grid-flow-col transition-all-500">
-        <div class="edit-icon absolute right-14 opacity-0 no-swipe no-reorder invisible top-4 
-                    transition-opacity-500" data-location_name="8HH3RQ5H-MC">
-            <svg class="fill-[#1B2541] dark:fill-white  no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"
-                fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="no-swipe no-reorder"
-                    d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z">
-                </path>
-                <path class="no-swipe no-reorder"
-                    d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z"></path>
+        class="location-card--edit-buttons invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
+        <button type="button" class="location-card--edit-icon absolute right-14 opacity-0 no-swipe no-reorder invisible top-4 
+                    transition-all-500">
+            <svg class="fill-[#1B2541] dark:fill-white no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
+                <path d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z" />
             </svg>
-        </div>
-        <button type="button" data-hs-remove-element="#card-8HH3RQ5H-MC"
-            class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
+        </button>
+        <button type="button" class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
             <img class="" src="img/assets/icons/trash.svg">
         </button>
         <button type="button" class="location-del no-swipe no-reorder">
             <img src="img/delete.svg" width="40px" height="40px" alt="">
         </button>
-        <button type="button"
-            class="no-swipe no-reorder dark:text-cosmic-400/40 items-center font-light text-3xl w-10">☰</button>
+        <button type="button" class="no-swipe no-reorder dark:text-cosmic-400/40 items-center font-light text-3xl w-10">
+            <svg class="stroke-cosmic-400" width="21" height="12" viewBox="0 0 21 12" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="1" x2="20" y2="1" stroke-width="2" stroke-linecap="round" />
+                <line x1="1" y1="6" x2="20" y2="6" stroke-width="2" stroke-linecap="round" />
+                <line x1="1" y1="11" x2="20" y2="11" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </button>
     </section>
     <!-- CARD -->
-    <section class="card pointer-events-none absolute flex justify-between w-full bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645]
-                    p-4 transition-all-500 rounded-2xl h-[85px]">
-        <div class="name-of-location flex flex-col grow truncate transition-all-500">
-            <small class="time text-xxs text-gray-300 dark:text-cosmic-400 leading-3"></small>
+    <section class="card pointer-events-none absolute flex justify-between w-full 
+                bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645] 
+                p-4 transition-all-500 rounded-2xl h-[85px]">
+        <div class="flex flex-col grow truncate transition-all-500">
+            <small class="location-card--time text-xxs text-gray-300 dark:text-cosmic-400 leading-3"></small>
             <div class="flex leading-5 transition duration-300 transform-gpu">
-                <h4 class="location-card--name pr-1 truncate"></h4>
+                <h4 class="location-card--name pr-1 truncate transition-all-500"></h4>
                 <div class="user-location-pin shrink-0 pl-1 transition-all-500"></div>
             </div>
-            <p class="condition pt-2 pr-1 text-xs leading-[14px] transition-all-500 truncate overflow-ellipsis"></p>
+            <p class="location-card--condition pt-2 pr-1 text-xs leading-[14px] transition-all-500 truncate ">
+            </p>
         </div>
-        <div class="flex grow-0 gap-2 transition-all-500">
+        <div class="weather-info--wrapper flex w-[120px] grow-0 gap-2 transition-all-500">
             <div class="grid grid-flow-row items-center transition-all-500">
-                <div class="temp mx-auto text-3xl font-medium transition-all-300"></div>
-                <div class="mx-auto minmax items-center flex text-xxs transition-transform duration-150 transform-gpu">
+                <div class="location-card--temp mx-auto text-3xl font-medium transition-all-300"></div>
+                <div class="mx-auto location-card--minmax items-center flex text-xxs transition-all-500 transform-gpu">
                     <svg class="stroke-gray-300 dark:stroke-[#D7F4FE]" width="10" height="11" viewBox="0 0 10 11"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.33334 3.41667L5.00001 1.75M5.00001 1.75L6.66668 3.41667M5.00001 1.75V9.25"
                             stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
-                    <div class="tempmax"></div>
+                    <div class="location-card--tempmax transition-all-500"></div>
                     <svg class="stroke-gray-300 dark:stroke-[#D7F4FE] ml-1" width="10" height="11" viewBox="0 0 10 11"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.66668 7.58333L5.00001 9.25M5.00001 9.25L3.33334 7.58333M5.00001 9.25L5.00001 1.75"
                             stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
-                    <div class="tempmin"></div>
+                    <div class="location-card--tempmin"></div>
                 </div>
             </div>
-            <div class=" weather-icon w-12 h-12 transition-all-500"><img
-                    src="img/assets/icons/weather-conditions/partly-cloudy-day.svg"></div>
+            <div class="location-card--weather-icon w-12 h-12 transition-all-500"></div>
         </div>
     </section>
     </script>
 
+    <script src="js/swiper-bundle.min.js"></script>
     <script src="js/request.js"></script>
     <!-- <script src="js/pull-to-reload.js"></script> -->
     <!-- <script src="/node_modules/preline/dist/preline.js"></script> -->
@@ -861,7 +872,6 @@
     <script src="js/preline/hs-dropdown.js"></script>
     <!-- <script src="js/jml_v1.js"></script> -->
     <script src="js/slip.js"></script>
-    <script src="js/swiper-bundle.min.js"></script>
     <script src="js/weatherAPI.js"></script>
     <script src="js/handlers.js"></script>
     <script src="js/test.js"></script>
@@ -983,26 +993,7 @@
             }
         }
     </script>
-    <script>
-        // Initialize Swiper
-        var swiper = new Swiper(".mainSwiper", {
-            enabled: true,
-            cssMode: false,
-            effect: 'slide',
-            grabCursor: true,
-            speed: 400,
-            spaceBetween: 40,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-                type: 'bullets',
-            },
-            hashNavigation: true,
-            hashNavigation: {
-                replaceState: true,
-            },
-        });
-    </script>
+
     <!-- </div> -->
 </body>
 

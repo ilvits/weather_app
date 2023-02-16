@@ -1261,6 +1261,10 @@ video {
   height: 1px;
 }
 
+.h-\[120px\] {
+  height: 120px;
+}
+
 .w-\[calc\(100\%_-_100px\)\] {
   width: calc(100% - 100px);
 }
@@ -1413,12 +1417,24 @@ video {
   width: 60px;
 }
 
+.w-\[100px\] {
+  width: 100px;
+}
+
+.w-\[120px\] {
+  width: 120px;
+}
+
 .min-w-\[343px\] {
   min-width: 343px;
 }
 
 .min-w-\[227px\] {
   min-width: 227px;
+}
+
+.min-w-\[100px\] {
+  min-width: 100px;
 }
 
 .max-w-md {
@@ -1551,6 +1567,31 @@ video {
 
 .translate-x-full {
   --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-4 {
+  --tw-translate-x: 1rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-3 {
+  --tw-translate-y: 0.75rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-2 {
+  --tw-translate-x: 0.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-x-4 {
+  --tw-translate-x: -1rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-x-8 {
+  --tw-translate-x: -2rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -2231,6 +2272,10 @@ video {
   fill: #1B2541;
 }
 
+.fill-cosmic-900 {
+  fill: #131E32;
+}
+
 .fill-primary-light {
   fill: #3377FF;
 }
@@ -2253,6 +2298,10 @@ video {
 
 .\!stroke-primary-light {
   stroke: #3377FF !important;
+}
+
+.stroke-cosmic-400 {
+  stroke: #ACD8E7;
 }
 
 .stroke-\[\#6892B9\] {
@@ -2909,6 +2958,18 @@ video {
 
 .transition-\[height\] {
   transition-property: height;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-\[width\] {
+  transition-property: width;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-\[width\2c opacity\] {
+  transition-property: width,opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

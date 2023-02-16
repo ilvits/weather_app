@@ -2,9 +2,8 @@ let locations = {};
 let locationPreviewData = {}
 let openOverlay = false
 let weatherArray = []
-let minmax, weatherIcon, editButtons,
-    s_temp, s_wind, s_pressure, s_lang, s_detail, dir,
-    userCountry, locationDataSet, resultList
+let s_temp, s_wind, s_pressure, s_lang, s_detail, dir,
+    userCountry, locationDataSet, resultList;
 
 let s_flag = false
 let editLocation_flag = false
@@ -17,9 +16,9 @@ const location_edit_modal__input = document.querySelector('#location-modal-input
 const clearText = document.querySelectorAll('.clear-text-cross')
 const slides = document.querySelector('#slides');
 const menu_locations = document.querySelector('#menu-locations');
-const menuSettings = document.querySelector('#menu-settings');
+const menu_settings = document.querySelector('#menu-settings');
 const locations_placeholder = document.querySelector('#locations-placeholder');
-const locationCardsContainer = document.querySelector('#location-cards');
+const location_cards__container = document.querySelector('#location-cards--container');
 const containerDefaults = document.querySelector('#locations-container').innerHTML;
 const locations_header__label = document.querySelector('#locations-header--label');
 const locations_header__back_btn = document.querySelector('#locations-header--back-btn');
@@ -31,8 +30,113 @@ const mainPage_tapbar__weather_btn = document.querySelector('#weather-btn');
 const mainPage_tapbar__settings_btn = document.querySelector('#mainpage--tapbar--settings-btn');
 const currentWeekdayLong = join(new Date, [{ weekday: 'long' }], '-');
 const previewWindow = document.querySelector(`#preview-window`)
+
 const searchInput = document.querySelector('#search-input')
 const newLocationPreviewEl = document.querySelector('#new-location-preview')
+const location_edit_modal = document.querySelector('#location-edit-modal')
+const locations_backdrop = document.querySelector('#locations-backdrop')
+const getLocationPlaceholder = document.querySelector('#search-user-location--placeholder');
+const getLocationButton = document.querySelector('#search-user-location--btn');
+const locations_menu_container = document.querySelector('#locations-container')
+const locations_menu_header = document.querySelector('#locations--header')
+const cancelSearchButton = document.querySelector('#location-search--cancel-button')
+
+locations_backdrop.addEventListener('click', () => {
+    if (document.querySelector('#loading-animation').classList.contains('opacity-0')) {
+        closeLocationEditModal()
+        hideLocationsBackdrop()
+        searchCancel()
+    }
+})
+
+searchInput.onfocus = searchFocus;
+searchInput.onkeyup = getGeoData;
+cancelSearchButton.addEventListener('click', searchCancel);
+
+searchInput.addEventListener('input', (event) => {
+    // console.log(event.target.value.length)
+    if (event.target.value.length == 0) {
+        event.target.nextElementSibling.classList.add('opacity-0', 'invisible')
+        suggestionList.innerHTML = ''
+        if (!locations || Object.values(locations).findIndex(item => item.is_user_location == true) == -1) {
+            getLocationPlaceholder.classList.remove('hidden')
+            setTimeout(() => {
+                getLocationPlaceholder.classList.remove('opacity-0')
+            }, 50);
+        } else {
+            getLocationPlaceholder.classList.add('opacity-0')
+            setTimeout(() => {
+                getLocationPlaceholder.classList.add('hidden')
+            }, 400);
+        }
+    } else {
+        getLocationPlaceholder.classList.add('opacity-0')
+        setTimeout(() => {
+            getLocationPlaceholder.classList.add('hidden')
+        }, 400);
+        event.target.nextElementSibling.classList.remove('opacity-0', 'invisible')
+    }
+})
+
+function searchFocus() {
+    if (!locations || Object.values(locations).findIndex(item => item.is_user_location == true) == -1) {
+        getLocationPlaceholder.classList.remove('hidden')
+        setTimeout(() => {
+            getLocationPlaceholder.classList.remove('opacity-0')
+        }, 300);
+    } else {
+        getLocationPlaceholder.classList.add('opacity-0')
+        setTimeout(() => {
+            getLocationPlaceholder.classList.add('hidden')
+        }, 400);
+    }
+    // mainPage_placeholder.classList.add('hidden', 'opacity-0')
+    locations_placeholder.classList.add('opacity-0');
+    setTimeout(() => {
+        locations_placeholder.classList.add('hidden')
+        searchInput.focus()
+    }, 500);
+    suggestionList.classList.remove('invisible', 'opacity-0')
+    searchInput.placeholder = 'Введите название'
+    searchInput.classList.add('w-[calc(100vw-104px)]')
+    searchInput.classList.remove('w-full', 'dark:text-cosmic-500')
+    menu_locations.classList.remove('overflow-y-scroll')
+    locations_menu_container.classList.remove('overflow-x-hidden')
+    cancelSearchButton.classList.remove('-right-20')
+    searchInput.parentNode.classList.add('-translate-y-12')
+    location_cards__container.classList.add('-translate-y-14', 'scale-[0.96]', '-z-10')
+    locations_menu_header.classList.add('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.99]')
+    showLocationsBackdrop()
+    if (editLocation_flag) {
+        editLocationsToggle()
+    }
+}
+
+function searchCancel() {
+    getLocationPlaceholder.classList.add('opacity-0', 'hidden')
+    hideLocationsBackdrop()
+    if (!locations || Object.entries(locations).length == 0) {
+        locations_placeholder.classList.remove('hidden')
+    }
+    setTimeout(() => {
+        locations_placeholder.classList.remove('opacity-0')
+        // mainPage_placeholder.classList.remove('opacity-0')
+    }, 100);
+    searchInput.nextElementSibling.classList.add('opacity-0', 'invisible')
+    searchInput.placeholder = 'Найти новую локацию'
+    searchInput.value = ''
+    searchInput.classList.remove('w-[calc(100vw-104px)]')
+    searchInput.classList.add('w-full', 'dark:text-cosmic-500')
+    menu_locations.classList.add('overflow-y-scroll')
+    locations_menu_container.classList.add('overflow-x-hidden')
+    cancelSearchButton.classList.add('-right-20')
+    searchInput.parentNode.classList.remove('-translate-y-12')
+    location_cards__container.classList.remove('-translate-y-14', 'scale-[0.96]', '-z-10')
+    locations_menu_header.classList.remove('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.99]')
+    suggestionList.classList.add('invisible', 'opacity-0')
+    suggestionList.innerHTML = ''
+}
+
 
 /* Passive Feature detection */
 let passiveIfSupported = false;
@@ -54,6 +158,7 @@ function loadSettings() {
         localStorage.getItem(checkbox.id)
     })
 }
+
 
 // converting first letter to uppercase
 function capitalize(str) {
@@ -146,6 +251,66 @@ function showError(error) {
     }
 }
 
+function editLocationsToggle() {
+    const card__wrapper = document.querySelectorAll('.card-wrapper')
+    const cards = document.querySelectorAll('.card')
+    const user_location_pin = document.querySelector('.user-location-pin')
+    const editButtons = document.querySelectorAll('.location-card--edit-buttons')
+    const location_card__name = document.querySelectorAll('.location-card--name')
+    const weather_icon = document.querySelectorAll('.location-card--weather-icon')
+    const temp = document.querySelectorAll('.location-card--temp')
+    const condition = document.querySelectorAll('.location-card--condition')
+    const minmax = document.querySelectorAll('.location-card--minmax')
+    const edit_location_btns = document.querySelectorAll('.location-card--edit-icon')
+    const weather_info__wrapper = document.querySelectorAll('.weather-info--wrapper')
+
+    classToggle(locations_header__back_btn, 'opacity-0')
+    classToggle(locations_header__label, 'opacity-0')
+    setTimeout(() => {
+        locations_header__edit_btn.innerText = locations_header__edit_btn.innerText == "Изм." ? "Готово" : "Изм."
+    }, 50);
+    setTimeout(() => {
+        editLocation_flag = editLocation_flag == true ? false : true
+    }, 20)
+    card__wrapper.forEach((e) => {
+        e.classList.remove('-translate-x-24')
+    })
+    cards.forEach((el) => {
+        classToggle(el, 'w-[calc(100%_-_100px)]', 'w-full', 'h-[85px]', 'h-[80px]')
+    })
+    editButtons.forEach((e) => {
+        classToggle(e, 'w-[284px]', 'w-full', 'opacity-0', 'invisible', 'z-20')
+    })
+    location_card__name.forEach((e) => {
+        classToggle(e, 'translate-y-2', 'w-[calc(100%_-_32px)]')
+    })
+
+    condition.forEach((e) => {
+        classToggle(e, 'opacity-0', 'translate-y-3', 'translate-x-2')
+    })
+
+    classToggle(user_location_pin, 'scale-0', 'opacity-0', 'translate-x-2')
+
+    weather_info__wrapper.forEach((e) => {
+        classToggle(e, 'w-0', 'w-[120px]', 'opacity-0', '-translate-x-24')
+    })
+
+    weather_icon.forEach((e) => {
+        classToggle(e, 'opacity-0')
+    })
+
+    temp.forEach((el) => {
+        classToggle(el, 'translate-x-12', 'opacity-0')
+    })
+    minmax.forEach((el) => {
+        classToggle(el, 'translate-x-8', 'invisible', 'opacity-0')
+        el.parentElement.classList.toggle('translate-x-8')
+    })
+    edit_location_btns.forEach((e) => {
+        classToggle(e, 'opacity-0', 'invisible')
+    })
+}
+
 function getUserLocation() {
     getLocationPlaceholder.classList.add('opacity-0')
     setTimeout(() => {
@@ -217,9 +382,11 @@ function getGeoData(event) {
             }, 600)
         } else {
             console.log('недостаточно символов')
+            document.querySelector('#suggestion-list').innerText = 'недостаточно символов'
         }
     } else {
         console.log('Недопустимые символы')
+        document.querySelector('#suggestion-list').innerText = 'Недопустимые символы'
     }
 }
 
@@ -347,4 +514,89 @@ function generatePreview(loc, weatherData, is_user_location = false) {
     renderHourlyForecast(loc.id, weatherData)
     renderDailyForecast(loc.id, weatherData, 10)
     document.querySelector('#preview-window').scrollTop = 0;
+
+
+}
+function setupSlip(list) {
+    if (locations) {
+        itemsArray = []
+        itemsArray = Object.values(locations)
+    }
+
+    list.addEventListener('slip:beforeswipe', function (e) {
+        if (e.target.classList.contains('no-swipe')) {
+            e.preventDefault();
+        }
+    }, false);
+
+    list.addEventListener('slip:swipe', function (e) {
+        // e.target list item swiped
+        // if (thatWasSwipeToRemove) {
+        // list will collapse over that element
+        // e.target.parentNode.removeChild(e.target);
+        // } else {
+        e.preventDefault(); // will animate back to original position
+        // }
+    });
+
+    list.addEventListener('slip:beforewait', function (e) {
+        if (e.target.classList.contains('instant')) e.preventDefault();
+    }, false);
+
+    list.addEventListener('slip:afterswipe', function (e) {
+        e.target.parentNode.appendChild(e.target);
+    }, false);
+
+    list.addEventListener('slip:beforereorder', function (e) {
+        if (e.target.classList.contains('no-reorder')) {
+            e.preventDefault();
+        }
+    }, false);
+    list.addEventListener('slip:reorder', function (e) {
+        if ((e.target.dataset.is_user_location == "true")
+            || (e.detail.insertBefore && e.detail.insertBefore.dataset.is_user_location == "true")) {
+            e.preventDefault()
+        } else {
+            reordered_locations = {}
+            const movedItem = itemsArray[e.detail.originalIndex];
+            // console.log(e.detail.originalIndex, e.detail.spliceIndex)
+            // console.log(e.target)
+            swiper.addSlide(e.detail.spliceIndex + 1, swiper.slides[e.detail.originalIndex])
+            // swiper.removeSlide(e.detail.originalIndex)
+            itemsArray.splice(e.detail.originalIndex, 1); // Remove item from the previous position
+            itemsArray.splice(e.detail.spliceIndex, 0, movedItem); // Insert item in the new position
+            // console.log(itemsArray)
+            itemsArray.forEach((el) => {
+                // console.log(itemsArray.indexOf(el))
+                // console.log(itemsArray.indexOf(el))
+                // console.log(el)
+                // console.log(el.is_user_location)
+                if (itemsArray[0].is_user_location === true) {
+                    reordered_locations[String(itemsArray.indexOf(el))] = el
+                } else {
+                    reordered_locations[String(itemsArray.indexOf(el) + 1)] = el
+                }
+            })
+            locations = reordered_locations
+            // And update the DOM:
+            e.target.parentNode.insertBefore(e.target, e.detail.insertBefore);
+            swiper.removeAllSlides()
+            for (const loc of Object.values(locations)) {
+                weatherData = JSON.parse(localStorage.getItem(`weatherData-${loc.id}-10`))
+                generateSlide(loc);
+                renderCurrentForecast(loc, weatherData);
+            }
+
+            localStorage.setItem('locations', JSON.stringify(locations));
+
+            // add to cookies
+            // setCookie('locations', JSON.stringify(locations), 30);
+        }
+    })
+    //     console.log(e.target.parentNode)
+    //     e.target.parentNode.insertBefore(e.target, e.detail.insertBefore);
+    //     swapElementsInObject(locations, e.target, e.detail.insertBefore)
+    //     return false;
+    // }, false);
+    return new Slip(list);
 }

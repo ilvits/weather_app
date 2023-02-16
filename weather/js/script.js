@@ -1,24 +1,3 @@
-// Open hash location on load
-let slide = window.location.hash.split('#').pop();
-if (locations && Object.entries(locations).length > 0) {
-    if (slide) {
-        console.log('Slide to', slide)
-        const slide_id = Object.values(locations).findIndex(item => item.id == slide)
-        setTimeout((slide_id) => {
-            slideToId()
-        }, 300);
-    }
-} else {
-    mainPage_placeholder.classList.remove('opacity-0')
-}
-
-function slideToId(index) {
-    if (openOverlay) {
-        HSOverlay.close(openOverlay);
-    }
-    swiper.slideTo(index, 300);
-}
-
 function addNewLocation() {
     // add to object
 
@@ -28,11 +7,9 @@ function addNewLocation() {
     } else {
         index = 1
     }
+
     locations = addToObject(locations, String(index), locationPreviewData)
     localStorage.setItem('locations', JSON.stringify(locations));
-
-    // add to cookies
-    // setCookie('locations', JSON.stringify(locations), 30);
 
     searchInput.placeholder = 'Найти новое место'
     searchInput.value = ''
@@ -90,7 +67,7 @@ function openLocationEditModal(el) {
     showLocationsBackdrop()
     // locations_backdrop.classList.add('z-10')
     modalLocation_flag = true
-    loc_id = el.closest('.location-card').dataset.name
+    loc_id = el.closest('.card-wrapper').dataset.name
     loc_index = Object.values(locations).findIndex(item => item.id == loc_id)
     loc_name = Object.values(locations)[loc_index].name
     location_edit_modal.dataset.location = loc_index
@@ -142,20 +119,19 @@ clearText.forEach((el) => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-
     mainPage_tapbar__locations_btn.addEventListener('click', () => {
         HSOverlay.toggle(menu_locations)
     })
 
     mainPage_tapbar__settings_btn.addEventListener('click', () => {
-        HSOverlay.toggle(menuSettings)
+        HSOverlay.toggle(menu_settings)
     })
 
     mainPage_search_btn.addEventListener('click', () => {
         searchFocus();
         setTimeout(() => {
             searchInput.focus()
-        }, 300);
+        }, 500);
     })
 
     locations_header__edit_btn.addEventListener('click', () => {
@@ -208,147 +184,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log('click Cancel')
         closeLocationEditModal()
     })
-
-    locations_backdrop.addEventListener('click', () => {
-        if (document.querySelector('#loading-animation').classList.contains('opacity-0')) {
-            closeLocationEditModal()
-            hideLocationsBackdrop()
-            searchCancel()
-        }
-    })
-
-    del_btns.forEach((e) => {
-        e.addEventListener('click', () => {
-            card = e.closest('.location-card')
-            locationCards.forEach((e) => {
-                e.classList.remove('-translate-x-24')
-            })
-            setTimeout(() => {
-                card.querySelector('.trash').classList.remove('opacity-0')
-                card.classList.remove('duration-[0ms]')
-                card.classList.add('duration-[700ms]')
-                card.classList.add('-translate-x-24')
-                delLocation_flag = true
-            }, 100)
-        })
-    })
-
-    trash_btns.forEach((e) => {
-        document.addEventListener('click', (event) => {
-            if (!e.contains(event.target) && delLocation_flag) {
-                trash_btns.forEach((e) => {
-                    e.classList.add('opacity-0')
-                })
-                locationCards.forEach((e) => {
-                    e.classList.remove('-translate-x-24');
-                    setTimeout(() => {
-                        e.classList.remove('duration-[700ms]')
-                        e.classList.add('duration-[0ms]')
-                    }, 50);
-                })
-                delLocation_flag = false
-            }
-        });
-        e.addEventListener('click', () => {
-            console.log('trash clicked')
-            lname = e.closest('.location-card').dataset.name
-            deleteLocation(Object.keys(locations).find(key => locations[key].id == lname), lname)
-        })
-    })
-
-    locationCards.forEach((el) => {
-        el.addEventListener('click', () => {
-            if (!editLocation_flag) {
-                slideToId(Object.values(locations).findIndex(item => item.id == el.dataset.name))
-            }
-        })
-    })
-
-
-
-    function setupSlip(list) {
-        if (locations) {
-            itemsArray = []
-            itemsArray = Object.values(locations)
-        }
-
-        list.addEventListener('slip:beforeswipe', function (e) {
-            if (e.target.classList.contains('no-swipe')) {
-                e.preventDefault();
-            }
-        }, false);
-
-        list.addEventListener('slip:swipe', function (e) {
-            // e.target list item swiped
-            // if (thatWasSwipeToRemove) {
-            // list will collapse over that element
-            // e.target.parentNode.removeChild(e.target);
-            // } else {
-            e.preventDefault(); // will animate back to original position
-            // }
-        });
-
-        list.addEventListener('slip:beforewait', function (e) {
-            if (e.target.classList.contains('instant')) e.preventDefault();
-        }, false);
-
-        list.addEventListener('slip:afterswipe', function (e) {
-            e.target.parentNode.appendChild(e.target);
-        }, false);
-
-        list.addEventListener('slip:beforereorder', function (e) {
-            if (e.target.classList.contains('no-reorder')) {
-                e.preventDefault();
-            }
-        }, false);
-        list.addEventListener('slip:reorder', function (e) {
-            if ((e.target.dataset.is_user_location == "true")
-                || (e.detail.insertBefore && e.detail.insertBefore.dataset.is_user_location == "true")) {
-                e.preventDefault()
-            } else {
-                reordered_locations = {}
-                const movedItem = itemsArray[e.detail.originalIndex];
-                // console.log(e.detail.originalIndex, e.detail.spliceIndex)
-                // console.log(e.target)
-                swiper.addSlide(e.detail.spliceIndex + 1, swiper.slides[e.detail.originalIndex])
-                // swiper.removeSlide(e.detail.originalIndex)
-                itemsArray.splice(e.detail.originalIndex, 1); // Remove item from the previous position
-                itemsArray.splice(e.detail.spliceIndex, 0, movedItem); // Insert item in the new position
-                // console.log(itemsArray)
-                itemsArray.forEach((el) => {
-                    // console.log(itemsArray.indexOf(el))
-                    // console.log(itemsArray.indexOf(el))
-                    // console.log(el)
-                    // console.log(el.is_user_location)
-                    if (itemsArray[0].is_user_location === true) {
-                        reordered_locations[String(itemsArray.indexOf(el))] = el
-                    } else {
-                        reordered_locations[String(itemsArray.indexOf(el) + 1)] = el
-                    }
-                })
-                locations = reordered_locations
-                // And update the DOM:
-                e.target.parentNode.insertBefore(e.target, e.detail.insertBefore);
-                swiper.removeAllSlides()
-                for (const loc of Object.values(locations)) {
-                    weatherData = JSON.parse(localStorage.getItem(`weatherData-${loc.id}-10`))
-                    generateSlide(loc);
-                    renderCurrentForecast(loc, weatherData);
-                }
-
-                localStorage.setItem('locations', JSON.stringify(locations));
-
-                // add to cookies
-                // setCookie('locations', JSON.stringify(locations), 30);
-            }
-        })
-        //     console.log(e.target.parentNode)
-        //     e.target.parentNode.insertBefore(e.target, e.detail.insertBefore);
-        //     swapElementsInObject(locations, e.target, e.detail.insertBefore)
-        //     return false;
-        // }, false);
-        return new Slip(list);
-    }
 
     mainPage_tapbar__weather_btn.addEventListener('click', () => {
         // console.log(mainPage_tapbar__weather_btn.firstElementChild)
@@ -430,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // document.addEventListener('click', (event) => {
     //     if (editLocation_flag && !modalLocation_flag) {
-    //         if (!locationCardsContainer.contains(event.target)) {
+    //         if (!location_cards__container.contains(event.target)) {
     //             editLocationsToggle()
     //         }
     //         if (locations_backdrop.contains(event.target)) {
@@ -438,145 +273,4 @@ document.addEventListener("DOMContentLoaded", () => {
     //         }
     //     }
     // })
-
-    function editLocationsToggle() {
-        classToggle(locations_header__back_btn, 'opacity-0')
-        classToggle(locations_header__label, 'opacity-0')
-        setTimeout(() => {
-            locations_header__edit_btn.innerText = locations_header__edit_btn.innerText == "Изм." ? "Готово" : "Изм."
-        }, 50);
-        setTimeout(() => {
-            editLocation_flag = editLocation_flag == true ? false : true
-        }, 20)
-        locationCards.forEach((e) => {
-            e.classList.remove('-translate-x-24')
-        })
-        cards.forEach((el) => {
-            classToggle(el, 'w-[calc(100%_-_100px)]', 'w-full', 'h-[85px]', 'h-[80px]')
-        })
-        editButtons.forEach((e) => {
-            classToggle(e, 'w-[284px]', 'w-full', 'opacity-0', 'invisible', 'z-20')
-        })
-        location_card__name.forEach((e) => {
-            classToggle(e, 'translate-y-2')
-            if (e.innerText.length > 23) {
-                e.classList.toggle('text-sm')
-            }
-        })
-
-        classToggle(document.querySelector('.user-location-pin'), 'scale-0', 'opacity-0', 'translate-x-12')
-
-        weatherIcon.forEach((e) => {
-            classToggle(e, 'scale-0', 'opacity-0')
-        })
-        condition.forEach((e) => {
-            classToggle(e, 'opacity-0', '-translate-y-3', '-translate-x-2')
-        })
-        temp.forEach((el) => {
-            classToggle(el, 'translate-x-12', 'opacity-0')
-        })
-        minmax.forEach((el) => {
-            classToggle(el, 'translate-x-8', 'invisible', 'opacity-0')
-            el.parentElement.classList.toggle('translate-x-8')
-        })
-        edit_location_btns.forEach((e) => {
-            classToggle(e, 'opacity-0', 'invisible')
-        })
-    }
-
-    setupSlip(locationCardsContainer);
-
-    // search location input
-    const locations_menu_container = document.querySelector('#locations-container')
-    const locations_menu_header = document.querySelector('#locations--header')
-    const listOfLocations = document.querySelector('#location-cards')
-    const cancelSearchButton = document.querySelector('#location-search--cancel-button')
-
-    searchInput.onfocus = searchFocus;
-    searchInput.onkeyup = getGeoData;
-    cancelSearchButton.addEventListener('click', searchCancel);
-
-    searchInput.addEventListener('input', (event) => {
-        // console.log(event.target.value.length)
-        if (event.target.value.length == 0) {
-            event.target.nextElementSibling.classList.add('opacity-0', 'invisible')
-            suggestionList.innerHTML = ''
-            if (!locations || Object.values(locations).findIndex(item => item.is_user_location == true) == -1) {
-                getLocationPlaceholder.classList.remove('hidden')
-                setTimeout(() => {
-                    getLocationPlaceholder.classList.remove('opacity-0')
-                }, 50);
-            } else {
-                getLocationPlaceholder.classList.add('opacity-0')
-                setTimeout(() => {
-                    getLocationPlaceholder.classList.add('hidden')
-                }, 400);
-            }
-        } else {
-            getLocationPlaceholder.classList.add('opacity-0')
-            setTimeout(() => {
-                getLocationPlaceholder.classList.add('hidden')
-            }, 400);
-            event.target.nextElementSibling.classList.remove('opacity-0', 'invisible')
-        }
-    })
-
-    function searchFocus() {
-        if (!locations || Object.values(locations).findIndex(item => item.is_user_location == true) == -1) {
-            getLocationPlaceholder.classList.remove('hidden')
-            setTimeout(() => {
-                getLocationPlaceholder.classList.remove('opacity-0')
-            }, 300);
-        } else {
-            getLocationPlaceholder.classList.add('opacity-0')
-            setTimeout(() => {
-                getLocationPlaceholder.classList.add('hidden')
-            }, 400);
-        }
-        // mainPage_placeholder.classList.add('hidden', 'opacity-0')
-        locations_placeholder.classList.add('opacity-0');
-        setTimeout(() => {
-            locations_placeholder.classList.add('hidden')
-            searchInput.focus()
-        }, 500);
-        suggestionList.classList.remove('invisible', 'opacity-0')
-        searchInput.placeholder = 'Введите название'
-        searchInput.classList.add('w-[calc(100vw-104px)]')
-        searchInput.classList.remove('w-full', 'dark:text-cosmic-500')
-        menu_locations.classList.remove('overflow-y-scroll')
-        locations_menu_container.classList.remove('overflow-x-hidden')
-        cancelSearchButton.classList.remove('-right-20')
-        searchInput.parentNode.classList.add('-translate-y-12')
-        listOfLocations.classList.add('-translate-y-14', 'scale-[0.96]', '-z-10')
-        locations_menu_header.classList.add('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.99]')
-        showLocationsBackdrop()
-        if (editLocation_flag) {
-            editLocationsToggle()
-        }
-    }
-
-    function searchCancel() {
-        getLocationPlaceholder.classList.add('opacity-0', 'hidden')
-        hideLocationsBackdrop()
-        if (!locations || Object.entries(locations).length == 0) {
-            locations_placeholder.classList.remove('hidden')
-        }
-        setTimeout(() => {
-            locations_placeholder.classList.remove('opacity-0')
-            // mainPage_placeholder.classList.remove('opacity-0')
-        }, 100);
-        searchInput.nextElementSibling.classList.add('opacity-0', 'invisible')
-        searchInput.placeholder = 'Найти новую локацию'
-        searchInput.value = ''
-        searchInput.classList.remove('w-[calc(100vw-104px)]')
-        searchInput.classList.add('w-full', 'dark:text-cosmic-500')
-        menu_locations.classList.add('overflow-y-scroll')
-        locations_menu_container.classList.add('overflow-x-hidden')
-        cancelSearchButton.classList.add('-right-20')
-        searchInput.parentNode.classList.remove('-translate-y-12')
-        listOfLocations.classList.remove('-translate-y-14', 'scale-[0.96]', '-z-10')
-        locations_menu_header.classList.remove('opacity-0', 'invisible', '-translate-y-2', 'blur-xl', 'scale-[0.99]')
-        suggestionList.classList.add('invisible', 'opacity-0')
-        suggestionList.innerHTML = ''
-    }
 });

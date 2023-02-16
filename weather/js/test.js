@@ -48,11 +48,10 @@ let dom_utils = {};
 })(dom_utils);
 
 function updateInfo() {
-    console.log('focus')
     const date = new Date()
     const lastPageUpdate = new Date(localStorage.getItem('lastPageUpdate'))
     const delta = ((date.getTime() - lastPageUpdate.getTime()) / 1000)
-    if (delta > 15) {
+    if (delta > 300) {
         for (const loc of Object.values(locations)) {
             const weatherData = JSON.parse(localStorage.getItem(`weatherData-${loc.id}-10`))
             renderCurrentForecast(loc, weatherData);
@@ -66,27 +65,8 @@ window.onfocus = () => updateInfo();
 document.addEventListener('DOMContentLoaded', init())
 
 function init() {
+    let slide = window.location.hash.split('#').pop();
     loadSettings();
-    // generateSlides(locations);
-    locationCards = document.querySelectorAll('.location-card')
-    cards = document.querySelectorAll('.card')
-    temp = document.querySelectorAll('.temp')
-    condition = document.querySelectorAll('.condition')
-    minmax = document.querySelectorAll('.minmax')
-    location_card__name = document.querySelectorAll('.location-card--name')
-    weatherIcon = document.querySelectorAll('.weather-icon')
-    user_location_pin = document.querySelectorAll('.user-location-pin')
-    editButtons = document.querySelectorAll('.edit-buttons')
-    edit_location_btns = document.querySelectorAll('.edit-icon')
-    del_btns = document.querySelectorAll('.location-del')
-    trash_btns = document.querySelectorAll('.trash')
-    location_edit_modal = document.querySelector('#location-edit-modal')
-    locations_backdrop = document.querySelector('#locations-backdrop')
-    getLocationPlaceholder = document.querySelector('#search-user-location--placeholder');
-    getLocationButton = document.querySelector('#search-user-location--btn');
-    getLocationButton.addEventListener('click', getUserLocation);
-
-
     // Settings
     s_temp = localStorage.getItem('s-temp') == 'true' ? 'F' : 'C'
     s_wind = localStorage.getItem('s-wind') == 'true' ? 'м/с' : 'км/ч'
@@ -117,7 +97,111 @@ function init() {
     setTimeout(() => {
         mainPage_tapbar__weather_btn.classList.remove('invisible', 'opacity-0')
     }, 300);
+
+
+    getLocationButton.addEventListener('click', getUserLocation);
+
+    // Initialize Cards List
+    setupSlip(location_cards__container);
+
+    // Initialize Swiper
+    var swiper = new Swiper(".mainSwiper", {
+        enabled: true,
+        cssMode: false,
+        effect: 'slide',
+        grabCursor: true,
+        speed: 400,
+        spaceBetween: 40,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            type: 'bullets',
+        },
+        hashNavigation: true,
+        hashNavigation: {
+            replaceState: true,
+        },
+    });
+
+
+    // Open hash location on load
+    function slideToId(index) {
+        if (openOverlay) {
+            HSOverlay.close(openOverlay);
+        }
+        swiper.slideTo(index, 300);
+    }
+
+    const card__wrapper = document.querySelectorAll('.card-wrapper')
+    card__wrapper.forEach((el) => {
+        el.addEventListener('click', () => {
+            // console.log(card__wrapper)
+            // console.log(el.id)
+            // console.log(editLocation_flag)
+            if (!editLocation_flag) {
+                const loc_id = Object.values(locations).findIndex(item => item.id == el.dataset.name)
+                slideToId(loc_id);
+            }
+        })
+    })
+
+    const del_btns = document.querySelectorAll('.location-del')
+    const trash_btns = document.querySelectorAll('.trash')
+
+    del_btns.forEach((el) => {
+        el.addEventListener('click', () => {
+            card = el.closest('.card-wrapper')
+            card__wrapper.forEach((e) => {
+                el.classList.remove('-translate-x-24')
+            })
+            setTimeout(() => {
+                card.querySelector('.trash').classList.remove('opacity-0')
+                card.classList.remove('duration-[0ms]')
+                card.classList.add('duration-[700ms]')
+                card.classList.add('-translate-x-24')
+                delLocation_flag = true
+            }, 100)
+        })
+    })
+
+    trash_btns.forEach((el) => {
+        el.addEventListener('click', () => {
+            console.log('trash clicked')
+            // lname = el.closest('.card-wrapper').dataset.name
+            // deleteLocation(Object.keys(locations).find(key => locations[key].id == lname), lname)
+        })
+        document.addEventListener('click', (event) => {
+            if (!el.contains(event.target) && delLocation_flag) {
+                trash_btns.forEach((e) => {
+                    e.classList.add('opacity-0')
+                })
+                card__wrapper.forEach((e) => {
+                    e.classList.remove('-translate-x-24');
+                    setTimeout(() => {
+                        e.classList.remove('duration-[700ms]')
+                        e.classList.add('duration-[0ms]')
+                    }, 50);
+                })
+                delLocation_flag = false
+            }
+        });
+    })
+
+
+    if (locations && Object.entries(locations).length > 0) {
+        if (slide) {
+            console.log('Slide to', slide)
+            slide_id = Object.values(locations).findIndex(item => item.id == slide)
+            console.log('slide_id: ', slide_id)
+            setTimeout(() => {
+                slideToId(slide_id)
+            }, 0);
+        }
+    } else {
+        mainPage_placeholder.classList.remove('opacity-0')
+    }
 }
+
 function generateSlide(loc, preview = false) {
     const template = document.querySelector('#slide-template').text.trim();
     let slide_data = {
@@ -143,11 +227,12 @@ function generateSlide(loc, preview = false) {
 }
 
 function generateLocationCard(loc) {
+    const card__wrapper = document.querySelectorAll('.card-wrapper')
     const template = document.querySelector('#card-template').text.trim();
     let card_data = {
         type: 'li',
         id: `card-${loc.id}`,
-        className: `location-card no-swipe h-[85px] flex justify-center 
+        className: `card-wrapper no-swipe h-[85px] flex justify-center 
         hs-removing:-translate-x-[500px] hs-removing:h-0 hs-removing:mb-0 
         ease-[cubic-bezier(.23,1,.32,1)] transition-[height,transform] transform-gpu duration-[0ms]`,
         innerHTML: template,
@@ -158,10 +243,13 @@ function generateLocationCard(loc) {
         }
     };
     let cardEl = dom_utils.createEl(card_data)
-    document.querySelector('#location-cards').appendChild(cardEl)
+    cardEl.querySelector('.trash').setAttribute('data-hs-remove-element', `#card-${loc.id}`)
+    location_cards__container.appendChild(cardEl)
 
-    // locationCardsContainer.insertAdjacentHTML('beforeend', `
-    //         <li id="card-${loc.id}" data-name="${loc.id}" data-user_location="${loc.is_user_location}" class="location-card no-swipe w-full h-[85px] flex justify-center 
+
+
+    // location_cards__container.insertAdjacentHTML('beforeend', `
+    //         <li id="card-${loc.id}" data-name="${loc.id}" data-user_location="${loc.is_user_location}" class="card-wrapper no-swipe w-full h-[85px] flex justify-center 
     //         hs-removing:-translate-x-[500px] hs-removing:h-0 hs-removing:mb-0 ease-[cubic-bezier(.23,1,.32,1)] transition-[height,transform] transform-gpu duration-[0ms]">
     //         <!-- BUTTONS-->
     //         <div class="edit-buttons invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between grid grid-flow-col transition-all-500">
@@ -188,7 +276,7 @@ function generateLocationCard(loc) {
     //                 ${loc.name}
     //                 ${loc.is_user_location ? '<img class="user-location-pin pl-1 transition-all-500" src="img/assets/icons/map-pin.svg">' : ''}
     //                 </div>
-    //                 <div class="condition pt-2 text-xs leading-[14px] transition-all-500 truncate overflow-ellipsis"></div>
+    //                 <div class="condition pt-2 text-xs leading-[14px] transition-all-500 truncate "></div>
     //                 </div>
     //                 <div class="absolute right-4 flex flex-row gap-2 transition-all-500">
     //                 <div class="grid grid-flow-row items-center transition-all-500">
@@ -399,25 +487,26 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
 
         // LOCATIONS CARDS RENDER
         console.log(loc.name.length)
-        if (loc.name.length < 18) {
-            document.querySelector(`#card-${loc.id} .location-card--name`).classList.remove('text-sm')
+        if (loc.name.length > 18) {
+            document.querySelector(`#card-${loc.id} .location-card--name`).classList.add('text-sm')
         }
         document.querySelector(`#card-${loc.id} .location-card--name`).innerText = loc.name
         if (loc.is_user_location) {
             console.log(loc.is_user_location)
-            document.querySelector(`#card-${loc.id} .user-location-pin`).innerHTML = `<img class="" src="img/assets/icons/map-pin.svg"></img>`
+            document.querySelector(`#card-${loc.id} .user-location-pin`).innerHTML = `
+            <svg class="fill-cosmic-900 dark:fill-white" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 4.5C7.50555 4.5 7.0222 4.64662 6.61107 4.92133C6.19995 5.19603 5.87952 5.58648 5.6903 6.04329C5.50108 6.50011 5.45157 7.00277 5.54804 7.48773C5.6445 7.97268 5.8826 8.41814 6.23223 8.76777C6.58186 9.1174 7.02732 9.3555 7.51227 9.45196C7.99723 9.54843 8.49989 9.49892 8.95671 9.3097C9.41352 9.12048 9.80397 8.80005 10.0787 8.38893C10.3534 7.9778 10.5 7.49445 10.5 7C10.4992 6.33719 10.2356 5.70175 9.76693 5.23307C9.29825 4.7644 8.66281 4.50076 8 4.5ZM8 8.5C7.70333 8.5 7.41332 8.41203 7.16664 8.2472C6.91997 8.08238 6.72771 7.84811 6.61418 7.57403C6.50065 7.29994 6.47094 6.99834 6.52882 6.70736C6.5867 6.41639 6.72956 6.14912 6.93934 5.93934C7.14912 5.72956 7.41639 5.5867 7.70736 5.52882C7.99834 5.47094 8.29994 5.50065 8.57403 5.61418C8.84811 5.72771 9.08238 5.91997 9.2472 6.16664C9.41203 6.41332 9.5 6.70333 9.5 7C9.49955 7.39769 9.34138 7.77896 9.06017 8.06017C8.77896 8.34137 8.39769 8.49955 8 8.5ZM8 1.5C6.54182 1.50165 5.14383 2.08165 4.11274 3.11274C3.08165 4.14383 2.50165 5.54182 2.5 7C2.5 8.96225 3.40687 11.0424 5.12269 13.0156C5.89481 13.9072 6.76367 14.7101 7.71325 15.4096C7.7973 15.4685 7.89741 15.5 8 15.5C8.10259 15.5 8.2027 15.4685 8.28675 15.4096C9.23633 14.7101 10.1052 13.9072 10.8773 13.0156C12.5931 11.0424 13.5 8.96231 13.5 7C13.4983 5.54182 12.9184 4.14383 11.8873 3.11274C10.8562 2.08165 9.45818 1.50165 8 1.5ZM8 14.3737C6.96669 13.5632 3.5 10.5769 3.5 7C3.5 5.80653 3.97411 4.66193 4.81802 3.81802C5.66193 2.97411 6.80653 2.5 8 2.5C9.19347 2.5 10.3381 2.97411 11.182 3.81802C12.0259 4.66193 12.5 5.80653 12.5 7C12.5 10.577 9.03312 13.5634 8 14.3737Z"/>
+            </svg>`
         }
-        document.querySelector(`#card-${loc.id} .time`).innerText = location_time
-        document.querySelector(`#card-${loc.id} .temp`).innerText = Math.round(currentWeather.temp) + '°'
-        document.querySelector(`#card-${loc.id} .condition`).innerText = todayWeather.conditions
-        document.querySelector(`#card-${loc.id} .tempmax`).innerText = Math.round(todayWeather.tempmax) + '°'
-        document.querySelector(`#card-${loc.id} .tempmin`).innerText = Math.round(todayWeather.tempmin) + '°'
-        document.querySelector(`#card-${loc.id} .weather-icon`).innerHTML = `<img class="" src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
-        document.querySelector(`#card-${loc.id} .edit-icon`).addEventListener('click', (event) => {
+        document.querySelector(`#card-${loc.id} .location-card--time`).innerText = location_time
+        document.querySelector(`#card-${loc.id} .location-card--temp`).innerText = Math.round(currentWeather.temp) + '°'
+        document.querySelector(`#card-${loc.id} .location-card--condition`).innerText = todayWeather.conditions
+        document.querySelector(`#card-${loc.id} .location-card--tempmax`).innerText = Math.round(todayWeather.tempmax) + '°'
+        document.querySelector(`#card-${loc.id} .location-card--tempmin`).innerText = Math.round(todayWeather.tempmin) + '°'
+        document.querySelector(`#card-${loc.id} .location-card--weather-icon`).innerHTML = `<img class="w-12 h-12" src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
+        document.querySelector(`#card-${loc.id} .location-card--edit-icon`).addEventListener('click', (event) => {
             openLocationEditModal(event.target)
         })
-
-
     } else {
         HSCollapse.show(detailInfo)
         detailItems.forEach((el, index) => {
