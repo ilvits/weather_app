@@ -145,6 +145,8 @@ function parseSuggestions(features, searchText) {
             // } else {
             let name = value.text_ru;
             let countryCode = value.context[value.context.findIndex(item => item.id.includes('country'))].short_code;
+            console.log(countryCode, userCountry)
+            console.log(countryCode !== userCountry)
             let region
             if (value.context.findIndex(item => item.id.includes('region')) !== -1) {
                 region = value.context[value.context.findIndex(item => item.id.includes('region'))].text;
@@ -156,12 +158,12 @@ function parseSuggestions(features, searchText) {
             locationLi.onclick = () => showPosition(position, false)
             if ((locations) && (Object.values(locations).findIndex(item => item.id.includes('country')) != -1)) {
                 action = ''
-                locationLi.classList.add('pointer-events-none', 'text-slate-500', 'py-2', 'pr-2', 'overflow-hidden', 'overflow-ellipsis', 'whitespace-nowrap')
+                locationLi.classList.add('pointer-events-none', 'text-slate-500', 'py-2', 'pr-2', 'truncate')
                 text = `${name}, ${region}${(countryCode !== userCountry) ? ', ' + country : ''}`
             } else {
                 // action = action;
-                locationLi.classList.add('py-2', 'pr-2', 'overflow-hidden', 'overflow-ellipsis', 'whitespace-nowrap')
-                text = `${name.replace(capText, `<strong class="text-primary-light dark:text-yellow">${capText}</strong>`)}<strong class="text-gray-300 dark:text-cosmic-500">${region ? ', ' + region : ''}, ${country}</strong>`
+                locationLi.classList.add('pr-2', 'truncate')
+                text = `${name.replace(capText, `<strong class="text-primary-light dark:text-yellow">${capText}</strong>`)}<strong class="text-gray-300 dark:text-cosmic-500">${region ? ', ' + region : ''}${(countryCode !== userCountry) ? ', ' + country : ''}</strong>`
             }
             locationLi.innerHTML = text
             suggestionList.appendChild(locationLi)

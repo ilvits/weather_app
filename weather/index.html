@@ -38,7 +38,7 @@
 </head>
 
 <body
-    class="bg-gray-100 dark:bg-cosmic-900 text-[#1B2541] dark:text-white max-w-lg mx-auto dark:sm:border-x dark:sm:border-x-cosmic-800">
+    class="bg-gray-100 dark:bg-cosmic-900 text-[#1B2541] dark:text-white max-w-lg mx-auto sm:border-x dark:sm:border-x dark:sm:border-x-cosmic-800">
 
     <div id="offline-status" aria-overlay="false" class="fixed top-3 hs-overlay hidden hs-overlay-open:top-7 
         hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 backdrop-blur-sm [--body-scroll:true] [--overlay-backdrop:false] 
@@ -89,8 +89,7 @@
 
     <!-- MAIN WINDOW -->
     <main class="overflow-y-clip overflow-x-clip">
-        <div id="main-page--placeholder" class="absolute mx-4 h-[calc(100%_-_80px)] w-[calc(100%_-_32px)] flex flex-col gap-6 
-            text-center items-center justify-center opacity-0 
+        <div id="main-page--placeholder" class="hidden mx-4 flex flex-col gap-6 text-center items-center opacity-0 mt-44
             transform-gpu transition-[opacity,translate] duration-300 ease-[cubic-bezier(.23,1,.32,1)]">
             <img class="w-[195px] h-[197px]" src="img/assets/icons/globe.svg">
             <div>
@@ -942,11 +941,11 @@
     <script src="js/utils/objectUtils.js"></script>
     <script src="js/renderForecast.js"></script>
     <!-- <script src="js/swiper/swiper-bundle.min.js"></script> -->
-    <script src="js/swiper/swiper-bundle.min.js"></script>
     <script src="js/preline/hs-collapse.js"></script>
     <script src="js/preline/hs-remove-element.js"></script>
     <script src="js/preline/hs-dropdown.js"></script>
     <script src="js/preline/hs-overlay.js"></script>
+    <script src="js/swiper/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
     <!-- <script src="js/handlers.js"></script> -->
     <!-- <script src="js/test.js"></script> -->

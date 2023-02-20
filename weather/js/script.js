@@ -47,7 +47,7 @@ function requestUserCountry() {
     if (!localStorage.userCountry) {
         request("https://ipinfo.io/json?token=bf205b8bacf2c5")
             .then(jsonResponse => {
-                userCountry = jsonResponse.country || 'Unknown';
+                userCountry = (jsonResponse.country).toLowerCase() || 'Unknown';
                 localStorage.setItem('userCountry', userCountry)
                 return userCountry
             })
@@ -80,11 +80,11 @@ function resetSettings() {
 }
 
 // Open location on load
-function slideToId(index) {
+function slideToId(index, duration = 300) {
     if (openOverlay) {
         HSOverlay.close(openOverlay);
     }
-    swiper.slideTo(index, 300);
+    swiper.slideTo(index, duration);
 }
 
 // setup location Cards on "My locations"
@@ -307,7 +307,8 @@ function renameLocation(locationId, name = 'original') {
 }
 
 function searchOnFocus() {
-    if (!locations || Object.values(locations).findIndex(item => item.is_user_location == true) == -1) {
+    console.log(localStorage.userGeoPosition)
+    if ((!locations || Object.values(locations).findIndex(item => item.is_user_location == true) == -1) && localStorage.getItem('userGeoPosition') != 'false') {
         getLocationPlaceholder.classList.remove('hidden')
         setTimeout(() => {
             getLocationPlaceholder.classList.remove('opacity-0')
@@ -442,6 +443,8 @@ function showError(error) {
     switch (error.code) {
         case error.PERMISSION_DENIED:
             console.log("User denied the request for Geolocation.")
+            hideLoadingAnimation()
+            localStorage.setItem('userGeoPosition', false)
             break;
         case error.POSITION_UNAVAILABLE:
             console.log("Location information is unavailable.")
@@ -867,11 +870,8 @@ function init() {
                 }
             }
             document.onclick = (event) => {
-                const card = el.closest('li')
                 if (!el.contains(event.target) && delLocation_flag) {
                     console.log('out of trash clicked')
-                    // console.log('el: ', el)
-                    // console.log('card: ', card)
                     trash_btns.forEach((e) => {
                         e.classList.add('opacity-0')
                     })
@@ -889,12 +889,12 @@ function init() {
 
 
         if (slide) {
-            // console.log('Slide to', slide)
+            console.log('Slide to', slide)
             slide_id = Object.values(locations).findIndex(item => item.id == slide)
             // console.log('slide_id: ', slide_id)
             setTimeout(() => {
-                slideToId(slide_id)
-            }, 0);
+                slideToId(slide_id, 0)
+            }, 50);
         }
 
     }
