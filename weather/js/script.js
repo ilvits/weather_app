@@ -790,7 +790,7 @@ function init() {
 
     if ((typeof locations === 'undefined' || locations === null) || Object.entries(locations).length == 0) {
         locations_header__edit_btn.classList.add('invisible')
-        mainPage_placeholder.classList.remove('opacity-0')
+        mainPage_placeholder.classList.remove('hidden', 'opacity-0')
     } else {
         window.onfocus = () => updateInfo();
         if (!localStorage.lastPageUpdate) {

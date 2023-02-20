@@ -1067,6 +1067,10 @@ li .card__wrapper {
   margin-right: 2rem;
 }
 
+.mt-44 {
+  margin-top: 11rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -1125,22 +1129,6 @@ li .card__wrapper {
 
 .mb-\[27px\] {
   margin-bottom: 27px;
-}
-
-.mt-28 {
-  margin-top: 7rem;
-}
-
-.mt-36 {
-  margin-top: 9rem;
-}
-
-.mt-48 {
-  margin-top: 12rem;
-}
-
-.mt-44 {
-  margin-top: 11rem;
 }
 
 .block {
@@ -1221,10 +1209,6 @@ li .card__wrapper {
 
 .h-3 {
   height: 0.75rem;
-}
-
-.h-\[calc\(100\%_-_80px\)\] {
-  height: calc(100% - 80px);
 }
 
 .h-\[197px\] {
@@ -1353,10 +1337,6 @@ li .card__wrapper {
 
 .w-3 {
   width: 0.75rem;
-}
-
-.w-\[calc\(100\%_-_32px\)\] {
-  width: calc(100% - 32px);
 }
 
 .w-\[195px\] {
