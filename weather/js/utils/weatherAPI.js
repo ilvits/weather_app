@@ -1,6 +1,6 @@
-function getWeatherDataFromAPI(id, lat, lon, days = 10, preview = false) {
+function getWeatherDataFromAPI(id, lat, lon, preview = false) {
     timeOffset = new Date().getTimezoneOffset() / 60
-    let weatherData = localStorage.getItem(`weatherData-${id}-${days}`);
+    let weatherData = localStorage.getItem(`weatherData-${id}`);
     let date = localStorage.getItem(`weatherData-${id}-lastUpdate`)
     timeDelta = Math.round((new Date().getTime() - new Date(date).getTime()) / 1000)
 
@@ -25,7 +25,7 @@ function getWeatherDataFromAPI(id, lat, lon, days = 10, preview = false) {
                 'name', 'address', 'resolvedAddress',
                 'temp', 'tempmax', 'tempmin', 'feelslike', 'humidity',
                 'pressure', 'precipprob', 'preciptype',
-                'windspeed', 'winddir', 'severerisk',
+                'windspeed', 'winddir', 'windgust', 'severerisk',
                 'sunriseEpoch', 'sunsetEpoch'
             ],
             include: ['days', 'hours', 'current', 'alerts'],
@@ -39,27 +39,26 @@ function getWeatherDataFromAPI(id, lat, lon, days = 10, preview = false) {
             paramsArray.push([key, v].join('='))
         });
 
-        if (days == 10) {
-            url = baseurl + `/${lat}%2C${lon}?` + paramsArray.join('&')
-        } else {
-            url = baseurl + `/${lat}%2C${lon}/next30days?` + paramsArray.join('&')
-        }
+        url = baseurl + `/${lat}%2C${lon}/next30days?` + paramsArray.join('&')
+
         request(url, options)
             .then(weatherData => {
-                saveWeatherData(id, weatherData, days);
+                saveWeatherData(id, weatherData);
                 if (preview) {
                     hideLoadingAnimation()
-                    locations_backdrop.classList.remove('z-[5]')
+                    setTimeout(() => {
+                        locations_backdrop.classList.remove('z-[5]')
+                    }, 500);
                     generatePreview(locationPreviewData, weatherData, true)
                 }
             })
     }
 }
 
-function saveWeatherData(id, weatherData, days = 10) {
-    console.log(typeof weatherData)
-    console.warn(weatherData.alerts)
+function saveWeatherData(id, weatherData) {
+    // console.table(weatherData.currentConditions)
+    // console.warn(weatherData.alerts || '')
     date = new Date()
     localStorage.setItem(`weatherData-${id}-lastUpdate`, date);
-    localStorage.setItem(`weatherData-${id}-${days}`, JSON.stringify(weatherData));
+    localStorage.setItem(`weatherData-${id}`, JSON.stringify(weatherData));
 }

@@ -32,9 +32,28 @@
     font-weight: 500;
     src: url(/weather/fonts/Noto_Emoji/static/NotoEmoji-Medium.woff2) format("woff");
   } */
+  small {
+    @apply text-xxs leading-3 text-gray-300 dark:text-cosmic-400;
+  }
+
+  h3 {
+    @apply text-lg leading-[22px] font-bold  text-cosmic-900 dark:text-white;
+  }
+  strong {
+    @apply text-base leading-5 text-cosmic-900 dark:text-white;
+  }
+  span {
+    @apply text-xs font-normal leading-[14px] text-cosmic-900 dark:text-white;
+  }
+  
 }
 
 @layer components {
+  li .card__wrapper {
+    @apply flex gap-2 p-4 transition-all-500 rounded-2xl mx-auto
+    bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645]   
+    transition-all-300;
+  }
   .transition-all-300 {
     @apply ease-[cubic-bezier(.23,1,.32,1)] transition-all transform-gpu duration-300;
   }
@@ -60,12 +79,9 @@
     @apply ease-[cubic-bezier(.23,1,.32,1)] transition-opacity transform-gpu duration-500;
   }
 }
-
 body {
   touch-action: pan-y;
 }
-
-
 .bg-gradient {
   background: linear-gradient(143.79deg, #192D52 10.22%, #112645 78.57%) !important;
   ;
@@ -144,7 +160,6 @@ input {
   display: none !important;
   width: 0 !important;
 }
-
 ::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
@@ -180,11 +195,6 @@ input {
 .swiper {
   overflow: clip !important;
 }
-
-.swiper-wrapper {
-  /* contain: content; */
-}
-
 .swiper-pagination {
   position: relative !important;
   width: auto !important;

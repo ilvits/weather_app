@@ -12,7 +12,7 @@
     "mathjs": "^11.1.0",
     "preline": "^1.2.0",
     "swipejs": "^2.3.1",
-    "swiper": "^9.0.4",
+    "swiper": "^9.0.5",
     "tailwindcss-gradient": "^1.0.1"
   }
 }

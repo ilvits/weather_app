@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-scrollbar">
+<html lang="en" class="no-scrollbar  overflow-x-clip">
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/swiper-bundle.min.css" />
-    <script src="js/dark-mode.js"></script>
+    <script src="js/utils/dark-mode.js"></script>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
@@ -37,8 +37,9 @@
 
 </head>
 
-<body class="bg-gray-100 dark:bg-cosmic-900 pt-2 h-full text-[#1B2541] dark:text-white">
-    <!-- <div id="content"> -->
+<body
+    class="bg-gray-100 dark:bg-cosmic-900 text-[#1B2541] dark:text-white max-w-lg mx-auto dark:sm:border-x dark:sm:border-x-cosmic-800">
+
     <div id="offline-status" aria-overlay="false" class="fixed top-3 hs-overlay hidden hs-overlay-open:top-7 
         hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 backdrop-blur-sm [--body-scroll:true] [--overlay-backdrop:false] 
         ease-out transition-all right-0 inline-flex items-center gap-1.5 py-1 pl-3 pr-2 rounded-full
@@ -49,7 +50,6 @@
         </div>
         Connecting...
     </div>
-
     <div id="connection-failed" tabindex="-1"
         class="hs-overlay hidden  [--body-scroll:true] [--overlay-backdrop:false] z-[98] fixed -top-2 left-1/2 -translate-x-1/2 w-full">
         <div class="hs-overlay-open:mt-4 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 
@@ -86,25 +86,26 @@
 
         </div>
     </div>
+
     <!-- MAIN WINDOW -->
-    <main class=" overflow-y-">
+    <main class="overflow-y-clip overflow-x-clip">
         <div id="main-page--placeholder" class="absolute mx-4 h-[calc(100%_-_80px)] w-[calc(100%_-_32px)] flex flex-col gap-6 
             text-center items-center justify-center opacity-0 
             transform-gpu transition-[opacity,translate] duration-300 ease-[cubic-bezier(.23,1,.32,1)]">
             <img class="w-[195px] h-[197px]" src="img/assets/icons/globe.svg">
             <div>
-                <div class="font-bold text-lg pb-3 ">Плохой погоды не бывает</div>
+                <h3 class="pb-3">Плохой погоды не бывает</h3>
                 <div class="text-sm dark:text-cosmic-400">
                     Смотрите погоду по всему миру, сохраняйте избранные локации
                 </div>
             </div>
             <button id="mainpage--search-btn"
                 class="px-12 py-3 bg-primary-light dark:bg-yellow rounded-md text-white dark:text-cosmic-900"
-                data-hs-overlay="#menu-locations">Искать</button>
+                data-hs-overlay="#menu-locations">Искать локации</button>
         </div>
 
         <!-- Swiper -->
-        <div class="swiper mainSwiper ">
+        <div class="swiper">
             <div id="slides" class="swiper-wrapper">
             </div>
         </div>
@@ -112,7 +113,7 @@
 
     <!-- TAP BAR -->
     <section id="tapbar"
-        class="fixed z-[60] bottom-0 left-0 w-full h-20 bg-white/60 dark:bg-cosmic-900/80 backdrop-blur-lg text-gray-300 dark:text-cosmic-400 transition-colors duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
+        class="fixed z-[60] max-w-lg sm:border-x sm:border-x-cosmic-800 bottom-0 w-full h-20 bg-white/60 dark:bg-cosmic-900/80 backdrop-blur-lg text-gray-300 dark:text-cosmic-400 transition-colors duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
         <div class="flex justify-between mt-3 mx-8 items-center relative overflow-hidden">
             <button id="mainpage--tapbar--locations-btn" class="flex flex-col items-center gap-[6px] grow-0 shrink-0 "
                 aria-controls="sidebarLeft" aria-label="Toggle locations menu">
@@ -189,13 +190,12 @@
                 h-full w-full backdrop-blur-xl z-[55] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]"
         tabindex="-1">
         <div id="locations-backdrop"
-            class="absolute backdrop-blur-md top-0 left-0 w-full h-full -z-10 bg-gray-100/80 dark:bg-cosmic-900/80 opacity-0 transition-all-500">
+            class="absolute backdrop-blur-md top-0 left-0 w-full h-full -z-10 bg-gray-100/80 dark:bg-[#14181F]/80 opacity-0 transition-all-500">
         </div>
         <div id="locations-container"
             class="no-swipe no-reorder flex flex-col gap-4 transition-colors duration-300 overflow-x-clip">
-
             <header id="locations--header"
-                class="sticky top-0 h-12 flex w-full px-4 pt-4 pb-1 justify-between items-center bg-gray-100/80 dark:bg-cosmic-900/80 backdrop-blur-md z-10">
+                class="sticky top-0 h-12 flex w-full px-4 pt-4 pb-1 justify-between items-center bg-gray-100/80 dark:bg-cosmic-900 z-20">
                 <button id="locations-header--back-btn" type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-14 h-8
                 transition-all duration-300 transform-gpu ease-[cubic-bezier(.23,1,.32,1)]"
                     data-hs-overlay="#menu-locations" aria-controls="sidebarLeft" aria-label="Toggle Locations Menu">
@@ -219,7 +219,7 @@
             </header>
 
             <section
-                class="w-full px-4 h-12 transition-all duration-300 transform-gpu ease-[cubic-bezier(.23,1,.32,1)]">
+                class="w-full px-4 h-12 z-10 transition-all duration-300 transform-gpu ease-[cubic-bezier(.23,1,.32,1)]">
                 <input type="text" id="search-input" name="search-input"
                     class=" py-1 px-4 pl-[36px] w-full h-full
                 focus:outline-none rounded-lg text-ellipsis focus:z-10 dark:bg-cosmic-800 transition-all 
@@ -227,11 +227,11 @@
                     placeholder="Найти новую локацию">
                 <div
                     class="absolute invisible clear-text-cross right-[100px] top-[14px] transition-opacity duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M6.19526 6.19526C6.45561 5.93491 6.87772 5.93491 7.13807 6.19526L10 9.05719L12.8619 6.19526C13.1223 5.93491 13.5444 5.93491 13.8047 6.19526C14.0651 6.45561 14.0651 6.87772 13.8047 7.13807L10.9428 10L13.8047 12.8619C14.0651 13.1223 14.0651 13.5444 13.8047 13.8047C13.5444 14.0651 13.1223 14.0651 12.8619 13.8047L10 10.9428L7.13807 13.8047C6.87772 14.0651 6.45561 14.0651 6.19526 13.8047C5.93491 13.5444 5.93491 13.1223 6.19526 12.8619L9.05719 10L6.19526 7.13807C5.93491 6.87772 5.93491 6.45561 6.19526 6.19526Z"
-                            fill="#90929E" />
-                        <rect x="0.5" y="0.5" width="19" height="19" rx="9.5" stroke="#90929E" />
+                    <svg class="stroke-gray-300 dark:stroke-cosmic-500 stroke-1.5" width="20" height="20"
+                        viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="10" r="9.25" />
+                        <path d="M7 13L10 10M10 10L13 7M10 10L7 7M10 10L13 13" stroke-linecap="round"
+                            stroke-linejoin="round" />
                     </svg>
                 </div>
                 <button id="location-search--cancel-button" class="absolute -right-20 top-0 h-full pl-4 transition-all-500
@@ -251,19 +251,27 @@
                         </defs> -->
                     </svg>
                 </div>
-
                 <ol id="suggestion-list"
-                    class="absolute w-full font-light pt-6 pr-10 text-base invisible opacity-0 transform-gpu duration-300">
+                    class="absolute w-full font-light pt-6 pr-10 flex flex-col gap-2 text-base invisible opacity-0 transform-gpu duration-300">
                 </ol>
-                <div id="search-user-location--placeholder" class="mx-4 mt-20 flex flex-col gap-3 text-center items-center justify-center opacity-0 hidden 
+                <div id="search-user-location--placeholder" class=" mt-20 flex flex-col gap-3 text-center items-center justify-center opacity-0 hidden 
                     transform-gpu transition-[opacity,translate] duration-1000 ease-[cubic-bezier(.23,1,.32,1)]">
                     <img class="w-[70px] h-[70px]" src="img/assets/icons/clarity_compass-line.svg">
-                    <div class="font-bold text-lg">Добавить Вашу геолокацию?</div>
+                    <h3>Добавить Вашу геолокацию?</h3>
                     <div class="text-sm dark:text-cosmic-400">
                         Разрешите определить Ваше местоположение, чтобы не тратить время на поиск.
                     </div>
                     <button id="search-user-location--btn"
-                        class="mt-3 px-12 py-3 bg-primary-light dark:bg-yellow rounded-[10px] text-white dark:text-cosmic-900">Добавить</button>
+                        class="mt-3 px-12 py-3 bg-primary-light dark:bg-yellow rounded-[10px] text-white dark:text-cosmic-900">Найти
+                        мою геолокацию</button>
+                </div>
+                <div id="search-user-location--not-found" class="mx-4 mt-20 flex flex-col gap-3 text-center items-center justify-center opacity-0 hidden z-50
+                    transform-gpu transition-[opacity,translate] duration-1000 ease-[cubic-bezier(.23,1,.32,1)]">
+                    <img class="w-[70px] h-[70px]" src="img/assets/icons/ufo.svg">
+                    <div class="font-bold text-lg">Ничего не найдено</div>
+                    <div class="text-sm dark:text-cosmic-400">
+                        Попробуйте изменить запрос.
+                    </div>
                 </div>
             </section>
 
@@ -276,7 +284,7 @@
                             d="M22.4666 2.85072e-05L22.3179 6.90237L16.3723 3.34036L22.4666 2.85072e-05ZM92.0002 130.119L92.5776 129.948L92.0002 130.119ZM59.4665 154L58.9236 154.26L58.9236 154.26L59.4665 154ZM20.7948 3.89605C20.6255 4.1807 20.2562 4.27582 19.97 4.10849C19.6838 3.94117 19.5891 3.57477 19.7584 3.29011L20.7948 3.89605ZM15.7575 10.363C15.914 10.0712 16.2787 9.95986 16.5722 10.1144C16.8656 10.2689 16.9767 10.6307 16.8202 10.9225L15.7575 10.363ZM13.1125 18.2722C12.9711 18.5714 12.6125 18.7009 12.3115 18.5614C12.0105 18.4219 11.8811 18.0662 12.0225 17.7669L13.1125 18.2722ZM8.7313 25.2626C8.85557 24.956 9.20637 24.8067 9.51482 24.9293C9.82327 25.0518 9.97258 25.3997 9.84831 25.7063L8.7313 25.2626ZM7.05292 33.2629C6.94815 33.5765 6.60736 33.7472 6.29175 33.6441C5.97614 33.5409 5.80522 33.2031 5.90999 32.8894L7.05292 33.2629ZM3.57092 40.8043C3.65301 40.4841 3.9808 40.2898 4.30305 40.3704C4.62531 40.451 4.82 40.776 4.7379 41.0962L3.57092 40.8043ZM3.02656 49.0511C2.97021 49.3767 2.65885 49.596 2.33111 49.541C2.00338 49.486 1.78337 49.1774 1.83971 48.8519L3.02656 49.0511ZM0.791386 56.9942C0.81886 56.6651 1.10979 56.4196 1.4412 56.4459C1.77261 56.4723 2.019 56.7605 1.99153 57.0896L0.791386 56.9942ZM1.70247 65.1741C1.70682 65.5043 1.44078 65.7762 1.10826 65.7814C0.775745 65.7867 0.502663 65.5233 0.498317 65.1931L1.70247 65.1741ZM1.0276 73.3826C0.989059 73.0547 1.22558 72.7572 1.55589 72.718C1.88619 72.6788 2.1852 72.9128 2.22374 73.2406L1.0276 73.3826ZM3.60159 81.2032C3.67569 81.5249 3.47295 81.8461 3.14876 81.9206C2.82457 81.9951 2.5017 81.7947 2.42761 81.473L3.60159 81.2032ZM4.71663 89.3616C4.60694 89.0502 4.77252 88.7087 5.08646 88.5989C5.40039 88.4891 5.74381 88.6526 5.85349 88.964L4.71663 89.3616ZM8.96333 96.425C9.10725 96.7222 8.9809 97.0797 8.68111 97.2235C8.38132 97.3672 8.02162 97.2428 7.8777 96.9455L8.96333 96.425ZM11.8612 104.134C11.6856 103.854 11.7721 103.485 12.0544 103.31C12.3368 103.135 12.7081 103.22 12.8838 103.5L11.8612 104.134ZM17.5443 110.119C17.7485 110.379 17.7012 110.755 17.4387 110.958C17.1762 111.161 16.7979 111.116 16.5937 110.855L17.5443 110.119ZM21.9914 117.061C21.7622 116.822 21.7718 116.444 22.0127 116.216C22.2537 115.987 22.6348 115.996 22.864 116.234L21.9914 117.061ZM28.7677 121.821C29.0186 122.037 29.045 122.415 28.8267 122.664C28.6084 122.914 28.2281 122.941 27.9772 122.725L28.7677 121.821ZM34.4608 127.815C34.1913 127.622 34.1308 127.248 34.3256 126.98C34.5204 126.712 34.8968 126.651 35.1663 126.844L34.4608 127.815ZM41.9853 131.28C42.2708 131.448 42.364 131.815 42.1935 132.099C42.023 132.383 41.6534 132.477 41.3678 132.308L41.9853 131.28ZM48.6288 136.176C48.3295 136.033 48.2042 135.676 48.3491 135.379C48.4939 135.081 48.854 134.956 49.1533 135.098L48.6288 136.176ZM56.681 138.28C56.9925 138.395 57.1506 138.739 57.0341 139.049C56.9176 139.358 56.5707 139.516 56.2592 139.401L56.681 138.28ZM64.1415 141.861C63.8196 141.779 63.6263 141.454 63.7096 141.134C63.793 140.814 64.1216 140.621 64.4435 140.703L64.1415 141.861ZM72.4527 142.213C72.7828 142.252 73.0181 142.549 72.9781 142.877C72.9382 143.205 72.6382 143.44 72.308 143.401L72.4527 142.213ZM80.6327 143.603C80.3013 143.632 80.0099 143.389 79.9817 143.06C79.9535 142.731 80.1993 142.441 80.5306 142.412L80.6327 143.603ZM88.1136 140.284C88.3993 140.114 88.7689 140.206 88.9392 140.489C89.1095 140.772 89.0161 141.14 88.7305 141.309L88.1136 140.284ZM93.1612 134.217C93.1448 134.547 92.8623 134.802 92.5302 134.787C92.198 134.772 91.942 134.492 91.9584 134.162L93.1612 134.217ZM89.8596 126.252C89.7138 125.956 89.8379 125.597 90.1368 125.452C90.4357 125.306 90.7961 125.428 90.9419 125.725L89.8596 126.252ZM85.1925 118.755C85.464 118.945 85.5284 119.318 85.3364 119.588C85.1444 119.858 84.7686 119.923 84.4971 119.733L85.1925 118.755ZM76.4988 117.299C76.1663 117.303 75.8945 117.038 75.8918 116.708C75.8891 116.378 76.1565 116.107 76.489 116.104L76.4988 117.299ZM67.719 118.527C68.01 118.366 68.3764 118.47 68.5374 118.758C68.6984 119.047 68.593 119.411 68.302 119.571L67.719 118.527ZM61.7755 125.145C61.5695 125.405 61.1909 125.451 60.9298 125.247C60.6687 125.043 60.624 124.667 60.8299 124.408L61.7755 125.145ZM56.6253 132.389C56.7236 132.073 57.0608 131.896 57.3785 131.993C57.6962 132.089 57.874 132.424 57.7758 132.739L56.6253 132.389ZM56.6932 141.251C56.7072 141.581 56.4491 141.861 56.1168 141.875C55.7846 141.89 55.504 141.635 55.49 141.305L56.6932 141.251ZM57.2019 150.1C57.0946 149.788 57.2626 149.448 57.5774 149.34C57.8921 149.233 58.2343 149.399 58.3417 149.711L57.2019 150.1ZM62.171 157.62C62.3484 157.899 62.2642 158.268 61.9829 158.445C61.7016 158.622 61.3297 158.539 61.1524 158.26L62.171 157.62ZM66.926 165.345C66.6887 165.115 66.6853 164.736 66.9184 164.5C67.1514 164.264 67.5327 164.259 67.7699 164.49L66.926 165.345ZM74.7763 169.967C75.057 170.143 75.1399 170.513 74.9615 170.792C74.7831 171.071 74.4109 171.154 74.1303 170.978L74.7763 169.967ZM82.2805 175.121C81.973 174.996 81.8262 174.647 81.9527 174.341C82.0792 174.036 82.431 173.889 82.7386 174.014L82.2805 175.121ZM91.2789 176.753C91.6016 176.832 91.7981 177.156 91.7177 177.476C91.6374 177.797 91.3107 177.993 90.988 177.914L91.2789 176.753ZM99.9944 179.493C99.6639 179.458 99.4257 179.163 99.4624 178.835C99.4991 178.506 99.7967 178.269 100.127 178.305L99.9944 179.493ZM16.8202 10.9225C15.4878 13.4078 14.2531 15.8577 13.1125 18.2722L12.0225 17.7669C13.172 15.3336 14.4158 12.8656 15.7575 10.363L16.8202 10.9225ZM9.84831 25.7063C8.8102 28.2676 7.88004 30.7865 7.05292 33.2629L5.90999 32.8894C6.74524 30.3887 7.68409 27.8464 8.7313 25.2626L9.84831 25.7063ZM4.7379 41.0962C4.04404 43.8025 3.476 46.4541 3.02656 49.0511L1.83971 48.8519C2.29467 46.223 2.86941 43.5404 3.57092 40.8043L4.7379 41.0962ZM1.99153 57.0896C1.76095 59.8519 1.66789 62.5468 1.70247 65.1741L0.498317 65.1931C0.463222 62.527 0.557677 59.794 0.791386 56.9942L1.99153 57.0896ZM2.22374 73.2406C2.54529 75.976 3.00892 78.6302 3.60159 81.2032L2.42761 81.473C1.82523 78.8579 1.35421 76.161 1.0276 73.3826L2.22374 73.2406ZM5.85349 88.964C6.76224 91.5439 7.80416 94.0309 8.96333 96.425L7.8777 96.9455C6.69956 94.5123 5.64044 91.9842 4.71663 89.3616L5.85349 88.964ZM12.8838 103.5C14.3325 105.808 15.8921 108.014 17.5443 110.119L16.5937 110.855C14.9166 108.719 13.3329 106.479 11.8612 104.134L12.8838 103.5ZM22.864 116.234C24.7589 118.207 26.7337 120.069 28.7677 121.821L27.9772 122.725C25.9156 120.95 23.9133 119.062 21.9914 117.061L22.864 116.234ZM35.1663 126.844C37.4055 128.445 39.6865 129.923 41.9853 131.28L41.3678 132.308C39.0396 130.934 36.7292 129.437 34.4608 127.815L35.1663 126.844ZM49.1533 135.098C51.6822 136.306 54.2019 137.367 56.681 138.28L56.2592 139.401C53.7448 138.475 51.1908 137.4 48.6288 136.176L49.1533 135.098ZM64.4435 140.703C67.2378 141.414 69.925 141.917 72.4527 142.213L72.308 143.401C69.7223 143.098 66.9824 142.584 64.1415 141.861L64.4435 140.703ZM80.5306 142.412C83.6281 142.142 86.2021 141.422 88.1136 140.284L88.7305 141.309C86.612 142.57 83.8433 143.323 80.6327 143.603L80.5306 142.412ZM91.9584 134.162C92.0156 133.011 91.8496 131.722 91.4228 130.291L92.5776 129.948C93.0357 131.484 93.2262 132.909 93.1612 134.217L91.9584 134.162ZM91.4228 130.291C90.9796 128.804 90.454 127.46 89.8596 126.252L90.9419 125.725C91.5679 126.997 92.117 128.403 92.5776 129.948L91.4228 130.291ZM84.4971 119.733C82.0708 118.036 79.3156 117.269 76.4988 117.299L76.489 116.104C79.5415 116.07 82.5468 116.905 85.1925 118.755L84.4971 119.733ZM68.302 119.571C65.8812 120.908 63.6355 122.798 61.7755 125.145L60.8299 124.408C62.7863 121.939 65.1542 119.943 67.719 118.527L68.302 119.571ZM57.7758 132.739C56.9667 135.339 56.5642 138.195 56.6932 141.251L55.49 141.305C55.3553 138.112 55.7755 135.119 56.6253 132.389L57.7758 132.739ZM58.3417 149.711C58.7959 151.031 59.3491 152.375 60.0094 153.74L58.9236 154.26C58.2435 152.855 57.672 151.467 57.2019 150.1L58.3417 149.711ZM60.0094 153.74C60.6711 155.107 61.3946 156.399 62.171 157.62L61.1524 158.26C60.3515 157.001 59.6055 155.669 58.9236 154.26L60.0094 153.74ZM67.7699 164.49C69.9602 166.62 72.3299 168.43 74.7763 169.967L74.1303 170.978C71.6203 169.401 69.1827 167.54 66.926 165.345L67.7699 164.49ZM82.7386 174.014C85.6942 175.212 88.5991 176.098 91.2789 176.753L90.988 177.914C88.2605 177.248 85.2986 176.345 82.2805 175.121L82.7386 174.014ZM100.127 178.305C101.511 178.453 102.627 178.527 103.395 178.564C103.779 178.583 104.075 178.592 104.275 178.597C104.375 178.599 104.451 178.6 104.501 178.601C104.526 178.601 104.544 178.601 104.556 178.601C104.563 178.601 104.567 178.601 104.57 178.601C104.571 178.601 104.572 178.601 104.573 178.601C104.573 178.601 104.573 178.601 104.573 178.601C104.573 178.601 104.573 178.601 104.573 178.601C104.573 178.601 104.573 178.601 104.573 178.601C104.573 178.601 104.573 178.601 104.571 179.199C104.57 179.797 104.57 179.797 104.57 179.797C104.57 179.797 104.569 179.797 104.569 179.797C104.569 179.797 104.569 179.797 104.569 179.797C104.569 179.797 104.568 179.797 104.568 179.797C104.566 179.797 104.565 179.797 104.563 179.797C104.559 179.797 104.554 179.797 104.546 179.797C104.532 179.797 104.511 179.797 104.484 179.796C104.429 179.796 104.349 179.795 104.244 179.792C104.035 179.787 103.728 179.778 103.333 179.759C102.544 179.721 101.404 179.645 99.9944 179.493L100.127 178.305Z" />
                     </svg>
                 </div>
-                <div class="mx-[26px] -mt-7 flex flex-col gap-3">
+                <div class="mx-[26px] -mt-7 flex flex-col gap-3 text-center">
                     <svg class="w-full" width="71" height="70" viewBox="0 0 71 70" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -287,44 +295,42 @@
                             stroke="#6892B9" stroke-width="1.5" />
                     </svg>
 
-                    <div class="font-bold text-lg text-center">Здесь будут ваши локации</div>
-                    <div class="dark:text-cosmic-400 text-center">Воспользуйтесь строкой поиска, чтобы найти, а
-                        затем
-                        добавить нужную
-                        локацию.</div>
+                    <h3>Здесь будут ваши локации</h3>
+                    <div class="text-sm dark:text-cosmic-400">Воспользуйтесь строкой поиска, чтобы найти, а
+                        затем добавить нужную локацию.</div>
                 </div>
             </section>
 
             <div id="location-edit-modal" class="invisible absolute transition-[opacity,margin] duration-300 ease-[cubic-bezier(.23,1,.32,1)] opacity-0 z-[100]
             p-6 min-w-[343px] bg-white rounded-2xl dark:bg-cosmic-900 -mt-4
             top-10 left-1/2  transform -translate-x-1/2 text-center" aria-labelledby="hs-dropdown-item-checkbox">
-                <div class="font-bold text-[22px] leading-5 mb-4">
-                    Переименовать
-                </div>
+                <h3 class="mb-4">
+                    Переименовать локацию
+                </h3>
                 <div class="mb-6 relative">
                     <input
                         class="bg-gray-100 dark:bg-cosmic-800 py-[14px] px-4 pr-10 truncate w-full rounded-md outline-none focus:outline-none caret-primary-light dark:caret-yellow caret-w-2 placeholder-gray-300 dark:placeholder-cosmic-500"
                         type="text" name="location-name" id="location-modal-input" placeholder="Введите название">
                     <div id='cleartext'
                         class="absolute clear-text-cross right-3 top-4 transition-opacity duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
-                        <svg class="stroke-gray-300 dark:stroke-cosmic-500" width="20" height="20" viewBox="0 0 20 20"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M6.19526 6.19526C6.45561 5.93491 6.87772 5.93491 7.13807 6.19526L10 9.05719L12.8619 6.19526C13.1223 5.93491 13.5444 5.93491 13.8047 6.19526C14.0651 6.45561 14.0651 6.87772 13.8047 7.13807L10.9428 10L13.8047 12.8619C14.0651 13.1223 14.0651 13.5444 13.8047 13.8047C13.5444 14.0651 13.1223 14.0651 12.8619 13.8047L10 10.9428L7.13807 13.8047C6.87772 14.0651 6.45561 14.0651 6.19526 13.8047C5.93491 13.5444 5.93491 13.1223 6.19526 12.8619L9.05719 10L6.19526 7.13807C5.93491 6.87772 5.93491 6.45561 6.19526 6.19526Z"
-                                fill="#90929E" />
-                            <rect x="0.5" y="0.5" width="19" height="19" rx="9.5" stroke="#90929E" />
+                        <svg class="stroke-gray-300 dark:stroke-cosmic-500 stroke-1.5" width="20" height="20"
+                            viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="10" cy="10" r="9.25" />
+                            <path d="M7 13L10 10M10 10L13 7M10 10L7 7M10 10L13 13" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <div class="text-primary-light text-sm pt-4 text-left restore-orig-name">Вернуть оригинальное
+                    <div id="restore-name" class="text-primary-light dark:text-primary-dark text-sm pt-4 text-left ">
+                        Вернуть оригинальное
                         название
                     </div>
                 </div>
                 <div class="flex justify-around">
                     <button
-                        class="location-search--cancel-button rounded-lg border w-1/2 mr-2 p-2 border-primary-light dark:border-yellow text-primary-light dark:text-yellow text-sm font-semibold"
+                        class="location-search--cancel-btn rounded-lg border w-1/2 mr-2 p-2 border-primary-light dark:border-yellow text-primary-light dark:text-yellow text-sm font-semibold"
                         type="reset">Отмена</button>
                     <button
-                        class="ok-button rounded-lg w-1/2 ml-2 p-2 bg-primary-light dark:bg-yellow disabled:bg-primary-light/50 disabled:dark:bg-primary-dark/50 disabled:dark:text-cosmic-900 dark:text-cosmic-900 text-sm font-semibold"
+                        class="location-search--ok-btn rounded-lg w-1/2 ml-2 p-2 bg-primary-light dark:bg-yellow disabled:bg-primary-light/50 disabled:dark:bg-primary-dark/50 text-white disabled:dark:text-cosmic-900 dark:text-cosmic-900 text-sm font-semibold"
                         type="submit">OK</button>
                 </div>
             </div>
@@ -352,18 +358,23 @@
         <div id="container-settings"
             class="mx-4 no-swipe no-reorder grid grid-flow-row gap-4 relative transition-colors duration-300">
             <!-- HEADER -->
-            <div
-                class="sticky bg-gray-100/80 dark:bg-cosmic-900/80 backdrop-blur-md z-[5] top-0 h-12 flex w-full pt-4 pb-1 justify-between items-center">
+            <header
+                class="sticky bg-gray-100/80 dark:bg-cosmic-900 z-[5] top-0 h-12 flex w-full pt-4 pb-1 justify-between items-center">
                 <button type="button" class="hs-overlay-toggle grow-0 shrink-0 w-8" data-hs-overlay="#menu-settings"
                     aria-controls="sidebarRight" aria-label="Toggle Settings Menu">
                     <span class="sr-only">Toggle Settings Menu</span>
-                    <img id="location_icon" src="img/arrow-left.svg" alt="">
+                    <svg class="fill-primary-light dark:fill-primary-dark" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M19.4999 12.0001C19.4999 12.2487 19.4011 12.4871 19.2253 12.663C19.0495 12.8388 18.811 12.9375 18.5624 12.9375H7.70076L11.7263 16.9612C11.8135 17.0484 11.8826 17.1518 11.9298 17.2657C11.977 17.3796 12.0012 17.5017 12.0012 17.6249C12.0012 17.7482 11.977 17.8703 11.9298 17.9841C11.8826 18.098 11.8135 18.2015 11.7263 18.2887C11.6391 18.3758 11.5357 18.445 11.4218 18.4922C11.3079 18.5393 11.1858 18.5636 11.0626 18.5636C10.9393 18.5636 10.8172 18.5393 10.7034 18.4922C10.5895 18.445 10.486 18.3758 10.3988 18.2887L4.77395 12.6638C4.68665 12.5767 4.61738 12.4733 4.57012 12.3594C4.52286 12.2455 4.49854 12.1234 4.49854 12.0001C4.49854 11.8768 4.52286 11.7547 4.57012 11.6408C4.61738 11.5269 4.68665 11.4234 4.77395 11.3363L10.3988 5.71145C10.5749 5.53542 10.8136 5.43652 11.0626 5.43652C11.3115 5.43652 11.5503 5.53542 11.7263 5.71145C11.9023 5.88749 12.0012 6.12624 12.0012 6.37519C12.0012 6.62414 11.9023 6.86289 11.7263 7.03892L7.70076 11.0626H18.5624C18.811 11.0626 19.0495 11.1614 19.2253 11.3372C19.4011 11.513 19.4999 11.7514 19.4999 12.0001Z" />
+                    </svg>
+
                 </button>
                 <div id="settings-header" class="font-semibold text-base leading-8">
                     Настройки
                 </div>
                 <div class="grow-0 shrink-0 w-8"></div>
-            </div>
+            </header>
             <!--  -->
             <div class="w-full">
                 <h2 class="px-4 font-light text-xs uppercase pb-2 text-gray-300 dark:text-white/50">Единицы
@@ -372,67 +383,61 @@
                 <div
                     class="card grid gap-4 w-full leading-7 bg-white dark:bg-[#1A2947] rounded-3xl text-sm transition-colors duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
                     <div class="grid grid-flow-row w-full gap-[20px] p-6">
-                        <div class="flex justify-between items-center">
+                        <label id="set_temp" class="flex justify-between items-center">
                             <div class="font-light">Градусы</div>
                             <section class="flex gap-3">
-                                <label id="set_temp">
-                                    <div
-                                        class="relative flex items-center h-[28px] w-[128px] 
+                                <div
+                                    class="relative flex items-center h-[28px] w-[128px] 
                                             border border-primary-light dark:border-yellow text-primary-light dark:text-yellow rounded-md text-center">
 
-                                        <input class="hidden" type="checkbox" name="settings" id="s-temp">
-                                        <div slider data-off="°C" data-on="°F"
-                                            class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                    <input class="hidden" type="checkbox" name="settings" id="s-temp">
+                                    <div slider data-off="°C" data-on="°F"
+                                        class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
 
-                                        </div>
-                                        <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
-                                        <div id="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
                                     </div>
-                                </label>
+                                    <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
+                                    <div id="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
+                                </div>
                             </section>
-                        </div>
-                        <div class="flex justify-between items-center">
+                        </label>
+                        <label id="set_wind" class="flex justify-between items-center">
                             <div class="font-light">Скорость ветра</div>
                             <section class="flex gap-3">
-                                <label id="set_wind">
-                                    <div
-                                        class="relative flex items-center h-[28px] w-[128px]
+                                <div
+                                    class="relative flex items-center h-[28px] w-[128px]
                                             border border-primary-light dark:border-yellow text-primary-light dark:text-yellow rounded-md text-center">
 
-                                        <input class="hidden" type="checkbox" name="settings" id="s-wind">
-                                        <div slider data-off="км/ч" data-on="м/с"
-                                            class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                    <input class="hidden" type="checkbox" name="settings" id="s-wind">
+                                    <div slider data-off="км/ч" data-on="м/с"
+                                        class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
-                                            км/ч
-                                        </div>
-                                        <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
-                                        <div id="on" class="cursor-pointer w-[64px] h-[28px]">м/с</div>
+                                        км/ч
                                     </div>
-                                </label>
+                                    <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
+                                    <div id="on" class="cursor-pointer w-[64px] h-[28px]">м/с</div>
+                                </div>
                             </section>
-                        </div>
-                        <div class="flex justify-between items-center">
+                        </label>
+                        <label id="set_pressure" class="flex justify-between items-center">
                             <div class="font-light">Давление</div>
                             <section class="flex gap-3">
-                                <label id="set_pressure">
-                                    <div
-                                        class="relative flex items-center h-[28px] w-[128px] 
+                                <div
+                                    class="relative flex items-center h-[28px] w-[128px] 
                                             border border-primary-light dark:border-yellow text-primary-light dark:text-yellow rounded-md text-center">
 
-                                        <input class="hidden" type="checkbox" name="settings" id="s-pressure">
-                                        <div slider data-off="мм рт.ст." data-on="гПа"
-                                            class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                    <input class="hidden" type="checkbox" name="settings" id="s-pressure">
+                                    <div slider data-off="мм рт.ст." data-on="гПа"
+                                        class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
-                                            мм
-                                            рт.ст.
-                                        </div>
-                                        <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
-                                        <div id="on" class="cursor-pointer w-[64px] h-[28px]">гПа</div>
+                                        мм
+                                        рт.ст.
                                     </div>
-                                </label>
+                                    <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
+                                    <div id="on" class="cursor-pointer w-[64px] h-[28px]">гПа</div>
+                                </div>
                             </section>
-                        </div>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -530,8 +535,6 @@
                                                     fill="#D580FF" />
                                             </svg>
                                         </label>
-
-
                                     </div>
 
                                     <div id="theme-system" class="relative flex justify-around py-[10px]">
@@ -560,35 +563,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex justify-between">
+                        <label id="set_temp" class="flex justify-between">
                             <div class="font-light">Показывать подробный прогноз</div>
                             <section class="flex gap-3">
-                                <label id="set_temp">
-                                    <div
-                                        class="relative flex items-center h-[28px] w-[50px] 
-                                            border border-cosmic-500 rounded-full text-center ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500">
+                                <div
+                                    class="relative flex items-center h-[28px] w-[50px] 
+                                            border border-gray-300 dark:border-cosmic-500 rounded-full text-center ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500">
 
-                                        <input class="hidden" type="checkbox" name="settings" id="s-details">
-                                        <div slider data-off="" data-on="" class="absolute left-[2px] bg-cosmic-500 rounded-full ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                    <input class="hidden" type="checkbox" name="settings" id="s-details">
+                                    <div slider data-off="" data-on="" class="absolute left-[2px] bg-gray-300 dark:bg-cosmic-500 rounded-full ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                          w-[22px] h-[22px] cursor-pointer'">
-                                        </div>
                                     </div>
-                                </label>
+                                </div>
                             </section>
-                        </div>
+                        </label>
                     </div>
                 </div>
             </div>
-            <div class="w-full text-sm font-light px-4 pb-16">
-                <div class="px-[10px] py-4">
+            <div class="flex flex-col items-start w-full text-sm font-light px-4 pb-16 truncate">
+                <button class="px-[10px] py-4">
                     О приложении
-                </div>
-                <div class="px-[10px] py-4">
-                    Очистить кэш
-                </div>
-                <div class="px-[10px] py-4">
+                </button>
+                <button id="reset-settings" class="px-[10px] py-4">
+                    Очистить кэш и сбросить настройки
+                </button>
+                <button class="px-[10px] py-4">
                     Политика конфиденциальности
-                </div>
+                </button>
             </div>
             <div class="grow"></div>
         </div>
@@ -633,7 +634,7 @@
         <div
             class="inline-flex absolute justify-between p-4 rounded-t-xl bg-gray-100/80 dark:bg-cosmic-900/80 backdrop-blur-lg w-full z-[120]">
             <button id="cancel-weather-preview" onclick="hideWeatherPreview(this)">Отмена</button>
-            <span id="location-name" class="px-4 truncate "></span>
+            <strong id="location-name" class="px-4 truncate "></strong>
             <button id="add-weather-preview" class="text-primary-light dark:text-yellow"
                 onclick="addNewLocation(this)">Добавить</button>
         </div>
@@ -644,12 +645,15 @@
     <!-- ************************ -->
     <!-- *  Loading Animation   * -->
     <!-- ************************ -->
-    <div id="loading-animation" class="fixed z-[100] top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2
-        rounded-full opacity-0 scale-0 w-14 h-14 ease-[cubic-bezier(.18,.89,.32,1.78)] duration-500">
-        <img class="absolute w-16 h-16 animate-spin-slow" src="img/assets/icons/clear-day sun.svg" alt="" srcset="">
-        <img class="absolute w-16 h-16 animate-wiggle-6" src="img/assets/icons/face sun.svg" alt="" srcset="">
-    </div>
-
+    <section id="loading-animation" class="fixed z-[100] scale-0 opacity-0 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2
+        rounded-full backdrop-blur-sm w-14 h-14 ease-[cubic-bezier(.18,.89,.32,1)] duration-500">
+        <img class="absolute w-16 h-16 animate-fly -translate-x-2 -translate-y-4" src="img/assets/icons/dark_cloud.svg"
+            alt="" srcset="">
+        <img class="absolute w-16 h-16 animate-spin-slow" src="img/assets/icons/clear-day_sun.svg" alt="" srcset="">
+        <img class="absolute w-16 h-16 animate-wiggle-6" src="img/assets/icons/face_sun.svg" alt="" srcset="">
+        <img class="absolute w-16 h-16 animate-fly-reverse translate-x-6 translate-y-2 scale-90"
+            src="img/assets/icons/cyan_cloud.svg" alt="" srcset="">
+    </section>
 
     <!-- ************************ -->
     <!-- *    HTML Template     * -->
@@ -659,38 +663,34 @@
     <script id="slide-template" type="text/template">
     <!--  -->
     <div
-        class="sticky bg-gray-100/60 dark:bg-cosmic-900/80 backdrop-blur-xl top-0 w-full px-6 py-4 flex justify-between z-50 transition-opacity-500">
-        <label class="location-slide--header-title truncate  w-4/5 font-semibold text-xl leading-5"></label>
-        <span
-            class="location-slide--header-temp absolute flex gap-2 text-gray-300 opacity-0 right-6 transition-opacity-300 font-bold">--°
-            <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/partly-cloudy-night.svg" alt=""
-                srcset=""></span>
+        class="sticky bg-gray-100 dark:bg-cosmic-900 backdrop-blur-xl top-0 gap-2 w-full px-6 py-4 flex justify-between z-50 transition-opacity-500">
+        <label class="location-slide--header-title truncate w-4/5 font-semibold text-xl leading-5"></label>
+        <div class="location-slide--header-temp absolute flex gap-2 items-center
+            text-gray-300 dark:text-white opacity-0 right-6 transition-opacity-300 font-bold text-sm">
+        </div>
         <button
-            class="detail-weather-toggle flex items-end gap-1 text-gray-300 dark:text-cosmic-400 text-sm font-light hs-collapse-toggle transition-opacity-300"
-            data-hs-collapse="#detail-weather-info">
+            class="detail-weather-toggle flex items-end gap-1 text-gray-300 dark:text-cosmic-400 text-sm font-light hs-collapse-toggle transition-opacity-300">
             <div class="detail-weather-toggle--label">Подробнее</div>
             <svg class="detail-weather-toggle--img fill-gray-200 dark:fill-cosmic-500" width="16" height="17"
                 viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M8.09606 10.8817C7.94029 10.882 7.78933 10.8278 7.66939 10.7284L3.66939 7.39507C3.53325 7.28191 3.44763 7.1193 3.43138 6.94302C3.41513 6.76673 3.46957 6.59121 3.58273 6.45507C3.69589 6.31892 3.85849 6.23331 4.03478 6.21705C4.21106 6.2008 4.38658 6.25524 4.52273 6.3684L8.09606 9.35507L11.6694 6.47507C11.7376 6.41969 11.8161 6.37834 11.9003 6.35338C11.9845 6.32843 12.0728 6.32037 12.1602 6.32966C12.2475 6.33895 12.3322 6.36542 12.4093 6.40753C12.4864 6.44965 12.5544 6.50658 12.6094 6.57507C12.6704 6.64362 12.7167 6.72403 12.7452 6.81128C12.7737 6.89853 12.7839 6.99073 12.7752 7.08211C12.7664 7.17348 12.7389 7.26206 12.6943 7.3423C12.6497 7.42254 12.589 7.49271 12.5161 7.5484L8.51606 10.7684C8.39267 10.8521 8.24479 10.892 8.09606 10.8817V10.8817Z" />
             </svg>
-
         </button>
     </div>
-    <section id="general-weather-info" data-hash="264512568"
-        class="px-4 max-w-md mx-auto swiper-slide dark:bg-cosmic-900 swiper-slide-active">
+    <section id="general-weather-info" class="px-4 max-w-md mx-auto dark:bg-cosmic-900">
         <div
             class="w-full p-5 rounded-2xl bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645]">
             <div class="flex flex-row justify-between">
                 <div class="flex flex-col gap-2">
                     <div class="current-day text-gray-300 dark:text-[#ACD8E7] text-xs font-light"></div>
-                    <div class="temperature text-6xl align-text-top">--</div>
+                    <div class="temperature text-6xl align-text-top relative">--</div>
                     <div class="text-sm leading-4 flex flex-col gap-1">
                         <div class="conditions"></div>
                         <div class="feelslike">Ощущается как <span class="font-bold"> </span></div>
                     </div>
                 </div>
-                <div class="weather-icon"><img src="img/assets/icons/weather-conditions/partly-cloudy-night.svg">
+                <div class="weather-icon">
                 </div>
             </div>
             <div
@@ -770,7 +770,6 @@
                             <div class="text-xs text-gray-300 dark:text-[#ACD8E7]">Ветер</div>
                             <div class="windspeed"></div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -779,14 +778,12 @@
 
     <section class="hourlyToday hourly swiper-no-swiping will-change-scroll pt-4 gap-2 flex overflow-hidden overflow-x-scroll 
             no-scrollbar px-3 scroll-smooth snap-x snap-mandatory">
-
     </section>
 
     <section class="daily py-6 mx-4 grid grid-flow-row">
     </section>
 
-    <section id=""
-        class="monthly-forecast-btn mx-4 pb-24 font-light flex flex-nowrap gap-5 items-center hs-overlay-toggle"
+    <section class="monthly-forecast-btn mx-4 pb-24 font-light flex flex-nowrap gap-5 items-center hs-overlay-toggle"
         data-hs-overlay="#monthly-forecast" aria-controls="sidebarLeft" aria-label="Toggle Monthly Forecast"
         data-id="264512568">
         <div class="small-icon w-[52px] h-[52px] grow-0 bg-white dark:bg-[#192D52] rounded-2xl py-1">
@@ -799,18 +796,10 @@
 
     <!-- *******   Location Card  ******* -->
     <script id="card-template" type="text/template">
-        <!-- EDIT BUTTONS -->
+
+    <!-- *** buttons *** -->
     <section
-        class="location-card--edit-buttons invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
-        <button type="button" class="location-card--edit-icon absolute right-14 opacity-0 no-swipe no-reorder invisible top-4 
-                    transition-all-500">
-            <svg class="fill-[#1B2541] dark:fill-white no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
-                <path d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z" />
-            </svg>
-        </button>
+        class="location-card--edit-buttons-container absolute [&>*]:no-swipe [&>*]:no-reorder invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
         <button type="button" class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
             <img class="" src="img/assets/icons/trash.svg">
         </button>
@@ -818,38 +807,120 @@
             <img src="img/delete.svg" width="40px" height="40px" alt="">
         </button>
         <button type="button" class="no-swipe no-reorder dark:text-cosmic-400/40 items-center font-light text-3xl w-10">
-            <svg class="stroke-cosmic-400" width="21" height="12" viewBox="0 0 21 12" fill="none"
+            <svg class="fill-cosmic-400" width="40" height="40" viewBox="0 0 40 40" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
-                <line x1="1" y1="1" x2="20" y2="1" stroke-width="2" stroke-linecap="round" />
-                <line x1="1" y1="6" x2="20" y2="6" stroke-width="2" stroke-linecap="round" />
-                <line x1="1" y1="11" x2="20" y2="11" stroke-width="2" stroke-linecap="round" />
+                <g opacity="0.55">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 13C10 12.4477 10.4477 12 11 12H29C29.5523 12 30 12.4477 30 13C30 13.5523 29.5523 14 29 14H11C10.4477 14 10 13.5523 10 13Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 20C10 19.4477 10.4477 19 11 19H29C29.5523 19 30 19.4477 30 20C30 20.5523 29.5523 21 29 21H11C10.4477 21 10 20.5523 10 20Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 27C10 26.4477 10.4477 26 11 26H29C29.5523 26 30 26.4477 30 27C30 27.5523 29.5523 28 29 28H11C10.4477 28 10 27.5523 10 27Z" />
+                </g>
             </svg>
         </button>
     </section>
+
+    <!-- *** card *** -->
+    <section class="card__wrapper items-center h-[85px] w-full [&>*]:no-swipe [&>*]:no-reorder">
+        <div class="card__location-info flex flex-col flex-auto truncate">
+            <small class="card__current-time"></small>
+            <div class="flex">
+                <strong
+                    class="card__location-name mb-2 truncate transition-[width,opacity,transform,margin] ease-[cubic-bezier(.23,1,.32,1)]"></strong>
+                <div class="card__location-pin transition-300 duration-150"></div>
+            </div>
+            <span class="card__current-condition truncate transition-300"></span>
+        </div>
+        <div
+            class="card__weather-info w-16 transition-[width,opacity,transform,margin] ease-[cubic-bezier(.23,1,.32,1)]">
+            <div class="card__current-temp text-center text-3xl font-medium transition-300"></div>
+            <small class="card__temp-range flex gap-[2px] items-center text-gray-300 dark:text-cosmic-300">
+                <svg class="stroke-gray-300 dark:stroke-cosmic-300" width="10" height="11" viewBox="0 0 10 11"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.33334 3.41667L5.00001 1.75M5.00001 1.75L6.66668 3.41667M5.00001 1.75V9.25"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="card__max-temp"></span>
+                <svg class="stroke-gray-300 dark:stroke-cosmic-300                                          " width="10"
+                    height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.66668 7.58333L5.00001 9.25M5.00001 9.25L3.33334 7.58333M5.00001 9.25L5.00001 1.75"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span class="card__min-temp"></span>
+            </small>
+        </div>
+        <div
+            class="card__weather-icon shrink-0 w-12 h-12 transition-[width,opacity,transform,margin] ease-[cubic-bezier(.23,1,.32,1)]">
+        </div>
+        <div class="card__edit-btn absolute right-4 invisible opacity-0 transition-300">
+            <svg class="fill-[#1B2541] dark:fill-white no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
+                <path d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z" />
+            </svg>
+        </div>
+    </section>
+    </script>
+
+    <script id="card-template_old" type="text/template">
+        <!-- EDIT BUTTONS -->
+    <section
+        class="location-card--edit-buttons-container invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
+        <button type="button" class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
+            <img class="" src="img/assets/icons/trash.svg">
+        </button>
+        <button type="button" class="location-del no-swipe no-reorder">
+            <img src="img/delete.svg" width="40px" height="40px" alt="">
+        </button>
+        <button type="button" class="no-swipe no-reorder dark:text-cosmic-400/40 items-center font-light text-3xl w-10">
+            <svg class="fill-cosmic-400" width="40" height="40" viewBox="0 0 40 40" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.55">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 13C10 12.4477 10.4477 12 11 12H29C29.5523 12 30 12.4477 30 13C30 13.5523 29.5523 14 29 14H11C10.4477 14 10 13.5523 10 13Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 20C10 19.4477 10.4477 19 11 19H29C29.5523 19 30 19.4477 30 20C30 20.5523 29.5523 21 29 21H11C10.4477 21 10 20.5523 10 20Z" />
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10 27C10 26.4477 10.4477 26 11 26H29C29.5523 26 30 26.4477 30 27C30 27.5523 29.5523 28 29 28H11C10.4477 28 10 27.5523 10 27Z" />
+                </g>
+            </svg>
+        </button>
+    </section>
+    <button type="button" class="card__edit-btn absolute right-14 opacity-0 no-swipe no-reorder invisible top-4 z-10
+    transition-all-500">
+        <svg class="fill-[#1B2541] dark:fill-white no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
+            <path d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z" />
+        </svg>
+    </button>
     <!-- CARD -->
-    <section class="card pointer-events-none absolute flex justify-between w-full 
+    <section class="card pointer-events-none absolute flex justify-between w-full
                 bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645] 
                 p-4 transition-all-500 rounded-2xl h-[85px]">
-        <div class="flex flex-col grow truncate transition-all-500">
+        <div class="flex flex-col grow truncate transition-all-500 items-start">
             <small class="location-card--time text-xxs text-gray-300 dark:text-cosmic-400 leading-3"></small>
-            <div class="flex leading-5 transition duration-300 transform-gpu">
+            <div class="flex w-full leading-5 transition-all-300 relative">
                 <h4 class="location-card--name pr-1 truncate transition-all-500"></h4>
-                <div class="user-location-pin shrink-0 pl-1 transition-all-500"></div>
+                <div class="card__location-pin shrink-0 pl-1 transition-all-500"></div>
             </div>
             <p class="location-card--condition pt-2 pr-1 text-xs leading-[14px] transition-all-500 truncate ">
             </p>
         </div>
-        <div class="weather-info--wrapper flex w-[120px] grow-0 gap-2 transition-all-500">
+        <div class="weather-info--wrapper flex w-[120px] grow-0 gap-2 transition-[width,opacity] duration-500">
             <div class="grid grid-flow-row items-center transition-all-500">
-                <div class="location-card--temp mx-auto text-3xl font-medium transition-all-300"></div>
-                <div class="mx-auto location-card--minmax items-center flex text-xxs transition-all-500 transform-gpu">
-                    <svg class="stroke-gray-300 dark:stroke-[#D7F4FE]" width="10" height="11" viewBox="0 0 10 11"
+                <div class="card__current_temp mx-auto text-3xl font-medium transition-all-300"></div>
+                <div class="mx-auto card__temp-range items-center flex text-xxs transition-all-500 transform-gpu">
+                    <svg class="stroke-gray-300 dark:stroke-cosmic-300" width="10" height="11" viewBox="0 0 10 11"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.33334 3.41667L5.00001 1.75M5.00001 1.75L6.66668 3.41667M5.00001 1.75V9.25"
                             stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                     <div class="location-card--tempmax transition-all-500"></div>
-                    <svg class="stroke-gray-300 dark:stroke-[#D7F4FE] ml-1" width="10" height="11" viewBox="0 0 10 11"
+                    <svg class="stroke-gray-300 dark:stroke-cosmic-300 ml-1" width="10" height="11" viewBox="0 0 10 11"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.66668 7.58333L5.00001 9.25M5.00001 9.25L3.33334 7.58333M5.00001 9.25L5.00001 1.75"
                             stroke-linecap="round" stroke-linejoin="round"></path>
@@ -859,29 +930,34 @@
             </div>
             <div class="location-card--weather-icon w-12 h-12 transition-all-500"></div>
         </div>
+
     </section>
     </script>
-
-    <script src="js/swiper-bundle.min.js"></script>
-    <script src="js/request.js"></script>
-    <!-- <script src="js/pull-to-reload.js"></script> -->
-    <!-- <script src="/node_modules/preline/dist/preline.js"></script> -->
+    <script src="js/slip.js"></script>
+    <script src="js/utils/request.js"></script>
+    <script src="js/utils/domUtils.js"></script>
+    <script src="js/utils/translit.js"></script>
+    <script src="js/utils/weatherAPI.js"></script>
+    <script src="js/utils/geoCodingAPI.js"></script>
+    <script src="js/utils/objectUtils.js"></script>
+    <script src="js/renderForecast.js"></script>
+    <!-- <script src="js/swiper/swiper-bundle.min.js"></script> -->
+    <script src="js/swiper/swiper-bundle.min.js"></script>
     <script src="js/preline/hs-collapse.js"></script>
     <script src="js/preline/hs-remove-element.js"></script>
-    <script src="js/preline/hs-overlay.js"></script>
     <script src="js/preline/hs-dropdown.js"></script>
-    <!-- <script src="js/jml_v1.js"></script> -->
-    <script src="js/slip.js"></script>
-    <script src="js/weatherAPI.js"></script>
-    <script src="js/handlers.js"></script>
-    <script src="js/test.js"></script>
+    <script src="js/preline/hs-overlay.js"></script>
     <script src="js/script.js"></script>
-    <script src="js/addToObject.js"></script>
-    <script src="js/translit.js"></script>
+    <!-- <script src="js/handlers.js"></script> -->
+    <!-- <script src="js/test.js"></script> -->
+    <!-- <script src="js/pull-to-reload.js"></script> -->
+    <!-- <script src="/node_modules/preline/dist/preline.js"></script> -->
+    <!-- <script src="js/jml_v1.js"></script> -->
     <!-- <script src="js/getCurrentLocation.js"></script> -->
     <!-- <script src="js/cookies.js"></script> -->
     <script>
         document.body.style.webkitTouchCallout = 'none';
+
     </script>
     <!-- ▼ Check Online Status ▼ -->
     <script>
@@ -963,9 +1039,9 @@
                 checkbox.setAttribute("checked", true)
                 if (checkbox.id == 's-details') {
                     slider.classList.add('translate-x-full', 'dark:bg-yellow', 'bg-primary-light');
-                    slider.classList.remove('bg-cosmic-500');
+                    slider.classList.remove('bg-gray-300', 'dark:bg-cosmic-500');
                     checkbox.parentElement.classList.add('dark:border-yellow', 'border-primary-light');
-                    checkbox.parentElement.classList.remove('border-cosmic-500');
+                    checkbox.parentElement.classList.remove('border-gray-300', 'dark:border-cosmic-500');
                 } else {
                     slider.classList.add('translate-x-full', 'rounded-r-md');
                     slider.classList.remove('rounded-l-md');
@@ -980,9 +1056,9 @@
                 checkbox.setAttribute("checked", false)
                 if (checkbox.id == 's-details') {
                     slider.classList.remove('translate-x-full', 'dark:bg-yellow', 'bg-primary-light');
-                    slider.classList.add('bg-cosmic-500');
+                    slider.classList.add('bg-gray-300', 'dark:bg-cosmic-500');
                     checkbox.parentElement.classList.remove('dark:border-yellow', 'border-primary-light');
-                    checkbox.parentElement.classList.add('border-cosmic-500');
+                    checkbox.parentElement.classList.add('border-gray-300', 'dark:border-cosmic-500');
                 } else {
                     slider.classList.remove('translate-x-full', 'rounded-r-md');
                     slider.classList.add('rounded-l-md');
@@ -993,8 +1069,6 @@
             }
         }
     </script>
-
-    <!-- </div> -->
 </body>
 
 </html>
