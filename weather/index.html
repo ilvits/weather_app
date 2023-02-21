@@ -109,9 +109,32 @@
         </div>
     </main>
 
+    <div id="about-app" class="hidden">
+        Добро пожаловать в наше приложение прогноза погоды! Мы предлагаем удобный и точный способ узнать погоду в любом
+        месте в мире. Наше приложение предоставляет информацию о температуре, влажности, атмосферном давлении и других
+        факторах, которые влияют на погоду.
+
+        Мы стремимся предоставить пользователям нашего приложения наиболее точную информацию о погоде, используя
+        последние технологии и данные. Мы обновляем данные о погоде в режиме реального времени, чтобы вы всегда были в
+        курсе текущих изменений.
+
+        Наше приложение просто в использовании, с интуитивно понятным интерфейсом и легким доступом к различным
+        функциям. Вы можете легко получить прогноз на несколько дней вперед, установить уведомления о смене погоды и
+        получать уведомления в удобное для вас время.
+
+        Мы также предлагаем множество настроек, чтобы удовлетворить потребности каждого пользователя. Вы можете выбрать
+        единицы измерения, формат даты и время, язык и многое другое.
+
+        Наша команда постоянно работает над улучшением приложения и добавлением новых функций, чтобы обеспечить нашим
+        пользователям наилучший опыт использования. Мы всегда готовы принять обратную связь и улучшить наше приложение.
+
+        Скачайте наше приложение прогноза погоды прямо сейчас и будьте в курсе всех изменений погоды, где бы вы ни
+        находились. Будьте готовы к любым условиям и планируйте свои дни заранее!
+    </div>
+
     <!-- TAP BAR -->
     <section id="tapbar"
-        class="fixed z-[60] max-w-lg sm:border-x sm:border-x-cosmic-800 bottom-0 w-full h-20 bg-white/60 dark:bg-cosmic-900/80 backdrop-blur-lg text-gray-300 dark:text-cosmic-400 transition-colors duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
+        class="fixed z-[100] max-w-lg sm:border-x sm:border-x-cosmic-800 bottom-0 w-full h-20 bg-white/60 dark:bg-cosmic-900/80 backdrop-blur-lg text-gray-300 dark:text-cosmic-400 transition-colors duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
         <div class="flex justify-between mt-3 mx-8 items-center relative overflow-hidden">
             <button id="mainpage--tapbar--locations-btn" class="flex flex-col items-center gap-[6px] grow-0 shrink-0 "
                 aria-controls="sidebarLeft" aria-label="Toggle locations menu">
@@ -128,7 +151,7 @@
                             stroke-width="1.5" />
                     </svg>
                 </div>
-                <div class="text-xxs ">Мои локации</div>
+                <div class="text-xs ">Мои локации</div>
             </button>
             <div id="menu-middle-btn"
                 class="absolute left-1/2 -translate-x-1/2 -translate-y-[26px] transition duration-300 ease-[cubic-bezier(.23,1,.32,1)]">
@@ -156,7 +179,7 @@
                         <line x1="1.78997" y1="12.2234" x2="2.38574" y2="11.9819" stroke-width="1.5"
                             stroke-linecap="round" />
                     </svg>
-                    <div class="text-xxs text-primary-light dark:text-yellow ">Погода</div>
+                    <div class="text-xs text-primary-light dark:text-yellow ">Погода</div>
                 </div>
             </div>
 
@@ -175,7 +198,7 @@
                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
-                <div class="text-xxs ">Настройки</div>
+                <div class="text-xs ">Настройки</div>
             </div>
         </div>
     </section>
@@ -190,8 +213,7 @@
         <div id="locations-backdrop"
             class="absolute backdrop-blur-md top-0 left-0 w-full h-full -z-10 bg-gray-100/80 dark:bg-[#14181F]/80 opacity-0 transition-all-500">
         </div>
-        <div id="locations-container"
-            class="no-swipe no-reorder flex flex-col gap-4 transition-colors duration-300 overflow-x-clip">
+        <div id="locations-container" class="flex flex-col gap-4 transition-colors duration-300 overflow-x-clip">
             <header id="locations--header"
                 class="sticky top-0 h-12 flex w-full px-4 pt-4 pb-1 justify-between items-center bg-gray-100/80 dark:bg-cosmic-900 z-20">
                 <button id="locations-header--back-btn" type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-14 h-8
@@ -308,7 +330,8 @@
                 <div class="mb-6 relative">
                     <input
                         class="bg-gray-100 dark:bg-cosmic-800 py-[14px] px-4 pr-10 truncate w-full rounded-md outline-none focus:outline-none caret-primary-light dark:caret-yellow placeholder-gray-300 dark:placeholder-cosmic-500"
-                        type="text" name="location-name" id="location-modal-input" placeholder="Введите название">
+                        type="text" name="location-name" id="location-modal-input" placeholder="Введите название"
+                        autocomplete="nope">
                     <div id='cleartext'
                         class="absolute clear-text-cross right-3 top-4 transition-opacity duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
                         <svg class="stroke-gray-300 dark:stroke-cosmic-500 stroke-1.5" width="20" height="20"
@@ -351,8 +374,7 @@
             class="absolute top-0 left-0 w-full h-full -z-10 bg-black/30 opacity-0  transition-[transform,opacity] transform-gpu ease-[cubic-bezier(.23,1,.32,1)]  duration-500">
         </div>
 
-        <div id="container-settings"
-            class="mx-4 no-swipe no-reorder grid grid-flow-row gap-4 relative transition-colors duration-300">
+        <div id="container-settings" class="mx-4 grid grid-flow-row gap-4 relative transition-colors duration-300">
             <!-- HEADER -->
             <header
                 class="sticky bg-gray-100/80 dark:bg-cosmic-900 z-[5] top-0 h-12 flex w-full pt-4 pb-1 justify-between items-center">
@@ -381,58 +403,58 @@
                     <div class="grid grid-flow-row w-full gap-[20px] p-6">
                         <label id="set_temp" class="flex justify-between items-center">
                             <div class="font-light">Градусы</div>
-                            <section class="flex gap-3">
-                                <div
-                                    class="relative flex items-center h-[28px] w-[128px] 
+
+                            <div
+                                class="relative flex items-center h-[28px] w-[128px] 
                                             border border-primary-light dark:border-yellow text-primary-light dark:text-yellow rounded-md text-center">
 
-                                    <input class="hidden" type="checkbox" name="settings" id="s-temp">
-                                    <div slider data-off="°C" data-on="°F"
-                                        class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                <input class="hidden" type="checkbox" name="settings" id="s-temp">
+                                <div slider data-off="°C" data-on="°F"
+                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
 
-                                    </div>
-                                    <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
-                                    <div id="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
                                 </div>
-                            </section>
+                                <div id="off" class="cursor-pointer w-[64px] h-[28px]">°C</div>
+                                <div id="on" class="cursor-pointer w-[64px] h-[28px]">°F</div>
+                            </div>
+
                         </label>
                         <label id="set_wind" class="flex justify-between items-center">
                             <div class="font-light">Скорость ветра</div>
-                            <section class="flex gap-3">
-                                <div
-                                    class="relative flex items-center h-[28px] w-[128px]
+
+                            <div
+                                class="relative flex items-center h-[28px] w-[128px]
                                             border border-primary-light dark:border-yellow text-primary-light dark:text-yellow rounded-md text-center">
 
-                                    <input class="hidden" type="checkbox" name="settings" id="s-wind">
-                                    <div slider data-off="км/ч" data-on="м/с"
-                                        class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                <input class="hidden" type="checkbox" name="settings" id="s-wind">
+                                <div slider data-off="км/ч" data-on="м/с"
+                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
-                                        км/ч
-                                    </div>
-                                    <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
-                                    <div id="on" class="cursor-pointer w-[64px] h-[28px]">м/с</div>
+                                    км/ч
                                 </div>
-                            </section>
+                                <div id="off" class="cursor-pointer w-[64px] h-[28px]">км/ч</div>
+                                <div id="on" class="cursor-pointer w-[64px] h-[28px]">м/с</div>
+                            </div>
+
                         </label>
                         <label id="set_pressure" class="flex justify-between items-center">
                             <div class="font-light">Давление</div>
-                            <section class="flex gap-3">
-                                <div
-                                    class="relative flex items-center h-[28px] w-[128px] 
+
+                            <div
+                                class="relative flex items-center h-[28px] w-[128px] 
                                             border border-primary-light dark:border-yellow text-primary-light dark:text-yellow rounded-md text-center">
 
-                                    <input class="hidden" type="checkbox" name="settings" id="s-pressure">
-                                    <div slider data-off="мм рт.ст." data-on="гПа"
-                                        class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                <input class="hidden" type="checkbox" name="settings" id="s-pressure">
+                                <div slider data-off="мм рт.ст." data-on="гПа"
+                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
-                                        мм
-                                        рт.ст.
-                                    </div>
-                                    <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
-                                    <div id="on" class="cursor-pointer w-[64px] h-[28px]">гПа</div>
+                                    мм
+                                    рт.ст.
                                 </div>
-                            </section>
+                                <div id="off" class="cursor-pointer w-[64px] h-[28px]">мм рт.ст.</div>
+                                <div id="on" class="cursor-pointer w-[64px] h-[28px]">гПа</div>
+                            </div>
+
                         </label>
                     </div>
                 </div>
@@ -596,10 +618,10 @@
     <section id="monthly-forecast"
         class="hidden hs-overlay-open:block hs-overlay hs-overlay-open:translate-y-0 translate-y-4 fixed hs-overlay-open:opacity-100 opacity-0
                 top-0 left-0 transition-[transform, color] duration-500 transform-gpu ease-[cubic-bezier(.23,1,.32,1)] invisible hs-overlay-open:visible
-                h-full w-full backdrop-blur-xl z-[200] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]"
+                h-full w-full backdrop-blur-xl z-[80] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]"
         tabindex="-1">
         <div id="monthly-header"
-            class="top-0 flex sticky dark:bg-cosmic-900/80 z-10 backdrop-blur-md w-full px-6 py-4 justify-between items-center">
+            class="top-0 flex sticky dark:bg-cosmic-900/80 z-10 backdrop-blur-md w-full p-4 justify-between items-center">
             <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-14 h-8"
                 data-hs-overlay="#monthly-forecast">
                 <span class="sr-only">Toggle Monthly Forecast</span>
@@ -615,7 +637,7 @@
             </div>
 
             <button type="button" id="monthly-today-btn"
-                class="grow-0 shrink-0 text-primary-light dark:text-yellow w-18 h-8">
+                class="grow shrink-0 text-primary-light dark:text-yellow w-18 h-8">
             </button>
         </div>
         <div id="monthly" class="mx-4 mb-20">
@@ -641,7 +663,7 @@
     <!-- ************************ -->
     <!-- *  Loading Animation   * -->
     <!-- ************************ -->
-    <section id="loading-animation" class="fixed z-[100] scale-0 opacity-0 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2
+    <section id="loading-animation" class="fixed z-[60] scale-0 opacity-0 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2
         rounded-full backdrop-blur-sm w-14 h-14 ease-[cubic-bezier(.18,.89,.32,1)] duration-500">
         <img class="absolute w-16 h-16 animate-fly -translate-x-2 -translate-y-4" src="img/assets/icons/dark_cloud.svg"
             alt="" srcset="">
@@ -794,17 +816,18 @@
     <script id="card-template" type="text/template">
 
     <!-- *** buttons *** -->
-    <section
-        class="location-card--edit-buttons-container absolute left-1/2 -translate-x-1/2 [&>*]:no-swipe [&>*]:no-reorder invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
+    <section class="location-card--edit-buttons-container absolute left-1/2 -translate-x-1/2 
+        invisible h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
         <button type="button" class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
             <img class="" src="img/assets/icons/trash.svg">
         </button>
         <button type="button" class="location-del no-swipe no-reorder">
             <img src="img/delete.svg" width="40px" height="40px" alt="">
         </button>
-        <button type="button" class="no-swipe no-reorder dark:text-cosmic-400/40 items-center font-light text-3xl w-10">
-            <svg class="fill-cosmic-400" width="40" height="40" viewBox="0 0 40 40" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+        <div class="grow pointer-events-none"></div>
+        <button type="button" class="w-10 instant">
+            <svg class="fill-gray-300 dark:fill-cosmic-400 instant" width="40" height="40" viewBox="0 0 40 40"
+                fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g opacity="0.55">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M10 13C10 12.4477 10.4477 12 11 12H29C29.5523 12 30 12.4477 30 13C30 13.5523 29.5523 14 29 14H11C10.4477 14 10 13.5523 10 13Z" />
@@ -818,7 +841,7 @@
     </section>
 
     <!-- *** card *** -->
-    <section class="card__wrapper items-center h-[85px] w-full [&>*]:no-swipe [&>*]:no-reorder">
+    <section class="card__wrapper items-center h-[85px] w-full pointer-events-none">
         <div class="card__location-info flex flex-col flex-auto truncate">
             <small class="card__current-time"></small>
             <div class="flex">
@@ -848,7 +871,7 @@
         <div class="card__weather-icon shrink-0 w-12 h-12 transition-all-500">
         </div>
         <div class="card__edit-btn absolute right-4 invisible opacity-0 transition-300">
-            <svg class="fill-[#1B2541] dark:fill-white no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"
+            <svg class="fill-[#1B2541] dark:fill-white" width="48" height="48" viewBox="0 0 48 48"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
@@ -858,75 +881,6 @@
     </section>
     </script>
 
-    <script id="card-template_old" type="text/template">
-        <!-- EDIT BUTTONS -->
-    <section
-        class="location-card--edit-buttons-container invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
-        <button type="button" class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
-            <img class="" src="img/assets/icons/trash.svg">
-        </button>
-        <button type="button" class="location-del no-swipe no-reorder">
-            <img src="img/delete.svg" width="40px" height="40px" alt="">
-        </button>
-        <button type="button" class="no-swipe no-reorder dark:text-cosmic-400/40 items-center font-light text-3xl w-10">
-            <svg class="fill-cosmic-400" width="40" height="40" viewBox="0 0 40 40" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <g opacity="0.55">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M10 13C10 12.4477 10.4477 12 11 12H29C29.5523 12 30 12.4477 30 13C30 13.5523 29.5523 14 29 14H11C10.4477 14 10 13.5523 10 13Z" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M10 20C10 19.4477 10.4477 19 11 19H29C29.5523 19 30 19.4477 30 20C30 20.5523 29.5523 21 29 21H11C10.4477 21 10 20.5523 10 20Z" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M10 27C10 26.4477 10.4477 26 11 26H29C29.5523 26 30 26.4477 30 27C30 27.5523 29.5523 28 29 28H11C10.4477 28 10 27.5523 10 27Z" />
-                </g>
-            </svg>
-        </button>
-    </section>
-    <button type="button" class="card__edit-btn absolute right-14 opacity-0 no-swipe no-reorder invisible top-4 z-10
-    transition-all-500">
-        <svg class="fill-[#1B2541] dark:fill-white no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
-            <path d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z" />
-        </svg>
-    </button>
-    <!-- CARD -->
-    <section class="card pointer-events-none absolute flex justify-between w-full
-                bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645] 
-                p-4 transition-all-500 rounded-2xl h-[85px]">
-        <div class="flex flex-col grow truncate transition-all-500 items-start">
-            <small class="location-card--time text-xxs text-gray-300 dark:text-cosmic-400 leading-3"></small>
-            <div class="flex w-full leading-5 transition-all-300 relative">
-                <h4 class="location-card--name pr-1 truncate transition-all-500"></h4>
-                <div class="card__location-pin shrink-0 pl-1 transition-all-500"></div>
-            </div>
-            <p class="location-card--condition pt-2 pr-1 text-xs leading-[14px] transition-all-500 truncate ">
-            </p>
-        </div>
-        <div class="weather-info--wrapper flex w-[120px] grow-0 gap-2 transition-[width,opacity] duration-500">
-            <div class="grid grid-flow-row items-center transition-all-500">
-                <div class="card__current_temp mx-auto text-3xl font-medium transition-all-300"></div>
-                <div class="mx-auto card__temp-range items-center flex text-xxs transition-all-500 transform-gpu">
-                    <svg class="stroke-gray-300 dark:stroke-cosmic-300" width="10" height="11" viewBox="0 0 10 11"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3.33334 3.41667L5.00001 1.75M5.00001 1.75L6.66668 3.41667M5.00001 1.75V9.25"
-                            stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                    <div class="location-card--tempmax transition-all-500"></div>
-                    <svg class="stroke-gray-300 dark:stroke-cosmic-300 ml-1" width="10" height="11" viewBox="0 0 10 11"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.66668 7.58333L5.00001 9.25M5.00001 9.25L3.33334 7.58333M5.00001 9.25L5.00001 1.75"
-                            stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                    <div class="location-card--tempmin"></div>
-                </div>
-            </div>
-            <div class="location-card--weather-icon w-12 h-12 transition-all-500"></div>
-        </div>
-
-    </section>
-    </script>
     <script src="js/slip.js"></script>
     <script src="js/utils/request.js"></script>
     <script src="js/utils/domUtils.js"></script>

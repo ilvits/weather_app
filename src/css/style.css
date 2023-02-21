@@ -95,18 +95,14 @@ html, body {
 body {
   touch-action: pan-y;
 }
-.bg-gradient {
-  background: linear-gradient(143.79deg, #192D52 10.22%, #112645 78.57%) !important;
-  ;
-}
 
 /* these are special */
 .slip-reordering {
-  transition-duration: 50ms;
-  transition-timing-function: linear;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(.23,1,.32,1);
 }
 
-.slip-reordering .card {
+.slip-reordering .card__wrapper {
   transform: scale(1.06);
 }
 
@@ -191,18 +187,6 @@ input {
     display: block !important;
   }
 }
-
-#slide-2988507 {
-  contain: content;
-}
-
-#header-2988507 {
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-
 
 /* .swiper {
   overflow: clip !important;

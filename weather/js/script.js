@@ -61,8 +61,6 @@ if (!localStorage.lastPageUpdate) {
     localStorage.setItem('lastPageUpdate', new Date())
 }
 
-// Initialize Cards List
-setupSlip(location_cards__container);
 
 // request User Country code. User country hide in location search suggestions.
 function requestUserCountry() {
@@ -118,28 +116,28 @@ function setupSlip(list) {
         console.table('Locations undefined')
     }
 
-    list.addEventListener('slip:beforeswipe', function (e) {
-        if (e.target.classList.contains('no-swipe')) {
-            e.preventDefault();
+    list.addEventListener('slip:beforeswipe', function (event) {
+        if (event.target.classList.contains('no-swipe')) {
+            event.preventDefault();
         }
     }, false);
 
-    list.addEventListener('slip:swipe', function (e) {
-        e.preventDefault(); // will animate back to original position
+    list.addEventListener('slip:swipe', function (event) {
+        event.preventDefault(); // will animate back to original position
         // }
     });
 
-    list.addEventListener('slip:beforewait', function (e) {
-        if (e.target.classList.contains('instant')) e.preventDefault();
+    list.addEventListener('slip:beforewait', function (event) {
+        if (event.target.classList.contains('instant')) event.preventDefault();
     }, false);
 
-    list.addEventListener('slip:afterswipe', function (e) {
-        e.target.parentNode.appendChild(e.target);
+    list.addEventListener('slip:afterswipe', function (event) {
+        event.target.parentNode.appendChild(event.target);
     }, false);
 
-    list.addEventListener('slip:beforereorder', function (e) {
-        if (e.target.classList.contains('no-reorder')) {
-            e.preventDefault();
+    list.addEventListener('slip:beforereorder', function (event) {
+        if (event.target.classList.contains('no-reorder')) {
+            event.preventDefault();
         }
     }, false);
     list.addEventListener('slip:reorder', function (event) {
@@ -154,8 +152,8 @@ function setupSlip(list) {
             itemsArray.splice(event.detail.originalIndex, 1); // Remove item from the previous position
             itemsArray.splice(event.detail.spliceIndex, 0, movedItem); // Insert item in the new position
             itemsArray.forEach((el) => {
-                console.log(el)
-                console.log(el.is_user_location)
+                // console.log(el)
+                // console.log(el.is_user_location)
                 if (itemsArray[0].is_user_location === true) {
                     reordered_locations[String(itemsArray.indexOf(el))] = el
                 } else {
@@ -209,7 +207,7 @@ function setupCards() {
             })
             setTimeout(() => {
                 card.querySelector('.trash').classList.remove('opacity-0')
-                card.classList.remove('duration-[500ms]')
+                card.classList.remove('duration-[0ms]')
                 card.classList.add('duration-[700ms]')
                 card.classList.add('-translate-x-24')
                 delLocation_flag = true
@@ -223,7 +221,7 @@ function setupCards() {
             // console.log(el)
             loc_id = el.closest('li').dataset.location_id
             // console.log(loc_id)
-            // deleteLocation(Object.keys(locations).find(key => locations[key].id == loc_id), loc_id)
+            deleteLocation(Object.keys(locations).find(key => locations[key].id == loc_id), loc_id)
             if (Object.entries(locations).length == 0) {
                 editLocationsToggle()
             }
@@ -238,7 +236,7 @@ function setupCards() {
                     e.classList.remove('-translate-x-24');
                     setTimeout(() => {
                         e.classList.remove('duration-[700ms]')
-                        e.classList.add('duration-[500ms]')
+                        e.classList.add('duration-[0ms]')
                     }, 50);
                 })
                 delLocation_flag = false
@@ -280,6 +278,7 @@ function generateSlide(loc, preview = false) {
         slideEl.firstElementChild.classList.add('hidden')
     } else {
         document.querySelector('#slides').appendChild(slideEl)
+        swiper.appendSlide(slideEl)
     }
     slideEl.querySelector(`.hs-collapse`).setAttribute('id', `detail-weather-info--${loc.id}`)
     slideEl.querySelector(`.detail-weather-toggle`).setAttribute('id', `detail-weather-toggle--${loc.id}`)
@@ -292,7 +291,7 @@ function generateLocationCard(loc) {
     let card_data = {
         type: 'li',
         id: `card-${loc.id}`,
-        className: `flex items-center no-swipe no-reorder hs-removing:-translate-x-[500px] h-[101px] hs-removing:h-0 transition-all transform-gpu`,
+        className: `flex items-center no-swipe no-reorder hs-removing:-translate-x-[500px] h-[101px] hs-removing:h-0 transition-all transform-gpu duration-[0ms]`,
         innerHTML: template,
         attrs: {
             dataLocation_id: loc.id,
@@ -304,25 +303,6 @@ function generateLocationCard(loc) {
     cardEl.querySelector('.trash').setAttribute('data-hs-remove-element', `#card-${loc.id}`)
     location_cards__container.appendChild(cardEl)
 }
-
-// Initialize Swiper
-const swiper = new Swiper(".swiper", {
-    enabled: true,
-    cssMode: false,
-    effect: 'slide',
-    grabCursor: true,
-    speed: 400,
-    spaceBetween: 40,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-        type: 'bullets',
-    },
-    hashNavigation: true,
-    hashNavigation: {
-        replaceState: true,
-    },
-});
 
 function addNewLocation() {
     // add to object
@@ -380,7 +360,6 @@ function renameLocation(locationId, name = 'original') {
 }
 
 function searchOnFocus() {
-    console.log(localStorage.userGeoPosition)
     if ((!locations || Object.values(locations).findIndex(item => item.is_user_location == true) == -1) && localStorage.getItem('userGeoPosition') != 'false') {
         getLocationPlaceholder.classList.remove('hidden')
         setTimeout(() => {
@@ -536,7 +515,8 @@ function hideWeatherPreview() {
     localStorage.removeItem(`weatherData-${locationPreviewData.id}-lastUpdate`);
     localStorage.removeItem(`weatherData-${locationPreviewData.id}`);
     newLocationPreviewEl.classList.add('opacity-0', 'translate-y-[600px]', '-z-10');
-    newLocationPreviewEl.classList.remove('z-[130]');
+    newLocationPreviewEl.classList.remove('z-[70]');
+    document.querySelector('#tapbar').classList.add('z-[100]');
     setTimeout(() => {
         newLocationPreviewEl.classList.add('hidden');
         previewWindow.innerHTML = '';
@@ -569,7 +549,8 @@ function generatePreview(loc, weatherData, is_user_location = false) {
     id = loc.id
     setTimeout(() => {
         newLocationPreviewEl.classList.remove('opacity-0', 'translate-y-[600px]')
-        newLocationPreviewEl.classList.add('z-[130]')
+        newLocationPreviewEl.classList.add('z-[70]')
+        document.querySelector('#tapbar').classList.remove('z-[100]');
     }, 50);
     newLocationPreviewEl.classList.remove('hidden', '-z-10');
     addButton = document.querySelector('#add-weather-preview')
@@ -597,10 +578,16 @@ function hideLocationsBackdrop() {
 }
 
 function openLocationEditModal(el) {
+    loc_id = el.closest('li').dataset.location_id
+    loc = Object.values(locations).find(item => item.id == loc_id)
+    loc_name = loc.name
+    loc_orig_name = loc.original_name
+    loc_name === loc_orig_name
+        ? location_restore_name.classList.add('hidden')
+        : location_restore_name.classList.remove('hidden')
+
     showLocationsBackdrop()
     locations_backdrop.classList.add('z-[50]')
-    modalLocation_flag = true
-    loc_id = el.closest('li').dataset.location_id
     loc_index = Object.values(locations).findIndex(item => item.id == loc_id)
     loc_name = Object.values(locations)[loc_index].name
     location_edit_modal.dataset.location = loc_index
@@ -619,6 +606,7 @@ function openLocationEditModal(el) {
 
         }
     }, 50);
+    modalLocation_flag = true
 }
 
 function closeLocationEditModal() {
@@ -845,8 +833,29 @@ HSOverlay.on('close', (el) => {
 })
 
 
+// Initialize Swiper
+const swiper = new Swiper(".swiper", {
+    enabled: true,
+    cssMode: false,
+    effect: 'slide',
+    grabCursor: true,
+    speed: 400,
+    spaceBetween: 40,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        type: 'bullets',
+    },
+    hashNavigation: true,
+    hashNavigation: {
+        replaceState: true,
+    },
+})
+
+
 function init() {
     // console.table(locations)
+    swiper.removeAllSlides()
     if ((typeof locations === 'undefined' || locations === null) || Object.entries(locations).length == 0) {
     } else {
         location_restore_name.onclick = () => renameLocation(location_edit_modal.dataset.location)
@@ -862,20 +871,20 @@ function init() {
             document.querySelector('#menu-middle-btn').classList.add('translate-y-8')
             document.querySelector('#menu-middle-btn').classList.remove('-translate-y-[26px]')
         }
-
         setTimeout(() => {
             mainPage_tapbar__weather_btn.classList.remove('invisible', 'opacity-0')
         }, 300);
 
+        // Initialize Cards List
+        setupSlip(location_cards__container);
         setupCards()
+        console.table(swiper.slides)
 
         if (slide) {
             console.log('Slide to', slide)
             const slide_id = Object.values(locations).findIndex(item => item.id == slide)
             // console.log('slide_id: ', slide_id)
-            setTimeout(() => {
-                swiper.slideTo(slide_id, 0);
-            }, 50);
+            swiper.slideTo(slide_id, 0);
         }
 
     }

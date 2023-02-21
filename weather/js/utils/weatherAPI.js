@@ -19,7 +19,7 @@ function getWeatherDataFromAPI(id, lat, lon, preview = false) {
         const baseurl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline`
         const params = {
             unitGroup: 'metric',
-            key: '6M44EU7ZDRK49GFJHKBCX2JJC',
+            key: '6G659YZGHYJQJQYGA99FJZDMK',
             elements: [
                 'datetime', 'datetimeEpoch', 'description', 'conditions', 'icon',
                 'name', 'address', 'resolvedAddress',
