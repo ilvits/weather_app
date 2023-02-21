@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="no-scrollbar  overflow-x-clip">
+<html lang="en" class="no-scrollbar">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="" />
+    <script src="js/utils/dark-mode.js"></script>
     <meta name="mobile-web-app-capable" content="yes">
     <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
     <meta name="apple-mobile-web-app-title" content="Weather">
@@ -20,7 +21,6 @@
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/swiper-bundle.min.css" />
-    <script src="js/utils/dark-mode.js"></script>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
@@ -37,8 +37,7 @@
 
 </head>
 
-<body
-    class="bg-gray-100 dark:bg-cosmic-900 text-[#1B2541] dark:text-white max-w-lg mx-auto sm:border-x dark:sm:border-x dark:sm:border-x-cosmic-800">
+<body class="bg-gray-100 dark:bg-cosmic-900 text-[#1B2541] dark:text-white max-w-lg mx-auto">
 
     <div id="offline-status" aria-overlay="false" class="fixed top-3 hs-overlay hidden hs-overlay-open:top-7 
         hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 backdrop-blur-sm [--body-scroll:true] [--overlay-backdrop:false] 
@@ -88,8 +87,8 @@
     </div>
 
     <!-- MAIN WINDOW -->
-    <main class="overflow-y-clip overflow-x-clip">
-        <div id="main-page--placeholder" class="hidden mx-4 flex flex-col gap-6 text-center items-center opacity-0 mt-44
+    <main class="">
+        <div id="main-page--placeholder" class="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[calc(100%_-_84px)] hidden flex flex-col gap-6 text-center items-center opacity-0
             transform-gpu transition-[opacity,translate] duration-300 ease-[cubic-bezier(.23,1,.32,1)]">
             <img class="w-[195px] h-[197px]" src="img/assets/icons/globe.svg">
             <div>
@@ -216,13 +215,13 @@
                     Изм.
                 </button>
             </header>
-
+            <!-- search section -->
             <section
                 class="w-full px-4 h-12 z-10 transition-all duration-300 transform-gpu ease-[cubic-bezier(.23,1,.32,1)]">
                 <input type="text" id="search-input" name="search-input"
                     class=" py-1 px-4 pl-[36px] w-full h-full
                 focus:outline-none rounded-lg text-ellipsis focus:z-10 dark:bg-cosmic-800 transition-all 
-                duration-500 transform-gpu ease-[cubic-bezier(.23,1,.32,1)] caret-primary-light dark:caret-yellow caret-w-2 placeholder-gray-300 dark:placeholder-cosmic-500"
+                duration-500 transform-gpu ease-[cubic-bezier(.23,1,.32,1)] caret-primary-light dark:caret-yellow placeholder-gray-300 dark:placeholder-cosmic-500"
                     placeholder="Найти новую локацию">
                 <div
                     class="absolute invisible clear-text-cross right-[100px] top-[14px] transition-opacity duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
@@ -251,7 +250,7 @@
                     </svg>
                 </div>
                 <ol id="suggestion-list"
-                    class="absolute w-full font-light pt-6 pr-10 flex flex-col gap-2 text-base invisible opacity-0 transform-gpu duration-300">
+                    class="absolute w-full pt-6 pr-10 flex flex-col gap-5 text-base leading-5 invisible opacity-0 transform-gpu duration-300">
                 </ol>
                 <div id="search-user-location--placeholder" class=" mt-20 flex flex-col gap-3 text-center items-center justify-center opacity-0 hidden 
                     transform-gpu transition-[opacity,translate] duration-1000 ease-[cubic-bezier(.23,1,.32,1)]">
@@ -299,7 +298,7 @@
                         затем добавить нужную локацию.</div>
                 </div>
             </section>
-
+            <!-- Modal section -->
             <div id="location-edit-modal" class="invisible absolute transition-[opacity,margin] duration-300 ease-[cubic-bezier(.23,1,.32,1)] opacity-0 z-[100]
             p-6 min-w-[343px] bg-white rounded-2xl dark:bg-cosmic-900 -mt-4
             top-10 left-1/2  transform -translate-x-1/2 text-center" aria-labelledby="hs-dropdown-item-checkbox">
@@ -308,7 +307,7 @@
                 </h3>
                 <div class="mb-6 relative">
                     <input
-                        class="bg-gray-100 dark:bg-cosmic-800 py-[14px] px-4 pr-10 truncate w-full rounded-md outline-none focus:outline-none caret-primary-light dark:caret-yellow caret-w-2 placeholder-gray-300 dark:placeholder-cosmic-500"
+                        class="bg-gray-100 dark:bg-cosmic-800 py-[14px] px-4 pr-10 truncate w-full rounded-md outline-none focus:outline-none caret-primary-light dark:caret-yellow placeholder-gray-300 dark:placeholder-cosmic-500"
                         type="text" name="location-name" id="location-modal-input" placeholder="Введите название">
                     <div id='cleartext'
                         class="absolute clear-text-cross right-3 top-4 transition-opacity duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
@@ -333,13 +332,11 @@
                         type="submit">OK</button>
                 </div>
             </div>
-
-            <ol id="location-cards--container" class="slip-swiping-container pb-20 px-4 flex flex-col gap-3
-                transition-all duration-300 transform-gpu ease-[cubic-bezier(.23,1,.32,1)]" tabindex="0"
+            <!-- Cards -->
+            <ol id="location-cards--container"
+                class="slip-swiping-container pb-20 px-4 flex flex-col transition-all-500 transform-gpu" tabindex="0"
                 role="listbox">
             </ol>
-
-
         </div>
     </div>
     <!-- End location -->
@@ -631,9 +628,9 @@
     <section id="new-location-preview" class="w-full h-full fixed top-4 opacity-0 -z-10 hidden translate-y-[600px] rounded-xl grid grid-fow-row
             transform-gpu duration-500 transition-all bg-gray-100 dark:bg-cosmic-900">
         <div
-            class="inline-flex absolute justify-between p-4 rounded-t-xl bg-gray-100/80 dark:bg-cosmic-900/80 backdrop-blur-lg w-full z-[120]">
+            class="flex absolute justify-between items-end p-4 rounded-t-xl bg-gray-100/80 dark:bg-cosmic-900/80 backdrop-blur-lg w-full z-[120]">
             <button id="cancel-weather-preview" onclick="hideWeatherPreview(this)">Отмена</button>
-            <strong id="location-name" class="px-4 truncate "></strong>
+            <strong id="location-name" class="px-4 truncate text-lg"></strong>
             <button id="add-weather-preview" class="text-primary-light dark:text-yellow"
                 onclick="addNewLocation(this)">Добавить</button>
         </div>
@@ -683,10 +680,10 @@
             <div class="flex flex-row justify-between">
                 <div class="flex flex-col gap-2">
                     <div class="current-day text-gray-300 dark:text-[#ACD8E7] text-xs font-light"></div>
-                    <div class="temperature text-6xl align-text-top relative">--</div>
+                    <div class="temperature text-6xl leading-[60px] font-semibold align-text-top relative">--</div>
                     <div class="text-sm leading-4 flex flex-col gap-1">
                         <div class="conditions"></div>
-                        <div class="feelslike">Ощущается как <span class="font-bold"> </span></div>
+                        <div class="feelslike"></div>
                     </div>
                 </div>
                 <div class="weather-icon">
@@ -798,7 +795,7 @@
 
     <!-- *** buttons *** -->
     <section
-        class="location-card--edit-buttons-container absolute [&>*]:no-swipe [&>*]:no-reorder invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
+        class="location-card--edit-buttons-container absolute left-1/2 -translate-x-1/2 [&>*]:no-swipe [&>*]:no-reorder invisible no-swipe no-reorder h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
         <button type="button" class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
             <img class="" src="img/assets/icons/trash.svg">
         </button>
@@ -825,14 +822,13 @@
         <div class="card__location-info flex flex-col flex-auto truncate">
             <small class="card__current-time"></small>
             <div class="flex">
-                <strong
-                    class="card__location-name mb-2 truncate transition-[width,opacity,transform,margin] ease-[cubic-bezier(.23,1,.32,1)]"></strong>
+                <div class="card__location-name mb-2 font-semibold text-lg leading-5 truncate transition-all-500">
+                </div>
                 <div class="card__location-pin transition-300 duration-150"></div>
             </div>
             <span class="card__current-condition truncate transition-300"></span>
         </div>
-        <div
-            class="card__weather-info w-16 transition-[width,opacity,transform,margin] ease-[cubic-bezier(.23,1,.32,1)]">
+        <div class="card__weather-info w-16 transition-all-500">
             <div class="card__current-temp text-center text-3xl font-medium transition-300"></div>
             <small class="card__temp-range flex gap-[2px] items-center text-gray-300 dark:text-cosmic-300">
                 <svg class="stroke-gray-300 dark:stroke-cosmic-300" width="10" height="11" viewBox="0 0 10 11"
@@ -841,16 +837,15 @@
                         stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
                 <span class="card__max-temp"></span>
-                <svg class="stroke-gray-300 dark:stroke-cosmic-300                                          " width="10"
-                    height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="stroke-gray-300 dark:stroke-cosmic-300" width="10" height="11" viewBox="0 0 10 11"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.66668 7.58333L5.00001 9.25M5.00001 9.25L3.33334 7.58333M5.00001 9.25L5.00001 1.75"
                         stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
                 <span class="card__min-temp"></span>
             </small>
         </div>
-        <div
-            class="card__weather-icon shrink-0 w-12 h-12 transition-[width,opacity,transform,margin] ease-[cubic-bezier(.23,1,.32,1)]">
+        <div class="card__weather-icon shrink-0 w-12 h-12 transition-all-500">
         </div>
         <div class="card__edit-btn absolute right-4 invisible opacity-0 transition-300">
             <svg class="fill-[#1B2541] dark:fill-white no-swipe no-reorder" width="48" height="48" viewBox="0 0 48 48"

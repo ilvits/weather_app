@@ -42,6 +42,28 @@ const cancelSearchButton = document.querySelector('#location-search--cancel-butt
 const reset_settings = document.querySelector('#reset-settings')
 const newLocationPreviewEl = document.querySelector('#new-location-preview')
 
+locations = JSON.parse(localStorage.getItem('locations')) || {};
+if ((typeof locations === 'undefined' || locations === null) || Object.entries(locations).length == 0) {
+    locations_header__edit_btn.classList.add('invisible')
+    mainPage_placeholder.classList.remove('hidden', 'opacity-0')
+}
+
+// set checkbox states in settings tab
+loadSettings();
+
+// Loading WeatherData
+Object.values(locations).forEach((el) => {
+    getWeatherDataFromAPI(el.id, el.latitude, el.longitude)
+})
+
+window.onfocus = () => updateInfo();
+if (!localStorage.lastPageUpdate) {
+    localStorage.setItem('lastPageUpdate', new Date())
+}
+
+// Initialize Cards List
+setupSlip(location_cards__container);
+
 // request User Country code. User country hide in location search suggestions.
 function requestUserCountry() {
     if (!localStorage.userCountry) {
@@ -87,7 +109,7 @@ function slideToId(index, duration = 300) {
     swiper.slideTo(index, duration);
 }
 
-// setup location Cards on "My locations"
+// setup location Cards List on "My locations" (SlipJS)
 function setupSlip(list) {
     if (typeof locations !== 'undefined') {
         itemsArray = []
@@ -103,11 +125,6 @@ function setupSlip(list) {
     }, false);
 
     list.addEventListener('slip:swipe', function (e) {
-        // e.target list item swiped
-        // if (thatWasSwipeToRemove) {
-        // list will collapse over that element
-        // e.target.parentNode.removeChild(e.target);
-        // } else {
         e.preventDefault(); // will animate back to original position
         // }
     });
@@ -132,16 +149,11 @@ function setupSlip(list) {
         } else {
             reordered_locations = {}
             const movedItem = itemsArray[event.detail.originalIndex];
-            // console.log(event.detail.originalIndex, event.detail.spliceIndex)
-            // console.log(event.target)
             swiper.addSlide(event.detail.spliceIndex + 1, swiper.slides[event.detail.originalIndex])
             // swiper.removeSlide(event.detail.originalIndex)
-            // console.log(itemsArray)
             itemsArray.splice(event.detail.originalIndex, 1); // Remove item from the previous position
             itemsArray.splice(event.detail.spliceIndex, 0, movedItem); // Insert item in the new position
             itemsArray.forEach((el) => {
-                // console.log(itemsArray.indexOf(el))
-                // console.log(itemsArray.indexOf(el))
                 console.log(el)
                 console.log(el.is_user_location)
                 if (itemsArray[0].is_user_location === true) {
@@ -161,9 +173,6 @@ function setupSlip(list) {
             }
 
             localStorage.setItem('locations', JSON.stringify(locations));
-
-            // add to cookies
-            // setCookie('locations', JSON.stringify(locations), 30);
         }
     })
     //     console.log(event.target.parentNode)
@@ -172,6 +181,70 @@ function setupSlip(list) {
     //     return false;
     // }, false);
     return new Slip(list);
+}
+
+// Listeners for card buttons
+function setupCards() {
+    const cards = document.querySelectorAll('li')
+    const del_btns = document.querySelectorAll('.location-del')
+    const trash_btns = document.querySelectorAll('.trash')
+
+    cards.forEach((el) => {
+        el.addEventListener('click', () => {
+            // console.log(card__wrapper)
+            // console.log(el.id)
+            // console.log(editLocation_flag)
+            if (!editLocation_flag) {
+                const loc_id = Object.values(locations).findIndex(item => item.id == el.dataset.location_id)
+                slideToId(loc_id);
+            }
+        })
+    })
+
+    del_btns.forEach((el) => {
+        el.addEventListener('click', () => {
+            const card = el.closest('li')
+            cards.forEach(() => {
+                el.classList.remove('-translate-x-24')
+            })
+            setTimeout(() => {
+                card.querySelector('.trash').classList.remove('opacity-0')
+                card.classList.remove('duration-[500ms]')
+                card.classList.add('duration-[700ms]')
+                card.classList.add('-translate-x-24')
+                delLocation_flag = true
+            }, 50)
+        })
+    })
+
+    trash_btns.forEach((el) => {
+        el.onclick = () => {
+            console.log('trash clicked')
+            // console.log(el)
+            loc_id = el.closest('li').dataset.location_id
+            // console.log(loc_id)
+            // deleteLocation(Object.keys(locations).find(key => locations[key].id == loc_id), loc_id)
+            if (Object.entries(locations).length == 0) {
+                editLocationsToggle()
+            }
+        }
+        document.onclick = (event) => {
+            if (!el.contains(event.target) && delLocation_flag) {
+                console.log('out of trash clicked')
+                trash_btns.forEach((e) => {
+                    e.classList.add('opacity-0')
+                })
+                cards.forEach((e) => {
+                    e.classList.remove('-translate-x-24');
+                    setTimeout(() => {
+                        e.classList.remove('duration-[700ms]')
+                        e.classList.add('duration-[500ms]')
+                    }, 50);
+                })
+                delLocation_flag = false
+            }
+        }
+    })
 }
 
 // Update all data in Slides and Cards after timeout
@@ -219,7 +292,7 @@ function generateLocationCard(loc) {
     let card_data = {
         type: 'li',
         id: `card-${loc.id}`,
-        className: `no-swipe no-reorder relative hs-removing:-translate-x-[500px] hs-removing:h-0 hs-removing:mb-0`,
+        className: `flex items-center no-swipe no-reorder hs-removing:-translate-x-[500px] h-[101px] hs-removing:h-0 transition-all transform-gpu`,
         innerHTML: template,
         attrs: {
             dataLocation_id: loc.id,
@@ -468,6 +541,7 @@ function hideWeatherPreview() {
         newLocationPreviewEl.classList.add('hidden');
         previewWindow.innerHTML = '';
         locations_backdrop.classList.remove('z-[5]')
+        searchInput.focus()
     }, 300);
 }
 
@@ -559,18 +633,15 @@ function closeLocationEditModal() {
 }
 
 function editLocationsToggle() {
+    const cards = document.querySelectorAll('#location-cards--container li')
     const card__wrapper = document.querySelectorAll('.card__wrapper')
     const card__location_name = document.querySelectorAll('.card__location-name')
-    const card__current_temp = document.querySelectorAll('.card__current-temp')
     const card__current_condition = document.querySelectorAll('.card__current-condition')
     const card__location_pin = document.querySelector('.card__location-pin')
     const card__weather_info = document.querySelectorAll('.card__weather-info')
     const card__weather_icon = document.querySelectorAll('.card__weather-icon')
-    const card__temp_range = document.querySelectorAll('.card__temp-range')
     const card__edit_btn = document.querySelectorAll('.card__edit-btn')
     const edit_buttons_container = document.querySelectorAll('.location-card--edit-buttons-container')
-    const weather_info__wrapper = document.querySelectorAll('.card__weather-info ')
-    console.log('click')
 
     setTimeout(() => {
         locations_header__edit_btn.innerText = locations_header__edit_btn.innerText == "Изм." ? "Готово" : "Изм."
@@ -580,6 +651,7 @@ function editLocationsToggle() {
     if (locations || Object.entries(locations).length > 0) {
         classToggle(card__location_pin, 'translate-y-2', 'opacity-0')
         card__wrapper.forEach((el) => classToggle(el, 'w-[calc(100%_-_100px)]', 'w-full', 'h-[85px]', 'h-[80px]'))
+        cards.forEach((el) => classToggle(el, 'h-[101px]', 'h-[91px]'))
         card__location_name.forEach((e) => classToggle(e, 'translate-y-2', 'mr-8'))
         card__current_condition.forEach((e) => classToggle(e, 'opacity-0', 'translate-y-3'))
         card__weather_info.forEach((e) => classToggle(e, 'opacity-0', 'w-0', 'w-16'))
@@ -705,6 +777,8 @@ mainPage_search_btn.onclick = () => {
     }, 500);
 }
 
+
+
 HSOverlay.on('open', (el) => {
     openOverlay = el;
     document.querySelector('#menu-middle-btn').classList.add('-translate-y-[26px]')
@@ -717,7 +791,7 @@ HSOverlay.on('open', (el) => {
     if (el.id == "menu-locations") {
         mainPage_tapbar__locations_btn.classList.add('!text-primary-light', 'dark:!text-yellow')
         document.querySelector('#locations-btn-svg').classList.add('!stroke-primary-light', 'dark:!stroke-yellow')
-        if (!locations || Object.entries(locations).length == 0) {
+        if (typeof locations == 'undefined' || Object.entries(locations).length == 0) {
             locations_placeholder.classList.add('hidden')
             setTimeout(() => {
                 if (!searchInput.focus()) {
@@ -726,7 +800,7 @@ HSOverlay.on('open', (el) => {
                     locations_placeholder.classList.remove('hidden')
                     locations_placeholder.classList.remove('opacity-0')
                 }
-            }, 300);
+            }, 500);
         } else {
             locations_placeholder.classList.add('hidden', 'opacity-0')
         }
@@ -770,130 +844,37 @@ HSOverlay.on('close', (el) => {
     openOverlay = false;
 })
 
-// document.addEventListener('click', (event) => {
-//     if (editLocation_flag && !modalLocation_flag) {
-//         if (!location_cards__container.contains(event.target)) {
-//             editLocationsToggle()
-//         }
-//         if (locations_backdrop.contains(event.target)) {
-//             editLocationsToggle()
-//         }
-//     }
-// })
 
 function init() {
-    locations = JSON.parse(localStorage.getItem('locations')) || {};
     // console.table(locations)
-
-    // set checkbox states in settings tab
-    loadSettings();
-
     if ((typeof locations === 'undefined' || locations === null) || Object.entries(locations).length == 0) {
-        locations_header__edit_btn.classList.add('invisible')
-        mainPage_placeholder.classList.remove('hidden', 'opacity-0')
     } else {
-        window.onfocus = () => updateInfo();
-        if (!localStorage.lastPageUpdate) {
-            localStorage.setItem('lastPageUpdate', new Date())
-        } else {
-            console.log(localStorage.lastPageUpdate)
-        }
-        // Loading WeatherData
-        Object.values(locations).forEach((el) => {
-            getWeatherDataFromAPI(el.id, el.latitude, el.longitude)
-        })
-
         location_restore_name.onclick = () => renameLocation(location_edit_modal.dataset.location)
-
-        if (localStorage.getItem('locations') !== null) {
-            for (const loc of Object.values(locations)) {
-                generateLocationCard(loc);
-            }
-            for (const loc of Object.values(locations)) {
-                weatherData = JSON.parse(localStorage.getItem(`weatherData-${loc.id}`))
-                generateSlide(loc);
-                renderCurrentForecast(loc, weatherData);
-            }
+        for (const loc of Object.values(locations)) {
+            generateLocationCard(loc);
+        }
+        for (const loc of Object.values(locations)) {
+            weatherData = JSON.parse(localStorage.getItem(`weatherData-${loc.id}`))
+            generateSlide(loc);
+            renderCurrentForecast(loc, weatherData);
         }
         if (!openOverlay && locations && Object.entries(locations).length > 1) {
             document.querySelector('#menu-middle-btn').classList.add('translate-y-8')
             document.querySelector('#menu-middle-btn').classList.remove('-translate-y-[26px]')
         }
-        // Initialize Cards List
-        setupSlip(location_cards__container);
 
         setTimeout(() => {
             mainPage_tapbar__weather_btn.classList.remove('invisible', 'opacity-0')
         }, 300);
 
-        const cards = document.querySelectorAll('li')
-        const del_btns = document.querySelectorAll('.location-del')
-        const trash_btns = document.querySelectorAll('.trash')
-
-        cards.forEach((el) => {
-            el.addEventListener('click', () => {
-                // console.log(card__wrapper)
-                // console.log(el.id)
-                // console.log(editLocation_flag)
-                if (!editLocation_flag) {
-                    const loc_id = Object.values(locations).findIndex(item => item.id == el.dataset.location_id)
-                    slideToId(loc_id);
-                }
-            })
-        })
-
-        del_btns.forEach((el) => {
-            el.addEventListener('click', () => {
-                const card = el.closest('li')
-                cards.forEach(() => {
-                    el.classList.remove('-translate-x-24')
-                })
-                setTimeout(() => {
-                    card.querySelector('.trash').classList.remove('opacity-0')
-                    card.classList.remove('duration-[0ms]')
-                    card.classList.add('duration-[700ms]')
-                    card.classList.add('-translate-x-24')
-                    delLocation_flag = true
-                }, 50)
-            })
-        })
-
-        trash_btns.forEach((el) => {
-            el.onclick = () => {
-                console.log('trash clicked')
-                // console.log(el)
-                loc_id = el.closest('li').dataset.location_id
-                // console.log(loc_id)
-                deleteLocation(Object.keys(locations).find(key => locations[key].id == loc_id), loc_id)
-                if (Object.entries(locations).length == 0) {
-                    editLocationsToggle()
-                }
-            }
-            document.onclick = (event) => {
-                if (!el.contains(event.target) && delLocation_flag) {
-                    console.log('out of trash clicked')
-                    trash_btns.forEach((e) => {
-                        e.classList.add('opacity-0')
-                    })
-                    cards.forEach((e) => {
-                        e.classList.remove('-translate-x-24');
-                        setTimeout(() => {
-                            e.classList.remove('duration-[700ms]')
-                            e.classList.add('duration-[0ms]')
-                        }, 50);
-                    })
-                    delLocation_flag = false
-                }
-            }
-        })
-
+        setupCards()
 
         if (slide) {
             console.log('Slide to', slide)
-            slide_id = Object.values(locations).findIndex(item => item.id == slide)
+            const slide_id = Object.values(locations).findIndex(item => item.id == slide)
             // console.log('slide_id: ', slide_id)
             setTimeout(() => {
-                slideToId(slide_id, 0)
+                swiper.slideTo(slide_id, 0);
             }, 50);
         }
 

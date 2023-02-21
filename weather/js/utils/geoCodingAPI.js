@@ -124,7 +124,7 @@ function parseSuggestions(features, searchText) {
         nothing_found.classList.remove('opacity-0')
     }, 100);
     suggestionList.innerHTML = ''
-    console.table(features)
+    // console.table(features)
     if (features.length == 0) {
         console.log('Nothing')
     } else {
@@ -143,10 +143,9 @@ function parseSuggestions(features, searchText) {
             //     delete (features[key]);
             //     features.length -= 1;
             // } else {
+            let id = value.id.split('.')[1]
             let name = value.text_ru;
             let countryCode = value.context[value.context.findIndex(item => item.id.includes('country'))].short_code;
-            console.log(countryCode, userCountry)
-            console.log(countryCode !== userCountry)
             let region
             if (value.context.findIndex(item => item.id.includes('region')) !== -1) {
                 region = value.context[value.context.findIndex(item => item.id.includes('region'))].text;
@@ -156,14 +155,14 @@ function parseSuggestions(features, searchText) {
             let capText = searchText[0].toUpperCase() + searchText.slice(1)
             let locationLi = document.createElement('li');
             locationLi.onclick = () => showPosition(position, false)
-            if ((locations) && (Object.values(locations).findIndex(item => item.id.includes('country')) != -1)) {
+            if ((typeof locations !== 'undefined') && (Object.values(locations).findIndex(item => item.id == id) != -1)) {
                 action = ''
-                locationLi.classList.add('pointer-events-none', 'text-slate-500', 'py-2', 'pr-2', 'truncate')
-                text = `${name}, ${region}${(countryCode !== userCountry) ? ', ' + country : ''}`
+                locationLi.classList.add('flex', 'pointer-events-none', 'text-gray-300', 'pr-2', 'truncate')
+                text = `${name}${region ? ', ' + region : ''}${(countryCode !== userCountry) ? ', ' + country : ''}`
             } else {
                 // action = action;
-                locationLi.classList.add('pr-2', 'truncate')
-                text = `${name.replace(capText, `<strong class="text-primary-light dark:text-yellow">${capText}</strong>`)}<strong class="text-gray-300 dark:text-cosmic-500">${region ? ', ' + region : ''}${(countryCode !== userCountry) ? ', ' + country : ''}</strong>`
+                locationLi.classList.add('flex', 'pr-2', 'truncate')
+                text = `${name.replace(capText, `<div class="text-primary-light dark:text-yellow">${capText}</div>`)}<div class="text-gray-300 dark:text-cosmic-500">${region ? ', ' + region : ''}${(countryCode !== userCountry) ? ', ' + country : ''}</div>`
             }
             locationLi.innerHTML = text
             suggestionList.appendChild(locationLi)

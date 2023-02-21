@@ -2,7 +2,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e =
     if (localStorage.theme == 'system') {
         if (e.matches) {
             document.documentElement.classList.add('dark')
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#10213A');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#131E32');
         } else {
             document.documentElement.classList.remove('dark')
             document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F3F4F7');
@@ -12,11 +12,11 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e =
 
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark')
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#10213A');
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#131E32');
 } else if (localStorage.theme === 'system') {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.classList.add('dark')
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#10213A');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#131E32');
     } else {
         document.documentElement.classList.remove('dark')
         document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F3F4F7');
@@ -27,9 +27,9 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (localStorage.theme === 'dark') {
         activateTheme('dark')
-    } else if (localStorage.theme === 'system') {
+    } else if (localStorage.theme === 'system' || !('theme' in localStorage)) {
         activateTheme('system')
     } else {
         activateTheme('light')
@@ -57,7 +57,7 @@ function activateTheme(mode) {
     if (mode == 'dark') {
         theme_button.innerHTML = 'Тёмная'
         document.documentElement.classList.add('dark')
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#10213A');
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#131E32');
     } else if (mode == 'light') {
         theme_button.innerHTML = 'Светлая'
         document.documentElement.classList.remove('dark')
@@ -66,7 +66,7 @@ function activateTheme(mode) {
         theme_button.innerHTML = 'Системная'
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark')
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#10213A');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#131E32');
         } else {
             document.documentElement.classList.remove('dark')
             document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F3F4F7');

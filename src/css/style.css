@@ -26,7 +26,12 @@
     font-weight: 600;
     src: url(/weather/fonts/Nunito/Nunito-SemiBold.woff2) format("woff");
   }
-
+  @font-face {
+    font-family: 'Nunito';
+    font-weight: 700;
+    src: url(/weather/fonts/Nunito/Nunito-Bold.woff2) format("woff");
+  }
+}
   /* @font-face {
     font-family: 'Noto_Emoji';
     font-weight: 500;
@@ -35,17 +40,21 @@
   small {
     @apply text-xxs leading-3 text-gray-300 dark:text-cosmic-400;
   }
-
   h3 {
     @apply text-lg leading-[22px] font-bold  text-cosmic-900 dark:text-white;
   }
   strong {
-    @apply text-base leading-5 text-cosmic-900 dark:text-white;
+    @apply font-bold leading-5 text-cosmic-900 dark:text-white;
   }
   span {
     @apply text-xs font-normal leading-[14px] text-cosmic-900 dark:text-white;
   }
+  p {
+    @apply font-normal text-sm leading-5
+  }
   
+.swiper , .swiper, swiper-container{
+  @apply !overflow-clip
 }
 
 @layer components {
@@ -79,6 +88,10 @@
     @apply ease-[cubic-bezier(.23,1,.32,1)] transition-opacity transform-gpu duration-500;
   }
 }
+
+html, body {
+  overscroll-behavior: none;
+}
 body {
   touch-action: pan-y;
 }
@@ -88,7 +101,6 @@ body {
 }
 
 /* these are special */
-
 .slip-reordering {
   transition-duration: 50ms;
   transition-timing-function: linear;
@@ -192,9 +204,9 @@ input {
 
 
 
-.swiper {
+/* .swiper {
   overflow: clip !important;
-}
+} */
 .swiper-pagination {
   position: relative !important;
   width: auto !important;

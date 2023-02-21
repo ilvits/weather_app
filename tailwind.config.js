@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors')
 module.exports = {
+  // important: true,
   darkMode: 'class',
   content: [
     // "*.html",
@@ -99,6 +100,11 @@ module.exports = {
       // neutral: colors.neutral,
     },
   },
+  // corePlugins: {
+  //   float: false,
+  //   objectFit: false,
+  //   objectPosition: false,
+  // },
   plugins: [
     require('preline/plugin'),
     require('tailwindcss-gradient'),

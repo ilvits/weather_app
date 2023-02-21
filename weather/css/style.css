@@ -442,63 +442,12 @@ video {
   src: url(/weather/fonts/Nunito/Nunito-SemiBold.woff2) format("woff");
 }
 
-/* @font-face {
-    font-family: 'Noto_Emoji';
-    font-weight: 500;
-    src: url(/weather/fonts/Noto_Emoji/static/NotoEmoji-Medium.woff2) format("woff");
-  } */
+@font-face {
+  font-family: 'Nunito';
 
-small {
-  font-size: 10px;
-  line-height: 9px;
-  line-height: .75rem;
-  --tw-text-opacity: 1;
-  color: rgb(144 146 158 / var(--tw-text-opacity));
-}
-
-.dark small {
-  --tw-text-opacity: 1;
-  color: rgb(172 216 231 / var(--tw-text-opacity));
-}
-
-h3 {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
   font-weight: 700;
-  line-height: 22px;
-  --tw-text-opacity: 1;
-  color: rgb(19 30 50 / var(--tw-text-opacity));
-}
 
-.dark h3 {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-strong {
-  font-size: 1rem;
-  line-height: 1.25rem;
-  --tw-text-opacity: 1;
-  color: rgb(19 30 50 / var(--tw-text-opacity));
-}
-
-.dark strong {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-span {
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 400;
-  line-height: 14px;
-  --tw-text-opacity: 1;
-  color: rgb(19 30 50 / var(--tw-text-opacity));
-}
-
-.dark span {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  src: url(/weather/fonts/Nunito/Nunito-Bold.woff2) format("woff");
 }
 
 *, ::before, ::after {
@@ -866,6 +815,10 @@ li .card__wrapper {
   left: 50%;
 }
 
+.top-1\/2 {
+  top: 50%;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -954,10 +907,6 @@ li .card__wrapper {
   right: 3.5rem;
 }
 
-.top-1\/2 {
-  top: 50%;
-}
-
 .-bottom-full {
   bottom: -100%;
 }
@@ -1040,14 +989,14 @@ li .card__wrapper {
   margin-bottom: 1rem;
 }
 
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
 .mx-8 {
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .mx-\[26px\] {
@@ -1065,10 +1014,6 @@ li .card__wrapper {
 
 .mr-8 {
   margin-right: 2rem;
-}
-
-.mt-44 {
-  margin-top: 11rem;
 }
 
 .mt-3 {
@@ -1275,6 +1220,30 @@ li .card__wrapper {
   height: 1px;
 }
 
+.h-\[99px\] {
+  height: 99px;
+}
+
+.h-\[px\] {
+  height: px;
+}
+
+.h-\[93px\] {
+  height: 93px;
+}
+
+.h-\[101px\] {
+  height: 101px;
+}
+
+.h-\[90px\] {
+  height: 90px;
+}
+
+.h-\[91px\] {
+  height: 91px;
+}
+
 .w-6 {
   width: 1.5rem;
 }
@@ -1337,6 +1306,10 @@ li .card__wrapper {
 
 .w-3 {
   width: 0.75rem;
+}
+
+.w-\[calc\(100\%_-_84px\)\] {
+  width: calc(100% - 84px);
 }
 
 .w-\[195px\] {
@@ -1465,6 +1438,11 @@ li .card__wrapper {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.-translate-x-24 {
+  --tw-translate-x: -6rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .-translate-y-12 {
   --tw-translate-y: -3rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1495,11 +1473,6 @@ li .card__wrapper {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.-translate-x-24 {
-  --tw-translate-x: -6rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .-translate-y-\[26px\] {
   --tw-translate-y: -26px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1515,13 +1488,13 @@ li .card__wrapper {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.translate-y-4 {
-  --tw-translate-y: 1rem;
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.-translate-y-1\/2 {
-  --tw-translate-y: -50%;
+.translate-y-4 {
+  --tw-translate-y: 1rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1886,10 +1859,6 @@ li .card__wrapper {
 
 .overflow-x-clip {
   overflow-x: clip;
-}
-
-.overflow-y-clip {
-  overflow-y: clip;
 }
 
 .overflow-x-scroll {
@@ -2325,6 +2294,11 @@ li .card__wrapper {
   padding-right: 1.25rem;
 }
 
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -2542,6 +2516,10 @@ li .card__wrapper {
   line-height: 1.75rem;
 }
 
+.leading-\[60px\] {
+  line-height: 60px;
+}
+
 .leading-4 {
   line-height: 1rem;
 }
@@ -2743,16 +2721,16 @@ li .card__wrapper {
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.transition {
-  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+.transition-all {
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
-.transition-all {
-  transition-property: all;
+.transition {
+  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -2797,12 +2775,6 @@ li .card__wrapper {
   transition-duration: 150ms;
 }
 
-.transition-\[width\2c opacity\2c transform\2c margin\] {
-  transition-property: width,opacity,transform,margin;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .transition-\[width\2c opacity\] {
   transition-property: width,opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -2815,8 +2787,8 @@ li .card__wrapper {
   transition-duration: 150ms;
 }
 
-.duration-\[0ms\] {
-  transition-duration: 0ms;
+.duration-\[300ms\] {
+  transition-duration: 300ms;
 }
 
 .duration-\[700ms\] {
@@ -2841,6 +2813,14 @@ li .card__wrapper {
 
 .duration-150 {
   transition-duration: 150ms;
+}
+
+.duration-\[0ms\] {
+  transition-duration: 0ms;
+}
+
+.duration-\[500ms\] {
+  transition-duration: 500ms;
 }
 
 .ease-in-out {
@@ -2897,6 +2877,79 @@ li .card__wrapper {
 
 .\[--strategy\:absolute\] {
   --strategy: absolute;
+}
+
+/* @font-face {
+    font-family: 'Noto_Emoji';
+    font-weight: 500;
+    src: url(/weather/fonts/Noto_Emoji/static/NotoEmoji-Medium.woff2) format("woff");
+  } */
+
+small {
+  font-size: 10px;
+  line-height: 9px;
+  line-height: .75rem;
+  --tw-text-opacity: 1;
+  color: rgb(144 146 158 / var(--tw-text-opacity));
+}
+
+.dark small {
+  --tw-text-opacity: 1;
+  color: rgb(172 216 231 / var(--tw-text-opacity));
+}
+
+h3 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  line-height: 22px;
+  --tw-text-opacity: 1;
+  color: rgb(19 30 50 / var(--tw-text-opacity));
+}
+
+.dark h3 {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+strong {
+  font-weight: 700;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(19 30 50 / var(--tw-text-opacity));
+}
+
+.dark strong {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+span {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  line-height: 14px;
+  --tw-text-opacity: 1;
+  color: rgb(19 30 50 / var(--tw-text-opacity));
+}
+
+.dark span {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+p {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+}
+
+.swiper ,  .swiper,  swiper-container {
+  overflow: clip !important;
+}
+
+html, body {
+  overscroll-behavior: none;
 }
 
 body {
@@ -3039,9 +3092,9 @@ input {
   left: 0;
 }
 
-.swiper {
+/* .swiper {
   overflow: clip !important;
-}
+} */
 
 .swiper-pagination {
   position: relative !important;
@@ -3488,15 +3541,14 @@ input {
     border-left-color: rgb(19 40 70 / var(--tw-border-opacity));
     border-right-color: rgb(19 40 70 / var(--tw-border-opacity));
   }
+}
 
-  .dark .dark\:sm\:border-x {
-    border-left-width: 1px;
-    border-right-width: 1px;
-  }
+.\[\&\>\*\]\:my-2>* {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
-  .dark .dark\:sm\:border-x-cosmic-800 {
-    --tw-border-opacity: 1;
-    border-left-color: rgb(19 40 70 / var(--tw-border-opacity));
-    border-right-color: rgb(19 40 70 / var(--tw-border-opacity));
-  }
+.\[\&\>\*\]\:py-2>* {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }

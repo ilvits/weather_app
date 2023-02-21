@@ -1,7 +1,6 @@
-
+// Current Weather Data Append
 function renderCurrentForecast(loc, weatherData, preview = false) {
 
-    // CURRENT WEATHER RENDER
     user_date = new Date();
     const slide = document.querySelector(`#slide-${loc.id}`)
     const todayWeather = weatherData.days[0]
@@ -108,7 +107,7 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
     // General info
     slide.querySelector('.temperature').innerHTML = `${current_temperature}<span class="text-2xl absolute font-bold leading-9">°${s_temp}</span>`
     slide.querySelector('.conditions').innerHTML = currentWeather.conditions
-    slide.querySelector('.feelslike').innerHTML = `Ощущается как <span class="font-bold"> ${Math.round(tempConverter(currentWeather.feelslike))}°`
+    slide.querySelector('.feelslike').innerHTML = `Ощущается как <strong> ${Math.round(tempConverter(currentWeather.feelslike))}°</strong>`
     slide.querySelector('.weather-icon').innerHTML = `<img class="${currentWeather.icon == 'clear-day' ? 'animate-wiggle-3' : ''}" src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
     // Detail Info
     slide.querySelector('.sunrise').innerHTML = getTime2Digits(sunrise_date)
@@ -167,7 +166,8 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
         let curScroll;
         let direction = 0;
         let prevDirection = 0;
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', (el) => {
+            // console.log(el.target)
             curScroll = w.scrollY || doc.scrollTop;
             if (curScroll > prevScroll) {
                 //scrolled up
