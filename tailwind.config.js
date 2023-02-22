@@ -6,6 +6,7 @@ module.exports = {
   content: [
     // "*.html",
     "weather/js/*.js",
+    "weather/js/utils/*.js",
     "weather/*.html",
     'node_modules/preline/dist/*.js',
   ],
@@ -94,8 +95,10 @@ module.exports = {
       white: colors.white,
       red: colors.red,
       blue: colors.blue,
+      'primary-backdrop': '#14181F',
       'primary-light': '#3377FF',
       'primary-dark': '#FEB800',
+      'primary-red': '#F46A47',
       // secondary: colors.yellow,
       // neutral: colors.neutral,
     },

@@ -42,7 +42,7 @@
     <div id="offline-status" aria-overlay="false" class="fixed top-3 hs-overlay hidden hs-overlay-open:top-7 
         hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 backdrop-blur-sm [--body-scroll:true] [--overlay-backdrop:false] 
         ease-out transition-all right-0 inline-flex items-center gap-1.5 py-1 pl-3 pr-2 rounded-full
-         text-xs font-semibold bg-cosmic-900/10 text-red-400 z-[99] m-4">
+         text-xs font-semibold bg-cosmic-900/10 text-red-400 z-[100] m-4">
         <div class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent 
          text-blue-600 rounded-full" role="status" aria-label="loading">
             <span class="sr-only">Loading...</span>
@@ -50,7 +50,7 @@
         Connecting...
     </div>
     <div id="connection-failed" tabindex="-1"
-        class="hs-overlay hidden  [--body-scroll:true] [--overlay-backdrop:false] z-[98] fixed -top-2 left-1/2 -translate-x-1/2 w-full">
+        class="hs-overlay hidden  [--body-scroll:true] [--overlay-backdrop:false] z-[100] fixed -top-2 left-1/2 -translate-x-1/2 w-full">
         <div class="hs-overlay-open:mt-4 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 
         ease-out transition-all m-4 bg-red-100 border border-red-200 
         text-sm text-red-500 rounded-md shadow-md" role="alert">
@@ -103,7 +103,7 @@
         </div>
 
         <!-- Swiper -->
-        <div class="swiper">
+        <div class="swiper w-full h-full">
             <div id="slides" class="swiper-wrapper">
             </div>
         </div>
@@ -157,7 +157,7 @@
                 class="absolute left-1/2 -translate-x-1/2 -translate-y-[26px] transition duration-300 ease-[cubic-bezier(.23,1,.32,1)]">
                 <div class="h-6">
                     <div id="swiper-pagination"
-                        class="items-center swiper-pagination !transform !transition !duration-300 !ease-[cubic-bezier(.23,1,.32,1)] z-[10]">
+                        class="items-center swiper-pagination !transform !transition !duration-300 !ease-[cubic-bezier(.23,1,.32,1)] z-10">
                     </div>
                 </div>
                 <div id="weather-btn"
@@ -211,7 +211,7 @@
                 h-full w-full backdrop-blur-xl z-[55] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]"
         tabindex="-1">
         <div id="locations-backdrop"
-            class="absolute backdrop-blur-md top-0 left-0 w-full h-full -z-10 bg-gray-100/80 dark:bg-[#14181F]/80 opacity-0 transition-all-500">
+            class="absolute backdrop-blur-md top-0 left-0 w-full h-full hidden bg-gray-100/80 dark:bg-primary-backdrop/80 opacity-0 transition-all-500">
         </div>
         <div id="locations-container" class="flex flex-col gap-4 transition-colors duration-300 overflow-x-clip">
             <header id="locations--header"
@@ -279,11 +279,12 @@
                     <img class="w-[70px] h-[70px]" src="img/assets/icons/clarity_compass-line.svg">
                     <h3>Добавить Вашу геолокацию?</h3>
                     <div class="text-sm dark:text-cosmic-400">
-                        Разрешите определить Ваше местоположение, чтобы не тратить время на поиск.
+                        Разрешите определить Ваше местоположение, <br> чтобы не тратить время на поиск.
                     </div>
                     <button id="search-user-location--btn"
-                        class="mt-3 px-12 py-3 bg-primary-light dark:bg-yellow rounded-[10px] text-white dark:text-cosmic-900">Найти
-                        мою геолокацию</button>
+                        class="mt-3 px-12 py-3 bg-primary-light dark:bg-yellow rounded-[10px] text-white dark:text-cosmic-900">
+                        Найти мою геолокацию
+                    </button>
                 </div>
                 <div id="search-user-location--not-found" class="mx-4 mt-20 flex flex-col gap-3 text-center items-center justify-center opacity-0 hidden z-50
                     transform-gpu transition-[opacity,translate] duration-1000 ease-[cubic-bezier(.23,1,.32,1)]">
@@ -316,8 +317,8 @@
                     </svg>
 
                     <h3>Здесь будут ваши локации</h3>
-                    <div class="text-sm dark:text-cosmic-400">Воспользуйтесь строкой поиска, чтобы найти, а
-                        затем добавить нужную локацию.</div>
+                    <div class="text-sm dark:text-cosmic-400">
+                        Воспользуйтесь строкой поиска, чтобы найти, а затем добавить нужную локацию.</div>
                 </div>
             </section>
             <!-- Modal section -->
@@ -348,10 +349,10 @@
                 </div>
                 <div class="flex justify-around">
                     <button
-                        class="location-search--cancel-btn rounded-lg border w-1/2 mr-2 p-2 border-primary-light dark:border-yellow text-primary-light dark:text-yellow text-sm font-semibold"
+                        class="location--modal--cancel-btn rounded-lg border w-1/2 mr-2 p-2 border-primary-light dark:border-yellow text-primary-light dark:text-yellow text-sm font-semibold"
                         type="reset">Отмена</button>
                     <button
-                        class="location-search--ok-btn rounded-lg w-1/2 ml-2 p-2 bg-primary-light dark:bg-yellow disabled:bg-primary-light/50 disabled:dark:bg-primary-dark/50 text-white disabled:dark:text-cosmic-900 dark:text-cosmic-900 text-sm font-semibold"
+                        class="location--modal--ok-btn rounded-lg w-1/2 ml-2 p-2 bg-primary-light dark:bg-yellow disabled:bg-primary-light/50 disabled:dark:bg-primary-dark/50 text-white disabled:dark:text-cosmic-900 dark:text-cosmic-900 text-sm font-semibold"
                         type="submit">OK</button>
                 </div>
             </div>
@@ -371,10 +372,9 @@
         h-full w-full backdrop-blur-xl z-[55] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]"
         tabindex="-1">
         <div id="settings-backdrop"
-            class="absolute top-0 left-0 w-full h-full -z-10 bg-black/30 opacity-0  transition-[transform,opacity] transform-gpu ease-[cubic-bezier(.23,1,.32,1)]  duration-500">
+            class="absolute top-0 left-0 w-full h-full z-10 hidden backdrop-blur-md bg-gray-100/80 dark:bg-primary-backdrop/80 opacity-0 transition-500">
         </div>
-
-        <div id="container-settings" class="mx-4 grid grid-flow-row gap-4 relative transition-colors duration-300">
+        <div id="container-settings" class="mx-4 grid grid-flow-row gap-4 relative">
             <!-- HEADER -->
             <header
                 class="sticky bg-gray-100/80 dark:bg-cosmic-900 z-[5] top-0 h-12 flex w-full pt-4 pb-1 justify-between items-center">
@@ -395,14 +395,14 @@
             </header>
             <!--  -->
             <div class="w-full">
-                <h2 class="px-4 font-light text-xs uppercase pb-2 text-gray-300 dark:text-white/50">Единицы
+                <h2 class="px-4 font-medium text-xs uppercase pb-2 text-gray-300 dark:text-cosmic-500">Единицы
                     измерения
                 </h2>
                 <div
                     class="card grid gap-4 w-full leading-7 bg-white dark:bg-[#1A2947] rounded-3xl text-sm transition-colors duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
                     <div class="grid grid-flow-row w-full gap-[20px] p-6">
                         <label id="set_temp" class="flex justify-between items-center">
-                            <div class="font-light">Градусы</div>
+                            <div>Градусы</div>
 
                             <div
                                 class="relative flex items-center h-[28px] w-[128px] 
@@ -410,7 +410,7 @@
 
                                 <input class="hidden" type="checkbox" name="settings" id="s-temp">
                                 <div slider data-off="°C" data-on="°F"
-                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
 
                                 </div>
@@ -420,7 +420,7 @@
 
                         </label>
                         <label id="set_wind" class="flex justify-between items-center">
-                            <div class="font-light">Скорость ветра</div>
+                            <div>Скорость ветра</div>
 
                             <div
                                 class="relative flex items-center h-[28px] w-[128px]
@@ -428,7 +428,7 @@
 
                                 <input class="hidden" type="checkbox" name="settings" id="s-wind">
                                 <div slider data-off="км/ч" data-on="м/с"
-                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border  ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
                                     км/ч
                                 </div>
@@ -438,7 +438,7 @@
 
                         </label>
                         <label id="set_pressure" class="flex justify-between items-center">
-                            <div class="font-light">Давление</div>
+                            <div>Давление</div>
 
                             <div
                                 class="relative flex items-center h-[28px] w-[128px] 
@@ -446,7 +446,7 @@
 
                                 <input class="hidden" type="checkbox" name="settings" id="s-pressure">
                                 <div slider data-off="мм рт.ст." data-on="гПа"
-                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md border ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
+                                    class="absolute top-[-1px] left-[-1px] bg-primary-light dark:bg-yellow rounded-l-md ease-[cubic-bezier(.23,1,.32,1)] transform-gpu duration-500
                                              border-primary-light dark:border-yellow w-[64px] h-[28px] text-white dark:text-cosmic-900 cursor-pointer'">
                                     мм
                                     рт.ст.
@@ -460,12 +460,12 @@
                 </div>
             </div>
             <div class="w-full">
-                <h2 class="px-4 font-light text-xs uppercase pb-2 text-gray-300 dark:text-white/50">Приложение</h2>
+                <h2 class="px-4 font-medium text-xs uppercase pb-2 text-gray-300 dark:text-cosmic-500">Приложение</h2>
                 <div
                     class="card grid gap-4 bg-white dark:bg-[#1A2947] rounded-3xl leading-7 text-sm transition-colors duration-500 ease-[cubic-bezier(.23,1,.32,1)]">
                     <div class="grid grid-flow-row gap-6 p-6">
                         <!-- <div class="flex justify-between">
-                            <div class="font-light">Язык</div>
+                            <div>Язык</div>
                             <section class="flex gap-3">
                                 <label id="set_lang">
                                     <div class="relative flex items-center h-[28px] w-[128px] 
@@ -482,107 +482,85 @@
                             </section>
                         </div> -->
                         <!-- <div class="flex justify-between">
-                            <div class=" font-light">Уведомления</div>
+                            <div>Уведомления</div>
                             <div class="flex text-center border border-yellow rounded-md w-32 font-light">
                                 <div class="w-1/2 py-1 text-sm bg-primary-light dark:bg-yellow text-white dark:text-cosmic-900">выкл</div>
                                 <div class="w-1/2 py-1 text-sm text-yellow">вкл</div>
                             </div>
                         </div> -->
-                        <div class="flex justify-between">
-                            <div class="font-light">Цветовая тема</div>
-                            <div id="settings-theme-dropdown"
-                                class="hs-dropdown  inline-flex [--auto-close:inside] [--strategy:absolute]"
-                                data-hs-dropdown-auto-close="outside">
-                                <button id="hs-dropdown-item-checkbox" type="button"
-                                    class="hs-dropdown-toggle items-center transition-all text-sm text-primary-light dark:text-yellow">
-                                    Темная
-                                </button>
+                        <div id="settings-theme-dropdown"
+                            class="hs-dropdown flex justify-between [--auto-close:inside] [--strategy:absolute]"
+                            data-hs-dropdown-auto-close="outside">
+                            <div>Тема оформления</div>
+                            <button id="hs-dropdown-item-checkbox" type="button"
+                                class="hs-dropdown-toggle items-center  transition-all-300 text-sm text-primary-light dark:text-yellow">
+                            </button>
 
-                                <div class="hs-dropdown-menu transition-[opacity,margin] divide-y divide-gray-100 dark:divide-cosmic-800 
-                                    duration hs-dropdown-open:opacity-100 opacity-0 z-10
-                                    hidden py-[10px] px-4 min-w-[227px] bg-white rounded-2xl dark:bg-[#1B304E]
-                                    !inset-auto !top-1/2 !left-1/2 !transform -translate-x-1/2 duration-300 -translate-y-1/2 -mt-3"
-                                    aria-labelledby="hs-dropdown-item-checkbox">
-                                    <div id="theme-light" class="relative flex justify-around py-[10px]">
-                                        <div>
-                                            <input id="hs-dropdown-item-radio-light" name="hs-dropdown-item-radio"
-                                                type="radio" class="hidden" data-theme="light"
-                                                aria-describedby="hs-dropdown-item-radio-light">
-                                        </div>
-                                        <label for="hs-dropdown-item-radio-light" class="grow flex items-center">
-                                            <svg class="theme-radio-svg transform-gpu transition-color ease-[cubic-bezier(.23,1,.32,1)] duration-300 stroke-primary-light dark:stroke-yellow"
-                                                width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.66675 8L6.66675 12L13.3334 4" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-
-                                            <span class="ml-[6px] grow darkmode">
-                                                Светлая
-                                            </span>
-                                            <div id="white_dot"
-                                                class="absolute top-0 left-0 rounded-full bg-white w-0 h-0 z-10 transform-gpu transition-all duration-300">
-                                            </div>
-
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12.0001 1.71436C12.1706 1.71436 12.3341 1.78208 12.4546 1.90264C12.5752 2.0232 12.6429 2.18672 12.6429 2.35721V3.6395C12.6429 3.80999 12.5752 3.97351 12.4546 4.09407C12.3341 4.21463 12.1706 4.28236 12.0001 4.28236C11.8296 4.28236 11.6661 4.21463 11.5455 4.09407C11.4249 3.97351 11.3572 3.80999 11.3572 3.6395V2.35721C11.3572 2.18672 11.4249 2.0232 11.5455 1.90264C11.6661 1.78208 11.8296 1.71436 12.0001 1.71436ZM17.1429 12.0001C17.1429 12.6754 17.0099 13.3442 16.7515 13.9682C16.493 14.5921 16.1142 15.1591 15.6366 15.6366C15.1591 16.1142 14.5921 16.493 13.9682 16.7515C13.3442 17.0099 12.6754 17.1429 12.0001 17.1429C11.3247 17.1429 10.6559 17.0099 10.032 16.7515C9.40802 16.493 8.84108 16.1142 8.36352 15.6366C7.88596 15.1591 7.50714 14.5921 7.24869 13.9682C6.99024 13.3442 6.85721 12.6754 6.85721 12.0001C6.85721 10.6361 7.39905 9.32799 8.36352 8.36352C9.32799 7.39905 10.6361 6.85721 12.0001 6.85721C13.364 6.85721 14.6721 7.39905 15.6366 8.36352C16.6011 9.32799 17.1429 10.6361 17.1429 12.0001ZM21.6429 12.6429C21.8134 12.6429 21.9769 12.5752 22.0975 12.4546C22.2181 12.3341 22.2858 12.1706 22.2858 12.0001C22.2858 11.8296 22.2181 11.6661 22.0975 11.5455C21.9769 11.4249 21.8134 11.3572 21.6429 11.3572H20.3598C20.1893 11.3572 20.0258 11.4249 19.9052 11.5455C19.7847 11.6661 19.7169 11.8296 19.7169 12.0001C19.7169 12.1706 19.7847 12.3341 19.9052 12.4546C20.0258 12.5752 20.1893 12.6429 20.3598 12.6429H21.6421H21.6429ZM12.0001 19.7178C12.1706 19.7178 12.3341 19.7855 12.4546 19.9061C12.5752 20.0266 12.6429 20.1901 12.6429 20.3606V21.6429C12.6429 21.8134 12.5752 21.9769 12.4546 22.0975C12.3341 22.2181 12.1706 22.2858 12.0001 22.2858C11.8296 22.2858 11.6661 22.2181 11.5455 22.0975C11.4249 21.9769 11.3572 21.8134 11.3572 21.6429V20.3606C11.3572 20.1901 11.4249 20.0266 11.5455 19.9061C11.6661 19.7855 11.8296 19.7178 12.0001 19.7178ZM3.64293 12.6429C3.81342 12.6429 3.97694 12.5752 4.0975 12.4546C4.21805 12.3341 4.28578 12.1706 4.28578 12.0001C4.28578 11.8296 4.21805 11.6661 4.0975 11.5455C3.97694 11.4249 3.81342 11.3572 3.64293 11.3572H2.35721C2.18672 11.3572 2.0232 11.4249 1.90264 11.5455C1.78208 11.6661 1.71436 11.8296 1.71436 12.0001C1.71436 12.1706 1.78208 12.3341 1.90264 12.4546C2.0232 12.5752 2.18672 12.6429 2.35721 12.6429H3.64293ZM4.4735 4.4735C4.59403 4.35311 4.75743 4.28549 4.92778 4.28549C5.09814 4.28549 5.26153 4.35311 5.38207 4.4735L6.66778 5.75921C6.78134 5.88108 6.84316 6.04226 6.84022 6.2088C6.83728 6.37535 6.76981 6.53425 6.65203 6.65203C6.53425 6.76981 6.37535 6.83728 6.2088 6.84022C6.04226 6.84316 5.88108 6.78134 5.75921 6.66778L4.4735 5.38207C4.35311 5.26153 4.28549 5.09814 4.28549 4.92778C4.28549 4.75743 4.35311 4.59403 4.4735 4.4735ZM5.38207 19.5249C5.26021 19.6385 5.09902 19.7003 4.93248 19.6974C4.76594 19.6944 4.60703 19.627 4.48925 19.5092C4.37147 19.3914 4.304 19.2325 4.30106 19.0659C4.29812 18.8994 4.35994 18.7382 4.4735 18.6164L5.75921 17.3306C5.88108 17.2171 6.04226 17.1553 6.2088 17.1582C6.37535 17.1611 6.53425 17.2286 6.65203 17.3464C6.76981 17.4642 6.83728 17.6231 6.84022 17.7896C6.84316 17.9562 6.78134 18.1173 6.66778 18.2392L5.38207 19.5249ZM19.5249 4.4735C19.4044 4.35311 19.241 4.28549 19.0706 4.28549C18.9003 4.28549 18.7369 4.35311 18.6164 4.4735L17.3306 5.75921C17.2171 5.88108 17.1553 6.04226 17.1582 6.2088C17.1611 6.37535 17.2286 6.53425 17.3464 6.65203C17.4642 6.76981 17.6231 6.83728 17.7896 6.84022C17.9562 6.84316 18.1173 6.78134 18.2392 6.66778L19.5249 5.38207C19.6453 5.26153 19.7129 5.09814 19.7129 4.92778C19.7129 4.75743 19.6453 4.59403 19.5249 4.4735ZM18.6172 19.5258C18.6761 19.5889 18.747 19.6396 18.8259 19.6747C18.9048 19.7099 18.9899 19.7288 19.0762 19.7303C19.1625 19.7318 19.2482 19.7159 19.3283 19.6836C19.4083 19.6513 19.4811 19.6031 19.5421 19.5421C19.6031 19.4811 19.6513 19.4083 19.6836 19.3283C19.7159 19.2482 19.7318 19.1625 19.7303 19.0762C19.7288 18.9899 19.7099 18.9048 19.6747 18.8259C19.6396 18.747 19.5889 18.6761 19.5258 18.6172L18.2401 17.3315C18.1812 17.2683 18.1102 17.2177 18.0314 17.1825C17.9525 17.1474 17.8674 17.1285 17.7811 17.127C17.6948 17.1255 17.609 17.1413 17.529 17.1737C17.4489 17.206 17.3762 17.2541 17.3152 17.3152C17.2541 17.3762 17.206 17.4489 17.1737 17.529C17.1413 17.609 17.1255 17.6948 17.127 17.7811C17.1285 17.8674 17.1474 17.9525 17.1825 18.0314C17.2177 18.1102 17.2683 18.1812 17.3315 18.2401L18.6172 19.5258Z"
-                                                    fill="#FEB800" />
-                                            </svg>
-                                        </label>
-                                    </div>
-                                    <div id="theme-dark" class="relative flex justify-around py-[10px]">
-                                        <div>
-                                            <input id="hs-dropdown-item-radio-dark" name="hs-dropdown-item-radio"
-                                                type="radio" class="hidden" data-theme="dark"
-                                                aria-describedby="hs-dropdown-item-radio-dark">
-                                        </div>
-                                        <label for="hs-dropdown-item-radio-dark" class="grow flex items-center">
-                                            <svg class="theme-radio-svg transform-gpu transition-color ease-[cubic-bezier(.23,1,.32,1)] duration-300  stroke-primary-light dark:stroke-yellow"
-                                                width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.66675 8L6.66675 12L13.3334 4" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                            <span class="ml-[6px] grow darkmode ">Тёмная</span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M18.8577 16.2572C16.5072 20.3285 11.3014 21.7233 7.23014 19.3728C6.13546 18.7423 5.19544 17.8753 4.47878 16.835C4.42325 16.7545 4.38697 16.6623 4.37275 16.5655C4.35853 16.4687 4.36674 16.3699 4.39676 16.2768C4.42679 16.1837 4.47781 16.0988 4.54589 16.0285C4.61397 15.9583 4.69729 15.9046 4.7894 15.8717C7.99521 14.7245 9.71258 13.3952 10.7091 11.4923C11.7576 9.48983 12.0291 7.29674 11.2955 4.29007C11.2718 4.1933 11.2712 4.09233 11.2935 3.99525C11.3159 3.89817 11.3607 3.80767 11.4243 3.731C11.4879 3.65432 11.5685 3.5936 11.6598 3.5537C11.7511 3.51379 11.8504 3.4958 11.9499 3.50117C13.2857 3.57307 14.5854 3.96005 15.7429 4.63048C19.8142 6.98101 21.2091 12.1867 18.8577 16.2572Z"
-                                                    fill="#D580FF" />
-                                            </svg>
-                                        </label>
-                                    </div>
-
-                                    <div id="theme-system" class="relative flex justify-around py-[10px]">
-                                        <div>
-                                            <input id="hs-dropdown-item-radio-system" name="hs-dropdown-item-radio"
-                                                type="radio" class="hidden" data-theme="system"
-                                                aria-describedby="hs-dropdown-item-radio-system">
-                                        </div>
-                                        <label for="hs-dropdown-item-radio-system" class="grow flex items-center">
-                                            <svg class="theme-radio-svg transform-gpu transition-color ease-[cubic-bezier(.23,1,.32,1)] duration-300 stroke-primary-light dark:stroke-yellow"
-                                                width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M2.66675 8L6.66675 12L13.3334 4" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                            <span class="ml-[6px] grow">Системная</span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                class="fill-[#1B2541] dark:fill-white"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 5.375C6 4.74511 6.25022 4.14102 6.69562 3.69562C7.14102 3.25022 7.74511 3 8.375 3H15.5C16.1299 3 16.734 3.25022 17.1794 3.69562C17.6248 4.14102 17.875 4.74511 17.875 5.375V19.625C17.875 20.2549 17.6248 20.859 17.1794 21.3044C16.734 21.7498 16.1299 22 15.5 22H8.375C7.74511 22 7.14102 21.7498 6.69562 21.3044C6.25022 20.859 6 20.2549 6 19.625V5.375ZM13.125 18.4375C13.125 18.1226 12.9999 17.8205 12.7772 17.5978C12.5545 17.3751 12.2524 17.25 11.9375 17.25C11.6226 17.25 11.3205 17.3751 11.0978 17.5978C10.8751 17.8205 10.75 18.1226 10.75 18.4375C10.75 18.7524 10.8751 19.0545 11.0978 19.2772C11.3205 19.4999 11.6226 19.625 11.9375 19.625C12.2524 19.625 12.5545 19.4999 12.7772 19.2772C12.9999 19.0545 13.125 18.7524 13.125 18.4375Z" />
-                                            </svg>
-                                        </label>
-
-                                    </div>
+                            <div class="hs-dropdown-menu transition-all-300 text-base divide-y divide-gray-100 dark:divide-cosmic-800 
+                                    hs-dropdown-open:scale-100 scale-90 hs-dropdown-open:opacity-100 opacity-0 z-10
+                                    hidden py-2.5 px-4 min-w-[227px] bg-white rounded-2xl dark:bg-[#1B304E]
+                                    !inset-auto !top-1/2 !left-1/2 !transform -translate-x-1/2 -translate-y-1/2 -mt-3"
+                                aria-labelledby="hs-dropdown-item-checkbox">
+                                <div>
+                                    <input id="hs-dropdown-item-radio-light" name="hs-dropdown-item-radio" type="radio"
+                                        class="hidden" data-theme="light"
+                                        aria-describedby="hs-dropdown-item-radio-light">
+                                    <label id="theme-light" for="hs-dropdown-item-radio-light"
+                                        class="grow flex items-center py-2.5">
+                                        <svg class="theme-radio-svg transition-all-300 stroke-primary-light dark:stroke-yellow"
+                                            width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.66675 8L6.66675 12L13.3334 4" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <div class="ml-[6px] grow">Светлая</div>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12.0001 1.71436C12.1706 1.71436 12.3341 1.78208 12.4546 1.90264C12.5752 2.0232 12.6429 2.18672 12.6429 2.35721V3.6395C12.6429 3.80999 12.5752 3.97351 12.4546 4.09407C12.3341 4.21463 12.1706 4.28236 12.0001 4.28236C11.8296 4.28236 11.6661 4.21463 11.5455 4.09407C11.4249 3.97351 11.3572 3.80999 11.3572 3.6395V2.35721C11.3572 2.18672 11.4249 2.0232 11.5455 1.90264C11.6661 1.78208 11.8296 1.71436 12.0001 1.71436ZM17.1429 12.0001C17.1429 12.6754 17.0099 13.3442 16.7515 13.9682C16.493 14.5921 16.1142 15.1591 15.6366 15.6366C15.1591 16.1142 14.5921 16.493 13.9682 16.7515C13.3442 17.0099 12.6754 17.1429 12.0001 17.1429C11.3247 17.1429 10.6559 17.0099 10.032 16.7515C9.40802 16.493 8.84108 16.1142 8.36352 15.6366C7.88596 15.1591 7.50714 14.5921 7.24869 13.9682C6.99024 13.3442 6.85721 12.6754 6.85721 12.0001C6.85721 10.6361 7.39905 9.32799 8.36352 8.36352C9.32799 7.39905 10.6361 6.85721 12.0001 6.85721C13.364 6.85721 14.6721 7.39905 15.6366 8.36352C16.6011 9.32799 17.1429 10.6361 17.1429 12.0001ZM21.6429 12.6429C21.8134 12.6429 21.9769 12.5752 22.0975 12.4546C22.2181 12.3341 22.2858 12.1706 22.2858 12.0001C22.2858 11.8296 22.2181 11.6661 22.0975 11.5455C21.9769 11.4249 21.8134 11.3572 21.6429 11.3572H20.3598C20.1893 11.3572 20.0258 11.4249 19.9052 11.5455C19.7847 11.6661 19.7169 11.8296 19.7169 12.0001C19.7169 12.1706 19.7847 12.3341 19.9052 12.4546C20.0258 12.5752 20.1893 12.6429 20.3598 12.6429H21.6421H21.6429ZM12.0001 19.7178C12.1706 19.7178 12.3341 19.7855 12.4546 19.9061C12.5752 20.0266 12.6429 20.1901 12.6429 20.3606V21.6429C12.6429 21.8134 12.5752 21.9769 12.4546 22.0975C12.3341 22.2181 12.1706 22.2858 12.0001 22.2858C11.8296 22.2858 11.6661 22.2181 11.5455 22.0975C11.4249 21.9769 11.3572 21.8134 11.3572 21.6429V20.3606C11.3572 20.1901 11.4249 20.0266 11.5455 19.9061C11.6661 19.7855 11.8296 19.7178 12.0001 19.7178ZM3.64293 12.6429C3.81342 12.6429 3.97694 12.5752 4.0975 12.4546C4.21805 12.3341 4.28578 12.1706 4.28578 12.0001C4.28578 11.8296 4.21805 11.6661 4.0975 11.5455C3.97694 11.4249 3.81342 11.3572 3.64293 11.3572H2.35721C2.18672 11.3572 2.0232 11.4249 1.90264 11.5455C1.78208 11.6661 1.71436 11.8296 1.71436 12.0001C1.71436 12.1706 1.78208 12.3341 1.90264 12.4546C2.0232 12.5752 2.18672 12.6429 2.35721 12.6429H3.64293ZM4.4735 4.4735C4.59403 4.35311 4.75743 4.28549 4.92778 4.28549C5.09814 4.28549 5.26153 4.35311 5.38207 4.4735L6.66778 5.75921C6.78134 5.88108 6.84316 6.04226 6.84022 6.2088C6.83728 6.37535 6.76981 6.53425 6.65203 6.65203C6.53425 6.76981 6.37535 6.83728 6.2088 6.84022C6.04226 6.84316 5.88108 6.78134 5.75921 6.66778L4.4735 5.38207C4.35311 5.26153 4.28549 5.09814 4.28549 4.92778C4.28549 4.75743 4.35311 4.59403 4.4735 4.4735ZM5.38207 19.5249C5.26021 19.6385 5.09902 19.7003 4.93248 19.6974C4.76594 19.6944 4.60703 19.627 4.48925 19.5092C4.37147 19.3914 4.304 19.2325 4.30106 19.0659C4.29812 18.8994 4.35994 18.7382 4.4735 18.6164L5.75921 17.3306C5.88108 17.2171 6.04226 17.1553 6.2088 17.1582C6.37535 17.1611 6.53425 17.2286 6.65203 17.3464C6.76981 17.4642 6.83728 17.6231 6.84022 17.7896C6.84316 17.9562 6.78134 18.1173 6.66778 18.2392L5.38207 19.5249ZM19.5249 4.4735C19.4044 4.35311 19.241 4.28549 19.0706 4.28549C18.9003 4.28549 18.7369 4.35311 18.6164 4.4735L17.3306 5.75921C17.2171 5.88108 17.1553 6.04226 17.1582 6.2088C17.1611 6.37535 17.2286 6.53425 17.3464 6.65203C17.4642 6.76981 17.6231 6.83728 17.7896 6.84022C17.9562 6.84316 18.1173 6.78134 18.2392 6.66778L19.5249 5.38207C19.6453 5.26153 19.7129 5.09814 19.7129 4.92778C19.7129 4.75743 19.6453 4.59403 19.5249 4.4735ZM18.6172 19.5258C18.6761 19.5889 18.747 19.6396 18.8259 19.6747C18.9048 19.7099 18.9899 19.7288 19.0762 19.7303C19.1625 19.7318 19.2482 19.7159 19.3283 19.6836C19.4083 19.6513 19.4811 19.6031 19.5421 19.5421C19.6031 19.4811 19.6513 19.4083 19.6836 19.3283C19.7159 19.2482 19.7318 19.1625 19.7303 19.0762C19.7288 18.9899 19.7099 18.9048 19.6747 18.8259C19.6396 18.747 19.5889 18.6761 19.5258 18.6172L18.2401 17.3315C18.1812 17.2683 18.1102 17.2177 18.0314 17.1825C17.9525 17.1474 17.8674 17.1285 17.7811 17.127C17.6948 17.1255 17.609 17.1413 17.529 17.1737C17.4489 17.206 17.3762 17.2541 17.3152 17.3152C17.2541 17.3762 17.206 17.4489 17.1737 17.529C17.1413 17.609 17.1255 17.6948 17.127 17.7811C17.1285 17.8674 17.1474 17.9525 17.1825 18.0314C17.2177 18.1102 17.2683 18.1812 17.3315 18.2401L18.6172 19.5258Z"
+                                                fill="#FEB800" />
+                                        </svg>
+                                    </label>
                                 </div>
+                                <input id="hs-dropdown-item-radio-dark" name="hs-dropdown-item-radio" type="radio"
+                                    class="hidden" data-theme="dark" aria-describedby="hs-dropdown-item-radio-dark">
+                                <label id="theme-dark" for="hs-dropdown-item-radio-dark"
+                                    class="grow flex items-center py-2.5">
+                                    <svg class="theme-radio-svg transition-all-300 stroke-primary-light dark:stroke-yellow"
+                                        width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.66675 8L6.66675 12L13.3334 4" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="ml-[6px] grow ">Тёмная</div>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M18.8577 16.2572C16.5072 20.3285 11.3014 21.7233 7.23014 19.3728C6.13546 18.7423 5.19544 17.8753 4.47878 16.835C4.42325 16.7545 4.38697 16.6623 4.37275 16.5655C4.35853 16.4687 4.36674 16.3699 4.39676 16.2768C4.42679 16.1837 4.47781 16.0988 4.54589 16.0285C4.61397 15.9583 4.69729 15.9046 4.7894 15.8717C7.99521 14.7245 9.71258 13.3952 10.7091 11.4923C11.7576 9.48983 12.0291 7.29674 11.2955 4.29007C11.2718 4.1933 11.2712 4.09233 11.2935 3.99525C11.3159 3.89817 11.3607 3.80767 11.4243 3.731C11.4879 3.65432 11.5685 3.5936 11.6598 3.5537C11.7511 3.51379 11.8504 3.4958 11.9499 3.50117C13.2857 3.57307 14.5854 3.96005 15.7429 4.63048C19.8142 6.98101 21.2091 12.1867 18.8577 16.2572Z"
+                                            fill="#D580FF" />
+                                    </svg>
+                                </label>
+                                <input id="hs-dropdown-item-radio-system" name="hs-dropdown-item-radio" type="radio"
+                                    class="hidden" data-theme="system" aria-describedby="hs-dropdown-item-radio-system">
+                                <label id="theme-system" for="hs-dropdown-item-radio-system"
+                                    class="grow flex items-center py-2.5">
+                                    <svg class="theme-radio-svg transition-all-300 stroke-primary-light dark:stroke-yellow"
+                                        width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.66675 8L6.66675 12L13.3334 4" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="ml-[6px] grow">Системная</div>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        class="fill-[#1B2541] dark:fill-white" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6 5.375C6 4.74511 6.25022 4.14102 6.69562 3.69562C7.14102 3.25022 7.74511 3 8.375 3H15.5C16.1299 3 16.734 3.25022 17.1794 3.69562C17.6248 4.14102 17.875 4.74511 17.875 5.375V19.625C17.875 20.2549 17.6248 20.859 17.1794 21.3044C16.734 21.7498 16.1299 22 15.5 22H8.375C7.74511 22 7.14102 21.7498 6.69562 21.3044C6.25022 20.859 6 20.2549 6 19.625V5.375ZM13.125 18.4375C13.125 18.1226 12.9999 17.8205 12.7772 17.5978C12.5545 17.3751 12.2524 17.25 11.9375 17.25C11.6226 17.25 11.3205 17.3751 11.0978 17.5978C10.8751 17.8205 10.75 18.1226 10.75 18.4375C10.75 18.7524 10.8751 19.0545 11.0978 19.2772C11.3205 19.4999 11.6226 19.625 11.9375 19.625C12.2524 19.625 12.5545 19.4999 12.7772 19.2772C12.9999 19.0545 13.125 18.7524 13.125 18.4375Z" />
+                                    </svg>
+                                </label>
                             </div>
                         </div>
                         <label id="set_temp" class="flex justify-between">
-                            <div class="font-light">Показывать подробный прогноз</div>
+                            <div>Показывать подробный прогноз</div>
                             <section class="flex gap-3">
                                 <div
                                     class="relative flex items-center h-[28px] w-[50px] 
@@ -598,18 +576,38 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col items-start w-full text-sm font-light px-4 pb-16 truncate">
-                <button class="px-[10px] py-4">
+            <div class="flex flex-col items-start w-full text-sm px-4 pb-16 truncate">
+                <button class="px-2.5 py-4">
                     О приложении
                 </button>
-                <button id="reset-settings" class="px-[10px] py-4">
-                    Очистить кэш и сбросить настройки
+                <button id="reset-locations" class="px-2.5 py-4">
+                    Очистить список локаций
                 </button>
-                <button class="px-[10px] py-4">
-                    Политика конфиденциальности
+                <button id="reset-settings" class="px-2.5 py-4 text-primary-red">
+                    Сбросить настройки
                 </button>
             </div>
             <div class="grow"></div>
+            <div id="settings--modal"
+                class="hidden absolute opacity-0 z-[100] p-6 min-w-[343px] bg-white rounded-2xl dark:bg-cosmic-900 -mt-4 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-center transition-all-500 "
+                aria-labelledby="hs-dropdown-item-checkbox">
+                <h3 class="mb-4">
+                    Внимание
+                </h3>
+                <div class="mb-6 relative">
+                    <span id="restore-name" class="text-gray-300 dark:text-cosmic-300 text-sm leading-4 pt-4">
+                        Вы уверены, что хотите сбросить все настройки приложения?
+                    </span>
+                </div>
+                <div class="flex justify-around">
+                    <button
+                        class="settings--modal--cancel-btn rounded-lg border w-1/2 mr-2 p-2 border-primary-light dark:border-yellow text-primary-light dark:text-yellow text-sm font-semibold"
+                        type="reset">Отмена</button>
+                    <button
+                        class="settings--modal--ok-btn rounded-lg w-1/2 ml-2 p-2 bg-primary-light dark:bg-yellow disabled:bg-primary-light/50 disabled:dark:bg-primary-dark/50 text-white disabled:dark:text-cosmic-900 dark:text-cosmic-900 text-sm font-semibold"
+                        type="submit">OK</button>
+                </div>
+            </div>
         </div>
     </div>
     <!-- End SETTINGS -->
@@ -618,12 +616,10 @@
     <section id="monthly-forecast"
         class="hidden hs-overlay-open:block hs-overlay hs-overlay-open:translate-y-0 translate-y-4 fixed hs-overlay-open:opacity-100 opacity-0
                 top-0 left-0 transition-[transform, color] duration-500 transform-gpu ease-[cubic-bezier(.23,1,.32,1)] invisible hs-overlay-open:visible
-                h-full w-full backdrop-blur-xl z-[80] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]"
-        tabindex="-1">
+                h-full w-full z-[80] bg-gray-100 dark:bg-cosmic-900 dark:text-white overflow-y-scroll [--overlay-backdrop:false]" tabindex="-1">
         <div id="monthly-header"
-            class="top-0 flex sticky dark:bg-cosmic-900/80 z-10 backdrop-blur-md w-full p-4 justify-between items-center">
-            <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-14 h-8"
-                data-hs-overlay="#monthly-forecast">
+            class="top-0 flex sticky bg-gray-100 dark:bg-cosmic-900 z-10 w-full p-4 justify-between items-center">
+            <button type="button" class="hs-dropdown-toggle grow-0 shrink-0 w-20" data-hs-overlay="#monthly-forecast">
                 <span class="sr-only">Toggle Monthly Forecast</span>
                 <svg class="fill-primary-light dark:fill-[#FEB800]" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -632,12 +628,11 @@
                 </svg>
             </button>
 
-            <div class="grow shrink-0 font-semibold text-base leading-8 h-8 text-center">
+            <div class="grow shrink-0 font-semibold leading-5 text-center">
                 Прогноз на месяц
             </div>
 
-            <button type="button" id="monthly-today-btn"
-                class="grow shrink-0 text-primary-light dark:text-yellow w-18 h-8">
+            <button type="button" class="opacity-0 w-20 leading-5">.
             </button>
         </div>
         <div id="monthly" class="mx-4 mb-20">
@@ -651,9 +646,10 @@
             transform-gpu duration-500 transition-all bg-gray-100 dark:bg-cosmic-900">
         <div
             class="flex absolute justify-between items-end p-4 rounded-t-xl bg-gray-100/80 dark:bg-cosmic-900/80 backdrop-blur-lg w-full z-[120]">
-            <button id="cancel-weather-preview" onclick="hideWeatherPreview(this)">Отмена</button>
-            <strong id="location-name" class="px-4 truncate text-lg"></strong>
-            <button id="add-weather-preview" class="text-primary-light dark:text-yellow"
+            <button id="cancel-weather-preview" class="w-20 text-left"
+                onclick="hideWeatherPreview(this)">Отмена</button>
+            <strong id="location-name" class="px-2 truncate text-lg"></strong>
+            <button id="add-weather-preview" class="text-primary-light dark:text-yellow w-20 text-right"
                 onclick="addNewLocation(this)">Добавить</button>
         </div>
         <div id="preview-window" class="overflow-auto pt-14 mt-2 bg-gray-100 dark:bg-cosmic-900">
@@ -680,14 +676,13 @@
     <!-- *******   Slide  ******* -->
     <script id="slide-template" type="text/template">
     <!--  -->
-    <div
-        class="sticky bg-gray-100 dark:bg-cosmic-900 backdrop-blur-xl top-0 gap-2 w-full px-6 py-4 flex justify-between z-50 transition-opacity-500">
+    <div class="sticky bg-gray-100 dark:bg-cosmic-900 top-0 gap-1 px-6 py-4 flex z-50 transition-opacity-500">
         <label class="location-slide--header-title truncate w-4/5 font-semibold text-xl leading-5"></label>
-        <div class="location-slide--header-temp absolute flex gap-2 items-center
-            text-gray-300 dark:text-white opacity-0 right-6 transition-opacity-300 font-bold text-sm">
+        <div
+            class="location-slide--header-temp absolute flex gap-2 items-center opacity-0 right-6 transition-opacity-300 font-bold text-sm">
         </div>
         <button
-            class="detail-weather-toggle flex items-end gap-1 text-gray-300 dark:text-cosmic-400 text-sm font-light hs-collapse-toggle transition-opacity-300">
+            class="detail-weather-toggle flex items-end gap-1 text-gray-300 dark:text-cosmic-400 text-sm hs-collapse-toggle transition-opacity-300">
             <div class="detail-weather-toggle--label">Подробнее</div>
             <svg class="detail-weather-toggle--img fill-gray-200 dark:fill-cosmic-500" width="16" height="17"
                 viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -696,15 +691,16 @@
             </svg>
         </button>
     </div>
-    <section id="general-weather-info" class="px-4 max-w-md mx-auto dark:bg-cosmic-900">
+    <section id="general-weather-info" class="px-4 mx-auto dark:bg-cosmic-900">
         <div
             class="w-full p-5 rounded-2xl bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645]">
             <div class="flex flex-row justify-between">
                 <div class="flex flex-col gap-2">
-                    <div class="current-day text-gray-300 dark:text-[#ACD8E7] text-xs font-light"></div>
+                    <div class="current-day text-gray-300 dark:text-[#ACD8E7] text-xs"></div>
                     <div class="temperature text-6xl leading-[60px] font-semibold align-text-top relative">--</div>
                     <div class="text-sm leading-4 flex flex-col gap-1">
                         <div class="conditions"></div>
+                        <div class="windgust hidden"></div>
                         <div class="feelslike"></div>
                     </div>
                 </div>
@@ -801,13 +797,13 @@
     <section class="daily py-6 mx-4 grid grid-flow-row">
     </section>
 
-    <section class="monthly-forecast-btn mx-4 pb-24 font-light flex flex-nowrap gap-5 items-center hs-overlay-toggle"
+    <section class="monthly-forecast-btn mx-4 pb-24 flex flex-nowrap gap-5 items-center hs-overlay-toggle"
         data-hs-overlay="#monthly-forecast" aria-controls="sidebarLeft" aria-label="Toggle Monthly Forecast"
         data-id="264512568">
         <div class="small-icon w-[52px] h-[52px] grow-0 bg-white dark:bg-[#192D52] rounded-2xl py-1">
             <img class="w-[44px] h-[44px] mx-auto" src="img/assets/icons/monthly.svg" alt="">
         </div>
-        <div class="grow text-base leading-5 dark:text-white">Прогноз на месяц</div>
+        <div class="grow leading-5 dark:text-white">Прогноз на месяц</div>
         <div class="grow-0"><img class="w-[7px] h-[14px] mx-auto" src="img/assets/icons/arrow-right.svg" alt=""></div>
     </section>
     </script>
@@ -817,16 +813,19 @@
 
     <!-- *** buttons *** -->
     <section class="location-card--edit-buttons-container absolute left-1/2 -translate-x-1/2 
-        invisible h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500">
-        <button type="button" class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear ">
-            <img class="" src="img/assets/icons/trash.svg">
+        invisible h-[80px] w-[284px] opacity-0 justify-between flex transition-all-500 no-reorder no-swipe">
+        <button type="button"
+            class="trash opacity-0 absolute z-50 -right-24 transition-opacity-300 ease-linear no-reorder no-swipe">
+            <img src="img/assets/icons/trash.svg">
         </button>
-        <button type="button" class="location-del no-swipe no-reorder">
-            <img src="img/delete.svg" width="40px" height="40px" alt="">
+
+        <button type="button" class="location-del no-reorder no-swipe">
+            <img class="no-reorder no-swipe" src="img/delete.svg" width="40px" height="40px" alt="">
         </button>
-        <div class="grow pointer-events-none"></div>
-        <button type="button" class="w-10 instant">
-            <svg class="fill-gray-300 dark:fill-cosmic-400 instant" width="40" height="40" viewBox="0 0 40 40"
+        <div class="grow no-reorder no-swipe"></div>
+
+        <button type="button" class="w-10 instant no-swipe">
+            <svg class="fill-gray-300 dark:fill-cosmic-400 instant no-swipe" width="40" height="40" viewBox="0 0 40 40"
                 fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g opacity="0.55">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -838,10 +837,11 @@
                 </g>
             </svg>
         </button>
+
     </section>
 
     <!-- *** card *** -->
-    <section class="card__wrapper items-center h-[85px] w-full pointer-events-none">
+    <section class="card__wrapper items-center h-[85px] w-full pointer-events-none no-reorder no-swipe">
         <div class="card__location-info flex flex-col flex-auto truncate">
             <small class="card__current-time"></small>
             <div class="flex">
@@ -870,15 +870,15 @@
         </div>
         <div class="card__weather-icon shrink-0 w-12 h-12 transition-all-500">
         </div>
-        <div class="card__edit-btn absolute right-4 invisible opacity-0 transition-300">
-            <svg class="fill-[#1B2541] dark:fill-white" width="48" height="48" viewBox="0 0 48 48"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
-                <path d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z" />
-            </svg>
-        </div>
     </section>
+    <button class="card__edit-btn absolute right-14 invisible opacity-0 transition-300 no-reorder no-swipe">
+        <svg class="fill-[#1B2541] dark:fill-white no-reorder no-swipe" width="48" height="48" viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M27.5858 17.5858C28.3668 16.8047 29.6332 16.8047 30.4142 17.5858C31.1953 18.3668 31.1953 19.6332 30.4142 20.4142L29.6213 21.2071L26.7929 18.3787L27.5858 17.5858Z" />
+            <path d="M25.3787 19.7929L17 28.1716V31H19.8284L28.2071 22.6213L25.3787 19.7929Z" />
+        </svg>
+    </button>
     </script>
 
     <script src="js/slip.js"></script>
@@ -946,16 +946,19 @@
     <!-- SETTINGS -->
     <script>
         checkboxes = document.querySelectorAll('input[name=settings]')
-        settings_backdrop = document.querySelector('#settings-backdrop')
         settings_theme_dropdown = document.querySelector('#settings-theme-dropdown')
 
         settings_theme_dropdown.addEventListener('open.hs.dropdown', (evt) => {
-            settings_backdrop.classList.remove('opacity-0', '-z-10')
-            settings_backdrop.classList.add('z-10')
+            settings_backdrop.classList.remove('hidden')
+            setTimeout(() => {
+                settings_backdrop.classList.remove('opacity-0')
+            }, 50);
         })
         settings_theme_dropdown.addEventListener('close.hs.dropdown', (evt) => {
-            settings_backdrop.classList.add('opacity-0', '-z-10')
-            settings_backdrop.classList.remove('z-10')
+            settings_backdrop.classList.add('opacity-0')
+            setTimeout(() => {
+                settings_backdrop.classList.add('hidden')
+            }, 500);
         })
 
         checkboxes.forEach(function (checkbox) {

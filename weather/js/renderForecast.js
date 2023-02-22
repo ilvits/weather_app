@@ -107,6 +107,10 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
     // General info
     slide.querySelector('.temperature').innerHTML = `${current_temperature}<span class="text-2xl absolute font-bold leading-9">°${s_temp}</span>`
     slide.querySelector('.conditions').innerHTML = currentWeather.conditions
+    if (weatherData.currentConditions.windgust) {
+        slide.querySelector('.windgust').classList.remove('hidden');
+        slide.querySelector('.windgust').innerHTML = `  Порывы ветра до <strong> ${Math.round(windConverter(weatherData.currentConditions.windgust))} ${s_wind}</strong>`
+    }
     slide.querySelector('.feelslike').innerHTML = `Ощущается как <strong> ${Math.round(tempConverter(currentWeather.feelslike))}°</strong>`
     slide.querySelector('.weather-icon').innerHTML = `<img class="${currentWeather.icon == 'clear-day' ? 'animate-wiggle-3' : ''}" src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
     // Detail Info
@@ -277,7 +281,7 @@ function renderHourlyForecast(id, weatherData) {
             // card
             hourlyPlaceholder.innerHTML += `
         <div class="flex flex-col justify-end items-center px-2  scroll-ml-3 snap-start">
-            <div class="date text-xs text-white/50 pb-1 truncate">${nextDayTip}</div>
+            <div class="date text-xs text-gray- dark:text-cosmic-500 pb-1 truncate">${nextDayTip}</div>
             <div class="icon w-11 h-11 bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645] rounded-xl flex justify-center items-center relative">
                 <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/${data.icon}.svg" alt="" srcset="">
                 ${Math.round(data.precipprob) > 20 ?
@@ -337,10 +341,8 @@ function renderDailyForecast(id, weatherData, days = 10, monthly = false) {
             let gradientWidth = Math.round(100 * (tempmax - tempmin) / weekTempdelta)
             let dot = ''
             if (i == 0) {
-                dot = `
-<div class="absolute h-[8px] w-[8px] -top-[2px] rounded-full bg-[#6390F0] dark:bg-white border-[1.5px] border-gray-100 dark:border-cosmic-900"
-style="left: calc(${Math.round(100 * currentTempShift / currentDayTempDelta)}%);">
-</div>`};
+                dot = `<div class="absolute h-[8px] w-[8px] -top-[2px] rounded-full bg-[#6390F0] dark:bg-white border-[1.5px] border-gray-100 dark:border-cosmic-900" style="left: calc(${Math.round(100 * currentTempShift / currentDayTempDelta)}%);"></div>`
+            };
             slideDailyForecastContainer.innerHTML += `
                 <div class="w-full py-[2px] font-light flex flex-nowrap gap-5 items-center">
                     <div class="small-icon w-[52px] h-[52px] shrink-0 bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645] rounded-2xl py-1 relative">
@@ -363,8 +365,7 @@ style="left: calc(${Math.round(100 * currentTempShift / currentDayTempDelta)}%);
                         </div>
                         <div class="relative h-1 rounded-md bg-[#D4D4D4]/40 dark:bg-cosmic-800">
                             <div class="absolute h-full rounded-md bg-gradient-to-l from-[#647DFF] to-[#14CDFF] dark:from-[#DEDEDE] dark:to-[#3FD5FE]"
-                                style="left: ${(100 * (tempmin - tempRange.tempmin)) / weekTempdelta}%; 
-                                width: ${gradientWidth}%">` + dot + `</div>
+                                style="left: ${(100 * (tempmin - tempRange.tempmin)) / weekTempdelta}%; width: ${gradientWidth}%">` + dot + `</div>
                         </div>
                     </div>
                 </div>`;

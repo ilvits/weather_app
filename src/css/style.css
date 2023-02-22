@@ -60,8 +60,7 @@
 @layer components {
   li .card__wrapper {
     @apply flex gap-2 p-4 transition-all-500 rounded-2xl mx-auto
-    bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645]   
-    transition-all-300;
+    bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645];
   }
   .transition-all-300 {
     @apply ease-[cubic-bezier(.23,1,.32,1)] transition-all transform-gpu duration-300;
@@ -188,12 +187,12 @@ input {
   }
 }
 
-/* .swiper {
+.swiper {
   overflow: clip !important;
-} */
+}
 .swiper-pagination {
   position: relative !important;
-  width: auto !important;
+  /* width: auto !important; */
   left: auto !important;
   bottom: auto !important;
 }
