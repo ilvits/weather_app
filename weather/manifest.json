@@ -2,10 +2,10 @@
     "display_override": [
         "window-controls-overlay"
     ],
-    "id": "/",
+    "id": "Weather",
     "name": "Best Weather App Ever",
     "short_name": "Weather",
-    "start_url": "/",
+    "start_url": "",
     "description": "Beautiful Weather App",
     "lang": "en",
     "dir": "auto",
@@ -42,18 +42,6 @@
             "sizes": "1170x3042",
             "type": "image/png",
             "description": "A screenshot of the home page"
-        }
-    ],
-    "shortcuts": [
-        {
-            "name": "My Locations",
-            "url": "#locations",
-            "description": "List of Locations.",
-            "icons": [
-                {
-                    "src": "img/location-icon.svg"
-                }
-            ]
         }
     ]
 }

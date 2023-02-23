@@ -1,5 +1,5 @@
 module.exports = {
-	globDirectory: '/',
+	globDirectory: '/weather/',
 	globPatterns: [
 		'**/*.{css,svg,png,json,webp,jpg,zip,html,js,woff2}',
 	],
