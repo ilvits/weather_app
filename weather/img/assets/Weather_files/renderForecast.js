@@ -26,14 +26,9 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
     dayLight_date.setTime(sunset_date.getTime() - sunrise_date.getTime())
     dayLight_date.setHours(dayLight_date.getHours() + user_date.getTimezoneOffset() / 60)
     const currentWeather = weatherData.days[0].hours[Number(join(location_date, [{ hour: 'numeric' }], '-'))]
-    // const currentWeather = weatherData.currentConditions
     const current_temperature = Math.round(tempConverter(currentWeather.temp))
     if ((location_date.getHours() > sunset_date.getHours() || location_date.getHours() < sunrise_date.getHours()) && currentWeather.icon.search('-night') == -1) {
-        if (currentWeather.icon.search('day') != -1) {
-            currentWeather.icon = currentWeather.icon.replace(/day/g, "night")
-        } else {
-            currentWeather.icon = currentWeather.icon + '-night'
-        }
+        currentWeather.icon = currentWeather.icon + '-night'
     }
     if (locationSlide_headerTemp) {
         locationSlide_headerTemp.innerHTML = `${current_temperature}° 
@@ -213,7 +208,7 @@ function renderCurrentForecast(loc, weatherData, preview = false) {
         }
         document.querySelector(`#card-${loc.id} .card__current-time`).innerText = location_time
         document.querySelector(`#card-${loc.id} .card__current-temp`).innerText = Math.round(currentWeather.temp) + '°'
-        document.querySelector(`#card-${loc.id} .card__current-condition`).innerText = currentWeather.conditions
+        document.querySelector(`#card-${loc.id} .card__current-condition`).innerText = todayWeather.conditions
         document.querySelector(`#card-${loc.id} .card__max-temp`).innerText = Math.round(todayWeather.tempmax) + '°'
         document.querySelector(`#card-${loc.id} .card__min-temp`).innerText = Math.round(todayWeather.tempmin) + '°'
         document.querySelector(`#card-${loc.id} .card__weather-icon`).innerHTML = `<img class="w-12 h-12 shrink-0" src="img/assets/icons/weather-conditions/${currentWeather.icon}.svg">`
@@ -290,17 +285,17 @@ function renderHourlyForecast(id, weatherData) {
             }
             // card
             hourlyPlaceholder.innerHTML += `
-<div class="flex flex-col justify-end items-center px-2  scroll-ml-3 snap-start">
-    <div class="date text-xs text-gray- dark:text-cosmic-500 pb-1 truncate">${nextDayTip}</div>
-    <div class="icon w-11 h-11 bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645] rounded-xl flex justify-center items-center relative">
-        <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/${data.icon}.svg" alt="" srcset="">
-        ${Math.round(data.precipprob) > 20 ?
+        <div class="flex flex-col justify-end items-center px-2  scroll-ml-3 snap-start">
+            <div class="date text-xs text-gray- dark:text-cosmic-500 pb-1 truncate">${nextDayTip}</div>
+            <div class="icon w-11 h-11 bg-white dark:bg-cosmic-900 dark:bg-gradient-to-br dark:from-[#192D52] dark:to-[#112645] rounded-xl flex justify-center items-center relative">
+                <img class="w-6 h-6" src="img/assets/icons/weather-conditions/small/${data.icon}.svg" alt="" srcset="">
+                ${Math.round(data.precipprob) > 20 ?
                     ('<div class="absolute bg-gray-100 dark:bg-cosmic-900 p-[5px] -bottom-2 -right-2 text-xxs text-gray-300 dark:text-cosmic-300 rounded-3xl">'
                         + Math.ceil((data.precipprob / 10)) * 10 + '%</div>') : ''}
-    </div>
-    <div class="time font-light text-xs text-gray-300 dark:text-[#ACD8E7] pt-3">${time}</div>
-    <div class="temp font-semibold text-lg leading-5 pt-1">${Math.round(tempConverter(data.temp))}°</div>
-</div>`;
+            </div>
+            <div class="time font-light text-xs text-gray-300 dark:text-[#ACD8E7] pt-3">${time}</div>
+            <div class="temp font-semibold text-lg leading-5 pt-1">${Math.round(tempConverter(data.temp))}°</div>
+        </div>`;
         }
         leftHours = nHours - leftHours
     }

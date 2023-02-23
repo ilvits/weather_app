@@ -32,7 +32,6 @@ const searchInput = document.querySelector('#search-input')
 const cancelSearchButton = document.querySelector('#location-search--cancel-button')
 const reset_settings = document.querySelector('#reset-settings')
 const newLocationPreviewEl = document.querySelector('#new-location-preview')
-const checkboxes = document.querySelectorAll('input[name=settings]')
 
 let slide_id = 0
 let s_flag = false
@@ -46,8 +45,6 @@ let slide = window.location.hash.split('#').pop()
 var userCountry = requestUserCountry()
 var locations = JSON.parse(localStorage.getItem('locations')) || {};
 
-document.body.style.webkitTouchCallout = 'none';
-
 // set checkbox states in settings tab
 loadSettings()
 
@@ -55,10 +52,13 @@ if ((typeof locations === 'undefined' || locations === null) || Object.entries(l
     locations_header__edit_btn.classList.add('invisible')
     mainPage_placeholder.classList.remove('hidden', 'opacity-0')
 } else {
-    localStorage.setItem('lastPageUpdate', new Date())
-    Object.values(locations).forEach((el) => {
-        getWeatherDataFromAPI(el.id, el.latitude, el.longitude)
-    })
+    if (!localStorage.lastPageUpdate) {
+        localStorage.setItem('lastPageUpdate', new Date())
+        // Loading WeatherData
+        Object.values(locations).forEach((el) => {
+            getWeatherDataFromAPI(el.id, el.latitude, el.longitude)
+        })
+    }
     window.onfocus = () => updateInfo()
 
     if (slide) {
@@ -129,6 +129,7 @@ clearText.forEach((el) => {
     }
 })
 
+// reset_locations.onclick = resetLocations
 cancelSearchButton.onclick = searchCancel
 searchInput.onfocus = searchOnFocus
 searchInput.onkeyup = getGeoData
@@ -207,6 +208,7 @@ location_edit_modal
 location_edit_modal
     .querySelector('.location--modal--cancel-btn')
     .onclick = closeLocationEditModal
+
 
 location_edit_modal__input
     .addEventListener('input', (event) => {
@@ -330,73 +332,18 @@ function requestUserCountry() {
 }
 
 function loadSettings() {
-    // checkboxes.forEach((checkbox) => {
-    //     localStorage.getItem(checkbox.id)
-    // })
-    checkboxes.forEach(function (checkbox) {
-        // console.log('cookie state: ', checkbox.id, getCookie(checkbox.id))
-        slider = checkbox.nextElementSibling
-        if (localStorage.getItem(checkbox.id) == "true") {
-            checkbox.checked = true
-            checkbox.setAttribute("checked", true)
-            slider.innerText = slider.dataset.on;
-        } else {
-            checkbox.checked = false
-            checkbox.setAttribute("checked", false)
-            slider.innerText = slider.dataset.off;
-        }
-        changeCheckboxState(checkbox)
-        checkbox.addEventListener('change', () => {
-            s_flag = true
-            localStorage.setItem(checkbox.id, checkbox.checked)
-            changeCheckboxState(checkbox)
-        });
-    });
+    var checkboxes = document.querySelectorAll('input[name=settings]')
+    checkboxes.forEach((checkbox) => {
+        localStorage.getItem(checkbox.id)
+    })
     // Settings
     s_temp = localStorage.getItem('s-temp') == 'true' ? 'F' : 'C'
     s_wind = localStorage.getItem('s-wind') == 'true' ? 'м/с' : 'км/ч'
     s_detail = localStorage.getItem('s-details') == 'true' ? true : false
     s_pressure = localStorage.getItem('s-pressure') == 'true' ? 'гПа' : 'мм'
     // s_lang = localStorage.getItem('s-lang') == 'true' ? 'РУС' : 'ENG'
-}
 
-function changeCheckboxState(checkbox) {
-    slider = checkbox.nextElementSibling
-    if (checkbox.checked) {
-        // console.log('✅');
-        checkbox.checked = true
-        checkbox.setAttribute("checked", true)
-        if (checkbox.id == 's-details') {
-            slider.classList.add('translate-x-full', 'dark:bg-yellow', 'bg-primary-light');
-            slider.classList.remove('bg-gray-300', 'dark:bg-cosmic-500');
-            checkbox.parentElement.classList.add('dark:border-yellow', 'border-primary-light');
-            checkbox.parentElement.classList.remove('border-gray-300', 'dark:border-cosmic-500');
-        } else {
-            slider.classList.add('translate-x-full', 'rounded-r-md');
-            slider.classList.remove('rounded-l-md');
-        }
-        setTimeout(() => {
-            slider.innerText = slider.dataset.on;
-        }, 100)
-    } else {
-        // console.log('❎');
-        checkbox.checked = false
-        checkbox.setAttribute("checked", false)
-        if (checkbox.id == 's-details') {
-            slider.classList.remove('translate-x-full', 'dark:bg-yellow', 'bg-primary-light');
-            slider.classList.add('bg-gray-300', 'dark:bg-cosmic-500');
-            checkbox.parentElement.classList.remove('dark:border-yellow', 'border-primary-light');
-            checkbox.parentElement.classList.add('border-gray-300', 'dark:border-cosmic-500');
-        } else {
-            slider.classList.remove('translate-x-full', 'rounded-r-md');
-            slider.classList.add('rounded-l-md');
-        }
-        setTimeout(() => {
-            slider.innerText = slider.dataset.off
-        }, 100)
-    }
 }
-
 
 // Slide to location
 function slideToId(index, duration = 300) {
@@ -559,7 +506,7 @@ function updateInfo() {
             renderHourlyForecast(loc.id, weatherData)
         })
         localStorage.setItem('lastPageUpdate', new Date())
-    } else if (delta > 60) {
+    } else if (delta > 30) {
         console.log('update from LocalData:', delta)
         Object.values(locations).forEach((loc) => {
             const weatherData = JSON.parse(localStorage.getItem(`weatherData-${loc.id}`))
@@ -600,7 +547,7 @@ function generateLocationCard(loc) {
     let card_data = {
         type: 'li',
         id: `card-${loc.id}`,
-        className: `flex items-center no-reorder no-swipe hs-removing:-translate-x-[500px] h-[101px] hs-removing:h-0 transition-all-500 transform-gpu`,
+        className: `flex items-center no-reorder no-swipe hs-removing:-translate-x-[500px] h-[101px] hs-removing:h-0 transition-all transform-gpu duration-[0ms]`,
         innerHTML: template,
         attrs: {
             dataLocation_id: loc.id,
@@ -921,10 +868,12 @@ function openLocationEditModal(el) {
 }
 
 function openSettingsModal(id) {
-    modal_text_el = settings_modal.querySelector('#settings--modal--text')
+    modal_text = settings_modal.querySelector('#settings--modal--text')
     ok_btn = settings_modal.querySelector('.settings--modal--ok-btn')
+    checkboxes = document.querySelectorAll('input[name=settings]')
+
     if (id == 'reset-settings') {
-        modal_text_el.innerText = 'Вы уверены, что хотите сбросить все настройки приложения?'
+        modal_text.innerText = 'Вы уверены, что хотите сбросить все настройки приложения?'
         ok_btn.innerText = 'Сбросить'
         ok_btn.onclick = () => {
             hideBackdrop(settings_backdrop)
@@ -933,17 +882,10 @@ function openSettingsModal(id) {
                 localStorage.removeItem(checkbox.id)
             })
             localStorage.removeItem('theme')
-            activateTheme('system')
-            loadSettings()
-            Object.values(locations).forEach((loc) => {
-                const weatherData = JSON.parse(localStorage.getItem(`weatherData-${loc.id}`))
-                renderCurrentForecast(loc, weatherData)
-                renderHourlyForecast(loc.id, weatherData)
-            })
-            localStorage.setItem('lastPageUpdate', new Date())
+            window.location.reload()
         }
     } else if (id == 'reset-locations') {
-        modal_text_el.innerText = 'Вы уверены, что хотите удалить все добавленные вами локации?'
+        modal_text.innerText = 'Вы уверены, что хотите удалить все добавленные вами локации?'
         ok_btn.innerText = 'Удалить'
         ok_btn.onclick = () => {
             hideBackdrop(settings_backdrop)
@@ -951,16 +893,10 @@ function openSettingsModal(id) {
             Object.values(locations).forEach((loc) => {
                 localStorage.removeItem(`weatherData-${loc.id}`)
                 localStorage.removeItem(`weatherData-${loc.id}-lastUpdate`)
+
             })
-            location_cards__container.replaceChildren()
-            slides.replaceChildren()
             localStorage.removeItem('locations')
-            locations = {}
-            // swiper.removeAllSlides()
-            // swiper.init()
-            // window.location.reload()
-            locations_header__edit_btn.classList.add('invisible')
-            mainPage_placeholder.classList.remove('hidden', 'opacity-0')
+            window.location.reload()
         }
     }
     showBackdrop(settings_backdrop)
@@ -1014,13 +950,16 @@ function editLocationsToggle() {
         card__current_condition.forEach((e) => classToggle(e, 'opacity-0', 'translate-y-3'))
         card__weather_info.forEach((e) => classToggle(e, 'opacity-0', 'w-0', 'w-16'))
         card__weather_icon.forEach((e) => classToggle(e, 'opacity-0', 'w-0', 'w-12'))
+
+        edit_buttons_container.forEach((e) => classToggle(e, 'w-[284px]', 'opacity-0', 'w-full', 'invisible'))
+
         card__edit_btn.forEach((e) => {
-            classToggle(e, 'pointer-events-none')
+            classToggle(e, 'invisible')
             setTimeout(() => {
                 classToggle(e, 'opacity-0')
             }, 50)
         })
-        edit_buttons_container.forEach((e) => classToggle(e, 'w-[284px]', 'opacity-0', 'w-full', 'invisible'))
+
 
         setTimeout(() => {
             editLocation_flag = editLocation_flag == true ? false : true
