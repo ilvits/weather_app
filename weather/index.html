@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="css/swiper-bundle.min.css" />
     <script src="js/utils/dark-mode.js"></script>
     <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/polipop/dist/css/polipop.core.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/polipop/dist/css/polipop.minimal.min.css" />
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
@@ -39,7 +41,6 @@
 </head>
 
 <body class="bg-gray-100 dark:bg-cosmic-900 text-[#1B2541] dark:text-white max-w-lg mx-auto">
-
     <div id="offline-status" aria-overlay="false" class="fixed top-3 hs-overlay hidden hs-overlay-open:top-7 
         hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 backdrop-blur-sm [--body-scroll:true] [--overlay-backdrop:false] 
         ease-out transition-all right-0 inline-flex items-center gap-1.5 py-1 pl-3 pr-2 rounded-full
@@ -102,6 +103,7 @@
                 class="px-12 py-3 bg-primary-light dark:bg-yellow rounded-md text-white dark:text-cosmic-900"
                 data-hs-overlay="#menu-locations">Искать локации</button>
         </div>
+        <div class="polipop__notification"></div>
 
         <!-- Swiper -->
         <div class="swiper">
@@ -892,15 +894,15 @@
         </svg>
     </button>
     </script>
-
     <script src="js/slip.js"></script>
+    <script src="js/renderForecast.js"></script>
     <script src="js/utils/request.js"></script>
     <script src="js/utils/domUtils.js"></script>
     <script src="js/utils/translit.js"></script>
-    <script src="js/renderForecast.js"></script>
     <script src="js/utils/weatherAPI.js"></script>
     <script src="js/utils/geoCodingAPI.js"></script>
     <script src="js/utils/objectUtils.js"></script>
+    <script src="js/utils/polipop.min.js"></script>
     <script src="js/preline/hs-overlay.js"></script>
     <script src="js/preline/hs-collapse.js"></script>
     <script src="js/preline/hs-dropdown.js"></script>
@@ -916,6 +918,9 @@
 
     <!-- ▼ Check Online Status ▼ -->
     <script>
+
+
+
         const modal = document.querySelector('#connection-failed')
         const offlineStatus = document.querySelector('#offline-status')
 

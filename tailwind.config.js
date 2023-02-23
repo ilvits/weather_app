@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors')
 module.exports = {
-  // important: true,
+  important: true,
   darkMode: 'class',
   content: [
     // "*.html",

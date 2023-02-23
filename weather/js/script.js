@@ -50,7 +50,21 @@ document.body.style.webkitTouchCallout = 'none';
 
 // set checkbox states in settings tab
 loadSettings()
-
+var polipop = new Polipop('notifications', {
+    layout: 'popups',
+    insert: 'before',
+    position: 'center',
+    pool: 5,
+    // sticky: true,
+    theme: 'minimal',
+    life: 3000,
+    progressbar: true,
+    easing: 'cubic-bezier(.23, 1, .32, 1)',
+    effect: 'slide',
+    effectDuration: 500,
+    icons: false,
+    closer: false,
+});
 if ((typeof locations === 'undefined' || locations === null) || Object.entries(locations).length == 0) {
     locations_header__edit_btn.classList.add('invisible')
     mainPage_placeholder.classList.remove('hidden', 'opacity-0')
@@ -89,6 +103,10 @@ if ((typeof locations === 'undefined' || locations === null) || Object.entries(l
             replaceState: true,
         },
     })
+
+
+
+
     location_restore_name.onclick = () => renameLocation(location_edit_modal.dataset.location)
     for (const loc of Object.values(locations)) {
         generateLocationCard(loc)
@@ -929,6 +947,11 @@ function openSettingsModal(id) {
         ok_btn.onclick = () => {
             hideBackdrop(settings_backdrop)
             closeSettingsModal()
+            polipop.add({
+                content: 'Настройки сброшены',
+                title: 'Успешно',
+                type: ''
+            });
             checkboxes.forEach((checkbox) => {
                 localStorage.removeItem(checkbox.id)
             })
@@ -948,6 +971,11 @@ function openSettingsModal(id) {
         ok_btn.onclick = () => {
             hideBackdrop(settings_backdrop)
             closeSettingsModal()
+            polipop.add({
+                content: 'Локации удалены',
+                title: 'Успешно',
+                type: ''
+            });
             Object.values(locations).forEach((loc) => {
                 localStorage.removeItem(`weatherData-${loc.id}`)
                 localStorage.removeItem(`weatherData-${loc.id}-lastUpdate`)
