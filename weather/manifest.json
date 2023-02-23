@@ -2,10 +2,10 @@
     "display_override": [
         "window-controls-overlay"
     ],
-    "id": "/weather/",
+    "id": "/",
     "name": "Best Weather App Ever",
     "short_name": "Weather",
-    "start_url": "/weather/",
+    "start_url": "/",
     "description": "Beautiful Weather App",
     "lang": "en",
     "dir": "auto",

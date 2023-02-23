@@ -32,7 +32,7 @@
     <title>Weather</title>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register("/weather/sw.js");
+            navigator.serviceWorker.register("/sw.js");
         }
     </script>
 
@@ -949,6 +949,17 @@
         //     window.addEventListener('offline', (e) => { console.log('offline'); });
         //     window.addEventListener('online', (e) => { console.log('online'); });
         // });
+    </script>
+
+    <script>
+        const beamsClient = new PusherPushNotifications.Client({
+            instanceId: '37e45a2e-4a7f-4e0c-b048-1adc0767086f',
+        });
+
+        beamsClient.start()
+            .then(() => beamsClient.addDeviceInterest('hello'))
+            .then(() => console.log('Successfully registered and subscribed!'))
+            .catch(console.error);
     </script>
 </body>
 

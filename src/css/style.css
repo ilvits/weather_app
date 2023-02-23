@@ -6,36 +6,36 @@
   @font-face {
     font-family: 'Nunito';
     font-weight: 300;
-    src: url(/weather/fonts/Nunito/Nunito-Light.woff2) format("woff");
+    src: url(/fonts/Nunito/Nunito-Light.woff2) format("woff");
   }
 
   @font-face {
     font-family: 'Nunito';
     font-weight: 400;
-    src: url(/weather/fonts/Nunito/Nunito-Regular.woff2) format("woff");
+    src: url(/fonts/Nunito/Nunito-Regular.woff2) format("woff");
   }
 
   @font-face {
     font-family: 'Nunito';
     font-weight: 500;
-    src: url(/weather/fonts/Nunito/Nunito-Medium.woff2) format("woff");
+    src: url(/fonts/Nunito/Nunito-Medium.woff2) format("woff");
   }
 
   @font-face {
     font-family: 'Nunito';
     font-weight: 600;
-    src: url(/weather/fonts/Nunito/Nunito-SemiBold.woff2) format("woff");
+    src: url(/fonts/Nunito/Nunito-SemiBold.woff2) format("woff");
   }
   @font-face {
     font-family: 'Nunito';
     font-weight: 700;
-    src: url(/weather/fonts/Nunito/Nunito-Bold.woff2) format("woff");
+    src: url(/fonts/Nunito/Nunito-Bold.woff2) format("woff");
   }
 }
   /* @font-face {
     font-family: 'Noto_Emoji';
     font-weight: 500;
-    src: url(/weather/fonts/Noto_Emoji/static/NotoEmoji-Medium.woff2) format("woff");
+    src: url(/fonts/Noto_Emoji/static/NotoEmoji-Medium.woff2) format("woff");
   } */
   small {
     @apply text-xxs leading-3 text-gray-300 dark:text-cosmic-400;
